@@ -1,0 +1,283 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+public partial class Ventanas_ventanaPropietarioElementoConfiguracion : System.Web.UI.Page
+{
+    //private String Ruta = "SERVER=JOSE-PC;DATABASE=GCS;Encrypt=False;INTEGRATED SECURITY=True;packet size=4096;";
+    private String Ruta = System.Configuration.ConfigurationManager.ConnectionStrings["CadenaConeccion"].ToString();
+    System.Web.UI.WebControls.TableRow tRow;
+
+    Lista _Lista = new Lista();
+
+    private void Listar_Personal()
+    {
+        _Lista.ShowMessage(__mensaje, __pagina, "", "");
+
+        for (int i = 1; i < this.Table_.Rows.Count; i++)
+        {
+            this.Table_.Rows[i].Cells.Clear();
+        }
+
+        try
+        {
+            policia.clsaccesodatos servidor = new policia.clsaccesodatos();
+
+            servidor.cadenaconexion = Ruta;
+
+            if (servidor.abrirconexion() == true)
+            {
+                DataTable dt = servidor.consultar("[dbo].[pr_ListaPersonal_2]").Tables[0];
+
+                if (dt.Rows.Count == 0)
+                {
+                    servidor.cerrarconexion();
+
+                    _Lista.ShowMessage(__mensaje, __pagina, "No hay Personal", "");
+                }
+                else
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        tRow = new TableRow();
+
+                        for (int j = 0; j < Table_.Rows[i].Cells.Count; j++)//Cabecera de la tabla
+                        {
+                            TableCell tCell = new TableCell();
+                            tRow.BorderColor = System.Drawing.Color.Black;
+
+                            switch (j)
+                            {
+
+                                case 0:
+
+                                    tCell.Text = dt.Rows[i]["ID"].ToString();
+
+                                    tCell.Visible = false;
+
+                                    tRow.Cells.Add(tCell);
+
+                                    break;
+
+                                case 1:
+
+                                    tCell.Text = dt.Rows[i]["SEDE"].ToString();
+
+                                    tCell.HorizontalAlign = HorizontalAlign.Left;
+
+                                    //tCell.BackColor = System.Drawing.Color.LemonChiffon;
+
+                                    tCell.Visible = true;
+
+                                    tRow.Cells.Add(tCell);
+
+                                    break;
+
+                                case 2:
+
+                                    tCell.Text = dt.Rows[i]["LOCAL"].ToString();
+
+                                    tCell.HorizontalAlign = HorizontalAlign.Left;
+
+                                    //tCell.BackColor = System.Drawing.Color.LemonChiffon;
+
+                                    tCell.Visible = true;
+
+                                    tRow.Cells.Add(tCell);
+
+                                    break;
+
+                                case 3:
+
+                                    tCell.Text = dt.Rows[i]["AREA"].ToString();
+
+                                    tCell.HorizontalAlign = HorizontalAlign.Left;
+
+                                    //tCell.BackColor = System.Drawing.Color.LemonChiffon;
+
+                                    tCell.Visible = true;
+
+                                    tRow.Cells.Add(tCell);
+
+                                    break;
+
+                                case 4:
+
+                                    tCell.Text = dt.Rows[i]["DEPENDENCIA"].ToString();
+
+                                    tCell.HorizontalAlign = HorizontalAlign.Left;
+
+                                    //tCell.BackColor = System.Drawing.Color.LemonChiffon;
+
+                                    tCell.Visible = true;
+
+                                    tRow.Cells.Add(tCell);
+
+                                    break;
+
+                                case 5:
+
+                                    tCell.Text = dt.Rows[i]["NRO PISO"].ToString();
+
+                                    tCell.HorizontalAlign = HorizontalAlign.Left;
+
+                                    //tCell.BackColor = System.Drawing.Color.LemonChiffon;
+
+                                    tCell.Visible = true;
+
+                                    tRow.Cells.Add(tCell);
+
+                                    break;
+
+                                case 6:
+
+                                    tCell.Text = dt.Rows[i]["NRO AMBIENTE"].ToString();
+
+                                    tCell.HorizontalAlign = HorizontalAlign.Left;
+
+                                    //tCell.BackColor = System.Drawing.Color.LemonChiffon;
+
+                                    tCell.Visible = true;
+
+                                    tRow.Cells.Add(tCell);
+
+                                    break;
+
+                                case 7:
+
+                                    tCell.Text = dt.Rows[i]["PERSONAL"].ToString();
+
+                                    tCell.HorizontalAlign = HorizontalAlign.Left;
+
+                                    //tCell.BackColor = System.Drawing.Color.LemonChiffon;
+
+                                    tCell.Visible = true;
+
+                                    tRow.Cells.Add(tCell);
+
+                                    break;
+
+                                case 8:
+
+                                    tCell.Text = dt.Rows[i]["PROFESION"].ToString();
+
+                                    tCell.HorizontalAlign = HorizontalAlign.Left;
+
+                                    //tCell.BackColor = System.Drawing.Color.LemonChiffon;
+
+                                    tCell.Visible = true;
+
+                                    tRow.Cells.Add(tCell);
+
+                                    break;
+
+                                case 9:
+
+                                    tCell.Text = dt.Rows[i]["TELEFONO"].ToString();
+
+                                    tCell.HorizontalAlign = HorizontalAlign.Left;
+
+                                    //tCell.BackColor = System.Drawing.Color.LemonChiffon;
+
+                                    tCell.Visible = true;
+
+                                    tRow.Cells.Add(tCell);
+
+                                    break;
+
+                                case 10:
+
+                                    tCell.Text = dt.Rows[i]["EMAIL"].ToString();
+
+                                    tCell.HorizontalAlign = HorizontalAlign.Left;
+
+                                    //tCell.BackColor = System.Drawing.Color.LemonChiffon;
+
+                                    tCell.Visible = true;
+
+                                    tRow.Cells.Add(tCell);
+
+                                    break;
+
+                                case 11:
+
+                                    tCell.Text = dt.Rows[i]["ESTADO"].ToString();
+
+                                    tCell.HorizontalAlign = HorizontalAlign.Left;
+
+                                    //tCell.BackColor = System.Drawing.Color.LemonChiffon;
+
+                                    tCell.Visible = true;
+
+                                    tRow.Cells.Add(tCell);
+
+                                    break;
+
+                                case 12:
+
+                                    System.Web.UI.WebControls.Button b = new System.Web.UI.WebControls.Button();
+
+                                    b.Height = 25;
+
+                                    b.Text = "Seleccionar";
+
+                                    b.BackColor = System.Drawing.Color.SpringGreen;
+
+                                    b.BorderStyle = BorderStyle.None;
+
+                                    b.CausesValidation = false;
+
+                                    b.UseSubmitBehavior = false;
+
+                                    //b.PostBackUrl = "~/#";
+
+                                    b.OnClientClick = "PERSONAL('" + dt.Rows[i]["ID"].ToString() + "','" + dt.Rows[i]["PERSONAL"].ToString() + "');";
+
+                                    tCell.HorizontalAlign = HorizontalAlign.Center;
+
+                                    tCell.Controls.Add(b);
+
+                                    tRow.Cells.Add(tCell);
+
+                                    break;
+
+                            }
+                        }
+
+                        this.Table_.Rows.Add(tRow);
+                    }
+
+                    servidor.cerrarconexion();
+
+                }
+
+            }
+            else
+            {
+                servidor.cerrarconexion();
+
+                _Lista.ShowMessage(__mensaje, __pagina, servidor.getMensageError(), "../CerrarSession.aspx");
+            }
+
+        }
+        catch (Exception)
+        {
+            _Lista.ShowMessage(__mensaje, __pagina, "Error inesperado al intentar conectarnos con el servidor.", "../CerrarSession.aspx");
+        }
+    }
+    protected void Page_Load(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void Page_init(object sender, EventArgs e)
+    {
+        _Lista.ShowMessage(__mensaje, __pagina, "", "");
+
+        this.Listar_Personal();
+    }
+}

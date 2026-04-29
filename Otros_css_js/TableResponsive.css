@@ -1,0 +1,37 @@
+﻿.container {
+    margin: 10px auto;
+    max-width: 1250px;
+}
+
+    .container table.restables-clone {
+        display: none;
+    }
+
+        .container table.restables-clone td {
+            width: 50%;
+            color: Black;
+            text-align: left;
+        }
+
+            .container table.restables-clone td:first-child {
+                font-weight: bold;
+                color: #1E90FF;
+                text-align: right;
+            }
+
+        .container table.restables-clone tr:first-child td {
+            background: #333;
+            color: #fff;
+        }
+
+@media (max-width: 991px) {
+    .container table.restables-origin {
+        display: none;
+    }
+
+    .container table.restables-clone {
+        display: table;
+    }
+}
+
+

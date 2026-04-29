@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DS_ReporteDatosCorrectosCI" targetNamespace="http://tempuri.org/DS_ReporteDatosCorrectosCI.xsd" xmlns:mstns="http://tempuri.org/DS_ReporteDatosCorrectosCI.xsd" xmlns="http://tempuri.org/DS_ReporteDatosCorrectosCI.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DS_ReporteDatosCorrectosCI" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_DataSetName="DS_ReporteDatosCorrectosCI" msprop:Generator_UserDSName="DS_ReporteDatosCorrectosCI">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="DT_ReporteDatosCorrectosCI" msprop:Generator_TableClassName="DT_ReporteDatosCorrectosCIDataTable" msprop:Generator_TableVarName="tableDT_ReporteDatosCorrectosCI" msprop:Generator_TablePropName="DT_ReporteDatosCorrectosCI" msprop:Generator_RowDeletingName="DT_ReporteDatosCorrectosCIRowDeleting" msprop:Generator_RowChangingName="DT_ReporteDatosCorrectosCIRowChanging" msprop:Generator_RowEvHandlerName="DT_ReporteDatosCorrectosCIRowChangeEventHandler" msprop:Generator_RowDeletedName="DT_ReporteDatosCorrectosCIRowDeleted" msprop:Generator_UserTableName="DT_ReporteDatosCorrectosCI" msprop:Generator_RowChangedName="DT_ReporteDatosCorrectosCIRowChanged" msprop:Generator_RowEvArgName="DT_ReporteDatosCorrectosCIRowChangeEvent" msprop:Generator_RowClassName="DT_ReporteDatosCorrectosCIRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="AREA" msprop:Generator_ColumnVarNameInTable="columnAREA" msprop:Generator_ColumnPropNameInRow="AREA" msprop:Generator_ColumnPropNameInTable="AREAColumn" msprop:Generator_UserColumnName="AREA" type="xs:string" minOccurs="0" />
+              <xs:element name="TIPO_x0020_CI" msprop:Generator_ColumnVarNameInTable="columnTIPO_CI" msprop:Generator_ColumnPropNameInRow="TIPO_CI" msprop:Generator_ColumnPropNameInTable="TIPO_CIColumn" msprop:Generator_UserColumnName="TIPO CI" type="xs:string" minOccurs="0" />
+              <xs:element name="DESCRIPCION_x0020_CI" msprop:Generator_ColumnVarNameInTable="columnDESCRIPCION_CI" msprop:Generator_ColumnPropNameInRow="DESCRIPCION_CI" msprop:Generator_ColumnPropNameInTable="DESCRIPCION_CIColumn" msprop:Generator_UserColumnName="DESCRIPCION CI" type="xs:string" minOccurs="0" />
+              <xs:element name="NOMBRE_x0020_CI" msprop:Generator_ColumnVarNameInTable="columnNOMBRE_CI" msprop:Generator_ColumnPropNameInRow="NOMBRE_CI" msprop:Generator_ColumnPropNameInTable="NOMBRE_CIColumn" msprop:Generator_UserColumnName="NOMBRE CI" type="xs:string" minOccurs="0" />
+              <xs:element name="FECHA_x0020_SEGUIMIENTO" msprop:Generator_ColumnVarNameInTable="columnFECHA_SEGUIMIENTO" msprop:Generator_ColumnPropNameInRow="FECHA_SEGUIMIENTO" msprop:Generator_ColumnPropNameInTable="FECHA_SEGUIMIENTOColumn" msprop:Generator_UserColumnName="FECHA SEGUIMIENTO" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

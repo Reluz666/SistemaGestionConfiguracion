@@ -1,0 +1,456 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="PaginaMaestra.master.cs" Inherits="PaginaMaestra" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <link rel="icon" type="image/ico" href="../Imagenes/Sistema__.ico" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Configuraciones</title>
+    <!-- Bootstrap -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="CssJs/Menu.css" rel="stylesheet" />
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="bootstrap/js/jquery-1.12.4.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+
+    <style>
+        .dropdown-submenu {
+            position: relative;
+        }
+
+            .dropdown-submenu > .dropdown-menu {
+                top: 0;
+                left: 100%;
+                margin-top: -6px;
+                margin-left: -2px;
+            }
+
+            .dropdown-submenu:hover > .dropdown-menu {
+                display: block;
+            }
+
+            .dropdown-submenu > a:after {
+                content: "";
+                margin-top: 6px;
+                margin-right: -10px;
+                float: right;
+                border-left: 4px solid;
+                border-top: 4px solid transparent;
+                border-bottom: 4px solid transparent;
+            }
+    </style>
+
+    <script type="text/javascript">
+        function MostrarMensaje() {
+            var mensaje = document.getElementById("ContentPlaceHolder1___mensaje").value;
+            if (mensaje != "") {
+                alert(mensaje);
+                if (document.getElementById("ctl00$ContentPlaceHolder1$__mensaje").value != "")
+                    location.href = document.getElementById("ctl00$ContentPlaceHolder1$__mensaje").value;
+            }
+        }
+
+        function window_load() {
+            MostrarMensaje()
+        }
+
+        function deshabilitaRetroceso() {
+            window.location.hash = "no-back-button";
+            window.location.hash = "Again-No-back-button" //chrome
+            window.onhashchange = function ()
+            { window.location.hash = ""; }
+            //{ window.location.hash = "no-back-button__"; }
+        }
+    </script>
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body onload="MostrarMensaje(); deshabilitaRetroceso();">
+    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+        <!-- El logotipo y el icono que despliega el menú se agrupan
+       para mostrarlos mejor en los dispositivos móviles -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Desplegar navegación</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="../menu.aspx"><span class="glyphicon glyphicon-home"></span>&nbsp;Inicio</a>
+            <%--<a class="navbar-brand" href="menu.aspx"><span><img src="imagenes/001-home.png" /></span>  Inicio</a>--%>
+        </div>
+
+
+        <!-- -->
+        <!-- Agrupar los enlaces de navegación, los formularios y cualquier
+       otro elemento que se pueda ocultar al minimizar la barra -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-briefcase"></span>&nbsp;Mantenimiento <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="../trabajadores.aspx" runat="server" id="trabajadores_aspx">Trabajador</a></li>
+                        <li class="dropdown-submenu">
+                            <a href="#">Tablas Trabajador</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../Mantenimiento/area_trabajo.aspx" runat="server" id="area_trabajo_aspx">Area de Trabajo</a></li>
+                                <li><a href="../Mantenimiento/Sub_Area.aspx" runat="server" id="Sub_Area_aspx">Sub Area de Trabajo</a></li>
+                                <li><a href="../Mantenimiento/profesion_ocupacion.aspx" runat="server" id="profesion_ocupacion_aspx">Profesi&oacute;n - Ocupaci&oacute;n</a></li>
+                                <li><a href="../Mantenimiento/Cargo.aspx" runat="server" id="Cargo_aspx">Cargo</a></li>
+                                <li><a href="../Mantenimiento/Reg_Pensionarios.aspx" runat="server" id="Reg_Pensionarios_aspx">R&eacute;gimen Pensionario</a></li>
+                                <%--<li><a href="Reg_Laborales.aspx">R&eacute;gimen Laboral</a></li>--%>
+                                <li><a href="../Mantenimiento/Centro_Esudios.aspx" runat="server" id="Centro_Esudios_aspx">Centro de Estudios</a></li>
+                                <li><a href="../Mantenimiento/entidad_financiera.aspx" runat="server" id="entidad_financiera_aspx">Entidad Financiera</a></li>
+                            </ul>
+                        </li>
+                        <li class="divider"></li>
+                        <li class="dropdown-submenu">
+                            <a href="#">Tablas Memor&aacute;ndum</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../Mantenimiento/Tipo_Memo.aspx" runat="server" id="Tipo_Memo_aspx">Tipo de Memor&aacute;ndum</a></li>
+                                <li class="divider"></li>
+                                <li><a href="../Mantenimiento/Capitulos.aspx" runat="server" id="Capitulos_aspx">Capitulos</a></li>
+                                <li><a href="../Mantenimiento/RegArticulos.aspx" runat="server" id="RegArticulos_aspx">Reglamento</a></li>
+                                <li class="divider"></li>
+                                <li><a href="../Mantenimiento/Motivo_Sancion.aspx" runat="server" id="Motivo_Sancion_aspx">Motivo de Sanci&oacute;n</a></li>
+                            </ul>
+                        </li>
+                        <li class="divider"></li>
+                        <li class="dropdown-submenu">
+                            <a href="#">Tablas Permiso - Descanso</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../Mantenimiento/TipoPermDesc.aspx" runat="server" id="TipoPermDesc_aspx">Tipo Permiso - Descanso</a></li>
+                                <li><a href="../Mantenimiento/Periodo.aspx" runat="server" id="Periodo_aspx">Periodo</a></li>
+                            </ul>
+                        </li>
+                        <li class="divider"></li>
+                        <%--<li class="dropdown-submenu">
+                            <a href="#">Reglamento Interno</a>
+                            <ul class="dropdown-menu">
+                            </ul>
+                        </li>--%>
+                        <li><a href="../Mantenimiento/Sucursal.aspx" runat="server" id="Sucursal_aspx">Sucursal</a></li>
+                        <li><a href="../Mantenimiento/Ruta.aspx" runat="server" id="Ruta_aspx">Ruta</a></li>
+                        <li><a href="../Mantenimiento/UnidadTransportes.aspx" runat="server" id="UnidadTransportes_aspx">Unidad de Transporte</a></li>
+                        <li class="divider"></li>
+                        <li><a href="../Mantenimiento/PreguntaEvaluacion.aspx" runat="server" id="PreguntaEvaluacion_aspx">Preguntas Evaluaci&oacute;n</a></li>
+                        <li class="divider"></li>
+                        <li class="dropdown-submenu">
+                            <a href="#">Tablas de Asistencia</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../Mantenimiento/AsistenciaParTrab.aspx" runat="server" id="AsistenciaParTrab_aspx">Parametros Trabajador</a></li>
+                                <li><a href="../Mantenimiento/ParAsiHorarios.aspx" runat="server" id="ParAsiHorarios_aspx">Horarios</a></li>
+                                <li><a href="../Mantenimiento/feriado.aspx" runat="server" id="feriado_aspx">Feriados</a></li>
+                            </ul>
+                        </li>
+                        <li class="divider"></li>
+                        <li class="dropdown-submenu">
+                            <a href="#">Dispositivo</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../Mantenimiento/Marca.aspx" runat="server" id="Marca_aspx">Marca</a></li>
+                                <li><a href="../Mantenimiento/Tipo_Dispositivo.aspx" runat="server" id="Tipo_Dispositivo_aspx">Tipo</a></li>
+                                <li><a href="../Mantenimiento/Dispositivo.aspx" runat="server" id="Dispositivo_aspx">Dispositivo</a></li>
+                            </ul>
+                        </li>
+                        <li class="divider"></li>
+                        <li class="dropdown-submenu">
+                            <a href="#">Tablas de Prendas</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../Mantenimiento/PrendaTipo.aspx" runat="server" id="PrendaTipo_aspx">Tipo de Prenda</a></li>
+                                <li><a href="../Mantenimiento/Prenda.aspx" runat="server" id="Prenda_aspx">Prenda</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+
+            <ul class="nav navbar-nav">
+                <!--<li class="active"><a href="#">Enlace #1</a></li>
+                <li><a href="#">Enlace #2</a></li>-->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: white"><span class="glyphicon glyphicon-user"></span>&nbsp;Gesti&oacute;n de Configuraci&oacute;n <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        
+                        <li><a href="ElementosConfiguracion.aspx" runat="server" id="ElementosConfiguracion_aspx">Items de Configuracio&oacute;n</a></li>
+                        <li><a href="../Personal/PrendaMovimientos.aspx" runat="server" id="PrendaMovimientos_aspx">Movimiento de Prenda</a></li>
+                        <li class="divider"></li>
+                        <li><a href="../Personal/Asistencias.aspx" runat="server" id="_Asistencias_aspx">Asistencias</a></li>
+                        <li><a href="../Personal/AsistenciaTaller.aspx" runat="server" id="AsistenciaTaller_aspx">Asistencias (Taller)</a></li>
+                        <li><a href="../Personal/AsistenciasCargar.aspx" runat="server" id="_AsistenciasCargar_aspx">Cargar Asistencias (Excel)</a></li>
+                        <li class="divider"></li>
+                        <li class="dropdown-submenu">
+                            <a href="#">Movimiento de Dispositivo</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../Personal/MovDispositivoEntregas.aspx" runat="server" id="MovDispositivoEntregas_aspx">Entrega</a></li>
+                                <li><a href="../Personal/MovDispositivoDevoluciones.aspx" runat="server" id="MovDispositivoDevoluciones_aspx">Devolucion</a></li>
+                            </ul>
+                        </li>
+                        <li class="divider"></li>
+                        <li class="dropdown-submenu">
+                            <a href="#">Embarque</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../Personal/EmbarquePasajeros.aspx" runat="server" id="EmbarquePasajeros_aspx">Embarque de Pasajeros</a></li>
+                                <li><a href="../Personal/A5.aspx" runat="server" id="A5"></a></li>
+                                <li><a href="../Personal/A6.aspx" runat="server" id="A6"></a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown-submenu">
+                            <a href="#">Peajes</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../Personal/PeajePrecio.aspx" runat="server" id="PeajePrecio_aspx">Precio por Peaje</a></li>
+                                <li><a href="../Personal/PeajeConductores.aspx" runat="server" id="PeajeConductores_aspx">Conductores</a></li>
+                                <li><a href="../Personal/PeajeAdministradores.aspx" runat="server" id="PeajeAdministradores_aspx">Panel de Administrador</a></li>
+                                <li><a href="../Personal/PeajeAsignaciones.aspx" runat="server" id="PeajeAsignaciones_aspx">Panel de Asignaci&oacute;n</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown-submenu">
+                            <a href="#">Viaticos</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../Personal/RegViaticos.aspx" runat="server" id="RegViaticos_aspx">Panel de Viaticos</a></li>
+                                <li><a href="../Personal/ViaticosPrecios.aspx" runat="server" id="ViaticosPrecios_aspx">Precio</a></li>
+                                <li><a href="../Personal/A4.aspx" runat="server" id="A4"></a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown-submenu">
+                            <a href="#">Cenas</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../Personal/Cenas.aspx" runat="server" id="Cenas_aspx">Panel de Cenas</a></li>
+                                <li><a href="../Personal/CenasProveedor.aspx" runat="server" id="CenasProveedor_aspx">Proveedor</a></li>
+                                <li><a href="../Personal/CenasRutasPrecios.aspx" runat="server" id="CenasRutasPrecios_aspx">Rutas y Precios</a></li>
+
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-file"></span>&nbsp;Reportes <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-submenu">
+                            <a href="#">Trabajador</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../Reportes/RepDatosPersTrab.aspx" runat="server" id="RepDatosPersTrab_aspx">Datos Personales </a></li>
+                                <li><a href="../Reportes/RepDatosPersTrabSuc.aspx" runat="server" id="RepDatosPersTrabSuc_aspx">Por Sucursal</a></li>
+                                <li class="divider"></li>
+                                <li><a href="../Reportes/RepHojaVida.aspx" runat="server" id="RepHojaVida_aspx">Hoja de Vida</a></li>
+                                <li><a href="../Reportes/RepInfoPsico.aspx" runat="server" id="RepInfoPsico_aspx">Informe Psicolaboral</a></li>
+                                <li><a href="../Reportes/RepPersActivo.aspx" runat="server" id="RepPersActivo_aspx">Estado Laboral</a></li>
+                                <li><a href="../Reportes/RepResumenMemo.aspx" runat="server" id="RepResumenMemo_aspx">Resumen de Memorandums</a></li>
+                                <li><a href="../Reportes/RepContrato.aspx" runat="server" id="RepContrato_aspx">Contratos</a></li>
+                                <li><a href="../Reportes/RepPerDescInd.aspx" runat="server" id="RepPerDescInd_aspx">Permiso - Descanso (Individual)</a></li>
+                                <li class="divider"></li>
+                                <li><a href="../Reportes/RepEntregaEquipos.aspx" runat="server" id="RepEntregaEquipos_aspx">Equipos de Protecci&oacute;n</a></li>
+                            </ul>
+                        </li>
+                        <li class="divider"></li>
+                        <li class="dropdown-submenu">
+                            <a href="#">Asistencia</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../Reportes/RepAsist_x_Mes.aspx" runat="server" id="RepAsist_x_Mes_aspx">Sistemas</a></li>
+                                <li><a href="../Reportes/RepAsist_x_MesCont.aspx" runat="server" id="RepAsist_x_MesCont_aspx">Contabilidad</a></li>
+                                <li><a href="../Reportes/RepAsist_x_Marcas.aspx" runat="server" id="RepAsist_x_MesCont2_aspx">Por Marcas</a></li>
+                                <li><a href="../Reportes/RepAsist_Resumen.aspx" runat="server" id="RepAsist_Resumen_aspx">Resumen</a></li>
+                                <li><a href="../Reportes/RepAsist_x_MarcasSucursal.aspx" runat="server" id="RepAsist_x_MarcasSucursal_aspx">Por Marcas (Sucursal)</a></li>
+                            </ul>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="../Reportes/RepDispositivos.aspx" runat="server" id="RepDispositivos_aspx">Dispositivos</a></li>
+                        <li><a href="../Reportes/RepPrendaMovimiento.aspx" runat="server" id="RepPrendaMovimiento_aspx">Movimiento de Prenda</a></li>
+                        <li class="divider"></li>
+                        <li class="dropdown-submenu">
+                            <a href="#">Embarque</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../Reportes/RepEmbarcados.aspx" runat="server" id="RepEmbarcados_aspx">Embarcados</a></li>
+                                <li><a href="../Reportes/......aspx" runat="server">...</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown-submenu">
+                            <a href="#">Peajes</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../Reportes/RepPeajeAsignacion.aspx" runat="server" id="RepPeajeAsignacion_aspx">Asignaci&oacute;n</a></li>
+                                <li><a href="../Reportes/RepPeajeAdministrador.aspx" runat="server" id="RepPeajeAdministrador_aspx">Administrador</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown-submenu">
+                            <a href="#">Viaticos</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../Reportes/RepViaticoPorTrabajdor.aspx" runat="server" id="RepViaticoPorTrabajdor_aspx">Por Trabajador</a></li>
+                                <li><a href="../Reportes/RepViaticoDetallado.aspx" runat="server" id="RepViaticoDetallado_aspx">Detallado</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown-submenu">
+                            <a href="#">Cenas</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../Reportes/RepCenas.aspx" runat="server" id="RepCenas_aspx">Cenas</a></li>
+                                <li><a href="../Reportes/......aspx" runat="server" id="A2Cenas_aspx">...</a></li>
+                            </ul>
+                        </li>
+                        <li class="divider"></li>
+                        <li class="dropdown-submenu">
+                            <a href="#">Choferes</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../Reportes/RepBD_Pje_Recorrido.aspx" runat="server" id="RepBD_Pje_Recorrido_aspx">Recorrido</a></li>
+                                <li><a href="../Reportes/RepBD_Pje_HojaRuta.aspx" runat="server" id="RepBD_Pje_HojaRuta_aspx">Hoja de Ruta</a></li>
+                            </ul>
+                        </li>
+                        <li class="divider"></li>
+                        <li class="dropdown-submenu">
+                            <a href="#">Equipos Informaticos</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../Reportes/RepBD_Pyto_Inf_Tecnico.aspx" runat="server" id="RepBD_Pyto_Inf_Tecnico_aspx">Informe Tecnico</a></li>
+                                <li><a href="..........aspx" runat="server">......</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-signal"></span>&nbsp;Ventas <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="../Ventas/RepBD_Pje_LiqDiaria.aspx" runat="server" id="RepBD_Pje_LiqDiaria_aspx">Liquidaci&oacute;n Diaria</a></li>
+                        <li><a href="../Ventas/RepBD_Pje_ResVent_x_Cajero.aspx" runat="server" id="RepBD_Pje_ResVent_x_Cajero_aspx">Resumen de Ventas por Cajero</a></li>
+                        <li><a href="../Ventas/RepBD_Pje_ResVentaCajaDiaria.aspx" runat="server" id="RepBD_Pje_ResVentaCajaDiaria_aspx">Liquidaci&oacute;n de Caja</a></li>
+                        <li><a href="../Ventas/RepBD_Pje_Giros.aspx" runat="server" id="RepBD_Pje_Giros_aspx">Liquidaci&oacute;n de Giros</a></li>
+                        <li><a href="../Ventas/RepBD_Pje_Movimiento_Caja.aspx" runat="server" id="RepBD_Pje_Movimiento_Caja_aspx">Movimiento de Caja</a></li>
+                        <li><a href="../Ventas/RepBD_Pje_LiqContabilidad.aspx" runat="server" id="RepBD_Pje_LiqContabilidad_aspx">Liquidaci&oacute;n (Contabilidad)</a></li>
+                        <li class="divider"></li>
+                        <li><a href="../Ventas/RepBD_Pje_ReintegroBol.aspx" runat="server" id="RepBD_Pje_ReintegroBol_aspx">Reintegro de Boletos</a></li>
+                        <li><a href="../Ventas/RepBD_Pje_VentasMes.aspx" runat="server" id="RepBD_Pje_VentasMes_aspx">Resumen de Ventas (Mes)</a></li>
+                        <li><a href="../Ventas/RepBD_Pje_VentasFecha.aspx" runat="server" id="RepBD_Pje_VentasFecha_aspx">Resumen de Ventas (Fechas)</a></li>
+                        <li class="divider"></li>
+                        <li class="dropdown-submenu">
+                            <a href="#">Almac&eacute;n</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../Ventas/RepBD_Alm_IngresoAlmacen.aspx" runat="server" id="RepBD_Alm_IngresoAlmacen_aspx">Ingreso a Almac&eacute;n </a></li>
+                                <li><a href="../Ventas/....aspx" runat="server" id="A2">....</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: white"><span class="glyphicon glyphicon-list"></span>&nbsp;Informaci&oacute;n Gerencial <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-submenu">
+                            <a href="#">Auditoria Gerencial</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../InfoGerencial/RepAudTrabajador.aspx" runat="server" id="RepAudTrabajador_aspx">Auditoria Trabajador</a></li>
+                                <li><a href="../InfoGerencial/RepAudHojaVida.aspx" runat="server" id="RepAudHojaVida_aspx">Auditoria Hoja de Vida</a></li>
+                                <li><a href="../InfoGerencial/RepAudInfoLab.aspx" runat="server" id="RepAudInfoLab_aspx">Auditoria Info. Laboral</a></li>
+                                <li><a href="../InfoGerencial/RepAudContrato.aspx" runat="server" id="RepAudContrato_aspx">Auditoria Contrato</a></li>
+                                <li><a href="../InfoGerencial/RepAudMemorandum.aspx" runat="server" id="RepAudMemorandum_aspx">Auditoria Memorandum</a></li>
+                                <li><a href="../InfoGerencial/RepAudCert_Medico.aspx" runat="server" id="RepAudCert_Medico_aspx">Auditoria Certificado Medico</a></li>
+                                <li><a href="../InfoGerencial/RepAudPermiso.aspx" runat="server" id="RepAudPermiso_aspx">Auditoria Permiso</a></li>
+                                <li><a href="../InfoGerencial/RepAudAsistencia.aspx" runat="server" id="RepAudAsistencia_aspx">Auditoria Asistencia</a></li>
+                                <li><a href="../InfoGerencial/RepAudViatico.aspx" runat="server" id="RepAudViatico_aspx">Auditoria Viaticos</a></li>
+                            </ul>
+                        </li>
+                        <li class="divider"></li>
+                        <li class="dropdown-submenu">
+                            <a href="#">Auditoria Ventas</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../InfoGerencial/RepBD_Pje_AudBdPje.aspx" runat="server" id="RepBD_Pje_AudBdPje_aspx">Ventas</a></li>
+                                <li><a href="../InfoGerencial/RepBD_Pje_AudAnuladosBdPje.aspx" runat="server" id="RepBD_Pje_AudAnuladosBdPje_aspx">Ventas Anuladas</a></li>
+                                <li><a href="../InfoGerencial/...aspx" runat="server" id="A7">...</a></li>
+                            </ul>
+                        </li>
+                        <li class="divider"></li>
+                        <li class="dropdown-submenu">
+                            <a href="#">Servicios Web</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../InfoGerencial/RepAuditoriaServicioWeb.aspx" runat="server" id="RepAuditoriaServicioWeb_aspx">Auditoria</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+
+            <ul class="nav navbar-nav">
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: black"><span class="glyphicon glyphicon-wrench"></span>&nbsp;Configuraciones <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="../Configuraciones/usuarios.aspx" runat="server" id="usuarios_aspx">Usuarios</a></li>
+                        <li><a href="../Configuraciones/permisos.aspx" runat="server" id="permisos_aspx">Control de Accesos</a></li>
+                        <li><a href="../Configuraciones/ClavesAutorizacion.aspx" runat="server" id="ClavesAutorizacion_aspx">Claves de Autorizaci&oacute;n</a></li>
+                        <li><a href="../Configuraciones/Conf_Formulario.aspx" runat="server" id="Conf_Formulario_aspx">Formularios</a></li>
+                        <li class="divider"></li>
+
+                        <li class="dropdown-submenu">
+                            <a href="#">Pasajes</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../Configuraciones/BdPsjeAsientoBloqueado.aspx" runat="server" id="BdPsjeAsientoBloqueado_aspx">Asientos Bloqueados</a></li>
+                                <li><a href="../Configuraciones/BdPsjeAsigProg.aspx" runat="server" id="BdPsjeAsigProg_aspx">Asignar a Programaci&oacute;n</a></li>
+                                <li><a href="../Configuraciones/BdPsjeCambioUsuPasajes.aspx" runat="server" id="BdPsjeCambioUsuPasajes_aspx">Cambio de Usuario</a></li>
+                                <li><a href="../Configuraciones/BdPsjeClaveAnulacion.aspx" runat="server" id="BdPsjeClaveAnulacion_aspx">Claves</a></li>
+                                <li><a href="../Configuraciones/BdPsjeConstanciaViaje.aspx" runat="server" id="BdPsjeConstanciaViaje_aspx">Constancias de Viajes</a></li>
+                                <li><a href="../Configuraciones/BdPsjeCorrelativoDocumento.aspx" runat="server" id="BdPsjeCorrelativoDocumento_aspx">Correlativo de Documentos</a></li>
+                                <li><a href="../Configuraciones/BdPsjeFechaAbierta.aspx" runat="server" id="BdPsjeFechaAbierta_aspx" title="Ctrl + F6">Fecha Abierta</a></li>
+                                <li><a href="../Configuraciones/BdPsjeManifiestoPasajeros.aspx" runat="server" id="BdPsjeManifiestoPasajeros_aspx"
+                                    title="Ctrl + F3">Manifiesto de Pasajeros</a></li>
+                                <li><a href="../Configuraciones/BdPsjePrecios.aspx" runat="server" id="BdPsjePrecios_aspx">Precios</a></li>
+                                <li><a href="../Configuraciones/BdPsjeEliminarReserva.aspx" runat="server" id="BdPsjeEliminarReserva_aspx" title="Ctrl + F7">Reservas</a></li>
+                                <li><a href="../Configuraciones/BdPsjeValeCaja.aspx" runat="server" id="BdPsjeValeCaja_aspx">Vale de Caja</a></li>
+                                <li><a href="../Configuraciones/BdPsjeVentaWeb.aspx" runat="server" id="BdPsjeVentaWeb_aspx">Venta Web</a></li>
+                                <li><a href="../Configuraciones/BdPsjeVentaWebNoGenerada.aspx" runat="server" visible="false" id="BdPsjeVentaWebNoGenerada_aspx">Venta Web (No Generada)</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown-submenu">
+                            <a href="#">Encomiendas</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../Configuraciones/BdPsjeVerPassEncomienda.aspx" runat="server" id="BdPsjeVerPassEncomienda_aspx">Contraseña de Encomienda</a></li>
+                                <li><a href="../Configuraciones/BdPsjeActualizarCorrelativo.aspx" runat="server" id="BdPsjeActualizarCorrelativo_aspx">Actualizar Correlativo</a></li>
+                                <li><a href="../Configuraciones/BdPsjeCambioUsuEncomienda.aspx" runat="server" id="BdPsjeCambioUsuEncomienda_aspx">Cambio de Usuario</a></li>
+                                <li><a href="../Configuraciones/BdPsjeManifiestoEncomiendas.aspx" runat="server" id="BdPsjeManifiestoEncomiendas_aspx">Manifiesto de Encomiendas</a></li>
+                                <li><a href="../Configuraciones/BdPsjeManifiestoExcesos.aspx" runat="server" id="BdPsjeManifiestoExcesos_aspx">Manifiesto de Excesos</a></li>
+                                <li><a href="../Configuraciones/BdPsjeAuditoriaEncomienda.aspx" runat="server" id="BdPsjeAuditoriaEncomienda_aspx">Auditoria de Encomiendas</a></li>
+                            </ul>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="../CerrarSession.aspx" style="text-align: left; color: red;">Cerrar Sesion</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <%--  ......NO CAMBIAR.........  --%>
+    <div class="section">
+        <div class="container">
+            <div class="row main-low-margin">
+                <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1">
+                    <h3>-</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        </asp:ContentPlaceHolder>
+    </div>
+
+</body>
+</html>

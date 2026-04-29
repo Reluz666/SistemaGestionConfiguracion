@@ -1,0 +1,99 @@
+## Ignorar archivos generados por Visual Studio
+
+# ==========================================
+# CARPETAS DE COMPILACIÓN
+# ==========================================
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# ==========================================
+# VISUAL STUDIO - ARCHIVOS LOCALES
+# ==========================================
+.vs/
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# ==========================================
+# PAQUETES NUGET
+# ==========================================
+packages/
+*.nupkg
+*.snupkg
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# ==========================================
+# ASP.NET / WEB FORMS
+# ==========================================
+# Archivos de publicación
+*.[Pp]ublish.xml
+*.azurePubxml
+*.pubxml
+*.publishproj
+
+# App_Data (base de datos local, uploads, etc.)
+App_Data/
+
+# Archivos de configuración con datos sensibles
+# (descomenta si usas estos archivos)
+# Web.config
+
+# ==========================================
+# ARCHIVOS TEMPORALES Y DE CACHÉ
+# ==========================================
+*.cache
+*.tmp
+*.temp
+~$*
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# ==========================================
+# RESHARPER (si usas este plugin)
+# ==========================================
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+# ==========================================
+# ARCHIVOS DE PRUEBAS Y COBERTURA
+# ==========================================
+TestResults/
+[Tt]est[Rr]esult*/
+*.trx
+*.coveragexml
+coverage*/
+*.coverage
+
+# ==========================================
+# ARCHIVOS DE REPORTES (Crystal Reports, etc.)
+# ==========================================
+# Descomenta si no quieres subir reportes compilados
+# *.rpt
+
+# ==========================================
+# NODE / NPM (si usas herramientas frontend)
+# ==========================================
+node_modules/
+npm-debug.log*
+
+# ==========================================
+# ARCHIVOS DE SISTEMA OPERATIVO
+# ==========================================
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.lnk
