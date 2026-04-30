@@ -44,8 +44,7 @@
             font-weight: 500;
             padding: 0.6rem 1rem !important;
             border-radius: 8px;
-            transition: all 0.3s ease;
-            position: relative;
+            transition: color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
         }
 
         .navbar-modern .nav-link:hover {
@@ -178,23 +177,26 @@
             background: #fff;
             border-radius: 16px;
             box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
-            padding: 1.5rem;
+            padding: 1rem;
             border: 1px solid rgba(0, 0, 0, 0.05);
+            overflow-x: auto;
         }
 
         .table-modern {
             border-collapse: separate !important;
             border-spacing: 0;
+            min-width: 900px;
+            width: 100% !important;
         }
 
         .table-modern thead tr th {
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             color: #fff;
             font-weight: 600;
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            padding: 1rem 0.8rem !important;
+            padding: 0.7rem 0.5rem !important;
             border: none !important;
             white-space: nowrap;
         }
@@ -216,11 +218,11 @@
         }
 
         .table-modern tbody tr td {
-            padding: 0.85rem 0.8rem !important;
+            padding: 0.6rem 0.5rem !important;
             border: none;
             border-bottom: 1px solid #f1f1f1;
             vertical-align: middle;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: #2d3436;
         }
 
@@ -397,6 +399,10 @@
 
         function initDataTable() {
             if (typeof $.fn.DataTable !== 'undefined') {
+                // Destruir si ya existe para evitar errores en postback
+                if ($.fn.DataTable.isDataTable('#TablePersonal')) {
+                    $('#TablePersonal').DataTable().destroy();
+                }
                 $('#TablePersonal').DataTable({
                     language: {
                         url: 'https://cdn.jsdelivr.net/npm/datatables.net-plugins@2.0.1/i18n/es-ES.json'
@@ -404,7 +410,7 @@
                     lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
                     pageLength: 10,
                     order: [[1, 'asc']],
-                    dom: 'Bfrtip',
+                    dom: 'lfBrtip',
                     buttons: [],
                     responsive: true,
                     columnDefs: [
@@ -764,9 +770,14 @@
     <script type="text/javascript" src="../Otros_css_js/resaltar.js"></script>
 
     <script type="text/javascript">
-        $(document).ready(function () {
-            ResaltarFila('TablePersonal');
+        // pageLoad se ejecuta tras cada postback/partial-postback
+        function pageLoad() {
             initDataTable();
+            ResaltarFila('TablePersonal');
+        }
+        $(document).ready(function () {
+            initDataTable();
+            ResaltarFila('TablePersonal');
         });
     </script>
 
