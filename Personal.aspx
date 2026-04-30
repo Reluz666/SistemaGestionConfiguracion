@@ -383,27 +383,47 @@
 
         function initDataTable() {
             if (typeof $.fn.DataTable !== 'undefined') {
-                // Destruir si ya existe para evitar errores en postback
-                if ($.fn.DataTable.isDataTable('#TablePersonal')) {
-                    $('#TablePersonal').DataTable().destroy();
+                if ($.fn.DataTable.isDataTable('#tblPersonalDataTables')) {
+                    $('#tblPersonalDataTables').DataTable().destroy();
                 }
-                $('#TablePersonal').DataTable({
+                // Copiar las filas generadas por el asp:Table al tbody de DataTables
+                var rows = [];
+                $('#TablePersonal tr').each(function () {
+                    var row = [];
+                    $(this).find('td').each(function () {
+                        row.push($(this).html());
+                    });
+                    if (row.length > 0) rows.push(row);
+                });
+                $('#tblPersonalDataTables tbody').html('');
+                rows.forEach(function (r) {
+                    var tr = $('<tr></tr>');
+                    r.forEach(function (c) { tr.append($('<td>' + c + '</td>')); });
+                    $('#tblPersonalDataTables tbody').append(tr);
+                });
+                // Ocultar la asp:Table original
+                $('#TablePersonal').hide();
+                $('#tblPersonalDataTables').show();
+                $('#tblPersonalDataTables').DataTable({
                     language: {
                         url: 'https://cdn.jsdelivr.net/npm/datatables.net-plugins@2.0.1/i18n/es-ES.json'
                     },
-                    lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
+                    lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
                     pageLength: 10,
                     order: [[1, 'asc']],
                     dom: 'lfBrtip',
                     buttons: [],
-                    responsive: true,
-                    columnDefs: [
-                        { orderable: false, targets: -1 }
-                    ]
+                    responsive: true
                 });
             }
         }
-    </script>
+
+        function pageLoad() {
+            initDataTable();
+        }
+        $(document).ready(function () {
+            initDataTable();
+        });
 </head>
 <body onload="MostrarMensaje()">
 
@@ -717,25 +737,30 @@
 
             <!-- Card Tabla de Resultados -->
             <div class="table-modern-wrapper">
-                <asp:Table ID="TablePersonal" runat="server" CssClass="table table-modern table-hover w-100">
-                    <asp:TableRow ID="TableRow1" runat="server">
-                        <asp:TableCell ID="tcId" runat="server" Visible="false">ID PER</asp:TableCell>
-                        <asp:TableCell ID="tcSede" runat="server">SEDE</asp:TableCell>
-                        <asp:TableCell ID="tcLocal" runat="server">LOCAL</asp:TableCell>
-                        <asp:TableCell ID="tcArea" runat="server">&Aacute;REA</asp:TableCell>
-                        <asp:TableCell ID="tcDependencia" runat="server">DEPENDENCIA</asp:TableCell>
-                        <asp:TableCell ID="tcCodigo" runat="server">C&Oacute;DIGO</asp:TableCell>
-                        <asp:TableCell ID="tcPersonal" runat="server">PERSONAL</asp:TableCell>
-                        <asp:TableCell ID="tcTipoDocIdent" runat="server">TIPO DOC</asp:TableCell>
-                        <asp:TableCell ID="tcNroDoc" runat="server">NRO. DOC.</asp:TableCell>
-                        <asp:TableCell ID="tcProfesion" runat="server">PROFESI&Oacute;N</asp:TableCell>
-                        <asp:TableCell ID="tcTelefono" runat="server">TEL&Eacute;FONO</asp:TableCell>
-                        <asp:TableCell ID="tcEmail" runat="server">EMAIL</asp:TableCell>
-                        <asp:TableCell ID="tcCargo" runat="server">CARGO</asp:TableCell>
-                        <asp:TableCell ID="tcEstado" runat="server">ESTADO</asp:TableCell>
-                        <asp:TableCell ID="seleccionar_personal" runat="server">SELECCIONAR</asp:TableCell>
-                    </asp:TableRow>
-                </asp:Table>
+                <table id="tblPersonalDataTables" class="table table-modern table-hover w-100" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th>ID PER</th>
+                            <th>SEDE</th>
+                            <th>LOCAL</th>
+                            <th>&Aacute;REA</th>
+                            <th>DEPENDENCIA</th>
+                            <th>C&Oacute;DIGO</th>
+                            <th>PERSONAL</th>
+                            <th>TIPO DOC</th>
+                            <th>NRO. DOC.</th>
+                            <th>PROFESI&Oacute;N</th>
+                            <th>TEL&Eacute;FONO</th>
+                            <th>EMAIL</th>
+                            <th>CARGO</th>
+                            <th>ESTADO</th>
+                            <th>SELECCIONAR</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbodyPersonal" runat="server">
+                    </tbody>
+                </table>
+                <asp:Table ID="TablePersonal" runat="server" style="display:none;" />
             </div>
 
             <!-- Hidden Fields -->
