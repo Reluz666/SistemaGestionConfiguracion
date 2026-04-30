@@ -737,7 +737,7 @@
 
             <!-- Card Tabla de Resultados -->
             <div class="table-modern-wrapper">
-                <table id="tblPersonalDataTables" class="table table-modern table-hover w-100" style="display:none;">
+                <table id="tblPersonalDataTables" class="table table-modern table-hover w-100">
                     <thead>
                         <tr>
                             <th>ID PER</th>
@@ -760,7 +760,7 @@
                     <tbody id="tbodyPersonal" runat="server">
                     </tbody>
                 </table>
-                <asp:Table ID="TablePersonal" runat="server" style="display:none;" />
+                <asp:Table ID="TablePersonal" runat="server" style="position:absolute;visibility:hidden;" />
             </div>
 
             <!-- Hidden Fields -->
