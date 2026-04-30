@@ -439,7 +439,7 @@ public partial class Personal : System.Web.UI.Page
 
                                     if(rpta==true) {
                                         System.Web.UI.WebControls.LinkButton lb = new System.Web.UI.WebControls.LinkButton();
-                                        lb.Text = "Personal";
+                                        lb.Text = "Editar";
                                         lb.ToolTip = "Seleccione Personal";
                                         lb.CausesValidation = false;
                                         lb.CssClass = "btn-link-personal";

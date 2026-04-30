@@ -191,19 +191,26 @@
             border-bottom: none;
         }
 
-        /* Link button "Personal" en la tabla */
+        /* Link button "Editar" en la tabla */
         .btn-link-personal {
-            color: var(--primary);
-            font-weight: 600;
+            color: #d40924;
+            font-weight: 700;
             font-size: 0.8rem;
             text-decoration: none;
             cursor: pointer;
-            transition: color 0.2s;
+            background: rgba(212, 9, 36, 0.08);
+            padding: 0.25rem 0.6rem;
+            border-radius: 6px;
+            border: 1px solid rgba(212, 9, 36, 0.3);
+            transition: all 0.2s ease;
+            display: inline-block;
         }
 
         .btn-link-personal:hover {
-            color: var(--primary-dark);
-            text-decoration: underline;
+            background: rgba(212, 9, 36, 0.15);
+            border-color: #d40924;
+            text-decoration: none;
+            transform: translateY(-1px);
         }
 
         /* Subclass for asp:Table to apply same styling */
