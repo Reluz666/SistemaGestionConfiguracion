@@ -78,11 +78,13 @@
         .login-card {
             background: var(--card-bg);
             border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            box-shadow:
+                0 0 0 1px rgba(212, 9, 36, 0.5),
+                0 25px 80px rgba(0, 0, 0, 0.6),
+                0 10px 40px rgba(212, 9, 36, 0.3);
             overflow: hidden;
             width: 100%;
             max-width: 420px;
-            border: 1px solid rgba(212, 9, 36, 0.4);
             animation: slideUp 0.5s ease;
         }
 
