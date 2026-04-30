@@ -1,0 +1,165 @@
+{
+  "version": "1.0.0",
+  "lastScanned": 1777580976951,
+  "projectRoot": "C:\\Users\\LOCALADMINPJ\\Documents\\SistemaGestionConfiguracion",
+  "techStack": {
+    "languages": [],
+    "frameworks": [],
+    "packageManager": null,
+    "runtime": null
+  },
+  "build": {
+    "buildCommand": null,
+    "testCommand": null,
+    "lintCommand": null,
+    "devCommand": null,
+    "scripts": {}
+  },
+  "conventions": {
+    "namingStyle": null,
+    "importStyle": null,
+    "testPattern": null,
+    "fileOrganization": null
+  },
+  "structure": {
+    "isMonorepo": false,
+    "workspaces": [],
+    "mainDirectories": [
+      "src"
+    ],
+    "gitBranches": {
+      "defaultBranch": "main",
+      "branchingStrategy": null
+    }
+  },
+  "customNotes": [],
+  "directoryMap": {
+    "App_Code": {
+      "path": "App_Code",
+      "purpose": null,
+      "fileCount": 21,
+      "lastAccessed": 1777580976934,
+      "keyFiles": [
+        "DS_ReporteCIsSeguidos.xsd",
+        "DS_ReporteCIsSeguidos.xss",
+        "DS_ReporteDatosCorrectosCI.xsd",
+        "DS_ReporteDatosCorrectosCI.xss",
+        "DS_ReporteDatosIncorrectosCI.xsd"
+      ]
+    },
+    "aspnet_client": {
+      "path": "aspnet_client",
+      "purpose": null,
+      "fileCount": 0,
+      "lastAccessed": 1777580976934,
+      "keyFiles": []
+    },
+    "bootstrap": {
+      "path": "bootstrap",
+      "purpose": null,
+      "fileCount": 0,
+      "lastAccessed": 1777580976935,
+      "keyFiles": []
+    },
+    "Configuracion": {
+      "path": "Configuracion",
+      "purpose": null,
+      "fileCount": 4,
+      "lastAccessed": 1777580976935,
+      "keyFiles": [
+        "Seguridad.aspx",
+        "Seguridad.aspx.cs",
+        "Usuarios.aspx",
+        "Usuarios.aspx.cs"
+      ]
+    },
+    "CssJs": {
+      "path": "CssJs",
+      "purpose": null,
+      "fileCount": 1,
+      "lastAccessed": 1777580976935,
+      "keyFiles": [
+        "Menu.css"
+      ]
+    },
+    "Imagenes": {
+      "path": "Imagenes",
+      "purpose": null,
+      "fileCount": 4,
+      "lastAccessed": 1777580976936,
+      "keyFiles": [
+        "buscar.ico",
+        "CabeceraElementosConfiguracion1.png",
+        "CabeceraSeguridad1.png",
+        "fondo1.jpg"
+      ]
+    },
+    "Otros_css_js": {
+      "path": "Otros_css_js",
+      "purpose": null,
+      "fileCount": 12,
+      "lastAccessed": 1777580976936,
+      "keyFiles": [
+        "chosen.css",
+        "chosen.jquery.js",
+        "estilo.css",
+        "jquery-1.8.1.min.js",
+        "jquery-2.1.1.min.js"
+      ]
+    },
+    "Reportes": {
+      "path": "Reportes",
+      "purpose": null,
+      "fileCount": 38,
+      "lastAccessed": 1777580976936,
+      "keyFiles": [
+        "CR_ReporteCIsSeguidos.rpt",
+        "CR_ReporteDatosCorrectosCI.rpt",
+        "CR_ReporteDatosIncorrectosCI.rpt",
+        "CR_Reporte_CIS_Relacionados_Con_Otros_CIS.rpt",
+        "CR_REPORTE_COMPONENTES_ASIGNADOS.rpt"
+      ]
+    },
+    "src": {
+      "path": "src",
+      "purpose": "Source code",
+      "fileCount": 0,
+      "lastAccessed": 1777580976937,
+      "keyFiles": []
+    },
+    "Ventanas": {
+      "path": "Ventanas",
+      "purpose": null,
+      "fileCount": 18,
+      "lastAccessed": 1777580976937,
+      "keyFiles": [
+        "ventanaElementosConfiguracionParaSeguimiento.aspx",
+        "ventanaElementosConfiguracionParaSeguimiento.aspx.cs",
+        "ventanaElementosConfiguracionSoftware.aspx",
+        "ventanaElementosConfiguracionSoftware.aspx.cs",
+        "ventanaLocal.aspx"
+      ]
+    }
+  },
+  "hotPaths": [
+    {
+      "path": "Personal.aspx",
+      "accessCount": 2,
+      "lastAccessed": 1777581666259,
+      "type": "file"
+    },
+    {
+      "path": "web.config",
+      "accessCount": 1,
+      "lastAccessed": 1777581614953,
+      "type": "file"
+    },
+    {
+      "path": "Personal.aspx.cs",
+      "accessCount": 1,
+      "lastAccessed": 1777581619230,
+      "type": "file"
+    }
+  ],
+  "userDirectives": []
+}
