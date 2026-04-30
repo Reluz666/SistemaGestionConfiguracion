@@ -87,6 +87,18 @@
             border-radius: 12px;
         }
 
+        .navbar-modern .dropdown-submenu > .dropdown-menu {
+            top: 0;
+            left: 100%;
+            margin-top: -6px;
+            margin-left: 2px;
+            border-radius: 12px;
+        }
+
+        .navbar-modern .dropdown-submenu:hover > .dropdown-menu {
+            display: block;
+        }
+
         /* ===== FORMULARIO ===== */
         .form-card {
             background: #fff;
