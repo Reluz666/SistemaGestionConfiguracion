@@ -94,8 +94,7 @@
         /* ===== HEADER DEL CARD ===== */
         .login-card-header {
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            padding: 2rem 2rem 2.5rem;
-            text-align: center;
+            padding: 0;
             position: relative;
             overflow: hidden;
         }
@@ -103,23 +102,33 @@
         .login-card-header::before {
             content: '';
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 60%);
+            inset: 0;
+            background: linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.4) 100%);
+            z-index: 1;
+        }
+
+        .login-card-header img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
         }
 
         .login-logo {
+            position: absolute;
+            bottom: -35px;
+            left: 50%;
+            transform: translateX(-50%);
             width: 70px;
             height: 70px;
-            background: rgba(255, 255, 255, 0.15);
+            background: var(--primary);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 1rem;
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            border: 3px solid var(--card-bg);
+            z-index: 2;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
         }
 
         .login-logo i {
@@ -128,17 +137,12 @@
         }
 
         .login-title {
-            color: #fff;
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin: 0;
-            line-height: 1.4;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            display: none;
         }
 
         /* ===== CUERPO DEL CARD ===== */
         .login-card-body {
-            padding: 2rem 2.5rem 2.5rem;
+            padding: 2.5rem 2.5rem 2.5rem;
         }
 
         /* ===== INPUT GROUP ===== */
@@ -190,7 +194,8 @@
             outline: none;
             border-color: var(--primary);
             box-shadow: 0 0 0 4px rgba(212, 9, 36, 0.15);
-            background: #141414;
+            background: #1e1e1e;
+            color: #ffffff;
         }
 
         .form-control-modern::placeholder {
@@ -361,10 +366,10 @@
 
             <!-- Header -->
             <div class="login-card-header">
+                <img src="imagenes/fondo1.jpg" alt="Corte Superior de Justicia de Lambayeque" />
                 <div class="login-logo">
                     <i class="bi bi-shield-lock-fill"></i>
                 </div>
-                <h1 class="login-title">PROCESO DE GESTI&Oacute;N DE CONFIGURACI&Oacute;N<br/>CORTE SUPERIOR DE JUSTICIA DE LAMBAYEQUE</h1>
             </div>
 
             <!-- Body -->
