@@ -1,265 +1,441 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="acceso.aspx.cs" Inherits="acceso" UnobtrusiveValidationMode="None"%>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="acceso.aspx.cs" Inherits="acceso" UnobtrusiveValidationMode="None" %>
 
 <!DOCTYPE html>
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-      <link rel="icon" type="image/ico" href="imagenes/acceso.png" />
+    <link rel="icon" type="image/ico" href="imagenes/acceso.png" />
     <title>Acceso al Sistema</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+    <!-- Bootstrap 5.3 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+
+    <style>
+        :root {
+            --primary: #d40924;
+            --primary-dark: #a80d1c;
+            --primary-light: #e84054;
+            --dark-bg: #0d0d0d;
+            --card-bg: #1a1a1a;
+            --text-light: #f0f0f0;
+            --text-muted: #9a9a9a;
+            --border-color: #2d2d2d;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--dark-bg);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ===== FONDO ANIMADO ===== */
+        .bg-pattern {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            background:
+                radial-gradient(ellipse at 20% 50%, rgba(212, 9, 36, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(212, 9, 36, 0.08) 0%, transparent 40%),
+                var(--dark-bg);
+            overflow: hidden;
+        }
+
+        .bg-pattern::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(212, 9, 36, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(212, 9, 36, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        /* ===== LAYOUT PRINCIPAL ===== */
+        .login-wrapper {
+            position: relative;
+            z-index: 1;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+        }
+
+        /* ===== CARD DE LOGIN ===== */
+        .login-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            width: 100%;
+            max-width: 420px;
+            border: 1px solid var(--border-color);
+            animation: slideUp 0.5s ease;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== HEADER DEL CARD ===== */
+        .login-card-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            padding: 2rem 2rem 2.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-card-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 60%);
+        }
+
+        .login-logo {
+            width: 70px;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .login-logo i {
+            font-size: 2rem;
+            color: #fff;
+        }
+
+        .login-title {
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0;
+            line-height: 1.4;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        /* ===== CUERPO DEL CARD ===== */
+        .login-card-body {
+            padding: 2rem 2.5rem 2.5rem;
+        }
+
+        /* ===== INPUT GROUP ===== */
+        .input-group-modern {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .input-group-modern label {
+            display: block;
+            color: var(--text-light);
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.3px;
+        }
+
+        .input-icon-wrapper {
+            position: relative;
+        }
+
+        .input-icon-wrapper i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        .input-icon-wrapper .form-control {
+            padding-left: 44px !important;
+            height: 48px;
+        }
+
+        .form-control-modern {
+            width: 100%;
+            background: #111;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            color: var(--text-light);
+            font-size: 0.95rem;
+            padding: 0.75rem 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control-modern:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(212, 9, 36, 0.15);
+            background: #141414;
+        }
+
+        .form-control-modern::placeholder {
+            color: var(--text-muted);
+        }
+
+        .form-control-modern:focus ~ i,
+        .input-group-modern:focus-within i {
+            color: var(--primary);
+        }
+
+        /* ===== BOTON DE INGRESO ===== */
+        .btn-ingresar {
+            width: 100%;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            border: none;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            position: relative;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+
+        .btn-ingresar::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .btn-ingresar:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(212, 9, 36, 0.4);
+        }
+
+        .btn-ingresar:hover::before {
+            opacity: 1;
+        }
+
+        .btn-ingresar span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-ingresar:active {
+            transform: translateY(0);
+        }
+
+        /* ===== VALIDATORS ===== */
+        .validator-error {
+            color: #ff4d6a;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-top: 0.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .validator-error i {
+            font-size: 0.75rem;
+        }
+
+        /* ===== FOOTER ===== */
+        .login-footer {
+            text-align: center;
+            padding: 1.5rem 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .login-footer p {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            margin: 0;
+        }
+
+        .login-footer .brand {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* ===== FOOTER FIJO ===== */
+        .footer-copy {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(0,0,0,0.3);
+            border-top: 1px solid var(--border-color);
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-copy p {
+            color: var(--text-muted);
+            font-size: 0.78rem;
+            margin: 0;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 480px) {
+            .login-card-header {
+                padding: 1.5rem 1.5rem 2rem;
+            }
+            .login-card-body {
+                padding: 1.5rem 2rem 2rem;
+            }
+            .login-title {
+                font-size: 0.95rem;
+            }
+        }
+
+        /* ===== ANIMACIONES DE ENTRADA ===== */
+        .input-group-modern {
+            animation: fadeInUp 0.5s ease backwards;
+        }
+
+        .input-group-modern:nth-child(1) { animation-delay: 0.1s; }
+        .input-group-modern:nth-child(2) { animation-delay: 0.2s; }
+        .input-group-modern:nth-child(3) { animation-delay: 0.3s; }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
 
     <script type="text/javascript">
         function MostrarMensaje() {
             var mensaje = document.getElementById("__mensaje").value;
             if (mensaje != "") {
                 alert(mensaje);
-                if (document.getElementById("__pagina").value != "")
-                    location.href = document.getElementById("__pagina").value;
-            }
-        }
-
-        function window_load() {
-            MostrarMensaje()
-        }
-
-        function Confirmar(men) {
-            if (!confirm(men))
-                return false;
-
-        }
-
-        function BloqueaIngresoDatos() {
-            event.returnValue = false;
-
-        }
-
-        function SoloNumeros() {
-            if ((event.keyCode < 48) || (event.keyCode > 57)) {
-                event.returnValue = false;
-            }
-           
-        }
-
-        function SoloLetras(e) {
-            if (!(event.keyCode >= 65 && event.keyCode <= 90 || event.keyCode == 32 || event.keyCode == 193 || event.keyCode == 201 || event.keyCode == 205 || event.keyCode == 209 || event.keyCode == 211 || event.keyCode == 218 || event.keyCode == 220)) {
-                event.keyCode = 0;
+                var pagina = document.getElementById("__pagina").value;
+                if (pagina !== "") location.href = pagina;
             }
         }
 
         function SoloLetrasMinusculas(e) {
-            if (!(event.keyCode >= 97 && event.keyCode <= 122 || event.keyCode == 32 || event.keyCode == 193 || event.keyCode == 201 || event.keyCode == 205 || event.keyCode == 209 || event.keyCode == 211 || event.keyCode == 218 || event.keyCode == 220)) {
-                event.keyCode = 0;
-            }
+            if (!(event.keyCode >= 97 && event.keyCode <= 122 || event.keyCode == 32
+                || event.keyCode == 193 || event.keyCode == 201 || event.keyCode == 205
+                || event.keyCode == 209 || event.keyCode == 211 || event.keyCode == 218
+                || event.keyCode == 220)) event.keyCode = 0;
         }
-
-        function LetrasNumeros(e) {
-            if (!(event.keyCode >= 48 && event.keyCode <= 57 || event.keyCode >= 65 && event.keyCode <= 90 || event.keyCode == 32 || event.keyCode == 193 || event.keyCode == 201 || event.keyCode == 205 || event.keyCode == 209 || event.keyCode == 211 || event.keyCode == 218 || event.keyCode == 220)) {
-                event.keyCode = 0;
-            }
-        }
-
-        /*
-        Función que permite al usuario ingrese sólo números enteros o reales.
-        Parametros: e    , permite obtener el valor de la tecla prsionada.
-        Punto, false sólo números enteros;true sólo números reales.
-        Texto, texto que contiene el valor numerico. 
-        */
-        function SoloDecimales(e, Punto, Texto) {
-            if (event.keyCode == 8)
-                ;
-            else if (event.keyCode == 46) {
-                if (Punto == false)
-                    event.keyCode = 0;
-                else {
-                    for (i = 0; i < Texto.value.length; i++) {
-                        if (Texto.value.charCodeAt(i) == 46) {
-                            event.keyCode = 0;
-                        }
-                    }
-                }
-            }
-            else if (!(event.keyCode >= 48 && event.keyCode <= 57)) {
-                event.keyCode = 0;
-            }
-        }
-
-        function LimpiaImagen() {
-
-
-        }
-
 
         function CambiaLetraMayuscula(Caja) {
             document.getElementById(Caja).value = document.getElementById(Caja).value.toUpperCase();
         }
-
-     </script>
-
-    <style type="text/css">
-        .style1
-        {
-        }
-        .style3
-        {
-            text-align: right;
-        }
-    </style>
-
-     <style type="text/css">
-#bg {
-	position: fixed;
-	z-index: -1;
-	top: -2;
-	left: 0;
-	width: 100%;
-}
-</style>
-
-    <script src="bootstrap/js/jquery.min.js"></script>
-
-    <!-- Bootstrap -->
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
-     
-     <link href="Otros_css_js/w3.css" rel="stylesheet"/>
-
-    
-    <script type="text/javascript">
-        function updateBackground() {
-            screenWidth = $(window).width();
-            screenHeight = $(window).height();
-            var bg = jQuery("#bg");
-
-            // Proporcion horizontal/vertical. En este caso la imagen es cuadrada
-            ratio = 1;
-
-            if (screenWidth / screenHeight > ratio) {
-                $(bg).height("auto");
-                $(bg).width("100%");
-            } else {
-                $(bg).width("auto");
-                $(bg).height("100%");
-            }
-
-            // Si a la imagen le sobra anchura, la centramos a mano
-            if ($(bg).width() > 0) {
-                $(bg).css('left', (screenWidth - $(bg).width()) / 2);
-            }
-        }
-        $(document).ready(function () {
-            // Actualizamos el fondo al cargar la pagina
-            updateBackground();
-            $(window).bind("resize", function () {
-                // Y tambien cada vez que se redimensione el navegador
-                updateBackground();
-            });
-        });
-</script>
-
+    </script>
 </head>
-   <body onload ="MostrarMensaje()">
-        <img src="imagenes/fondo1.jpg" alt="Fondo" id="bg" />
-         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<body onload="MostrarMensaje()">
 
-      <div id="login-overlay" class="modal-dialog">
-       
-      <div class="modal-content">
+    <!-- Fondo animado -->
+    <div class="bg-pattern"></div>
 
-          <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">
-              <span aria-hidden="true"></span><span class="sr-only">Close</span></button>
-                           
-               <center>
-                    <h2 class="modal-title" id="myModalLabel">PROCESO DE GESTIÓN DE CONFIGURACION DE SERVICIOS EN LA CORTE SUPERIOR DE JUSTICIA DE LAMBAYEQUE</h2>
-               </center> 
-          </div>
+    <div class="login-wrapper">
+        <div class="login-card">
 
-          <div class="modal-body">
-              <div class="row">
-                  <div class="col-xs-12">
-                      <div class="well">
-                          <form id="frmAcceso" runat="server">
-
-                               <div class="form-group">
-                               <label for="username" class="control-label">
-                                   Usuario</label>
-                        <asp:TextBox ID="login" runat="server"  placeholder="Ingresar Usuario"
-                        autocomplete = "off" CssClass="form-control input"  onchange="CambiaLetraMayuscula('login')" 
-                        onkeypress="SoloLetrasMinusculas(event)"    onKeyDown="if(event.keyCode==13) event.keyCode=9;" >DANGELO</asp:TextBox>
-
-                    <asp:RequiredFieldValidator ID="rfvlogin" runat="server" BackColor="Yellow" 
-                        ControlToValidate="login" Display="Dynamic" ErrorMessage="*" ForeColor="Red" 
-                        SetFocusOnError="True" ></asp:RequiredFieldValidator>
-                          </div>
-                              
-                              <%--<div class="form-group">
-                                  <label for="username" id="login" class="control-label">Usuario</label>
-                                  <input type="text" class="form-control" id="rfvlogin" name="username" value="" required="" 
-                                      title="Por favor ingrese su usuario" placeholder="Ingrese Usuario"
-                                      autocomplete = "off"/>                                                              
-                                  <span class="help-block"></span>
-                              </div>--%>
-
-                              <div class="form-group">
-                              <label for="password" class="control-label">
-                               Contraseña</label>
-                          <asp:TextBox ID="password" runat="server" TextMode="Password" 
-                          placeholder="Ingrese Contraseña"   autocomplete = "off" CssClass="form-control input"  
-                         onchange="CambiaLetraMayuscula('password')"  
-                              onKeyDown="if(event.keyCode==13) event.keyCode=9;" >123</asp:TextBox>
-                    <asp:RequiredFieldValidator ID="rfvpassword" runat="server" BackColor="Yellow" 
-                        ControlToValidate="password" Display="Dynamic" ErrorMessage="*" ForeColor="Red" 
-                        SetFocusOnError="True"></asp:RequiredFieldValidator>
-
-                                 
-                              </div>
-                           
-                               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                               <asp:Button ID="Aceptar" runat="server" 
-                                   Text="Ingresar" type="submit" 
-                                   class="btn btn-primary btn-block" onclick="Aceptar_Click">
-                             </asp:Button>
-                               <asp:HiddenField ID="__mensaje" runat="server" />
-                    <asp:HiddenField ID="__pagina" runat="server" />
-                          </form>
-                      </div>
-                  </div>
-                  
-                
-              </div>
-          </div>
-      </div>
-  </div>
-
-        
-      
-         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        
-
- <div id="footer text-center">
-                  <h6 style="text-align:center; color:black">
-
-                  <b> Copyright &copy; 
-                  <% 
-                     
-                      
-                      Response.Write(DateTime.Now.ToShortDateString());
-                                                    
-                  %> 
-                  Corte Superiro de Justicia de Lambayeque | Todos los derechos reservados.</b></h6> 
-                 
+            <!-- Header -->
+            <div class="login-card-header">
+                <div class="login-logo">
+                    <i class="bi bi-shield-lock-fill"></i>
+                </div>
+                <h1 class="login-title">PROCESO DE GESTI&Oacute;N DE CONFIGURACI&Oacute;N<br/>CORTE SUPERIOR DE JUSTICIA DE LAMBAYEQUE</h1>
             </div>
-                                               
 
-            <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <!-- Include all compiled plugins (below), or include individual files as needed -->
-     <script src="bootstrap/js/jquery-1.12.4.min.js"></script>
-     <script src="bootstrap/js/bootstrap.min.js"></script>
+            <!-- Body -->
+            <div class="login-card-body">
+                <form id="frmAcceso" runat="server">
+
+                    <div class="input-group-modern">
+                        <label for="login">
+                            <i class="bi bi-person-fill me-1"></i>Usuario
+                        </label>
+                        <div class="input-icon-wrapper">
+                            <asp:TextBox ID="login" runat="server"
+                                placeholder="Ingrese su usuario"
+                                autocomplete="off"
+                                CssClass="form-control form-control-modern"
+                                onchange="CambiaLetraMayuscula('login')"
+                                onkeypress="SoloLetrasMinusculas(event)"
+                                onkeydown="if(event.keyCode==13) event.keyCode=9;" >DANGELO</asp:TextBox>
+                            <i class="bi bi-person"></i>
+                        </div>
+                        <asp:RequiredFieldValidator ID="rfvlogin" runat="server"
+                            ControlToValidate="login" Display="Dynamic"
+                            ErrorMessage="Ingrese su nombre de usuario"
+                            CssClass="validator-error">
+                        </asp:RequiredFieldValidator>
+                    </div>
+
+                    <div class="input-group-modern">
+                        <label for="password">
+                            <i class="bi bi-lock-fill me-1"></i>Contrase&ntilde;a
+                        </label>
+                        <div class="input-icon-wrapper">
+                            <asp:TextBox ID="password" runat="server"
+                                TextMode="Password"
+                                placeholder="Ingrese su contrase&ntilde;a"
+                                autocomplete="off"
+                                CssClass="form-control form-control-modern"
+                                onchange="CambiaLetraMayuscula('password')"
+                                onkeydown="if(event.keyCode==13) event.keyCode=9;">123</asp:TextBox>
+                            <i class="bi bi-lock"></i>
+                        </div>
+                        <asp:RequiredFieldValidator ID="rfvpassword" runat="server"
+                            ControlToValidate="password" Display="Dynamic"
+                            ErrorMessage="Ingrese su contrase&ntilde;a"
+                            CssClass="validator-error">
+                        </asp:RequiredFieldValidator>
+                    </div>
+
+                    <asp:Button ID="Aceptar" runat="server"
+                        Text="INGRESAR AL SISTEMA"
+                        CssClass="btn-ingresar"
+                        OnClick="Aceptar_Click">
+                    </asp:Button>
+
+                    <asp:HiddenField ID="__mensaje" runat="server" />
+                    <asp:HiddenField ID="__pagina" runat="server" />
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer-copy">
+        <p>
+            Corte Superior de Justicia de Lambayeque | Todos los derechos reservados.
+            &copy; <%= DateTime.Now.Year %>
+        </p>
+    </div>
+
+    <!-- Scripts -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-
-
