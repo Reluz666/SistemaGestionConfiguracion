@@ -141,7 +141,7 @@
             background: #fff;
             border-radius: 16px;
             box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
-            padding: 1.5rem;
+            padding: 1rem;
             border: 1px solid rgba(0, 0, 0, 0.05);
             overflow-x: auto;
         }
@@ -157,10 +157,10 @@
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             color: #fff;
             font-weight: 600;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            padding: 0.75rem 0.6rem !important;
+            padding: 0.6rem 0.5rem !important;
             border: none !important;
             white-space: nowrap;
         }
@@ -174,11 +174,11 @@
         }
 
         .table-modern-grid tbody tr td {
-            padding: 0.65rem 0.6rem !important;
+            padding: 0.5rem 0.45rem !important;
             border: none;
             border-bottom: 1px solid #f1f1f1;
             vertical-align: middle;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: #2d3436;
             background: #fff;
         }
@@ -189,6 +189,21 @@
 
         .table-modern-grid tbody tr:last-child td {
             border-bottom: none;
+        }
+
+        /* Link button "Personal" en la tabla */
+        .btn-link-personal {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .btn-link-personal:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
         }
 
         /* Subclass for asp:Table to apply same styling */
@@ -203,10 +218,10 @@
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             color: #fff;
             font-weight: 600;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            padding: 0.75rem 0.6rem !important;
+            padding: 0.6rem 0.5rem !important;
             border: none !important;
             white-space: nowrap;
         }
@@ -216,11 +231,11 @@
         }
 
         #TablePersonal tbody tr td {
-            padding: 0.65rem 0.6rem !important;
+            padding: 0.5rem 0.45rem !important;
             border: none !important;
             border-bottom: 1px solid #f1f1f1 !important;
             vertical-align: middle;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: #2d3436;
         }
 

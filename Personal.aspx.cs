@@ -438,14 +438,12 @@ public partial class Personal : System.Web.UI.Page
                                     "Personal.aspx", "SELECCIONAR");
 
                                     if(rpta==true) {
-                                        System.Web.UI.WebControls.Button b = new System.Web.UI.WebControls.Button();
-                                        b.Text = "Personal";
-                                        b.ToolTip = "Seleccione Personal";
-                                        b.BorderStyle = BorderStyle.None;
-                                        b.CausesValidation = false;
-                                        b.UseSubmitBehavior = true;
-                                        b.CssClass = "btn btn-dark";
-                                        b.CommandArgument = dt.Rows[i]["ID_PERSONAL"].ToString().Trim() + "," +
+                                        System.Web.UI.WebControls.LinkButton lb = new System.Web.UI.WebControls.LinkButton();
+                                        lb.Text = "Personal";
+                                        lb.ToolTip = "Seleccione Personal";
+                                        lb.CausesValidation = false;
+                                        lb.CssClass = "btn-link-personal";
+                                        lb.CommandArgument = dt.Rows[i]["ID_PERSONAL"].ToString().Trim() + "," +
                                                             dt.Rows[i]["SEDE"].ToString().Trim() + "," +
                                                             dt.Rows[i]["LOCAL"].ToString().Trim() + "," +
                                                             dt.Rows[i]["AREA"].ToString().Trim() + "," +
@@ -461,10 +459,9 @@ public partial class Personal : System.Web.UI.Page
                                                             dt.Rows[i]["EMAIL"].ToString() + "," +
                                                             dt.Rows[i]["ESTADO"].ToString() + "," +
                                                             dt.Rows[i]["CARGO"].ToString();
-                                        //b.PostBackUrl = "ejemplo.aspx?CODIGOEJEMPLO=" + dt.Rows[i]["COD EJEMPLO"].ToString() + "&CODIGOSUBTEMA=" + dt.Rows[i]["COD SUBTEMA"].ToString() + "&SUBTEMA=" + dt.Rows[i]["SUB TEMA"].ToString();
-                                        b.Click += new System.EventHandler(visualiza_datos_personal);
+                                        lb.Click += new System.EventHandler(visualiza_datos_personal);
                                         tCell.HorizontalAlign = HorizontalAlign.Center;
-                                        tCell.Controls.Add(b);
+                                        tCell.Controls.Add(lb);
                                         tRow.Cells.Add(tCell);
                                     }else {
                                         tCell.Text = "SIN PERMISO PARA ESTA OPCION";
