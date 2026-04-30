@@ -52,22 +52,6 @@
             background: rgba(255, 255, 255, 0.1);
         }
 
-        .navbar-modern .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 4px;
-            left: 50%;
-            width: 0;
-            height: 2px;
-            background: #e94560;
-            transition: all 0.3s ease;
-            transform: translateX(-50%);
-        }
-
-        .navbar-modern .nav-link:hover::after {
-            width: 60%;
-        }
-
         .navbar-modern .dropdown-toggle::after {
             border-top: 0.3em solid;
             transition: transform 0.3s ease;
