@@ -642,6 +642,10 @@
                             </asp:DropDownList>
                             <asp:RequiredFieldValidator ID="rfvSede" runat="server" ControlToValidate="Sede"
                                                        ErrorMessage="*" CssClass="validator-error" />
+                            <asp:RegularExpressionValidator ID="revSede" runat="server" ControlToValidate="Sede"
+                                                             Display="Dynamic" ErrorMessage="*"
+                                                             CssClass="validator-error"
+                                                             ValidationExpression="\d{1,999}" />
                         </div>
                         <div class="col-md-3 col-sm-6">
                             <label class="form-label-modern">Local</label>
@@ -652,6 +656,10 @@
                             </asp:DropDownList>
                             <asp:RequiredFieldValidator ID="rfvLocal" runat="server" ControlToValidate="Local"
                                                        ErrorMessage="*" CssClass="validator-error" />
+                            <asp:RegularExpressionValidator ID="revLocal" runat="server" ControlToValidate="Local"
+                                                             Display="Dynamic" ErrorMessage="*"
+                                                             CssClass="validator-error"
+                                                             ValidationExpression="\d{1,999}" />
                         </div>
                         <div class="col-md-3 col-sm-6">
                             <label class="form-label-modern">&Aacute;rea</label>
@@ -661,6 +669,10 @@
                             </asp:DropDownList>
                             <asp:RequiredFieldValidator ID="rfvArea" runat="server" ControlToValidate="Area"
                                                        ErrorMessage="*" CssClass="validator-error" />
+                            <asp:RegularExpressionValidator ID="revArea" runat="server" ControlToValidate="Area"
+                                                             Display="Dynamic" ErrorMessage="*"
+                                                             CssClass="validator-error"
+                                                             ValidationExpression="\d{1,999}" />
                         </div>
                     </div>
 
@@ -674,6 +686,10 @@
                             </asp:DropDownList>
                             <asp:RequiredFieldValidator ID="rfvDependencia" runat="server" ControlToValidate="Dependencia"
                                                        ErrorMessage="*" CssClass="validator-error" />
+                            <asp:RegularExpressionValidator ID="revDependencia" runat="server" ControlToValidate="Dependencia"
+                                                             Display="Dynamic" ErrorMessage="*"
+                                                             CssClass="validator-error"
+                                                             ValidationExpression="\d{1,999}" />
                         </div>
                         <div class="col-md-4 col-sm-6">
                             <label class="form-label-modern">Cargo</label>

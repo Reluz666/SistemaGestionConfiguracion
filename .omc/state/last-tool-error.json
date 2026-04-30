@@ -1,0 +1,7 @@
+{
+  "tool_name": "Read",
+  "tool_input_preview": "{\"file_path\":\"C:\\\\Users\\\\ALEJANDRO\\\\SistemaGestionConfiguracion\\\\Personal.aspx\",\"offset\":140,\"limit\":120}",
+  "error": "File does not exist. Note: your current working directory is C:\\Users\\LOCALADMINPJ\\Documents\\SistemaGestionConfiguracion.",
+  "timestamp": "2026-04-30T20:51:59.903Z",
+  "retry_count": 1
+}
