@@ -104,11 +104,13 @@
             object-fit: cover;
             display: block;
             filter: brightness(0.85) contrast(1.1);
+            box-shadow: 0 4px 20px rgba(212, 9, 36, 0.5);
         }
 
         /* ===== CUERPO DEL CARD ===== */
         .login-card-body {
             padding: 2.5rem 2.5rem 2.5rem;
+            border-top: 2px solid rgba(212, 9, 36, 0.3);
         }
 
         /* ===== INPUT GROUP ===== */
