@@ -15,11 +15,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
     <!-- DataTables.net CSS -->
     <link href="https://cdn.jsdelivr.net/npm/datatables.net-bs5@2.0.1/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
-    <!-- Custom Menu CSS -->
-    <link href="CssJs/Menu.css" rel="stylesheet" />
 
     <style>
-        /* ===== NAVBAR MODERNA ===== */
+        /* ===== NAVBAR ===== */
         .navbar-modern {
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             border: none;
@@ -31,12 +29,10 @@
             color: #fff !important;
             font-weight: 600;
             font-size: 1.2rem;
-            transition: all 0.3s ease;
         }
 
         .navbar-modern .navbar-brand:hover {
             color: #e94560 !important;
-            transform: translateX(3px);
         }
 
         .navbar-modern .nav-link {
@@ -44,21 +40,12 @@
             font-weight: 500;
             padding: 0.6rem 1rem !important;
             border-radius: 8px;
-            transition: color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+            transition: color 0.2s, background 0.2s;
         }
 
         .navbar-modern .nav-link:hover {
             color: #fff !important;
             background: rgba(255, 255, 255, 0.1);
-        }
-
-        .navbar-modern .dropdown-toggle::after {
-            border-top: 0.3em solid;
-            transition: transform 0.3s ease;
-        }
-
-        .navbar-modern .dropdown-toggle:hover::after {
-            transform: rotate(180deg);
         }
 
         .navbar-modern .dropdown-menu {
@@ -67,25 +54,18 @@
             border-radius: 12px;
             padding: 0.5rem;
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-            animation: fadeIn 0.2s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         .navbar-modern .dropdown-item {
             color: rgba(255, 255, 255, 0.8);
             border-radius: 8px;
             padding: 0.5rem 1rem;
-            transition: all 0.2s ease;
+            transition: all 0.2s;
         }
 
         .navbar-modern .dropdown-item:hover {
             background: rgba(233, 69, 96, 0.2);
             color: #fff;
-            transform: translateX(5px);
         }
 
         .navbar-modern .dropdown-submenu {
@@ -107,7 +87,7 @@
             border-radius: 12px;
         }
 
-        /* ===== FORMULARIO MODERNO ===== */
+        /* ===== FORMULARIO ===== */
         .form-card {
             background: #fff;
             border-radius: 16px;
@@ -138,7 +118,7 @@
             border: 2px solid #e9ecef;
             border-radius: 10px;
             padding: 0.6rem 1rem;
-            transition: all 0.3s ease;
+            transition: border-color 0.3s, box-shadow 0.3s;
             font-size: 0.95rem;
         }
 
@@ -156,79 +136,96 @@
             cursor: pointer;
         }
 
-        /* ===== TABLA MODERNA ===== */
-        .table-modern-wrapper {
+        /* ===== TABLA - moderna pero SIN DataTables interfering con asp:Table ===== */
+        .table-wrapper {
             background: #fff;
             border-radius: 16px;
             box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
-            padding: 1rem;
+            padding: 1.5rem;
             border: 1px solid rgba(0, 0, 0, 0.05);
             overflow-x: auto;
         }
 
-        .table-modern {
+        .table-modern-grid {
             border-collapse: separate !important;
             border-spacing: 0;
+            width: 100%;
             min-width: 900px;
-            width: 100% !important;
         }
 
-        .table-modern thead tr th {
+        .table-modern-grid thead tr th {
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             color: #fff;
             font-weight: 600;
             font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            padding: 0.7rem 0.5rem !important;
+            padding: 0.75rem 0.6rem !important;
             border: none !important;
             white-space: nowrap;
         }
 
-        .table-modern thead tr th:first-child {
-            border-radius: 10px 0 0 10px !important;
+        .table-modern-grid thead tr th:first-child {
+            border-radius: 10px 0 0 10px;
         }
 
-        .table-modern thead tr th:last-child {
-            border-radius: 0 10px 10px 0 !important;
+        .table-modern-grid thead tr th:last-child {
+            border-radius: 0 10px 10px 0;
         }
 
-        .table-modern tbody tr {
-            transition: all 0.2s ease;
-        }
-
-        .table-modern tbody tr:hover {
-            background: rgba(233, 69, 96, 0.05) !important;
-        }
-
-        .table-modern tbody tr td {
-            padding: 0.6rem 0.5rem !important;
+        .table-modern-grid tbody tr td {
+            padding: 0.65rem 0.6rem !important;
             border: none;
             border-bottom: 1px solid #f1f1f1;
             vertical-align: middle;
             font-size: 0.85rem;
             color: #2d3436;
+            background: #fff;
         }
 
-        .table-modern tbody tr:last-child td {
+        .table-modern-grid tbody tr:hover td {
+            background: rgba(233, 69, 96, 0.04);
+        }
+
+        .table-modern-grid tbody tr:last-child td {
             border-bottom: none;
         }
 
-        .table-modern .btn-sm {
-            padding: 0.35rem 0.75rem;
-            font-size: 0.8rem;
-            border-radius: 8px;
+        /* Subclass for asp:Table to apply same styling */
+        #TablePersonal {
+            border-collapse: separate !important;
+            border-spacing: 0;
+            width: 100%;
+            min-width: 900px;
         }
 
-        .estado-activo {
-            color: #00b894;
+        #TablePersonal thead tr th {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
             font-weight: 600;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 0.75rem 0.6rem !important;
+            border: none !important;
+            white-space: nowrap;
         }
 
-        .estado-inactivo {
-            color: #e94560;
-            font-weight: 600;
+        #TablePersonal tbody tr:hover td {
+            background: rgba(233, 69, 96, 0.04) !important;
         }
+
+        #TablePersonal tbody tr td {
+            padding: 0.65rem 0.6rem !important;
+            border: none !important;
+            border-bottom: 1px solid #f1f1f1 !important;
+            vertical-align: middle;
+            font-size: 0.85rem;
+            color: #2d3436;
+        }
+
+        .estado-activo { color: #00b894; font-weight: 600; }
+        .estado-inactivo { color: #e94560; font-weight: 600; }
 
         /* ===== BOTONES ===== */
         .btn-modern {
@@ -245,35 +242,6 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
-        .btn-modern:active {
-            transform: translateY(0);
-        }
-
-        .btn-success-modern {
-            background: linear-gradient(135deg, #00b894 0%, #00a085 100%);
-            color: #fff;
-        }
-
-        .btn-warning-modern {
-            background: linear-gradient(135deg, #fdcb6e 0%, #f39c12 100%);
-            color: #2d3436;
-        }
-
-        .btn-danger-modern {
-            background: linear-gradient(135deg, #e94560 0%, #c0392b 100%);
-            color: #fff;
-        }
-
-        .btn-primary-modern {
-            background: linear-gradient(135deg, #0984e3 0%, #0652DD 100%);
-            color: #fff;
-        }
-
-        .btn-secondary-modern {
-            background: linear-gradient(135deg, #636e72 0%, #535c5f 100%);
-            color: #fff;
-        }
-
         /* ===== VALIDATORS ===== */
         .validator-error {
             color: #e94560;
@@ -281,46 +249,8 @@
             font-weight: 500;
         }
 
-        /* ===== DATA TABLES CUSTOM ===== */
-        .dataTables_filter input {
-            border: 2px solid #e9ecef;
-            border-radius: 8px;
-            padding: 0.5rem 1rem;
-            margin-left: 0.5rem;
-        }
-
-        .dataTables_filter input:focus {
-            border-color: #e94560;
-            outline: none;
-        }
-
-        .dataTables_length select {
-            border: 2px solid #e9ecef;
-            border-radius: 8px;
-            padding: 0.4rem 2rem 0.4rem 0.75rem;
-        }
-
-        .dataTables_paginate .paginate_button {
-            border-radius: 8px !important;
-            margin: 0 2px;
-        }
-
-        .dataTables_paginate .paginate_button.current {
-            background: linear-gradient(135deg, #e94560 0%, #c0392b 100%) !important;
-            color: #fff !important;
-            border: none !important;
-        }
-
-        .dataTables_paginate .paginate_button:hover {
-            background: rgba(233, 69, 96, 0.1) !important;
-            color: #e94560 !important;
-            border: none !important;
-        }
-
         /* ===== SPACER ===== */
-        .top-spacer {
-            height: 100px;
-        }
+        .top-spacer { height: 100px; }
 
         /* ===== RESPONSIVE ===== */
         @media (max-width: 991px) {
@@ -330,21 +260,19 @@
                 margin-left: 1rem;
                 box-shadow: none;
             }
-
-            .form-card {
-                padding: 1.5rem;
-            }
-
-            .table-modern-wrapper {
-                padding: 1rem;
-            }
+            .form-card { padding: 1.5rem; }
+            .table-wrapper { padding: 1rem; }
         }
 
         @media (max-width: 576px) {
-            .btn-modern {
-                width: 100%;
-                margin-bottom: 0.5rem;
-            }
+            .btn-modern { width: 100%; margin-bottom: 0.5rem; }
+        }
+
+        /* ===== PAGINACION MANUAL (Bootstrap-only, sin DataTables) ===== */
+        .pagination-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-top: 1.5rem;
         }
     </style>
 
@@ -354,77 +282,97 @@
             if (mensaje != "") {
                 alert(mensaje);
                 var pagina = document.getElementById("__pagina").value;
-                if (pagina !== "")
-                    location.href = pagina;
+                if (pagina !== "") location.href = pagina;
             }
         }
 
         function Confirmar(men) {
-            if (!confirm(men))
-                return false;
+            if (!confirm(men)) return false;
             return true;
         }
 
         function SoloNumeros() {
-            if ((event.keyCode < 48) || (event.keyCode > 57)) {
-                event.returnValue = false;
-            }
+            if ((event.keyCode < 48) || (event.keyCode > 57)) event.returnValue = false;
         }
 
         function SoloLetrasMinusculas() {
-            if (!((event.keyCode >= 97 && event.keyCode <= 122) || event.keyCode == 32 || event.keyCode == 193 || event.keyCode == 201 || event.keyCode == 205 || event.keyCode == 209 || event.keyCode == 211 || event.keyCode == 218 || event.keyCode == 220 || event.keyCode == 241)) {
-                event.returnValue = false;
-            }
+            if (!((event.keyCode >= 97 && event.keyCode <= 122) || event.keyCode == 32
+                || event.keyCode == 193 || event.keyCode == 201 || event.keyCode == 205
+                || event.keyCode == 209 || event.keyCode == 211 || event.keyCode == 218
+                || event.keyCode == 220 || event.keyCode == 241)) event.returnValue = false;
         }
 
         function CambiaLetraMayuscula(Caja) {
             document.getElementById(Caja).value = document.getElementById(Caja).value.toUpperCase();
         }
 
-        function initDataTable() {
-            if (typeof $.fn.DataTable !== 'undefined') {
-                if ($.fn.DataTable.isDataTable('#tblPersonalDataTables')) {
-                    $('#tblPersonalDataTables').DataTable().destroy();
-                }
-                // Copiar las filas de la asp:Table oculta al tbody de la tabla visible
-                $('#tblPersonalDataTables tbody').html('');
-                $('#TablePersonal tr').each(function () {
-                    var $cells = $(this).find('td');
-                    if ($cells.length > 0) {
-                        var tr = $('<tr></tr>');
-                        $cells.each(function () {
-                            tr.append($('<td>' + $(this).html() + '</td>'));
-                        });
-                        $('#tblPersonalDataTables tbody').append(tr);
-                    }
-                });
-                // Mostrar la tabla visible, ocultar la asp:Table
-                $('#TablePersonal').css('visibility', 'hidden');
-                $('#tblPersonalDataTables').show();
-                $('#tblPersonalDataTables').DataTable({
-                    language: {
-                        url: 'https://cdn.jsdelivr.net/npm/datatables.net-plugins@2.0.1/i18n/es-ES.json'
-                    },
-                    lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
-                    pageLength: 10,
-                    order: [[1, 'asc']],
-                    dom: 'lfBrtip',
-                    buttons: [],
-                    responsive: true
-                });
-            }
+        function pageLoad() {
+            initPagination();
         }
 
-        function pageLoad() {
-            initDataTable();
+        function initPagination() {
+            var rows = document.querySelectorAll('#TablePersonal tbody tr');
+            var rowsPerPage = 10;
+            var totalRows = rows.length;
+            var totalPages = Math.ceil(totalRows / rowsPerPage);
+            var currentPage = 1;
+
+            function showPage(page) {
+                currentPage = page;
+                var start = (page - 1) * rowsPerPage;
+                var end = start + rowsPerPage;
+                rows.forEach(function (row, idx) {
+                    row.style.display = (idx >= start && idx < end) ? '' : 'none';
+                });
+                renderPagination();
+            }
+
+            function renderPagination() {
+                var wrapper = document.getElementById('paginationWrapper');
+                if (!wrapper || totalPages <= 1) {
+                    if (wrapper) wrapper.style.display = 'none';
+                    return;
+                }
+                wrapper.style.display = 'flex';
+                wrapper.innerHTML = '';
+
+                var prev = document.createElement('li');
+                prev.className = 'page-item' + (currentPage === 1 ? ' disabled' : '');
+                prev.innerHTML = '<a class="page-link" href="#" aria-label="Anterior">&laquo;</a>';
+                prev.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    if (currentPage > 1) showPage(currentPage - 1);
+                });
+                wrapper.appendChild(prev);
+
+                for (var i = 1; i <= totalPages; i++) {
+                    var li = document.createElement('li');
+                    li.className = 'page-item' + (i === currentPage ? ' active' : '');
+                    li.innerHTML = '<a class="page-link" href="#">' + i + '</a>';
+                    li.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        showPage(parseInt(this.textContent));
+                    });
+                    wrapper.appendChild(li);
+                }
+
+                var next = document.createElement('li');
+                next.className = 'page-item' + (currentPage === totalPages ? ' disabled' : '');
+                next.innerHTML = '<a class="page-link" href="#" aria-label="Siguiente">&raquo;</a>';
+                next.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    if (currentPage < totalPages) showPage(currentPage + 1);
+                });
+                wrapper.appendChild(next);
+            }
+
+            showPage(1);
         }
-        $(document).ready(function () {
-            initDataTable();
-        });
+    </script>
 </head>
 <body onload="MostrarMensaje()">
 
-    <!-- ========== NAVBAR MODERNA ========== -->
+    <!-- ========== NAVBAR ========== -->
     <nav class="navbar navbar-expand-lg navbar-modern fixed-top">
         <div class="container-fluid">
             <a class="navbar-brand" href="../menu.aspx">
@@ -732,32 +680,32 @@
                 </div>
             </div>
 
-            <!-- Card Tabla de Resultados -->
-            <div class="table-modern-wrapper">
-                <table id="tblPersonalDataTables" class="table table-modern table-hover w-100">
-                    <thead>
-                        <tr>
-                            <th>ID PER</th>
-                            <th>SEDE</th>
-                            <th>LOCAL</th>
-                            <th>&Aacute;REA</th>
-                            <th>DEPENDENCIA</th>
-                            <th>C&Oacute;DIGO</th>
-                            <th>PERSONAL</th>
-                            <th>TIPO DOC</th>
-                            <th>NRO. DOC.</th>
-                            <th>PROFESI&Oacute;N</th>
-                            <th>TEL&Eacute;FONO</th>
-                            <th>EMAIL</th>
-                            <th>CARGO</th>
-                            <th>ESTADO</th>
-                            <th>SELECCIONAR</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tbodyPersonal" runat="server">
-                    </tbody>
-                </table>
-                <asp:Table ID="TablePersonal" runat="server" style="position:absolute;visibility:hidden;" />
+            <!-- Tabla de Resultados - asp:Table directa con paginacion manual JS -->
+            <div class="table-wrapper">
+                <asp:Table ID="TablePersonal" runat="server" CssClass="table table-modern-grid table-hover">
+                    <asp:TableRow ID="TableRow1" runat="server">
+                        <asp:TableCell ID="tcId" runat="server" Visible="false">ID PER</asp:TableCell>
+                        <asp:TableCell ID="tcSede" runat="server">SEDE</asp:TableCell>
+                        <asp:TableCell ID="tcLocal" runat="server">LOCAL</asp:TableCell>
+                        <asp:TableCell ID="tcArea" runat="server">&Aacute;REA</asp:TableCell>
+                        <asp:TableCell ID="tcDependencia" runat="server">DEPENDENCIA</asp:TableCell>
+                        <asp:TableCell ID="tcCodigo" runat="server">C&Oacute;DIGO</asp:TableCell>
+                        <asp:TableCell ID="tcPersonal" runat="server">PERSONAL</asp:TableCell>
+                        <asp:TableCell ID="tcTipoDocIdent" runat="server">TIPO DOC</asp:TableCell>
+                        <asp:TableCell ID="tcNroDoc" runat="server">NRO. DOC.</asp:TableCell>
+                        <asp:TableCell ID="tcProfesion" runat="server">PROFESI&Oacute;N</asp:TableCell>
+                        <asp:TableCell ID="tcTelefono" runat="server">TEL&Eacute;FONO</asp:TableCell>
+                        <asp:TableCell ID="tcEmail" runat="server">EMAIL</asp:TableCell>
+                        <asp:TableCell ID="tcCargo" runat="server">CARGO</asp:TableCell>
+                        <asp:TableCell ID="tcEstado" runat="server">ESTADO</asp:TableCell>
+                        <asp:TableCell ID="seleccionar_personal" runat="server">SELECCIONAR</asp:TableCell>
+                    </asp:TableRow>
+                </asp:Table>
+
+                <!-- Paginacion manual -->
+                <div class="pagination-wrapper">
+                    <ul id="paginationWrapper" class="pagination" style="flex-wrap: wrap;"></ul>
+                </div>
             </div>
 
             <!-- Hidden Fields -->
@@ -771,19 +719,11 @@
     <!-- Scripts -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/datatables.net@2.0.1/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/datatables.net-bs5@2.0.1/js/dataTables.bootstrap5.min.js"></script>
     <script type="text/javascript" src="../Otros_css_js/resaltar.js"></script>
 
     <script type="text/javascript">
-        // pageLoad se ejecuta tras cada postback/partial-postback
-        function pageLoad() {
-            initDataTable();
-            ResaltarFila('TablePersonal');
-        }
         $(document).ready(function () {
-            initDataTable();
-            ResaltarFila('TablePersonal');
+            initPagination();
         });
     </script>
 
