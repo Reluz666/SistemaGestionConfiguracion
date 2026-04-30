@@ -82,7 +82,7 @@
             overflow: hidden;
             width: 100%;
             max-width: 420px;
-            border: 1px solid var(--border-color);
+            border: 1px solid rgba(212, 9, 36, 0.4);
             animation: slideUp 0.5s ease;
         }
 
@@ -93,51 +93,17 @@
 
         /* ===== HEADER DEL CARD ===== */
         .login-card-header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             padding: 0;
             position: relative;
             overflow: hidden;
         }
 
-        .login-card-header::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.4) 100%);
-            z-index: 1;
-        }
-
         .login-card-header img {
             width: 100%;
-            height: 180px;
+            height: 200px;
             object-fit: cover;
             display: block;
-        }
-
-        .login-logo {
-            position: absolute;
-            bottom: -35px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 70px;
-            height: 70px;
-            background: var(--primary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 3px solid var(--card-bg);
-            z-index: 2;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-        }
-
-        .login-logo i {
-            font-size: 2rem;
-            color: #fff;
-        }
-
-        .login-title {
-            display: none;
+            filter: brightness(0.85) contrast(1.1);
         }
 
         /* ===== CUERPO DEL CARD ===== */
@@ -367,9 +333,6 @@
             <!-- Header -->
             <div class="login-card-header">
                 <img src="imagenes/fondo1.jpg" alt="Corte Superior de Justicia de Lambayeque" />
-                <div class="login-logo">
-                    <i class="bi bi-shield-lock-fill"></i>
-                </div>
             </div>
 
             <!-- Body -->
