@@ -509,7 +509,7 @@ public partial class Personal : System.Web.UI.Page
     {
         this.__mensaje.Value = "";
         this.__pagina.Value = "";
-        System.Web.UI.WebControls.Button b = (System.Web.UI.WebControls.Button)sender;
+        System.Web.UI.WebControls.LinkButton b = (System.Web.UI.WebControls.LinkButton)sender;
         String Registro = b.CommandArgument.Trim();
         String[] Datos = Registro.Split(',');
         this.ID_PERSONAL.Value = Datos[0];
