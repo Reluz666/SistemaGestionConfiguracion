@@ -189,7 +189,7 @@
                                    Usuario</label>
                         <asp:TextBox ID="login" runat="server"  placeholder="Ingresar Usuario"
                         autocomplete = "off" CssClass="form-control input"  onchange="CambiaLetraMayuscula('login')" 
-                        onkeypress="SoloLetrasMinusculas(event)"    onKeyDown="if(event.keyCode==13) event.keyCode=9;" >GERENTE</asp:TextBox>
+                        onkeypress="SoloLetrasMinusculas(event)"    onKeyDown="if(event.keyCode==13) event.keyCode=9;" >DANGELO</asp:TextBox>
 
                     <asp:RequiredFieldValidator ID="rfvlogin" runat="server" BackColor="Yellow" 
                         ControlToValidate="login" Display="Dynamic" ErrorMessage="*" ForeColor="Red" 

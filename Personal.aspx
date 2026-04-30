@@ -386,23 +386,20 @@
                 if ($.fn.DataTable.isDataTable('#tblPersonalDataTables')) {
                     $('#tblPersonalDataTables').DataTable().destroy();
                 }
-                // Copiar las filas generadas por el asp:Table al tbody de DataTables
-                var rows = [];
-                $('#TablePersonal tr').each(function () {
-                    var row = [];
-                    $(this).find('td').each(function () {
-                        row.push($(this).html());
-                    });
-                    if (row.length > 0) rows.push(row);
-                });
+                // Copiar las filas de la asp:Table oculta al tbody de la tabla visible
                 $('#tblPersonalDataTables tbody').html('');
-                rows.forEach(function (r) {
-                    var tr = $('<tr></tr>');
-                    r.forEach(function (c) { tr.append($('<td>' + c + '</td>')); });
-                    $('#tblPersonalDataTables tbody').append(tr);
+                $('#TablePersonal tr').each(function () {
+                    var $cells = $(this).find('td');
+                    if ($cells.length > 0) {
+                        var tr = $('<tr></tr>');
+                        $cells.each(function () {
+                            tr.append($('<td>' + $(this).html() + '</td>'));
+                        });
+                        $('#tblPersonalDataTables tbody').append(tr);
+                    }
                 });
-                // Ocultar la asp:Table original
-                $('#TablePersonal').hide();
+                // Mostrar la tabla visible, ocultar la asp:Table
+                $('#TablePersonal').css('visibility', 'hidden');
                 $('#tblPersonalDataTables').show();
                 $('#tblPersonalDataTables').DataTable({
                     language: {
