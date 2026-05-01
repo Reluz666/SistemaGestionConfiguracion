@@ -1,13 +1,14 @@
 <!-- ijfw schema:1 codebase-index -->
 # Codebase index
 
-Generated: 2026-04-30T20:29:37Z
+Generated: 2026-04-30T22:16:02Z
 Root: .
 
-Files: 441
+Files: 442
 
 ## By file
 
+- `./CLAUDE.md` (18 lines, .md) -- Stack: unknown
 - `./Otros_css_js/chosen.jquery.js` (1090 lines, .js) -- (function() {
 - `./Otros_css_js/jquery-1.8.1.min.js` (1 lines, .js) -- (function(a,b){function G(a){var b=F[a]={};return p.each(a.split(s),function(a,c){b[c]=!0}),b}function J(a,c,d){if(d===b
 - `./Otros_css_js/jquery-2.1.1.min.js` (4 lines, .js) -- !function(a,b){\"object\"==typeof module&&\"object\"==typeof module.exports?module.exports=a.document?b(a,!0):function(a
@@ -452,3 +453,4 @@ Files: 441
 
 ## By language
 - .js: 441
+- .md: 1

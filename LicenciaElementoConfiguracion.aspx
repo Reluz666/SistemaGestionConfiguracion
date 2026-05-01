@@ -1,58 +1,265 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="LicenciaElementoConfiguracion.aspx.cs" Inherits="Licencia_Elemento_Configuracion" UnobtrusiveValidationMode="None" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="LicenciaElementoConfiguracion.aspx.cs" Inherits="Licencia_Elemento_Configuracion" UnobtrusiveValidationMode="None" %>
 
 <!DOCTYPE html>
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Licencia Elemento Configuracion</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Licencia Elemento Configuracion</title>
 
-    <!-- Bootstrap -->
-    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-     <link href="CssJs/Menu.css" rel="stylesheet" />
-
-    <script src="../Otros_css_js/resaltar.js" type="text/javascript"></script>
-    <link rel="stylesheet" href="../Otros_css_js/estilo.css" type="text/css" />
-
-    <script type="text/javascript" src="../src/js/jscal2.js"></script>
-    <script type="text/javascript" src="../src/js/lang/es.js"></script>
-    <link rel="stylesheet" type="text/css" href="../src/css/jscal2.css" />
-    <link rel="stylesheet" type="text/css" href="../src/css/border-radius.css" />
-    <link rel="stylesheet" type="text/css" href="../src/css/steel/steel.css" />
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+    <!-- DataTables.net CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/datatables.net-bs5@2.0.1/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
 
     <style>
-        .dropdown-submenu {
+        /* ===== NAVBAR ===== */
+        .navbar-modern {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border: none;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.15);
+            padding: 0.8rem 1rem;
+        }
+
+        .navbar-modern .navbar-brand {
+            color: #fff !important;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        .navbar-modern .navbar-brand:hover {
+            color: #e94560 !important;
+        }
+
+        .navbar-modern .nav-link {
+            color: rgba(255, 255, 255, 0.85) !important;
+            font-weight: 500;
+            padding: 0.6rem 1rem !important;
+            border-radius: 8px;
+            transition: color 0.2s, background 0.2s;
+        }
+
+        .navbar-modern .nav-link:hover {
+            color: #fff !important;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .navbar-modern .dropdown-menu {
+            background: #1a1a2e;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 0.5rem;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .navbar-modern .dropdown-item {
+            color: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            transition: all 0.2s;
+        }
+
+        .navbar-modern .dropdown-item:hover {
+            background: rgba(233, 69, 96, 0.2);
+            color: #fff;
+        }
+
+        .navbar-modern .dropdown-submenu {
             position: relative;
         }
 
-            .dropdown-submenu > .dropdown-menu {
-                top: 0;
-                left: 100%;
-                margin-top: -6px;
-                margin-left: -2px;
-            }
+        .navbar-modern .dropdown-submenu > .dropdown-toggle::after {
+            border-left: 0.3em solid;
+            border-top: 0.3em solid transparent;
+            border-bottom: 0.3em solid transparent;
+            margin-left: auto;
+        }
 
-            .dropdown-submenu:hover > .dropdown-menu {
-                display: block;
-            }
+        .navbar-modern .dropdown-submenu > .dropdown-menu {
+            top: 0;
+            left: 100%;
+            margin-top: -6px;
+            margin-left: 2px;
+            border-radius: 12px;
+        }
 
-            .dropdown-submenu > a:after {
-                content: "";
-                margin-top: 6px;
-                margin-right: -10px;
-                float: right;
-                border-left: 4px solid;
-                border-top: 4px solid transparent;
-                border-bottom: 4px solid transparent;
+        .navbar-modern .dropdown-submenu:hover > .dropdown-menu {
+            display: block;
+        }
+
+        /* ===== FORMULARIO ===== */
+        .form-card {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .form-card .card-header {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            border-radius: 12px 12px 0 0;
+            padding: 1.2rem 1.5rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border: none;
+        }
+
+        .form-label-modern {
+            font-weight: 500;
+            color: #2d3436;
+            margin-bottom: 0.4rem;
+            font-size: 0.9rem;
+        }
+
+        .form-control-modern {
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 0.6rem 1rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .form-control-modern:focus {
+            border-color: #e94560;
+            box-shadow: 0 0 0 4px rgba(233, 69, 96, 0.1);
+            outline: none;
+        }
+
+        .form-control-modern::placeholder {
+            color: #adb5bd;
+        }
+
+        select.form-control-modern {
+            cursor: pointer;
+        }
+
+        /* ===== TABLA ===== */
+        .table-wrapper {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
+            padding: 1rem;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            overflow-x: auto;
+        }
+
+        .table-modern-grid {
+            border-collapse: separate !important;
+            border-spacing: 0;
+            width: 100%;
+            min-width: 900px;
+        }
+
+        .table-modern-grid thead tr th {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 0.6rem 0.5rem !important;
+            border: none !important;
+            white-space: nowrap;
+        }
+
+        .table-modern-grid thead tr th:first-child {
+            border-radius: 10px 0 0 10px;
+        }
+
+        .table-modern-grid thead tr th:last-child {
+            border-radius: 0 10px 10px 0;
+        }
+
+        .table-modern-grid tbody tr td {
+            padding: 0.5rem 0.45rem !important;
+            border: none;
+            border-bottom: 1px solid #f1f1f1;
+            vertical-align: middle;
+            font-size: 0.8rem;
+            color: #2d3436;
+            background: #fff;
+        }
+
+        .table-modern-grid tbody tr:hover td {
+            background: rgba(233, 69, 96, 0.04);
+        }
+
+        .table-modern-grid tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Link button "Editar" en la tabla */
+        .btn-link-personal {
+            color: #d40924;
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-decoration: none;
+            cursor: pointer;
+            background: rgba(212, 9, 36, 0.08);
+            padding: 0.25rem 0.6rem;
+            border-radius: 6px;
+            border: 1px solid rgba(212, 9, 36, 0.3);
+            transition: all 0.2s ease;
+            display: inline-block;
+        }
+
+        .btn-link-personal:hover {
+            background: rgba(212, 9, 36, 0.15);
+            border-color: #d40924;
+            text-decoration: none;
+            transform: translateY(-1px);
+        }
+
+        /* ===== BOTONES ===== */
+        .btn-modern {
+            padding: 0.6rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .btn-modern:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* ===== VALIDATORS ===== */
+        .validator-error {
+            color: #e94560;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* ===== SPACER ===== */
+        .top-spacer { height: 100px; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 991px) {
+            .navbar-modern .dropdown-submenu > .dropdown-menu {
+                position: static;
+                margin-top: 0;
+                margin-left: 1rem;
+                box-shadow: none;
             }
+            .form-card { padding: 1.5rem; }
+            .table-wrapper { padding: 1rem; }
+        }
+
+        @media (max-width: 576px) {
+            .btn-modern { width: 100%; margin-bottom: 0.5rem; }
+        }
     </style>
 
     <script lang="javascript" type="text/javascript">
-
-
         function abrir_ventana_Elementos_Configuracion_Software() {
             window.document.getElementById("ID_ELEMENTO_CONFIGURACION").value = 0;
             window.document.getElementById("TIPO_CI").value = "";
@@ -77,7 +284,6 @@
                 alert(mensaje);
                 if (document.getElementById("__pagina").value != "")
                     location.href = document.getElementById("__pagina").value;
-
             }
             document.getElementById('<%= txtFechaInicioVersion.ClientID %>').readOnly = true;
             document.getElementById('<%= txtFechaFinVersion.ClientID %>').readOnly = true;
@@ -88,39 +294,20 @@
             document.getElementById('<%= PROPIETARIO_CI.ClientID %>').readOnly = true;
             document.getElementById('<%= DESCRIPCION_CI.ClientID %>').readOnly = true;
 
-            //document.getElementById('<%= LICENCIA_PERPETUA.ClientID %>').disabled = "disabled"
-            
-
-
-
             document.getElementById("btnFechaInicioVersion").disabled = "disabled"
-            //document.getElementById("btnFechaInicioVersion").hidden = "hidden"
             document.getElementById("btnFechaFinVersion").disabled = "disabled"
-            //document.getElementById("btnFechaFinVersion").hidden = "hidden"
-
-            //window.document.getElementById("txtFechaInicioVersion").value = "";
-            //window.document.getElementById("txtFechaFinVersion").value = "";
 
             var TL = document.getElementById("ddlTIPO_LICENCIA_CI").options[document.getElementById("ddlTIPO_LICENCIA_CI").selectedIndex].text;
             var SL = document.getElementById("ddlSUSCRIPCION_LICENCIA_CI").options[document.getElementById("ddlSUSCRIPCION_LICENCIA_CI").selectedIndex].text;
             if (TL == 'PROPIETARIO' && SL != 'NINGUNA' && SL != '_____SELECCIONE SUSCRIPCION LICENCIA ELEMENTO CONFIGURACION_____') {
                 document.getElementById("btnFechaInicioVersion").disabled = ""
                 document.getElementById("btnFechaFinVersion").disabled = ""
-                //document.getElementById("btnFechaInicioVersion").hidden = ""
-                //document.getElementById("btnFechaFinVersion").hidden = ""
-
             }
-
-        }
-
-        function window_load() {
-            MostrarMensaje()
         }
 
         function Confirmar(men) {
             if (!confirm(men))
                 return false;
-
         }
 
         function SoloNumeros() {
@@ -139,424 +326,404 @@
             document.getElementById(Caja).value = document.getElementById(Caja).value.toUpperCase();
         }
     </script>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
 <body onload="MostrarMensaje()">
 
-<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
-        <!-- El logotipo y el icono que despliega el menú se agrupan
-       para mostrarlos mejor en los dispositivos móviles -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse"
-                data-target=".navbar-ex1-collapse">
-                <span class="sr-only">Desplegar navegación</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
+    <!-- ========== NAVBAR ========== -->
+    <nav class="navbar navbar-expand-lg navbar-modern fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="../menu.aspx">
+                <i class="bi bi-house-door-fill me-1"></i>Inicio
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav" aria-controls="navbarNav"
+                    aria-expanded="false" aria-label="Navegaci&oacute;n">
+                <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="navbar-brand" href="../menu.aspx"><span class="glyphicon glyphicon-home"></span>&nbsp;Inicio</a>
-            <%--<a class="navbar-brand" href="menu.aspx"><span><img src="imagenes/001-home.png" /></span>  Inicio</a>--%>
-        </div>
 
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
 
-        <!-- -->
-        <!-- Agrupar los enlaces de navegación, los formularios y cualquier
-       otro elemento que se pueda ocultar al minimizar la barra -->
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-            <ul class="nav navbar-nav">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-briefcase"></span>&nbsp;Mantenimiento <b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="Personal.aspx" runat="server" id="trabajadores_aspx">Personal</a></li>
-                        <li class="dropdown-submenu">
-                            <a href="#">Tablas Institucion</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="Sede.aspx" runat="server" id="a4">Sede</a></li>
-                                <li><a href="Local.aspx" runat="server" id="A5">Local</a></li>
-                                <li><a href="Area.aspx" runat="server" id="A6">Area</a></li>
-                                <li><a href="Dependencia.aspx" runat="server" id="A8">Dependencia</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown-submenu">
-                            <a href="#">Tablas Personal</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="Cargo.aspx" runat="server" id="area_trabajo_aspx">Cargo</a></li>
-                                <li><a href="ProfecionOcupacion.aspx" runat="server" id="Sub_Area_aspx">Profecion - Ocupacion</a></li>                               
-                            </ul>
-                        </li>
-                        <li class="divider"></li>
-                        <li class="dropdown-submenu">
-                            <a href="#">Tablas Elemento Configuracion/a>
-                            <ul class="dropdown-menu">
-                                <li><a href="Modelo.aspx" runat="server" id="A14">Modelo</a></li>
-                                <li><a href="Marca.aspx" runat="server" id="A13">Marca</a></li>
-                                <li><a href="DescripcionElementoConfiguracion.aspx" runat="server" id="A9">Descripci&oacute;n Elemento Configuraci&oacute;n</a></li>
-                                <li><a href="TiposElementoConfiguracion.aspx" runat="server" id="A10">Tipos Elemento Configuraci&oacute;n</a></li> 
-                                <li><a href="TipoRelacionElementoConfiguracion.aspx" runat="server" id="A11">Tipo Relaci&oacute;n Elemento Configuraci&oacute;n</a></li>
-                                <li><a href="TipoComponeneteCI.aspx" runat="server" id="A12">Tipo Componenete Elemento Configuraci&oacute;n</a></li> 
-                                <li><a href="EstadoActualCI.aspx" runat="server" id="A15">Estado Actual Elemento Configuraci&oacute;n</a></li>                                                                                                                             
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
+                    <!-- Mantenimiento -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="mantenimientoDropdown"
+                           role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-briefcase-fill me-1"></i>Mantenimiento
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="mantenimientoDropdown">
+                            <li><a class="dropdown-item" href="Personal.aspx">Personal</a></li>
+                            <li class="dropdown-submenu">
+                                <a class="dropdown-item dropdown-toggle" href="#">Tablas Instituci&oacute;n</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="Sede.aspx">Sede</a></li>
+                                    <li><a class="dropdown-item" href="Local.aspx">Local</a></li>
+                                    <li><a class="dropdown-item" href="Area.aspx">&Aacute;rea</a></li>
+                                    <li><a class="dropdown-item" href="Dependencia.aspx">Dependencia</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown-submenu">
+                                <a class="dropdown-item dropdown-toggle" href="#">Tablas Personal</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="Cargo.aspx">Cargo</a></li>
+                                    <li><a class="dropdown-item" href="ProfecionOcupacion.aspx">Profesi&oacute;n - Ocupaci&oacute;n</a></li>
+                                </ul>
+                            </li>
+                            <li><hr class="dropdown-divider" /></li>
+                            <li class="dropdown-submenu">
+                                <a class="dropdown-item dropdown-toggle" href="#">Tablas Elemento Configuraci&oacute;n</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="Modelo.aspx">Modelo</a></li>
+                                    <li><a class="dropdown-item" href="Marca.aspx">Marca</a></li>
+                                    <li><a class="dropdown-item" href="DescripcionElementoConfiguracion.aspx">Descripci&oacute;n Elemento Configuraci&oacute;n</a></li>
+                                    <li><a class="dropdown-item" href="TiposElementoConfiguracion.aspx">Tipos Elemento Configuraci&oacute;n</a></li>
+                                    <li><a class="dropdown-item" href="TipoRelacionElementoConfiguracion.aspx">Tipo Relaci&oacute;n Elemento Configuraci&oacute;n</a></li>
+                                    <li><a class="dropdown-item" href="TipoComponeneteCI.aspx">Tipo Componente Elemento Configuraci&oacute;n</a></li>
+                                    <li><a class="dropdown-item" href="EstadoActualCI.aspx">Estado Actual Elemento Configuraci&oacute;n</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
 
+                    <!-- Gesti&oacute;n de Configuraci&oacute;n -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="gestionDropdown"
+                           role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-lines-fill me-1"></i>Gesti&oacute;n de Configuraci&oacute;n
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="gestionDropdown">
+                            <li><a class="dropdown-item" href="ElementosConfiguracion.aspx">Elementos de Configuraci&oacute;n</a></li>
+                            <li><a class="dropdown-item" href="RelacionesElementosConfiguracion.aspx">Relaci&oacute;n de Elementos de Configuraci&oacute;n</a></li>
+                            <li><hr class="dropdown-divider" /></li>
+                            <li><a class="dropdown-item" href="CIsAsignarComponenetes.aspx">Asignar Componentes Elementos de Configuraci&oacute;n</a></li>
+                            <li><hr class="dropdown-divider" /></li>
+                            <li><a class="dropdown-item" href="LicenciasElementoConfiguracion.aspx">Licencias de Elementos de Configuraci&oacute;n</a></li>
+                            <li><hr class="dropdown-divider" /></li>
+                            <li><a class="dropdown-item" href="SeguimientosElementoConfiguracion.aspx">Seguimiento de Elementos de Configuraci&oacute;n</a></li>
+                        </ul>
+                    </li>
 
-            <ul class="nav navbar-nav">
-                <!--<li class="active"><a href="#">Enlace #1</a></li>
-                <li><a href="#">Enlace #2</a></li>-->
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: white"><span class="glyphicon glyphicon-user"></span>&nbsp;Gesti&oacute;n de Configuraci&oacute;n <b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu">
-                        
-                        <li><a href="ElementosConfiguracion.aspx" runat="server" id="ElementosConfiguracion_aspx">Elementos de Configuracio&oacute;n</a></li>
-                        <li><a href="RelacionesElementosConfiguracion.aspx" runat="server" id="PrendaMovimientos_aspx">Relacio&oacute;n de Elementos de Configuracio&oacute;n</a></li>
-                        <li class="divider"></li>
-                        <li><a href="CIsAsignarComponenetes.aspx" runat="server" id="A3">Asignar Componentes Elementos de Configuraci&oacute;n</a></li>
-                        <li class="divider"></li>
-                        <li><a href="LicenciasElementoConfiguracion.aspx" runat="server" id="A1">Licencias de Elementos de Configuraci&oacute;n</a></li>
-                        <li class="divider"></li>
-                        <li><a href="SeguimientosElementoConfiguracion.aspx" runat="server" id="_Asistencias_aspx">Seguimiento de Elementos de Configuraci&oacute;n</a></li>                        
-                    </ul>
-                </li>
-            </ul>
+                    <!-- Reportes -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="reportesDropdown"
+                           role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-file-earmark-bar-graph-fill me-1"></i>Reportes
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="reportesDropdown">
+                            <li><a class="dropdown-item" href="../Reportes/ReporteElementosConfiguracion.aspx">Reporte de Elementos de Configuraci&oacute;n</a></li>
+                            <li><a class="dropdown-item" href="../Reportes/ReporteRelacionesElementosConfiguracion.aspx">Reporte de Relaciones de Elementos de Configuraci&oacute;n</a></li>
+                            <li><a class="dropdown-item" href="../Reportes/ReporteSeguimientosElementoConfiguracion.aspx">Reporte de Seguimientos de Elementos de Configuraci&oacute;n</a></li>
+                            <li><a class="dropdown-item" href="../Reportes/ReporteLicenciasElementoConfiguracion.aspx">Reporte de Licencias de Elementos de Configuraci&oacute;n</a></li>
+                            <li><a class="dropdown-item" href="../Reportes/ReporteCIsSeguidos.aspx">Reporte de Elementos de Configuraci&oacute;n Seguidos</a></li>
+                            <li><a class="dropdown-item" href="../Reportes/ReporteComponentesAsignados.aspx">Reporte de Componentes de Elementos de Configuraci&oacute;n Asignados</a></li>
+                            <li><hr class="dropdown-divider" /></li>
+                            <li><a class="dropdown-item" href="../Reportes/ReporteDatosCorrectosCI.aspx">Reporte de Datos Correctos de Elementos de Configuraci&oacute;n</a></li>
+                            <li><a class="dropdown-item" href="../Reportes/ReporteDatosIncorrectosCI.aspx">Reporte de Datos Incorrectos de Elementos de Configuraci&oacute;n</a></li>
+                            <li><a class="dropdown-item" href="../Reportes/ReporteCIsInformacionContenidaEnCMDB.aspx">Reporte de Informaci&oacute;n de Elementos de Configuraci&oacute;n Contenidas en la CMDB</a></li>
+                        </ul>
+                    </li>
 
-            <ul class="nav navbar-nav">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-file"></span>&nbsp;Reportes <b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="../Reportes/ReporteElementosConfiguracion.aspx" runat="server" id="A16">Reporte de Elementos de Configuraci&oacute;n</a></li>
-                        <li><a href="../Reportes/ReporteRelacionesElementosConfiguracion.aspx" runat="server" id="A17">Reporte de Relaciones de Elementos de Configuraci&oacute;n</a></li>
-                        <li><a href="../Reportes/ReporteSeguimientosElementoConfiguracion.aspx" runat="server" id="A18">Reporte de Seguimientos de Elementos de Configuraci&oacute;n</a></li>
-                        <li><a href="../Reportes/ReporteLicenciasElementoConfiguracion.aspx" runat="server" id="A19">Reporte de Licencias de Elementos de Configuraci&oacute;n</a></li>
-                        <li><a href="../Reportes/ReporteCIsSeguidos.aspx" runat="server" id="A24">Reporte de Elementos de Configuraci&oacute;n Seguidos</a></li>
-                        <li><a href="../Reportes/ReporteComponentesAsignados.aspx" runat="server" id="A20">Reporte de Componentes de Elementos de Configuraci&oacute;n Asignados</a></li>
-                        <li class="divider"></li>
-                        
-                        <li><a href="../Reportes/ReporteDatosCorrectosCI.aspx" runat="server" id="A21">Reporte de Datos Correctos de Elementos de Configuraci&oacute;n</a></li>
-                        <li><a href="../Reportes/ReporteDatosIncorrectosCI .aspx" runat="server" id="A22">Reporte de Datos Incorrectos de Elementos de Configuraci&oacute;n</a></li>
-                        <li><a href="../Reportes/ReporteCIsInformacionContenidaEnCMDB .aspx" runat="server" id="A23">Reporte de Informaci&oacute;n de Elementos de Configuraci&oacute;n Contenidas en la CMDB</a></li>
-                             
-                        
-                    </ul>
-                </li>
-            </ul>
-
-
-            <ul class="nav navbar-nav">
-
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: black"><span class="glyphicon glyphicon-wrench"></span>&nbsp;Configuraciones <b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="Usuario.aspx" runat="server" id="usuarios_aspx">Usuarios</a></li>
-                        <li><a href="../Configuracion/Usuarios.aspx" runat="server" id="permisos_aspx">Permisos</a></li>
-                        <li class="divider"></li>
-                        <li><a href="CerrarSession.aspx" style="text-align: left; color: red;">Cerrar Sesion</a></li>
-                    </ul>
-                </li>
-            </ul>
+                    <!-- Configuraciones -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="configDropdown"
+                           role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-gear-fill me-1"></i>Configuraciones
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="configDropdown">
+                            <li><a class="dropdown-item" href="Usuario.aspx">Usuarios</a></li>
+                            <li><a class="dropdown-item" href="../Configuracion/Usuarios.aspx">Permisos</a></li>
+                            <li><hr class="dropdown-divider" /></li>
+                            <li><a class="dropdown-item" href="CerrarSession.aspx" style="color: #e94560;">Cerrar Sesi&oacute;n</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
 
-    <%--  ......NO CAMBIAR.........  --%>
-    <div class="section">
-        <div class="container">
-            <div class="row main-low-margin">
-                <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1">
-                    <h3>-</h3>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!-- Espaciador para navbar fija -->
+    <div class="top-spacer"></div>
 
+    <!-- ========== FORMULARIO ========== -->
     <form id="form1" runat="server" class="form-horizontal" role="form">
-        <div class="form-group">
-            <div class="col-sm-offset-3 col-sm-10">
-
-                <label for="lblTitulo" class="col-sm-3 control-label">Ingrese Datos Licencia</label>
-
+        <div class="form-card">
+            <div class="card-header">
+                <i class="bi bi-file-earmark-plus-fill me-2"></i>Ingrese Datos Licencia
             </div>
-        </div>
-        <div class="form-group">
-            <label for="lblTIPO_LICENCIA_CI" class="col-sm-3 control-label">Tipo Licencia:</label>
-            <div class="col-sm-5">
+            <div class="card-body p-4">
+                <div class="form-group">
+                    <label for="lblTIPO_LICENCIA_CI" class="col-sm-3 control-label">Tipo Licencia:</label>
+                    <div class="col-sm-5">
 
-                <asp:DropDownList ID="ddlTIPO_LICENCIA_CI" runat="server" CssClass="form-control input-sm"
-                    AppendDataBoundItems="True" AutoPostBack="True" OnSelectedIndexChanged="ddlTIPO_LICENCIA_CI_SelectedIndexChanged">
-                    <asp:ListItem Value="-1">_____SELECCIONE TIPO LICENCIA ELEMENTO CONFIGURACION_____</asp:ListItem>
-                </asp:DropDownList>
+                        <asp:DropDownList ID="ddlTIPO_LICENCIA_CI" runat="server" CssClass="form-control input-sm"
+                            AppendDataBoundItems="True" AutoPostBack="True" OnSelectedIndexChanged="ddlTIPO_LICENCIA_CI_SelectedIndexChanged">
+                            <asp:ListItem Value="-1">_____SELECCIONE TIPO LICENCIA ELEMENTO CONFIGURACION_____</asp:ListItem>
+                        </asp:DropDownList>
 
-                <asp:RequiredFieldValidator ID="rfvTIPO_LICENCIA_CI" runat="server" ControlToValidate="ddlTIPO_LICENCIA_CI" ErrorMessage="*" ForeColor="Red" SetFocusOnError="True"></asp:RequiredFieldValidator>
-                <asp:RegularExpressionValidator ID="revTIPO_LICENCIA_CI" runat="server" BackColor="White"
-                    ControlToValidate="ddlTIPO_LICENCIA_CI" Display="Dynamic" ErrorMessage="*" ForeColor="Red"
-                    SetFocusOnError="True" ValidationExpression="[1-999]"></asp:RegularExpressionValidator>
+                        <asp:RequiredFieldValidator ID="rfvTIPO_LICENCIA_CI" runat="server" ControlToValidate="ddlTIPO_LICENCIA_CI" ErrorMessage="*" ForeColor="Red" SetFocusOnError="True"></asp:RequiredFieldValidator>
+                        <asp:RegularExpressionValidator ID="revTIPO_LICENCIA_CI" runat="server" BackColor="White"
+                            ControlToValidate="ddlTIPO_LICENCIA_CI" Display="Dynamic" ErrorMessage="*" ForeColor="Red"
+                            SetFocusOnError="True" ValidationExpression="[1-999]"></asp:RegularExpressionValidator>
 
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="lblSUSCRIPCION_LICENCIA_CI" class="col-sm-3 control-label">Suscripcion Licencia:</label>
-            <div class="col-sm-5">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="lblSUSCRIPCION_LICENCIA_CI" class="col-sm-3 control-label">Suscripcion Licencia:</label>
+                    <div class="col-sm-5">
 
-                <asp:DropDownList ID="ddlSUSCRIPCION_LICENCIA_CI" runat="server" CssClass="form-control input-sm"
-                    AppendDataBoundItems="True" AutoPostBack="True" OnSelectedIndexChanged="ddlSUSCRIPCION_LICENCIA_CI_SelectedIndexChanged">
-                    <asp:ListItem Value="-1">_____SELECCIONE SUSCRIPCION LICENCIA ELEMENTO CONFIGURACION_____</asp:ListItem>
-                </asp:DropDownList>
+                        <asp:DropDownList ID="ddlSUSCRIPCION_LICENCIA_CI" runat="server" CssClass="form-control input-sm"
+                            AppendDataBoundItems="True" AutoPostBack="True" OnSelectedIndexChanged="ddlSUSCRIPCION_LICENCIA_CI_SelectedIndexChanged">
+                            <asp:ListItem Value="-1">_____SELECCIONE SUSCRIPCION LICENCIA ELEMENTO CONFIGURACION_____</asp:ListItem>
+                        </asp:DropDownList>
 
-                <asp:RequiredFieldValidator ID="rfvSUSCRIPCION_LICENCIA_CI" runat="server" ControlToValidate="ddlSUSCRIPCION_LICENCIA_CI" ErrorMessage="*" ForeColor="Red" SetFocusOnError="True"></asp:RequiredFieldValidator>
-                <asp:RegularExpressionValidator ID="revSUSCRIPCION_LICENCIA_CI" runat="server" BackColor="White"
-                    ControlToValidate="ddlSUSCRIPCION_LICENCIA_CI" Display="Dynamic" ErrorMessage="*" ForeColor="Red"
-                    SetFocusOnError="True" ValidationExpression="[1-999]"></asp:RegularExpressionValidator>
+                        <asp:RequiredFieldValidator ID="rfvSUSCRIPCION_LICENCIA_CI" runat="server" ControlToValidate="ddlSUSCRIPCION_LICENCIA_CI" ErrorMessage="*" ForeColor="Red" SetFocusOnError="True"></asp:RequiredFieldValidator>
+                        <asp:RegularExpressionValidator ID="revSUSCRIPCION_LICENCIA_CI" runat="server" BackColor="White"
+                            ControlToValidate="ddlSUSCRIPCION_LICENCIA_CI" Display="Dynamic" ErrorMessage="*" ForeColor="Red"
+                            SetFocusOnError="True" ValidationExpression="[1-999]"></asp:RegularExpressionValidator>
 
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="lblNOMBRE" class="col-sm-3 control-label">Nombre:</label>
-            <div class="col-sm-5">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="lblNOMBRE" class="col-sm-3 control-label">Nombre:</label>
+                    <div class="col-sm-5">
 
-                <asp:TextBox ID="NOMBRE" runat="server" CssClass="form-control input-sm" MaxLength="25" Autocomplete="off" placeholder="Ingresar Nombre Licencia Elemento Configuracion" onchange="CambiaLetraMayuscula('NOMBRE')"
-                    onkeypress="SoloLetrasMinusculas()"></asp:TextBox>
+                        <asp:TextBox ID="NOMBRE" runat="server" CssClass="form-control input-sm" MaxLength="25" Autocomplete="off" placeholder="Ingresar Nombre Licencia Elemento Configuracion" onchange="CambiaLetraMayuscula('NOMBRE')"
+                            onkeypress="SoloLetrasMinusculas()"></asp:TextBox>
 
-                <asp:RequiredFieldValidator ID="rfvNOMBRE" runat="server" ControlToValidate="NOMBRE" ErrorMessage="*" ForeColor="Red" SetFocusOnError="True"></asp:RequiredFieldValidator>
+                        <asp:RequiredFieldValidator ID="rfvNOMBRE" runat="server" ControlToValidate="NOMBRE" ErrorMessage="*" ForeColor="Red" SetFocusOnError="True"></asp:RequiredFieldValidator>
 
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="lblVERSION" class="col-sm-3 control-label">Version:</label>
-            <div class="col-sm-5">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="lblVERSION" class="col-sm-3 control-label">Version:</label>
+                    <div class="col-sm-5">
 
-                <asp:TextBox ID="VERSION" runat="server" CssClass="form-control input-sm" MaxLength="25" Autocomplete="off" placeholder="Ingresar Version Licencia Elemento Configuracion" onchange="CambiaLetraMayuscula('VERSION')"
-                    onkeypress="SoloLetrasMinusculas()"></asp:TextBox>
+                        <asp:TextBox ID="VERSION" runat="server" CssClass="form-control input-sm" MaxLength="25" Autocomplete="off" placeholder="Ingresar Version Licencia Elemento Configuracion" onchange="CambiaLetraMayuscula('VERSION')"
+                            onkeypress="SoloLetrasMinusculas()"></asp:TextBox>
 
-                <asp:RequiredFieldValidator ID="rfvVERSION" runat="server" ControlToValidate="VERSION" ErrorMessage="*" ForeColor="Red" SetFocusOnError="True"></asp:RequiredFieldValidator>
+                        <asp:RequiredFieldValidator ID="rfvVERSION" runat="server" ControlToValidate="VERSION" ErrorMessage="*" ForeColor="Red" SetFocusOnError="True"></asp:RequiredFieldValidator>
 
-            </div>
-        </div>
+                    </div>
+                </div>
 
 
-        <div class="form-group">
-            <label for="lblFecha" class="col-sm-3 control-label">Fecha:</label>
-            <div class="col-sm-5">
+                <div class="form-group">
+                    <label for="lblFecha" class="col-sm-3 control-label">Fecha:</label>
+                    <div class="col-sm-5">
 
-                <div class="btn-group-justified">
-                    <asp:TextBox ID="txtFechaInicioVersion" runat="server"
-                        class="form-control" placeholder="Ingrese fec. inicio licencia CI" Width="" onFocus='' onChange='' onBlur=''></asp:TextBox>
-                    <span class="form-check"></span>
+                        <div class="btn-group-justified">
+                            <asp:TextBox ID="txtFechaInicioVersion" runat="server"
+                                class="form-control" placeholder="Ingrese fec. inicio licencia CI" Width="" onFocus='' onChange='' onBlur=''></asp:TextBox>
+                            <span class="form-check"></span>
 
-                    <input id="btnFechaInicioVersion" type="button"
-                        value="..." style="height: 25px; width: 25px;"
-                        class="form-check" />
-                    <asp:RequiredFieldValidator ID="rfvFechaInicioVersion" runat="server" ControlToValidate="txtFechaInicioVersion" ErrorMessage="*" ForeColor="Red" SetFocusOnError="True"></asp:RequiredFieldValidator>
-                    <span class="input-group-addon" style="border-style: none; border-color: #FFFFFF; background-color: #FFFFFF"></span>
+                            <input id="btnFechaInicioVersion" type="button"
+                                value="..." style="height: 25px; width: 25px;"
+                                class="form-check" />
+                            <asp:RequiredFieldValidator ID="rfvFechaInicioVersion" runat="server" ControlToValidate="txtFechaInicioVersion" ErrorMessage="*" ForeColor="Red" SetFocusOnError="True"></asp:RequiredFieldValidator>
+                            <span class="input-group-addon" style="border-style: none; border-color: #FFFFFF; background-color: #FFFFFF"></span>
 
-                    <asp:TextBox ID="txtFechaFinVersion" runat="server" class="form-control" placeholder="Ingrese fec. fin licencia CI" onFocus='' onChange='' onBlur=''></asp:TextBox>
-                    <span class="form-check"></span>
-                    <input id="btnFechaFinVersion" type="button"
-                        value="..." style="height: 25px; width: 25px;" class="form-check" />
-                    <span class="form-check">
+                            <asp:TextBox ID="txtFechaFinVersion" runat="server" class="form-control" placeholder="Ingrese fec. fin licencia CI" onFocus='' onChange='' onBlur=''></asp:TextBox>
+                            <span class="form-check"></span>
+                            <input id="btnFechaFinVersion" type="button"
+                                value="..." style="height: 25px; width: 25px;" class="form-check" />
+                            <span class="form-check">
 
-                        <asp:RequiredFieldValidator ID="rfvFechaFinVersion" runat="server" ControlToValidate="txtFechaFinVersion" ErrorMessage="*" ForeColor="Red" SetFocusOnError="True"></asp:RequiredFieldValidator>
+                                <asp:RequiredFieldValidator ID="rfvFechaFinVersion" runat="server" ControlToValidate="txtFechaFinVersion" ErrorMessage="*" ForeColor="Red" SetFocusOnError="True"></asp:RequiredFieldValidator>
 
-                        <asp:CompareValidator ID="cvFechas" runat="server" ControlToCompare="txtFechaInicioVersion" ControlToValidate="txtFechaFinVersion" ErrorMessage="Feha Inicio Licencia debe ser menor a la Fecha Final Licencia" ForeColor="Red" Operator="GreaterThanEqual"></asp:CompareValidator>
+                                <asp:CompareValidator ID="cvFechas" runat="server" ControlToCompare="txtFechaInicioVersion" ControlToValidate="txtFechaFinVersion" ErrorMessage="Feha Inicio Licencia debe ser menor a la Fecha Final Licencia" ForeColor="Red" Operator="GreaterThanEqual"></asp:CompareValidator>
 
-                    </span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="lblLICENCIA_PERPETUA" class="col-sm-3 control-label">Licencia Perpetua:</label>
+                    <div class="col-sm-5">
+
+
+
+                        <asp:CheckBox ID="LICENCIA_PERPETUA" runat="server" CssClass="form-check-input position-static&quot" Text="Si / No" />
+
+
+
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="lblDESCRIPCION" class="col-sm-3 control-label">Descripcion:</label>
+                    <div class="col-sm-5">
+
+                        <asp:TextBox ID="DESCRIPCION" runat="server" CssClass="form-control input-sm" MaxLength="25" Autocomplete="off" placeholder="Ingresar Descripcion Licencia Elemento Configuracion" onchange="CambiaLetraMayuscula('DESCRIPCION')"
+                            onkeypress="SoloLetrasMinusculas()"></asp:TextBox>
+
+                        <span class="form-check">
+
+                            <asp:RequiredFieldValidator ID="rfvDESCRIPCION" runat="server" ControlToValidate="DESCRIPCION" ErrorMessage="*" ForeColor="Red" SetFocusOnError="True"></asp:RequiredFieldValidator>
+
+                        </span>
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-10">
+
+                        <label for="lblTitulo" class="col-sm-3 control-label">Ingrese Datos Elemento Configuracion Software</label>
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-10">
+
+                        <asp:Button ID="btnBucar" runat="server"
+                            Style="font-family: Calibri; color: #000000; font-size: medium"
+                            Text="Buscar Elemento Configuracion"
+                            CssClass="btn btn-info" OnClick="btnBucar_Click" UseSubmitBehavior="False" />
+
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="lblTIPOCI" class="col-sm-3 control-label">Tipo CI:</label>
+                    <div class="col-sm-5">
+
+                        <asp:HiddenField ID="ID_ELEMENTO_CONFIGURACION" runat="server" Value="0"
+                            EnableViewState="False" />
+
+                        <asp:TextBox ID="TIPO_CI" runat="server" CssClass="form-control input-sm" MaxLength="25" Autocomplete="off" placeholder="Ingresar Tipo Elemento Configuracion" onchange="CambiaLetraMayuscula('TIPO_CI')"
+                            onkeypress="SoloLetrasMinusculas()"></asp:TextBox>
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="lblNOMBRCI" class="col-sm-3 control-label">Nombre CI:</label>
+                    <div class="col-sm-5">
+
+                        <asp:TextBox ID="NOMBRE_CI" runat="server" CssClass="form-control input-sm" MaxLength="25" Autocomplete="off" placeholder="Ingresar Nombre Elemento Configuracion" onchange="CambiaLetraMayuscula('NOMBRE_CI')"
+                            onkeypress="SoloLetrasMinusculas()"></asp:TextBox>
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="lblNROSERIE" class="col-sm-3 control-label">Nro. Serie:</label>
+                    <div class="col-sm-5">
+
+                        <asp:TextBox ID="NRO_SERIE" runat="server" CssClass="form-control input-sm" MaxLength="25" Autocomplete="off" placeholder="Ingresar Nro. Serie Elemento Configuracion" onchange="CambiaLetraMayuscula('NRO_SERIE')"
+                            onkeypress="SoloLetrasMinusculas()"></asp:TextBox>
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="lblPROPIETARIOCI" class="col-sm-3 control-label">Propietario CI:</label>
+                    <div class="col-sm-5">
+
+                        <asp:TextBox ID="PROPIETARIO_CI" runat="server" CssClass="form-control input-sm" MaxLength="25" Autocomplete="off" placeholder="Ingresar Propietario Elemento Configuracion" onchange="CambiaLetraMayuscula('PROPIETARIO_CI')"
+                            onkeypress="SoloLetrasMinusculas()"></asp:TextBox>
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="lblDESCRIPCION_CI" class="col-sm-3 control-label">Descripcion CI:</label>
+                    <div class="col-sm-5">
+
+                        <asp:TextBox ID="DESCRIPCION_CI" runat="server" CssClass="form-control input-sm" MaxLength="25" Autocomplete="off" placeholder="Ingresar Descripcion Licencia Elemento Configuracion" onchange="CambiaLetraMayuscula('DESCRIPCION_CI')"
+                            onkeypress="SoloLetrasMinusculas()"></asp:TextBox>
+
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-10">
+
+                        <asp:Button ID="btnAgregarCI" runat="server"
+                            Style="font-family: Calibri; color: #000000; font-size: medium"
+                            Text="Agregar Elemento Configuracion"
+                            CssClass="btn btn-info" CausesValidation="False" OnClick="btnAgregarCI_Click" />
+
+
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="col-sm-offset-1 col-sm-8">
+
+                        <asp:Table ID="Table_" runat="server" CssClass="form-control input"
+                            class="table table-hover table-condensed" BackColor="White" BorderColor="White"
+                            CellPadding="6" CellSpacing="2" Font-Size="Small" GridLines="Both" Width="100%"
+                            Style="text-align: left">
+                            <asp:TableRow ID="TableRow1" runat="server">
+                                <asp:TableCell ID="tcID_RE" runat="server" BackColor="Black" BorderColor="Black"
+                                    ForeColor="White" Width="7%" Visible="false">ID RE</asp:TableCell>
+
+                                <asp:TableCell ID="tcIdCi" runat="server" BackColor="Black" BorderColor="Black"
+                                    ForeColor="White" Width="7%" Visible="false">ID CI</asp:TableCell>
+
+                                <asp:TableCell ID="tcTipo_CI" runat="server" BackColor="Black" BorderColor="Black"
+                                    ForeColor="White" Width="20%">TIPO CI</asp:TableCell>
+
+                                <asp:TableCell ID="tcNombre_CI" runat="server" BackColor="Black" BorderColor="Black"
+                                    ForeColor="White" Width="20%">NOMBRE CI</asp:TableCell>
+
+                                <asp:TableCell ID="tcNro_Serie" runat="server" BackColor="Black" BorderColor="Black"
+                                    ForeColor="White" Width="20%">NRO. SERIE</asp:TableCell>
+
+                                <asp:TableCell ID="tcPropietario_CI" runat="server" BackColor="Black" BorderColor="Black"
+                                    ForeColor="White" Width="20%">PROPIETARIO CI</asp:TableCell>
+
+                                <asp:TableCell ID="tcDescripcion_CI" runat="server" BackColor="Black" BorderColor="Black"
+                                    ForeColor="White" Width="20%" Visible="true">DESCRIPCION CI</asp:TableCell>
+
+                                <asp:TableCell ID="seleccionar_personal" runat="server" BackColor="Black" BorderColor="Black"
+                                    ForeColor="White" Width="7%" HorizontalAlign="Center">CI</asp:TableCell>
+
+
+                            </asp:TableRow>
+                        </asp:Table>
+
+                    </div>
+                </div>
+
+
+
+                <div class="form-group">
+                    <div class="col-sm-offset-4 col-sm-10">
+
+                        <asp:Button ID="btnRegistrar" runat="server"
+                            Style="font-family: Calibri; color: #000000; font-size: medium"
+                            Text="Aceptar"
+                            CssClass="btn btn-success" OnClick="btnRegistrar_Click" />
+                        <asp:Button ID="btnCancelar" runat="server" class="btn btn-danger"
+                            Style="font-family: Calibri; font-size: medium" Text="Cancelar" CausesValidation="False" PostBackUrl="~/LicenciasElementoConfiguracion.aspx" />
+
+                        <asp:HiddenField ID="__mensaje" runat="server" />
+                        <asp:HiddenField ID="__pagina" runat="server" />
+
+                        <b>
+                            <asp:HiddenField ID="_operacion" runat="server" Value="N"
+                                EnableViewState="False" />
+                            <asp:HiddenField ID="hfFILA_DETALLE_RELACION_LICENCIA_ELEMENTO_CONFIGURACION" runat="server" Value="-1" />
+                            <asp:HiddenField ID="hfID_LICENCIA_ELE_CONF" runat="server" Value="-1" />
+                        </b>
+
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="form-group">
-            <label for="lblLICENCIA_PERPETUA" class="col-sm-3 control-label">Licencia Perpetua:</label>
-            <div class="col-sm-5">
-
-
-
-                <asp:CheckBox ID="LICENCIA_PERPETUA" runat="server" CssClass="form-check-input position-static&quot" Text="Si / No" />
-
-
-
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            <label for="lblDESCRIPCION" class="col-sm-3 control-label">Descripcion:</label>
-            <div class="col-sm-5">
-
-                <asp:TextBox ID="DESCRIPCION" runat="server" CssClass="form-control input-sm" MaxLength="25" Autocomplete="off" placeholder="Ingresar Descripcion Licencia Elemento Configuracion" onchange="CambiaLetraMayuscula('DESCRIPCION')"
-                    onkeypress="SoloLetrasMinusculas()"></asp:TextBox>
-
-                <span class="form-check">
-
-                    <asp:RequiredFieldValidator ID="rfvDESCRIPCION" runat="server" ControlToValidate="DESCRIPCION" ErrorMessage="*" ForeColor="Red" SetFocusOnError="True"></asp:RequiredFieldValidator>
-
-                </span>
-
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-sm-offset-3 col-sm-11">
-
-                <label for="lblTitulo" class="col-sm-3 control-label">Ingrese Datos Elemento Configuracion Software</label>
-
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-sm-offset-3 col-sm-10">
-
-                <asp:Button ID="btnBucar" runat="server"
-                    Style="font-family: Calibri; color: #000000; font-size: medium"
-                    Text="Buscar Elemento Configuracion"
-                    CssClass="btn btn-info" OnClick="btnBucar_Click" UseSubmitBehavior="False" />
-
-
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="lblTIPOCI" class="col-sm-3 control-label">Tipo CI:</label>
-            <div class="col-sm-5">
-
-                <asp:HiddenField ID="ID_ELEMENTO_CONFIGURACION" runat="server" Value="0"
-                    EnableViewState="False" />
-
-                <asp:TextBox ID="TIPO_CI" runat="server" CssClass="form-control input-sm" MaxLength="25" Autocomplete="off" placeholder="Ingresar Tipo Elemento Configuracion" onchange="CambiaLetraMayuscula('TIPO_CI')"
-                    onkeypress="SoloLetrasMinusculas()"></asp:TextBox>
-
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="lblNOMBRCI" class="col-sm-3 control-label">Nombre CI:</label>
-            <div class="col-sm-5">
-
-                <asp:TextBox ID="NOMBRE_CI" runat="server" CssClass="form-control input-sm" MaxLength="25" Autocomplete="off" placeholder="Ingresar Nombre Elemento Configuracion" onchange="CambiaLetraMayuscula('NOMBRE_CI')"
-                    onkeypress="SoloLetrasMinusculas()"></asp:TextBox>
-
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="lblNROSERIE" class="col-sm-3 control-label">Nro. Serie:</label>
-            <div class="col-sm-5">
-
-                <asp:TextBox ID="NRO_SERIE" runat="server" CssClass="form-control input-sm" MaxLength="25" Autocomplete="off" placeholder="Ingresar Nro. Serie Elemento Configuracion" onchange="CambiaLetraMayuscula('NRO_SERIE')"
-                    onkeypress="SoloLetrasMinusculas()"></asp:TextBox>
-
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="lblPROPIETARIOCI" class="col-sm-3 control-label">Propietario CI:</label>
-            <div class="col-sm-5">
-
-                <asp:TextBox ID="PROPIETARIO_CI" runat="server" CssClass="form-control input-sm" MaxLength="25" Autocomplete="off" placeholder="Ingresar Propietario Elemento Configuracion" onchange="CambiaLetraMayuscula('PROPIETARIO_CI')"
-                    onkeypress="SoloLetrasMinusculas()"></asp:TextBox>
-
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="lblDESCRIPCION_CI" class="col-sm-3 control-label">Descripcion CI:</label>
-            <div class="col-sm-5">
-
-                <asp:TextBox ID="DESCRIPCION_CI" runat="server" CssClass="form-control input-sm" MaxLength="25" Autocomplete="off" placeholder="Ingresar Descripcion Licencia Elemento Configuracion" onchange="CambiaLetraMayuscula('DESCRIPCION_CI')"
-                    onkeypress="SoloLetrasMinusculas()"></asp:TextBox>
-
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            <div class="col-sm-offset-3 col-sm-10">
-
-                <asp:Button ID="btnAgregarCI" runat="server"
-                    Style="font-family: Calibri; color: #000000; font-size: medium"
-                    Text="Agregar Elemento Configuracion"
-                    CssClass="btn btn-info" CausesValidation="False" OnClick="btnAgregarCI_Click" />
-
-
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            <div class="col-sm-offset-1 col-sm-8">
-
-                <asp:Table ID="Table_" runat="server" CssClass="form-control input"
-                    class="table table-hover table-condensed" BackColor="White" BorderColor="White"
-                    CellPadding="6" CellSpacing="2" Font-Size="Small" GridLines="Both" Width="100%"
-                    Style="text-align: left">
-                    <asp:TableRow ID="TableRow1" runat="server">
-                        <asp:TableCell ID="tcID_RE" runat="server" BackColor="Black" BorderColor="Black"
-                            ForeColor="White" Width="7%" Visible="false">ID RE</asp:TableCell>
-
-                        <asp:TableCell ID="tcIdCi" runat="server" BackColor="Black" BorderColor="Black"
-                            ForeColor="White" Width="7%" Visible="false">ID CI</asp:TableCell>
-
-                        <asp:TableCell ID="tcTipo_CI" runat="server" BackColor="Black" BorderColor="Black"
-                            ForeColor="White" Width="20%">TIPO CI</asp:TableCell>
-
-                        <asp:TableCell ID="tcNombre_CI" runat="server" BackColor="Black" BorderColor="Black"
-                            ForeColor="White" Width="20%">NOMBRE CI</asp:TableCell>
-
-                        <asp:TableCell ID="tcNro_Serie" runat="server" BackColor="Black" BorderColor="Black"
-                            ForeColor="White" Width="20%">NRO. SERIE</asp:TableCell>
-
-                        <asp:TableCell ID="tcPropietario_CI" runat="server" BackColor="Black" BorderColor="Black"
-                            ForeColor="White" Width="20%">PROPIETARIO CI</asp:TableCell>
-
-                        <asp:TableCell ID="tcDescripcion_CI" runat="server" BackColor="Black" BorderColor="Black"
-                            ForeColor="White" Width="20%" Visible="true">DESCRIPCION CI</asp:TableCell>
-
-                        <asp:TableCell ID="seleccionar_personal" runat="server" BackColor="Black" BorderColor="Black"
-                            ForeColor="White" Width="7%" HorizontalAlign="Center">CI</asp:TableCell>
-
-
-                    </asp:TableRow>
-                </asp:Table>
-
-            </div>
-        </div>
-
-
-
-        <div class="form-group">
-            <div class="col-sm-offset-4 col-sm-10">
-
-                <asp:Button ID="btnRegistrar" runat="server"
-                    Style="font-family: Calibri; color: #000000; font-size: medium"
-                    Text="Aceptar"
-                    CssClass="btn btn-success" OnClick="btnRegistrar_Click" />
-                <asp:Button ID="btnCancelar" runat="server" class="btn btn-danger"
-                    Style="font-family: Calibri; font-size: medium" Text="Cancelar" CausesValidation="False" PostBackUrl="~/LicenciasElementoConfiguracion.aspx" />
-
-                <asp:HiddenField ID="__mensaje" runat="server" />
-                <asp:HiddenField ID="__pagina" runat="server" />
-
-                <b>
-                    <asp:HiddenField ID="_operacion" runat="server" Value="N" 
-                        EnableViewState="False" />
-                    <asp:HiddenField ID="hfFILA_DETALLE_RELACION_LICENCIA_ELEMENTO_CONFIGURACION" runat="server" Value="-1" />
-                    <asp:HiddenField ID="hfID_LICENCIA_ELE_CONF" runat="server" Value="-1" />
-                </b>
-
-            </div>
     </form>
 
-    <script lang ="JavaScript" type="text/javascript">
-        ResaltarFila('Table_');
-    </script>	
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="../Otros_css_js/resaltar.js"></script>
 
-    <script type="text/javascript" src="../bootstrap/js/jquery-1.12.4.min.js"></script>
-    <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
-
-
-    <script type="text/javascript">//<![CDATA[
+    <script type="text/javascript">
         Calendar.setup({
             inputField: "txtFechaInicioVersion",
             trigger: "btnFechaInicioVersion",
@@ -571,6 +738,7 @@
             showTime: 12,
             dateFormat: "%d/%m/%Y"
         });
-        //]]></script>
+    </script>
+
 </body>
 </html>
