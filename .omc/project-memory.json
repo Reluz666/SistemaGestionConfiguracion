@@ -150,8 +150,20 @@
     },
     {
       "path": "acceso.aspx",
-      "accessCount": 13,
-      "lastAccessed": 1777584204516,
+      "accessCount": 14,
+      "lastAccessed": 1777665695642,
+      "type": "file"
+    },
+    {
+      "path": "",
+      "accessCount": 12,
+      "lastAccessed": 1777666784193,
+      "type": "directory"
+    },
+    {
+      "path": "GCS_3.sql",
+      "accessCount": 11,
+      "lastAccessed": 1777667268834,
       "type": "file"
     },
     {
@@ -159,12 +171,6 @@
       "accessCount": 8,
       "lastAccessed": 1777587366807,
       "type": "file"
-    },
-    {
-      "path": "",
-      "accessCount": 7,
-      "lastAccessed": 1777587312647,
-      "type": "directory"
     },
     {
       "path": "Area.aspx",
@@ -347,6 +353,12 @@
       "type": "file"
     },
     {
+      "path": "acceso.aspx.cs",
+      "accessCount": 4,
+      "lastAccessed": 1777667423014,
+      "type": "file"
+    },
+    {
       "path": "Reportes\\Default.aspx",
       "accessCount": 3,
       "lastAccessed": 1777586707568,
@@ -407,9 +419,27 @@
       "type": "file"
     },
     {
+      "path": "Menu.aspx",
+      "accessCount": 2,
+      "lastAccessed": 1777667428503,
+      "type": "file"
+    },
+    {
       "path": "web.config",
       "accessCount": 1,
       "lastAccessed": 1777581614953,
+      "type": "file"
+    },
+    {
+      "path": ".planning\\brainstorm\\dashboard-preview.html",
+      "accessCount": 1,
+      "lastAccessed": 1777667027850,
+      "type": "file"
+    },
+    {
+      "path": "Dashboard.aspx",
+      "accessCount": 1,
+      "lastAccessed": 1777667372447,
       "type": "file"
     }
   ],
