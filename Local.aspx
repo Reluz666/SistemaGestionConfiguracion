@@ -631,7 +631,7 @@
                              <asp:TextBox ID="Pagnia_Web_Local" runat="server" CssClass="form-control input-sm" MaxLength="50" Autocomplete = "off" placeholder="Ingrese Pagiina Web" onchange=""
                         onkeypress=""></asp:TextBox>
                              <asp:RequiredFieldValidator ID="rfvPagnia_Web_Local" runat="server" ControlToValidate="Pagnia_Web_Local" ErrorMessage="*" ForeColor="Red" SetFocusOnError="True"></asp:RequiredFieldValidator>
-                             <asp:RegularExpressionValidator ID="revPagnia_Web_Local" runat="server" ControlToValidate="Pagnia_Web_Local" ErrorMessage="Direccion Pagina Web Incorrecta" ForeColor="Red" ValidationExpression="(http|http(s)?://)?([\w-]+\.)+[\w-]+[.com|.in|.org]+(\?[\&amp;=]*)?"</asp:RegularExpressionValidator>
+                             <asp:RegularExpressionValidator ID="revPagnia_Web_Local" runat="server" ControlToValidate="Pagnia_Web_Local" ErrorMessage="Direccion Pagina Web Incorrecta" ForeColor="Red" ValidationExpression="https?://[\w\-\.]+(\/[\w\-\./\?]*)?"></asp:RegularExpressionValidator>
                         </td>
 
 
