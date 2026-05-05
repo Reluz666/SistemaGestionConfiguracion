@@ -13,10 +13,71 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
-    <!-- DataTables.net CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/datatables.net-bs5@2.0.1/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    <!-- Global Styles -->
+    <link href="CssJs/global-styles.css" rel="stylesheet" />
 
     <style>
+        /* Solo estilos específicos de tabla para Personal */
+        #TablePersonal {
+            border-collapse: separate !important;
+            border-spacing: 0;
+            width: 100%;
+            min-width: 900px;
+        }
+
+        #TablePersonal thead tr th {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 0.6rem 0.5rem !important;
+            border: none !important;
+            white-space: nowrap;
+        }
+
+        #TablePersonal tbody tr:hover td {
+            background: rgba(233, 69, 96, 0.04) !important;
+        }
+
+        #TablePersonal tbody tr td {
+            padding: 0.5rem 0.45rem !important;
+            border: none !important;
+            border-bottom: 1px solid #f1f1f1 !important;
+            vertical-align: middle;
+            font-size: 0.8rem;
+            color: #2d3436;
+        }
+
+        .estado-activo { color: #00b894; font-weight: 600; }
+        .estado-inactivo { color: #e94560; font-weight: 600; }
+
+        /* ===== PAGINACION ===== */
+        .pagination-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+            gap: 0.25rem;
+        }
+
+        .pagination-wrapper .page-item.active .page-link {
+            background: #e94560;
+            border-color: #e94560;
+        }
+
+        .pagination-wrapper .page-link {
+            border-radius: 8px;
+            margin: 0 2px;
+            color: #2d3436;
+        }
+
+        .pagination-wrapper .page-link:hover {
+            background: rgba(233, 69, 96, 0.1);
+            color: #e94560;
+        }
+    </style>
         /* ===== NAVBAR ===== */
         .navbar-modern {
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);

@@ -13,10 +13,32 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
-    <!-- DataTables.net CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/datatables.net-bs5@2.0.1/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    <!-- Global Styles -->
+    <link href="CssJs/global-styles.css" rel="stylesheet" />
 
     <style>
+        .search-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.06);
+        }
+        .search-card .card-header {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            border-radius: 10px 10px 0 0;
+            padding: 0.8rem 1rem;
+            font-weight: 600;
+            margin: -1.5rem -1.5rem 1rem -1.5rem;
+        }
+        .table-scroll {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+    </style>
+
+    <script lang="javascript" type="text/javascript">
         /* ===== NAVBAR ===== */
         .navbar-modern {
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
@@ -263,7 +285,7 @@
         function MostrarMensaje() {
             var mensaje = document.getElementById("__mensaje").value;
             if (mensaje != "") {
-                alert(mensaje);
+                mostrarToast(mensaje, 'info');
                 if (document.getElementById("__pagina").value != "")
                     location.href = document.getElementById("__pagina").value;
             }
@@ -272,6 +294,57 @@
         function Confirmar(men) {
             if (!confirm(men))
                 return false;
+        }
+
+        function mostrarToast(mensaje, tipo) {
+            var container = document.getElementById('toastContainer');
+            var toastId = 'toast_' + Date.now();
+            var iconClass = 'bi-info-circle';
+            var bgClass = 'bg-primary';
+
+            switch(tipo) {
+                case 'success': iconClass = 'bi-check-circle'; bgClass = 'bg-success'; break;
+                case 'error': iconClass = 'bi-x-circle'; bgClass = 'bg-danger'; break;
+                case 'warning': iconClass = 'bi-exclamation-triangle'; bgClass = 'bg-warning'; break;
+            }
+
+            var toastHtml = '<div id="' + toastId + '" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true" data-bs-delay="5000">' +
+                '<div class="toast-header ' + bgClass + ' text-white">' +
+                '<i class="bi ' + iconClass + ' me-2"></i>' +
+                '<strong class="me-auto">Sistema</strong>' +
+                '<button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Cerrar"></button>' +
+                '</div>' +
+                '<div class="toast-body">' + mensaje + '</div>' +
+                '</div>';
+            container.insertAdjacentHTML('beforeend', toastHtml);
+            var toastElement = document.getElementById(toastId);
+            var toast = new bootstrap.Toast(toastElement);
+            toast.show();
+            toastElement.addEventListener('hidden.bs.toast', function() { toastElement.remove(); });
+        }
+
+        // Búsqueda en tiempo real
+        function buscarEnTabla(input, tablaId) {
+            var filter = input.value.toUpperCase();
+            var table = document.getElementById(tablaId);
+            var rows = table.getElementsByTagName('tr');
+
+            for (var i = 1; i < rows.length; i++) {
+                var visible = false;
+                var cells = rows[i].getElementsByTagName('td');
+
+                for (var j = 0; j < cells.length; j++) {
+                    var cell = cells[j];
+                    if (cell) {
+                        var text = cell.textContent || cell.innerText;
+                        if (text.toUpperCase().indexOf(filter) > -1) {
+                            visible = true;
+                            break;
+                        }
+                    }
+                }
+                rows[i].style.display = visible ? '' : 'none';
+            }
         }
     </script>
 </head>
@@ -396,127 +469,106 @@
         <div class="container">
             <div class="table-wrapper">
                 <div class="container-fluid">
-                    <table class="table table text-center">
-                        <tr>
-                            <td style="text-align: left" colspan="5">
-                                <asp:HyperLink ID="hlNuevoElementoConfiguracion" runat="server" NavigateUrl="~/ElementoConfiguracion.aspx?Operacion=N">Nuevo Elemento Configuracion</asp:HyperLink>
-                            </td>
-                            <td style="text-align: left">
-                                &nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: left" >
-                                <asp:CheckBox ID="cbnci" runat="server" CssClass="form-check-input position-static&quot" Font-Size="X-Small" Text="Nombre CI" AutoPostBack="True" OnCheckedChanged="cbnci_CheckedChanged"/>
-                            </td>
-                            <td style="text-align: left" >
-                                <asp:CheckBox ID="cbtci" runat="server" CssClass="form-check-input position-static&quot" Font-Size="X-Small" Text="Tipo CI" AutoPostBack="True" OnCheckedChanged="cbtci_CheckedChanged"/>
-                            </td>
-                            <td style="text-align: left" >
-                                <asp:CheckBox ID="cbeci" runat="server" CssClass="form-check-input position-static&quot" Font-Size="X-Small" Text="Estado CI" AutoPostBack="True" OnCheckedChanged="cbeci_CheckedChanged"/>
-                            </td>
-                            <td style="text-align: left" class="auto-style1" >
-                                <asp:CheckBox ID="cbpci" runat="server" CssClass="form-check-input position-static&quot" Font-Size="X-Small" Text="Propietario CI" AutoPostBack="True" OnCheckedChanged="cbpci_CheckedChanged"/>
-                            </td>
-                            <td style="text-align: left" class="auto-style1" >
-                                <asp:CheckBox ID="cbdci" runat="server" CssClass="form-check-input position-static&quot" Font-Size="X-Small" Text="Descripcion CI" AutoPostBack="True" OnCheckedChanged="cbdci_CheckedChanged"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                 <asp:TextBox ID="txtnci" runat="server" CssClass="form-control input-sm" MaxLength="25" Autocomplete = "off" placeholder="Ingresar Nombre" onchange=""
-                            onkeypress="" Enabled="False"></asp:TextBox>
-                            </td>
-                            <td>
-                                <asp:DropDownList ID="ddltci" runat="server" CssClass="form-control input-sm"
-                                            AppendDataBoundItems="True" Enabled="False"
-                                           >
-                                            <asp:ListItem Value="-1">_____SELECCIONE TIPO CI_____</asp:ListItem>
-                                        </asp:DropDownList>
-                            </td>
-                            <td>
-                                <asp:DropDownList ID="ddleci" runat="server" CssClass="form-control input-sm"
-                                            AppendDataBoundItems="True" Enabled="False"
-                                           >
-                                            <asp:ListItem Value="-1">_____SELECCIONE ESTADO CI_____</asp:ListItem>
-                                        </asp:DropDownList>
-                            </td>
-                            <td class="auto-style1">
-                                 <asp:TextBox ID="txtpci" runat="server" CssClass="form-control input-sm" MaxLength="25" Autocomplete = "off" placeholder="Ingresar Nombre" onchange=""
-                            onkeypress="" Enabled="False"></asp:TextBox>
-                            </td>
-                            <td class="auto-style1">
-                                <asp:DropDownList ID="ddldci" runat="server" CssClass="form-control input-sm"
-                                            AppendDataBoundItems="True" Enabled="False"
-                                           >
-                                            <asp:ListItem Value="-1">_____SELECCIONE DESCRIPCION CI_____</asp:ListItem>
-                                        </asp:DropDownList>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: left" >
-                                <asp:CheckBox ID="cbici" runat="server" CssClass="form-check-input position-static&quot" Font-Size="X-Small" Text="Impacto CI" AutoPostBack="True" OnCheckedChanged="cbici_CheckedChanged"/>
-                            </td>
-                            <td style="text-align: left" >
-                                <asp:CheckBox ID="cbs" runat="server" CssClass="form-check-input position-static&quot" Font-Size="X-Small" Text="Sede" AutoPostBack="True" OnCheckedChanged="cbs_CheckedChanged"/>
-                            </td>
-                            <td style="text-align: left" >
-                                <asp:CheckBox ID="cbl" runat="server" CssClass="form-check-input position-static&quot" Font-Size="X-Small" Text="Local" AutoPostBack="True" OnCheckedChanged="cbl_CheckedChanged"/>
-                            </td>
-                            <td style="text-align: left" >
-                                <asp:CheckBox ID="cba" runat="server" CssClass="form-check-input position-static&quot" Font-Size="X-Small" Text="Area" AutoPostBack="True" OnCheckedChanged="cba_CheckedChanged"/>
-                            </td>
-                            <td class="auto-style1">
-                                &nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: left" >
-                                <asp:DropDownList ID="ddlici" runat="server" CssClass="form-control input-sm"
-                                            AppendDataBoundItems="True" Enabled="False"
-                                           >
-                                            <asp:ListItem Value="-1">_____SELECCIONE IMPACTO CI_____</asp:ListItem>
-                                        </asp:DropDownList>
-                            </td>
-                            <td>
-                                <asp:DropDownList ID="ddls" runat="server" CssClass="form-control input-sm"
-                                            AppendDataBoundItems="True" Enabled="False" OnSelectedIndexChanged="ddls_SelectedIndexChanged"
-                                           >
-                                            <asp:ListItem Value="-1">_____SELECCIONE SEDE_____</asp:ListItem>
-                                        </asp:DropDownList>
-                            </td>
-                            <td>
-                                <asp:DropDownList ID="ddll" runat="server" CssClass="form-control input-sm"
-                                            AppendDataBoundItems="True" AutoPostBack="True" Enabled="False" OnSelectedIndexChanged="ddll_SelectedIndexChanged"
-                                           >
-                                            <asp:ListItem Value="-1">_____SELECCIONE LOCAL_____</asp:ListItem>
-                                        </asp:DropDownList>
-                            </td>
-                            <td class="auto-style1">
-                                <asp:DropDownList ID="ddla" runat="server" CssClass="form-control input-sm"
-                                            AppendDataBoundItems="True" Enabled="False"
-                                           >
-                                            <asp:ListItem Value="-1">_____SELECCIONE AREA_____</asp:ListItem>
-                                        </asp:DropDownList>
-                            </td>
-                            <td class="auto-style1">
-                                <asp:LinkButton ID="lbtnBuscar" runat="server" CausesValidation="False" class="btn btn-info" OnClick="lbtnBuscar_Click" Text="Buscar  &lt;span class='glyphicon glyphicon-search'&gt;&lt;/span&gt;" UseSubmitBehavior="False" />
-                                <asp:Button ID="btnActualizarInformacion" runat="server" class="btn btn-success" CssClass="btn btn-warning" onclick="btnActualizarInformacion_Click" Text="Actualizar Informacion" />
-                            </td>
-                        </tr>
-                        <tr>
-                        <td colspan="5">
-                            <asp:Image ID="Image1" runat="server" ImageUrl="~/Imagenes/CabeceraElementosConfiguracion1.png" ImageAlign="Middle" />
-                        </td>
-                        <td>
-                            &nbsp;</td>
-                    </tr>
-                        <tr>
-                        <td colspan="5">
-                        <div style="overflow-y: scroll; height: 300px">
-                            <asp:Table ID="Table_" runat="server" BackColor="White"
-                                class="table table-condensed"
-                            BorderColor="White" CellPadding="2" CellSpacing="0" Font-Size="X-Small"
-                            GridLines="Both" style="text-align: left">
-                            <asp:TableRow ID="CABECERA" runat="server" Visible="false"  >
+                    <!-- Breadcrumb -->
+            <nav aria-label="breadcrumb" class="breadcrumb-nav">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="../menu.aspx"><i class="bi bi-house-door"></i> Inicio</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Elementos de Configuración</li>
+                </ol>
+            </nav>
+
+            <!-- Card de Búsqueda -->
+            <div class="search-card">
+                <div class="card-header">
+                    <i class="bi bi-search me-2"></i>Búsqueda de Elementos de Configuración
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-4 col-sm-6">
+                            <div class="form-check">
+                                <asp:CheckBox ID="cbnci" runat="server" CssClass="form-check-input" Text="Nombre CI" AutoPostBack="True" OnCheckedChanged="cbnci_CheckedChanged"/>
+                            </div>
+                            <asp:TextBox ID="txtnci" runat="server" CssClass="form-control form-control-modern mt-2" MaxLength="25" autocomplete="off" placeholder="Ingresar Nombre" Enabled="False"></asp:TextBox>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="form-check">
+                                <asp:CheckBox ID="cbtci" runat="server" CssClass="form-check-input" Text="Tipo CI" AutoPostBack="True" OnCheckedChanged="cbtci_CheckedChanged"/>
+                            </div>
+                            <asp:DropDownList ID="ddltci" runat="server" CssClass="form-control form-control-modern mt-2" AppendDataBoundItems="True" Enabled="False">
+                                <asp:ListItem Value="-1">_____SELECCIONE TIPO CI_____</asp:ListItem>
+                            </asp:DropDownList>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="form-check">
+                                <asp:CheckBox ID="cbeci" runat="server" CssClass="form-check-input" Text="Estado CI" AutoPostBack="True" OnCheckedChanged="cbeci_CheckedChanged"/>
+                            </div>
+                            <asp:DropDownList ID="ddleci" runat="server" CssClass="form-control form-control-modern mt-2" AppendDataBoundItems="True" Enabled="False">
+                                <asp:ListItem Value="-1">_____SELECCIONE ESTADO CI_____</asp:ListItem>
+                            </asp:DropDownList>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="form-check">
+                                <asp:CheckBox ID="cbpci" runat="server" CssClass="form-check-input" Text="Propietario CI" AutoPostBack="True" OnCheckedChanged="cbpci_CheckedChanged"/>
+                            </div>
+                            <asp:TextBox ID="txtpci" runat="server" CssClass="form-control form-control-modern mt-2" MaxLength="25" autocomplete="off" placeholder="Ingresar Propietario" Enabled="False"></asp:TextBox>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="form-check">
+                                <asp:CheckBox ID="cbdci" runat="server" CssClass="form-check-input" Text="Descripción CI" AutoPostBack="True" OnCheckedChanged="cbdci_CheckedChanged"/>
+                            </div>
+                            <asp:DropDownList ID="ddldci" runat="server" CssClass="form-control form-control-modern mt-2" AppendDataBoundItems="True" Enabled="False">
+                                <asp:ListItem Value="-1">_____SELECCIONE DESCRIPCION CI_____</asp:ListItem>
+                            </asp:DropDownList>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="form-check">
+                                <asp:CheckBox ID="cbici" runat="server" CssClass="form-check-input" Text="Impacto CI" AutoPostBack="True" OnCheckedChanged="cbici_CheckedChanged"/>
+                            </div>
+                            <asp:DropDownList ID="ddlici" runat="server" CssClass="form-control form-control-modern mt-2" AppendDataBoundItems="True" Enabled="False">
+                                <asp:ListItem Value="-1">_____SELECCIONE IMPACTO CI_____</asp:ListItem>
+                            </asp:DropDownList>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="form-check">
+                                <asp:CheckBox ID="cbs" runat="server" CssClass="form-check-input" Text="Sede" AutoPostBack="True" OnCheckedChanged="cbs_CheckedChanged"/>
+                            </div>
+                            <asp:DropDownList ID="ddls" runat="server" CssClass="form-control form-control-modern mt-2" AppendDataBoundItems="True" Enabled="False" OnSelectedIndexChanged="ddls_SelectedIndexChanged">
+                                <asp:ListItem Value="-1">_____SELECCIONE SEDE_____</asp:ListItem>
+                            </asp:DropDownList>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="form-check">
+                                <asp:CheckBox ID="cbl" runat="server" CssClass="form-check-input" Text="Local" AutoPostBack="True" OnCheckedChanged="cbl_CheckedChanged"/>
+                            </div>
+                            <asp:DropDownList ID="ddll" runat="server" CssClass="form-control form-control-modern mt-2" AppendDataBoundItems="True" AutoPostBack="True" Enabled="False" OnSelectedIndexChanged="ddll_SelectedIndexChanged">
+                                <asp:ListItem Value="-1">_____SELECCIONE LOCAL_____</asp:ListItem>
+                            </asp:DropDownList>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="form-check">
+                                <asp:CheckBox ID="cba" runat="server" CssClass="form-check-input" Text="Área" AutoPostBack="True" OnCheckedChanged="cba_CheckedChanged"/>
+                            </div>
+                            <asp:DropDownList ID="ddla" runat="server" CssClass="form-control form-control-modern mt-2" AppendDataBoundItems="True" Enabled="False">
+                                <asp:ListItem Value="-1">_____SELECCIONE AREA_____</asp:ListItem>
+                            </asp:DropDownList>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-wrap gap-2 mt-3">
+                        <asp:LinkButton ID="lbtnBuscar" runat="server" CausesValidation="False" CssClass="btn btn-primary btn-modern" OnClick="lbtnBuscar_Click" UseSubmitBehavior="False">
+                            <i class="bi bi-search"></i> Buscar
+                        </asp:LinkButton>
+                        <asp:Button ID="btnActualizarInformacion" runat="server" CssClass="btn btn-warning btn-modern" OnClick="btnActualizarInformacion_Click" Text="Actualizar Información" />
+                        <a href="ElementoConfiguracion.aspx?Operacion=N" class="btn btn-success btn-modern ms-auto">
+                            <i class="bi bi-plus-circle"></i> Nuevo Elemento
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabla de Resultados -->
+            <div class="table-wrapper">
+                <asp:Table ID="Table_" runat="server" CssClass="table table-modern-grid table-hover">
+                    <asp:TableRow ID="CABECERA" runat="server" Visible="false">
                                 <asp:TableCell ID="_ID_CI" runat="server" BackColor="#FFFFC0" BorderColor="#FFFFC0"
                                          ForeColor="Green" Visible="False">ID CI</asp:TableCell>
 
@@ -581,26 +633,23 @@
                                 <asp:TableCell ID="_RESPONSABLE" runat="server" BackColor="Black" BorderColor="Black"
                                     ForeColor="White" >RESPONSABLE REGISTRO CI</asp:TableCell>
                                 <asp:TableCell ID="EDITAR" runat="server" BackColor="Black" BorderColor="Black"
-                                    ForeColor="White" Width="3%" HorizontalAlign="Center">CI</asp:TableCell>
+                                    ForeColor="White" Width="5%" HorizontalAlign="Center">ACCIONES</asp:TableCell>
                             </asp:TableRow>
                         </asp:Table>
-                         </div>
-                        </td>
-                        <td>
-                            &nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td colspan="5" >
-                            <asp:HiddenField ID="__pagina" runat="server" />
-                            <asp:HiddenField ID="__mensaje" runat="server" />
-                        </td>
-                        <td >
-                            &nbsp;</td>
-                    </tr>
-                    </table>
-               </div>
+                    </div>
+                </div>
             </div>
+
+            <asp:HiddenField ID="__pagina" runat="server" />
+            <asp:HiddenField ID="__mensaje" runat="server" />
         </div>
+    </form>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="../Otros_css_js/resaltar.js"></script>
+</body>
+</html>
     </form>
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>

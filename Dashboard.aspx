@@ -8,9 +8,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Dashboard - Sistema de Gestión de Configuración</title>
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="CssJs/Menu.css" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+    <!-- Global Styles -->
+    <link href="CssJs/global-styles.css" rel="stylesheet" />
 
     <style>
         body { background: #f4f6f9; font-family: 'Segoe UI', Tahoma, sans-serif; padding-top: 70px; }
@@ -60,7 +63,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <nav class="navbar navbar-custom navbar-fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-modern navbar-fixed-top">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
                 <span class="sr-only">Desplegar navegación</span>
@@ -68,12 +71,12 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="Menu.aspx"><span class="glyphicon glyphicon-home"></span>&nbsp;Inicio</a>
+            <a class="navbar-brand" href="Menu.aspx"><span class="bi bi-house-door"></span>&nbsp;Inicio</a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-briefcase"></span>&nbsp;Mantenimiento <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="bi bi-briefcase-fill"></i>&nbsp;Mantenimiento <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="Personal.aspx">Personal</a></li>
                         <li class="dropdown-submenu">
@@ -109,7 +112,7 @@
             </ul>
             <ul class="nav navbar-nav">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: white"><span class="glyphicon glyphicon-user"></span>&nbsp;Gestión de Configuración <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: white"><i class="bi bi-person-lines-fill"></i>&nbsp;Gestión de Configuración <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="ElementosConfiguracion.aspx">Elementos de Configuración</a></li>
                         <li><a href="RelacionesElementosConfiguracion.aspx">Relación de Elementos</a></li>
@@ -121,7 +124,7 @@
             </ul>
             <ul class="nav navbar-nav">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-file"></span>&nbsp;Reportes <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="bi bi-file-earmark-bar-graph-fill"></i>&nbsp;Reportes <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="../Reportes/ReporteElementosConfiguracion.aspx">Reporte de Elementos</a></li>
                         <li><a href="../Reportes/ReporteRelacionesElementosConfiguracion.aspx">Reporte de Relaciones</a></li>
@@ -140,7 +143,7 @@
             </ul>
             <ul class="nav navbar-nav">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" style="color: black"><span class="glyphicon glyphicon-wrench"></span>&nbsp;Configuraciones <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" style="color: black"><i class="bi bi-gear-fill"></i>&nbsp;Configuraciones <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="Usuario.aspx">Usuarios</a></li>
                         <li><a href="../Configuracion/Usuarios.aspx">Permisos</a></li>
@@ -311,8 +314,8 @@
         </div>
     </div>
 
-    <script src="bootstrap/js/jquery-1.12.4.min.js"></script>
-    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     </form>
 </body>
 </html>

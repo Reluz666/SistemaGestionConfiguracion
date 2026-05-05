@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Menu.aspx.cs" Inherits="_Default" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Menu.aspx.cs" Inherits="_Default" %>
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -9,205 +9,261 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Configuraciones</title>
-    <!-- Bootstrap -->
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="CssJs/Menu.css" rel="stylesheet" />
-
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="bootstrap/js/jquery-1.12.4.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+    <!-- Global Styles -->
+    <link href="CssJs/global-styles.css" rel="stylesheet" />
 
     <style>
-        .dropdown-submenu {
-            position: relative;
+        .hero-section {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+            padding: 4rem 2rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            text-align: center;
         }
-
-            .dropdown-submenu > .dropdown-menu {
-                top: 0;
-                left: 100%;
-                margin-top: -6px;
-                margin-left: -2px;
-            }
-
-            .dropdown-submenu:hover > .dropdown-menu {
-                display: block;
-            }
-
-            .dropdown-submenu > a:after {
-                content: "";
-                margin-top: 6px;
-                margin-right: -10px;
-                float: right;
-                border-left: 4px solid;
-                border-top: 4px solid transparent;
-                border-bottom: 4px solid transparent;
-            }
+        .hero-section h1 {
+            font-weight: 300;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .hero-section p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        .feature-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: transform 0.2s, box-shadow 0.2s;
+            height: 100%;
+            border: none;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+        .feature-card .icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+        .feature-card h5 {
+            font-weight: 600;
+            color: #2d3436;
+            margin-bottom: 0.5rem;
+        }
+        .feature-card p {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            margin: 0;
+        }
     </style>
 
     <script type="text/javascript">
          function MostrarMensaje() {
             var mensaje = document.getElementById("__mensaje").value;
             if (mensaje != "") {
-                alert(mensaje);
+                mostrarToast(mensaje, 'info');
                 if (document.getElementById("__pagina").value != "")
                     location.href = document.getElementById("__pagina").value;
-            }          
-
+            }
         }
 
-        function window_load() {
-            MostrarMensaje()
+        function mostrarToast(mensaje, tipo) {
+            var container = document.getElementById('toastContainer');
+            var toastId = 'toast_' + Date.now();
+            var iconClass = 'bi-info-circle';
+            var bgClass = 'bg-primary';
+
+            switch(tipo) {
+                case 'success': iconClass = 'bi-check-circle'; bgClass = 'bg-success'; break;
+                case 'error': iconClass = 'bi-x-circle'; bgClass = 'bg-danger'; break;
+                case 'warning': iconClass = 'bi-exclamation-triangle'; bgClass = 'bg-warning'; break;
+            }
+
+            var toastHtml = '<div id="' + toastId + '" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true" data-bs-delay="5000">' +
+                '<div class="toast-header ' + bgClass + ' text-white">' +
+                '<i class="bi ' + iconClass + ' me-2"></i>' +
+                '<strong class="me-auto">Sistema</strong>' +
+                '<button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Cerrar"></button>' +
+                '</div>' +
+                '<div class="toast-body">' + mensaje + '</div>' +
+                '</div>';
+            container.insertAdjacentHTML('beforeend', toastHtml);
+            var toastElement = document.getElementById(toastId);
+            var toast = new bootstrap.Toast(toastElement);
+            toast.show();
+            toastElement.addEventListener('hidden.bs.toast', function() { toastElement.remove(); });
         }
 
         function Confirmar(men) {
-            if (!confirm(men))
-                return false;
-
+            return confirm(men);
         }
     </script>
-
-
 </head>
 <body onload="MostrarMensaje()">
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
     <form id="form1" runat="server">
-    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
-        <!-- El logotipo y el icono que despliega el menú se agrupan
-       para mostrarlos mejor en los dispositivos móviles -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse"
-                data-target=".navbar-ex1-collapse">
-                <span class="sr-only">Desplegar navegación</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="Dashboard.aspx"><span class="glyphicon glyphicon-home"></span>&nbsp;Inicio</a>
-            <%--<a class="navbar-brand" href="menu.aspx"><span><img src="imagenes/001-home.png" /></span>  Inicio</a>--%>
-        </div>
-
-
-        <!-- -->
-        <!-- Agrupar los enlaces de navegación, los formularios y cualquier
-       otro elemento que se pueda ocultar al minimizar la barra -->
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-            <ul class="nav navbar-nav">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-briefcase"></span>&nbsp;Mantenimiento <b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="Personal.aspx" runat="server" id="trabajadores_aspx">Personal</a></li>
-                        <li class="dropdown-submenu">
-                            <a href="#">Tablas Institucion</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="Sede.aspx" runat="server" id="a4">Sede</a></li>
-                                <li><a href="Local.aspx" runat="server" id="A5">Local</a></li>
-                                <li><a href="Area.aspx" runat="server" id="A6">Area</a></li>
-                                <li><a href="Dependencia.aspx" runat="server" id="A8">Dependencia</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown-submenu">
-                            <a href="#">Tablas Personal</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="Cargo.aspx" runat="server" id="area_trabajo_aspx">Cargo</a></li>
-                                <li><a href="ProfecionOcupacion.aspx" runat="server" id="Sub_Area_aspx">Profecion - Ocupacion</a></li>                               
-                            </ul>
-                        </li>
-                        <li class="divider"></li>
-                        <li class="dropdown-submenu">
-                            <a href="#">Tablas Elemento Configuracion</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="Modelo.aspx" runat="server" id="A14">Modelo</a></li>
-                                <li><a href="Marca.aspx" runat="server" id="A13">Marca</a></li>
-                                <li><a href="DescripcionElementoConfiguracion.aspx" runat="server" id="A9">Descripci&oacute;n Elemento Configuraci&oacute;n</a></li>
-                                <li><a href="TiposElementoConfiguracion.aspx" runat="server" id="A10">Tipos Elemento Configuraci&oacute;n</a></li> 
-                                <li><a href="TipoRelacionElementoConfiguracion.aspx" runat="server" id="A11">Tipo Relaci&oacute;n Elemento Configuraci&oacute;n</a></li>
-                                <li><a href="TipoComponeneteCI.aspx" runat="server" id="A12">Tipo Componenete Elemento Configuraci&oacute;n</a></li> 
-                                <li><a href="EstadoActualCI.aspx" runat="server" id="A15">Estado Actual Elemento Configuraci&oacute;n</a></li>                                                                                                                             
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-
-
-            <ul class="nav navbar-nav">
-                <!--<li class="active"><a href="#">Enlace #1</a></li>
-                <li><a href="#">Enlace #2</a></li>-->
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: white"><span class="glyphicon glyphicon-user"></span>&nbsp;Gesti&oacute;n de Configuraci&oacute;n <b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu">
-                        
-                        <li><a href="ElementosConfiguracion.aspx" runat="server" id="ElementosConfiguracion_aspx">Elementos de Configuracio&oacute;n</a></li>
-                        <li><a href="RelacionesElementosConfiguracion.aspx" runat="server" id="PrendaMovimientos_aspx">Relacio&oacute;n de Elementos de Configuracio&oacute;n</a></li>
-                        <li class="divider"></li>
-                        <li><a href="CIsAsignarComponenetes.aspx" runat="server" id="A3">Asignar Componentes Elementos de Configuraci&oacute;n</a></li>
-                        <li class="divider"></li>
-                        <li><a href="LicenciasElementoConfiguracion.aspx" runat="server" id="A1">Licencias de Elementos de Configuraci&oacute;n</a></li>
-                        <li class="divider"></li>
-                        <li><a href="SeguimientosElementoConfiguracion.aspx" runat="server" id="_Asistencias_aspx">Seguimiento de Elementos de Configuraci&oacute;n</a></li>                        
-                    </ul>
-                </li>
-            </ul>
-
-            <ul class="nav navbar-nav">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-file"></span>&nbsp;Reportes <b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="../Reportes/ReporteElementosConfiguracion.aspx" runat="server" id="A16">Reporte de Elementos de Configuraci&oacute;n</a></li>
-                        <li><a href="../Reportes/ReporteRelacionesElementosConfiguracion.aspx" runat="server" id="A17">Reporte de Relaciones de Elementos de Configuraci&oacute;n</a></li>
-                        <li><a href="../Reportes/ReporteSeguimientosElementoConfiguracion.aspx" runat="server" id="A18">Reporte de Seguimientos de Elementos de Configuraci&oacute;n</a></li>
-                        <li><a href="../Reportes/ReporteLicenciasElementoConfiguracion.aspx" runat="server" id="A19">Reporte de Licencias de Elementos de Configuraci&oacute;n</a></li>
-                        <li><a href="../Reportes/ReporteCIsSeguidos.aspx" runat="server" id="A24">Reporte de Elementos de Configuraci&oacute;n Seguidos</a></li>
-                        <li><a href="../Reportes/ReporteComponentesAsignados.aspx" runat="server" id="A20">Reporte de Componentes de Elementos de Configuraci&oacute;n Asignados</a></li>
-                        <li class="divider"></li>
-                        
-                        <li><a href="../Reportes/ReporteDatosCorrectosCI.aspx" runat="server" id="A21">Reporte de Datos Correctos de Elementos de Configuraci&oacute;n</a></li>
-                        <li><a href="../Reportes/ReporteDatosIncorrectosCI.aspx" runat="server" id="A22">Reporte de Datos Incorrectos de Elementos de Configuraci&oacute;n</a></li>
-                        <li><a href="../Reportes/ReporteCIsInformacionContenidaEnCMDB.aspx" runat="server" id="A23">Reporte de Informaci&oacute;n de Elementos de Configuraci&oacute;n Contenidas en la CMDB</a></li>
-                        <li><a href="../Reportes/Reporte_De_CIS_Relativo_A_Servicios.aspx" runat="server" id="A2">Reporte de CIS Relativo A Servicios</a></li>
-                        <li><a href="../Reportes/Reporte_CIS_Relacionados_Con_Otros_CIS.aspx" runat="server" id="A7">Reporte de de CIs relacionados con otros CIs</a></li>
-                             
-                        
-                    </ul>
-                </li>
-            </ul>
-
-
-            <ul class="nav navbar-nav">
-
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: black"><span class="glyphicon glyphicon-wrench"></span>&nbsp;Configuraciones <b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="Usuario.aspx" runat="server" id="usuarios_aspx">Usuarios</a></li>
-                        <li><a href="../Configuracion/Usuarios.aspx" runat="server" id="permisos_aspx">Permisos</a></li>
-                        <li class="divider"></li>
-                        <li><a href="CerrarSession.aspx" style="text-align: left; color: red;">Cerrar Sesion</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </nav>
-
-    <%--  ......NO CAMBIAR.........  --%>
-    <div class="section">
+        <div class="top-spacer" style="height: 80px;"></div>
         <div class="container">
-            <div class="row main-low-margin">
-                <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1">
-                    <h3>-</h3>
+            <!-- Hero Section -->
+            <div class="hero-section">
+                <h1><i class="bi bi-gear-fill me-3"></i>Bienvenido al Sistema de Gestion de Configuracion</h1>
+                <p>Administra elementos de configuracion, licencias, seguimientos y mas</p>
+            </div>
+
+            <!-- Quick Access Cards -->
+            <h4 class="mb-3"><i class="bi bi-lightning me-2"></i>Acceso Rapido</h4>
+            <div class="row g-4 mb-5">
+                <div class="col-md-3 col-sm-6">
+                    <a href="ElementosConfiguracion.aspx" class="text-decoration-none">
+                        <div class="feature-card">
+                            <div class="icon" style="background: rgba(52, 152, 219, 0.15); color: #3498db;">
+                                <i class="bi bi-box-seam"></i>
+                            </div>
+                            <h5>Elementos de Configuracion</h5>
+                            <p>Gestionar CI del sistema</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <a href="RelacionesElementosConfiguracion.aspx" class="text-decoration-none">
+                        <div class="feature-card">
+                            <div class="icon" style="background: rgba(46, 204, 113, 0.15); color: #2ecc71;">
+                                <i class="bi bi-diagram-3"></i>
+                            </div>
+                            <h5>Relaciones</h5>
+                            <p>Vincular elementos entre si</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <a href="LicenciasElementoConfiguracion.aspx" class="text-decoration-none">
+                        <div class="feature-card">
+                            <div class="icon" style="background: rgba(231, 76, 60, 0.15); color: #e74c3c;">
+                                <i class="bi bi-file-earmark-lock"></i>
+                            </div>
+                            <h5>Licencias</h5>
+                            <p>Control de licencias</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <a href="SeguimientosElementoConfiguracion.aspx" class="text-decoration-none">
+                        <div class="feature-card">
+                            <div class="icon" style="background: rgba(243, 156, 18, 0.15); color: #f39c12;">
+                                <i class="bi bi-clipboard-check"></i>
+                            </div>
+                            <h5>Seguimientos</h5>
+                            <p>Historial de cambios</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <h4 class="mb-3"><i class="bi bi-briefcase me-2"></i>Mantenimiento</h4>
+            <div class="row g-4 mb-5">
+                <div class="col-md-3 col-sm-6">
+                    <a href="Personal.aspx" class="text-decoration-none">
+                        <div class="feature-card">
+                            <div class="icon" style="background: rgba(155, 89, 182, 0.15); color: #9b59b6;">
+                                <i class="bi bi-people"></i>
+                            </div>
+                            <h5>Personal</h5>
+                            <p>Gestionar trabajadores</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <a href="Usuario.aspx" class="text-decoration-none">
+                        <div class="feature-card">
+                            <div class="icon" style="background: rgba(233, 69, 96, 0.15); color: #e94560;">
+                                <i class="bi bi-person-gear"></i>
+                            </div>
+                            <h5>Usuarios</h5>
+                            <p>Administracion de usuarios</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <a href="Sede.aspx" class="text-decoration-none">
+                        <div class="feature-card">
+                            <div class="icon" style="background: rgba(26, 188, 156, 0.15); color: #1abc9c;">
+                                <i class="bi bi-building"></i>
+                            </div>
+                            <h5>Sedes</h5>
+                            <p>Organizacion territorial</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <a href="Area.aspx" class="text-decoration-none">
+                        <div class="feature-card">
+                            <div class="icon" style="background: rgba(52, 73, 94, 0.15); color: #34495e;">
+                                <i class="bi bi-grid"></i>
+                            </div>
+                            <h5>Areas</h5>
+                            <p>Departamentos y areas</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <h4 class="mb-3"><i class="bi bi-file-earmark-bar-graph me-2"></i>Reportes</h4>
+            <div class="row g-4">
+                <div class="col-md-4 col-sm-6">
+                    <a href="../Reportes/ReporteElementosConfiguracion.aspx" class="text-decoration-none">
+                        <div class="feature-card">
+                            <div class="icon" style="background: rgba(52, 152, 219, 0.15); color: #3498db;">
+                                <i class="bi bi-file-earmark-bar-graph"></i>
+                            </div>
+                            <h5>Reporte de Elementos</h5>
+                            <p>Resumen general de CIs</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <a href="../Reportes/ReporteSeguimientosElementoConfiguracion.aspx" class="text-decoration-none">
+                        <div class="feature-card">
+                            <div class="icon" style="background: rgba(243, 156, 18, 0.15); color: #f39c12;">
+                                <i class="bi bi-file-earmark-text"></i>
+                            </div>
+                            <h5>Reporte de Seguimientos</h5>
+                            <p>Historial de modificaciones</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <a href="../Reportes/ReporteLicenciasElementoConfiguracion.aspx" class="text-decoration-none">
+                        <div class="feature-card">
+                            <div class="icon" style="background: rgba(231, 76, 60, 0.15); color: #e74c3c;">
+                                <i class="bi bi-file-earmark-lock"></i>
+                            </div>
+                            <h5>Reporte de Licencias</h5>
+                            <p>Estado de licencias</p>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
-    </div>
-   
 
-                    <asp:HiddenField ID="__mensaje" runat="server" />
-                    <asp:HiddenField ID="__pagina" runat="server" />
-                    </form>
-   
+        <asp:HiddenField ID="__mensaje" runat="server" />
+        <asp:HiddenField ID="__pagina" runat="server" />
+    </form>
 
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

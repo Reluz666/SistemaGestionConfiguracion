@@ -1,0 +1,508 @@
+/* ============================================
+   Sistema de Gestión de Configuración
+   Estilos globales modernos - Bootstrap 5
+   ============================================ */
+
+/* ===== NAVBAR MODERNO ===== */
+.navbar-modern {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    border: none;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.15);
+    padding: 0.8rem 1rem;
+}
+
+.navbar-modern .navbar-brand {
+    color: #fff !important;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.navbar-modern .navbar-brand:hover {
+    color: #e94560 !important;
+}
+
+.navbar-modern .nav-link {
+    color: rgba(255, 255, 255, 0.85) !important;
+    font-weight: 500;
+    padding: 0.6rem 1rem !important;
+    border-radius: 8px;
+    transition: color 0.2s, background 0.2s;
+}
+
+.navbar-modern .nav-link:hover {
+    color: #fff !important;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.navbar-modern .nav-link.dropdown-toggle::after {
+    display: inline-block;
+    margin-left: 0.5em;
+    vertical-align: 0.255em;
+    content: "";
+    border-top: 0.3em solid;
+    border-right: 0.3em solid transparent;
+    border-bottom: 0;
+    border-left: 0.3em solid transparent;
+}
+
+.navbar-modern .dropdown-menu {
+    background: #1a1a2e;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 0.5rem;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+}
+
+.navbar-modern .dropdown-item {
+    color: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    transition: all 0.2s;
+}
+
+.navbar-modern .dropdown-item:hover {
+    background: rgba(233, 69, 96, 0.2);
+    color: #fff;
+}
+
+.navbar-modern .dropdown-submenu {
+    position: relative;
+}
+
+.navbar-modern .dropdown-submenu > .dropdown-toggle::after {
+    border-left: 0.3em solid;
+    border-top: 0.3em solid transparent;
+    border-bottom: 0.3em solid transparent;
+    margin-left: auto;
+}
+
+.navbar-modern .dropdown-submenu > .dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -6px;
+    margin-left: 2px;
+    border-radius: 12px;
+}
+
+.navbar-modern .dropdown-submenu:hover > .dropdown-menu {
+    display: block;
+}
+
+.navbar-modern .dropdown-divider {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* ===== FORMULARIOS ===== */
+.form-card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.form-card .card-header {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    color: #fff;
+    border-radius: 12px 12px 0 0;
+    padding: 1.2rem 1.5rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+    border: none;
+}
+
+.form-label-modern {
+    font-weight: 500;
+    color: #2d3436;
+    margin-bottom: 0.4rem;
+    font-size: 0.9rem;
+}
+
+.form-control-modern {
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    padding: 0.6rem 1rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    font-size: 0.95rem;
+}
+
+.form-control-modern:focus {
+    border-color: #e94560;
+    box-shadow: 0 0 0 4px rgba(233, 69, 96, 0.1);
+    outline: none;
+}
+
+.form-control-modern::placeholder {
+    color: #adb5bd;
+}
+
+select.form-control-modern {
+    cursor: pointer;
+}
+
+/* ===== TABLAS ===== */
+.table-wrapper {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
+    padding: 1rem;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    overflow-x: auto;
+}
+
+.table-modern-grid {
+    border-collapse: separate !important;
+    border-spacing: 0;
+    width: 100%;
+    min-width: 900px;
+}
+
+.table-modern-grid thead tr th {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 0.6rem 0.5rem !important;
+    border: none !important;
+    white-space: nowrap;
+}
+
+.table-modern-grid thead tr th:first-child {
+    border-radius: 10px 0 0 10px;
+}
+
+.table-modern-grid thead tr th:last-child {
+    border-radius: 0 10px 10px 0;
+}
+
+.table-modern-grid tbody tr td {
+    padding: 0.5rem 0.45rem !important;
+    border: none;
+    border-bottom: 1px solid #f1f1f1;
+    vertical-align: middle;
+    font-size: 0.8rem;
+    color: #2d3436;
+    background: #fff;
+}
+
+.table-modern-grid tbody tr:hover td {
+    background: rgba(233, 69, 96, 0.04);
+}
+
+.table-modern-grid tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Tabla genérica con ID */
+.table-modern-grid tbody tr:hover {
+    background: rgba(233, 69, 96, 0.04);
+}
+
+/* ===== BOTONES ===== */
+.btn-modern {
+    padding: 0.6rem 1.5rem;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.btn-modern:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-action {
+    padding: 0.4rem 0.8rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    transition: all 0.2s ease;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.btn-action:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+}
+
+.btn-action-edit {
+    background: #3498db;
+    color: white;
+}
+
+.btn-action-edit:hover {
+    background: #2980b9;
+    color: white;
+}
+
+.btn-action-delete {
+    background: #e74c3c;
+    color: white;
+}
+
+.btn-action-delete:hover {
+    background: #c0392b;
+    color: white;
+}
+
+.btn-action-view {
+    background: #2ecc71;
+    color: white;
+}
+
+.btn-action-view:hover {
+    background: #27ae60;
+    color: white;
+}
+
+/* ===== VALIDADORES ===== */
+.validator-error {
+    color: #e94560 !important;
+    font-size: 0.8rem;
+    font-weight: 500;
+    display: block !important;
+    margin-top: 0.25rem;
+    padding: 0 !important;
+    background: transparent !important;
+    border: none !important;
+}
+
+/* Override any Bootstrap validator styles */
+input.input-validation-error,
+select.input-validation-error,
+textarea.input-validation-error {
+    border-color: #e94560 !important;
+}
+
+.field-validation-error {
+    color: #e94560;
+    font-size: 0.8rem;
+}
+
+/* ===== CHECKBOX BOOTSTRAP 5 FIX ===== */
+.form-check-input:checked {
+    background-color: #e94560;
+    border-color: #e94560;
+}
+
+.form-check-input:focus {
+    border-color: #e94560;
+    box-shadow: 0 0 0 0.25rem rgba(233, 69, 96, 0.25);
+}
+
+.form-check-input[type="checkbox"] {
+    border-radius: 0.25rem;
+}
+
+/* ===== SPACER ===== */
+.top-spacer {
+    height: 100px;
+}
+
+/* ===== TOAST CONTAINER ===== */
+.toast-container {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    z-index: 9999;
+}
+
+/* ===== EMPTY STATE ===== */
+.empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: #95a5a6;
+}
+
+.empty-state i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+.empty-state h5 {
+    font-weight: 600;
+    color: #7f8c8d;
+}
+
+/* ===== LOADING SPINNER ===== */
+.loading-spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.loading-spinner::after {
+    content: "";
+    width: 2rem;
+    height: 2rem;
+    border: 3px solid #f1f1f1;
+    border-top-color: #e94560;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ===== SEARCH BOX ===== */
+.search-box {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.search-box input {
+    padding-left: 2.5rem;
+    border-radius: 10px;
+}
+
+.search-box i {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #adb5bd;
+}
+
+/* ===== PAGINATION ===== */
+.pagination-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+}
+
+.pagination-wrapper .page-item.active .page-link {
+    background: #e94560;
+    border-color: #e94560;
+}
+
+.pagination-wrapper .page-link {
+    border-radius: 8px;
+    margin: 0 2px;
+    color: #2d3436;
+}
+
+.pagination-wrapper .page-link:hover {
+    background: rgba(233, 69, 96, 0.1);
+    color: #e94560;
+}
+
+/* ===== BREADCRUMB ===== */
+.breadcrumb-nav {
+    padding: 0.75rem 0;
+    margin-bottom: 1rem;
+}
+
+.breadcrumb-nav .breadcrumb {
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.breadcrumb-nav .breadcrumb-item a {
+    color: #e94560;
+    text-decoration: none;
+}
+
+.breadcrumb-nav .breadcrumb-item a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumb-nav .breadcrumb-item.active {
+    color: #7f8c8d;
+}
+
+/* ===== STATUS BADGES ===== */
+.badge-status {
+    padding: 0.35rem 0.65rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.badge-active {
+    background: #d4edda;
+    color: #155724;
+}
+
+.badge-inactive {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.badge-pending {
+    background: #fff3cd;
+    color: #856404;
+}
+
+/* ===== CARD ICONS ===== */
+.card-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 991px) {
+    .navbar-modern .dropdown-submenu > .dropdown-menu {
+        position: static;
+        margin-top: 0;
+        margin-left: 1rem;
+        box-shadow: none;
+    }
+    .form-card {
+        padding: 1.5rem;
+    }
+    .table-wrapper {
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .btn-modern {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+    .form-card .card-header {
+        font-size: 1rem;
+        padding: 1rem;
+    }
+}
+
+/* ===== UTILITY CLASSES ===== */
+.text-ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
+    display: block;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.shadow-sm-hover:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12) !important;
+}
+
+.transition-all {
+    transition: all 0.2s ease;
+}
