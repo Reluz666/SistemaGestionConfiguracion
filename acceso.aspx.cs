@@ -66,7 +66,7 @@ public partial class acceso : System.Web.UI.Page
                                                                  };
 
                     Response.Clear();
-                    Response.Redirect("Dashboard.aspx");
+                    Response.Redirect("Menu.aspx");
                     Response.Flush();
                 }
             }

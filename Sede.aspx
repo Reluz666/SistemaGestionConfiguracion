@@ -13,296 +13,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
-    <!-- DataTables.net CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/datatables.net-bs5@2.0.1/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    <!-- Global Styles -->
+    <link href="CssJs/global-styles.css" rel="stylesheet" />
 
     <style>
-        /* ===== NAVBAR ===== */
-        .navbar-modern {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            border: none;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.15);
-            padding: 0.8rem 1rem;
-        }
-
-        .navbar-modern .navbar-brand {
-            color: #fff !important;
-            font-weight: 600;
-            font-size: 1.2rem;
-        }
-
-        .navbar-modern .navbar-brand:hover {
-            color: #e94560 !important;
-        }
-
-        .navbar-modern .nav-link {
-            color: rgba(255, 255, 255, 0.85) !important;
-            font-weight: 500;
-            padding: 0.6rem 1rem !important;
-            border-radius: 8px;
-            transition: color 0.2s, background 0.2s;
-        }
-
-        .navbar-modern .nav-link:hover {
-            color: #fff !important;
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .navbar-modern .dropdown-menu {
-            background: #1a1a2e;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            padding: 0.5rem;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        .navbar-modern .dropdown-item {
-            color: rgba(255, 255, 255, 0.8);
-            border-radius: 8px;
-            padding: 0.5rem 1rem;
-            transition: all 0.2s;
-        }
-
-        .navbar-modern .dropdown-item:hover {
-            background: rgba(233, 69, 96, 0.2);
-            color: #fff;
-        }
-
-        .navbar-modern .dropdown-submenu {
-            position: relative;
-        }
-
-        .navbar-modern .dropdown-submenu > .dropdown-toggle::after {
-            border-left: 0.3em solid;
-            border-top: 0.3em solid transparent;
-            border-bottom: 0.3em solid transparent;
-            margin-left: auto;
-        }
-
-        .navbar-modern .dropdown-submenu > .dropdown-menu {
-            top: 0;
-            left: 100%;
-            margin-top: -6px;
-            margin-left: 2px;
-            border-radius: 12px;
-        }
-
-        .navbar-modern .dropdown-submenu > .dropdown-menu {
-            top: 0;
-            left: 100%;
-            margin-top: -6px;
-            margin-left: 2px;
-            border-radius: 12px;
-        }
-
-        .navbar-modern .dropdown-submenu:hover > .dropdown-menu {
-            display: block;
-        }
-
-        /* ===== FORMULARIO ===== */
-        .form-card {
-            background: #fff;
-            border-radius: 16px;
-            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
-            padding: 2rem;
-            margin-bottom: 2rem;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-        }
-
-        .form-card .card-header {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: #fff;
-            border-radius: 12px 12px 0 0;
-            padding: 1.2rem 1.5rem;
-            font-weight: 600;
-            font-size: 1.1rem;
-            border: none;
-        }
-
-        .form-label-modern {
-            font-weight: 500;
-            color: #2d3436;
-            margin-bottom: 0.4rem;
-            font-size: 0.9rem;
-        }
-
-        .form-control-modern {
-            border: 2px solid #e9ecef;
-            border-radius: 10px;
-            padding: 0.6rem 1rem;
-            transition: border-color 0.3s, box-shadow 0.3s;
-            font-size: 0.95rem;
-        }
-
-        .form-control-modern:focus {
-            border-color: #e94560;
-            box-shadow: 0 0 0 4px rgba(233, 69, 96, 0.1);
-            outline: none;
-        }
-
-        .form-control-modern::placeholder {
-            color: #adb5bd;
-        }
-
-        select.form-control-modern {
-            cursor: pointer;
-        }
-
-        /* ===== TABLA - moderna pero SIN DataTables interfering con asp:Table ===== */
-        .table-wrapper {
-            background: #fff;
-            border-radius: 16px;
-            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
-            padding: 1rem;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            overflow-x: auto;
-        }
-
-        .table-modern-grid {
-            border-collapse: separate !important;
-            border-spacing: 0;
-            width: 100%;
-            min-width: 900px;
-        }
-
-        .table-modern-grid thead tr th {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: #fff;
-            font-weight: 600;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            padding: 0.6rem 0.5rem !important;
-            border: none !important;
-            white-space: nowrap;
-        }
-
-        .table-modern-grid thead tr th:first-child {
-            border-radius: 10px 0 0 10px;
-        }
-
-        .table-modern-grid thead tr th:last-child {
-            border-radius: 0 10px 10px 0;
-        }
-
-        .table-modern-grid tbody tr td {
-            padding: 0.5rem 0.45rem !important;
-            border: none;
-            border-bottom: 1px solid #f1f1f1;
-            vertical-align: middle;
-            font-size: 0.8rem;
-            color: #2d3436;
-            background: #fff;
-        }
-
-        .table-modern-grid tbody tr:hover td {
-            background: rgba(233, 69, 96, 0.04);
-        }
-
-        .table-modern-grid tbody tr:last-child td {
-            border-bottom: none;
-        }
-
-        /* Link button "Editar" en la tabla */
-        .btn-link-personal {
-            color: #d40924;
-            font-weight: 700;
-            font-size: 0.8rem;
-            text-decoration: none;
-            cursor: pointer;
-            background: rgba(212, 9, 36, 0.08);
-            padding: 0.25rem 0.6rem;
-            border-radius: 6px;
-            border: 1px solid rgba(212, 9, 36, 0.3);
-            transition: all 0.2s ease;
-            display: inline-block;
-        }
-
-        .btn-link-personal:hover {
-            background: rgba(212, 9, 36, 0.15);
-            border-color: #d40924;
-            text-decoration: none;
-            transform: translateY(-1px);
-        }
-
-        /* Subclass for asp:Table to apply same styling */
-        #Table_ {
-            border-collapse: separate !important;
-            border-spacing: 0;
-            width: 100%;
-            min-width: 900px;
-        }
-
-        #Table_ thead tr th {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: #fff;
-            font-weight: 600;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            padding: 0.6rem 0.5rem !important;
-            border: none !important;
-            white-space: nowrap;
-        }
-
-        #Table_ tbody tr:hover td {
-            background: rgba(233, 69, 96, 0.04) !important;
-        }
-
-        #Table_ tbody tr td {
-            padding: 0.5rem 0.45rem !important;
-            border: none !important;
-            border-bottom: 1px solid #f1f1f1 !important;
-            vertical-align: middle;
-            font-size: 0.8rem;
-            color: #2d3436;
-        }
-
-        .estado-activo { color: #00b894; font-weight: 600; }
-        .estado-inactivo { color: #e94560; font-weight: 600; }
-
-        /* ===== BOTONES ===== */
-        .btn-modern {
-            padding: 0.6rem 1.5rem;
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-            border: none;
-        }
-
-        .btn-modern:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        /* ===== VALIDATORS ===== */
-        .validator-error {
-            color: #e94560;
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
-
-        /* ===== SPACER ===== */
-        .top-spacer { height: 100px; }
-
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 991px) {
-            .navbar-modern .dropdown-submenu > .dropdown-menu {
-                position: static;
-                margin-top: 0;
-                margin-left: 1rem;
-                box-shadow: none;
-            }
-            .form-card { padding: 1.5rem; }
-            .table-wrapper { padding: 1rem; }
-        }
-
-        @media (max-width: 576px) {
-            .btn-modern { width: 100%; margin-bottom: 0.5rem; }
-        }
-
-        /* ===== PAGINACION MANUAL (Bootstrap-only, sin DataTables) ===== */
+        /* ===== PAGINACION MANUAL ===== */
         .pagination-wrapper {
             display: flex;
             justify-content: center;
@@ -317,44 +32,36 @@
                 alert(mensaje);
                 if (document.getElementById("__pagina").value != "")
                     location.href = document.getElementById("__pagina").value;
-
             }
-
-        }
-
-        function window_load() {
-            MostrarMensaje()
         }
 
         function Confirmar(men) {
-            if (!confirm(men))
-                return false;
-
+            if (!confirm(men)) return false;
+            return true;
         }
 
         function SoloNumeros() {
-            if ((event.keyCode < 48) || (event.keyCode > 57)) {
-                event.returnValue = false;
-         }
+            if ((event.keyCode < 48) || (event.keyCode > 57)) event.returnValue = false;
         }
 
         function SoloLetrasMinusculas() {
-            if (!((event.keyCode >= 97 && event.keyCode <= 122) || event.keyCode == 32 || event.keyCode == 193 || event.keyCode == 201 || event.keyCode == 205 || event.keyCode == 209 || event.keyCode == 211 || event.keyCode == 218 || event.keyCode == 220 || event.keyCode == 241)) {
-                event.returnValue = false;
-            }
+            if (!((event.keyCode >= 97 && event.keyCode <= 122) || event.keyCode == 32 || event.keyCode == 193 || event.keyCode == 201 || event.keyCode == 205 || event.keyCode == 209 || event.keyCode == 211 || event.keyCode == 218 || event.keyCode == 220 || event.keyCode == 241)) event.returnValue = false;
         }
 
         function CambiaLetraMayuscula(Caja) {
             document.getElementById(Caja).value = document.getElementById(Caja).value.toUpperCase();
         }
     </script>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body onload="MostrarMensaje()">
 
     <!-- ========== NAVBAR ========== -->
     <nav class="navbar navbar-expand-lg navbar-modern fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="../menu.aspx">
+            <a class="navbar-brand" href="Menu.aspx">
                 <i class="bi bi-house-door-fill me-1"></i>Inicio
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -454,7 +161,7 @@
                             <li><a class="dropdown-item" href="Usuario.aspx">Usuarios</a></li>
                             <li><a class="dropdown-item" href="../Configuracion/Usuarios.aspx">Permisos</a></li>
                             <li><hr class="dropdown-divider" /></li>
-                            <li><a class="dropdown-item" href="CerrarSession.aspx" style="color: #e94560;">Cerrar Sesi&oacute;n</a></li>
+                            <li><a class="dropdown-item" href="CerrarSession.aspx" style="color: #e94560;"><i class="bi bi-box-arrow-right me-1"></i>Cerrar Sesi&oacute;n</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -462,153 +169,75 @@
         </div>
     </nav>
 
-    <!-- ========== CONTENT ========== -->
+    <!-- Espaciador para navbar fija -->
     <div class="top-spacer"></div>
 
     <form id="form1" runat="server">
+        <div class="container">
 
-    <div class ="container">
-         <div class="table-responsive" >
-             <table class="table text-center" >
-                <thead>
-                  <tr>
-                    <td style="text-align: center; color: #FFFFFF; background-color: #000000;" colspan="3"> INGRESE DATOS SEDE</td>
+            <!-- Card Formulario -->
+            <div class="form-card">
+                <div class="card-header">
+                    <i class="bi bi-building me-2"></i>Ingrese Datos de Sede
+                </div>
+                <div class="card-body p-3">
 
-                  </tr>
-                  <tr>
-                        <td style="text-align: left; color: #FFFFFF; background-color: #000000;"
-                            class="style2" colspan="3"> Codigo Sede</td>
+                    <div class="row g-2 mb-2">
+                        <div class="col-md-3 col-sm-6">
+                            <label class="form-label-modern">C&oacute;digo Sede</label>
+                            <asp:TextBox ID="CodIgo_Sede" runat="server" CssClass="form-control form-control-modern"
+                                         MaxLength="2" Autocomplete="off" placeholder="Ingrese c&oacute;digo"
+                                         onkeypress="SoloNumeros()" />
+                            <asp:RequiredFieldValidator ID="rfvCodIgo_Sede" runat="server" ControlToValidate="CodIgo_Sede"
+                                                       ErrorMessage="*" CssClass="validator-error" />
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <label class="form-label-modern">Nombre Sede</label>
+                            <asp:TextBox ID="Descripcion_Sede" runat="server" CssClass="form-control form-control-modern"
+                                         MaxLength="25" Autocomplete="off" placeholder="Ingrese nombre sede"
+                                         onchange="CambiaLetraMayuscula('Descripcion_Sede')"
+                                         onkeypress="SoloLetrasMinusculas()" />
+                            <asp:RequiredFieldValidator ID="rfvDescripcion_Sede" runat="server" ControlToValidate="Descripcion_Sede"
+                                                       ErrorMessage="*" CssClass="validator-error" />
+                        </div>
+                    </div>
 
+                    <!-- Botones de acci&oacute;n -->
+                    <div class="d-flex flex-wrap gap-2 justify-content-center">
+                        <asp:Button ID="btnRegistrar" runat="server" Text="Registrar" CssClass="btn btn-success btn-modern"
+                                    Visible="False" OnClick="btnRegistrar_Click"
+                                    OnClientClick="return Confirmar('¿Desea registrar sede?');" />
+                        <asp:Button ID="btnModificar" runat="server" Text="Modificar" CssClass="btn btn-warning btn-modern"
+                                    Visible="False" OnClick="btnModificar_Click"
+                                    OnClientClick="return Confirmar('¿Desea modificar sede?');" />
+                        <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CssClass="btn btn-danger btn-modern"
+                                    Visible="False" OnClick="btnEliminar_Click"
+                                    OnClientClick="return Confirmar('¿Desea eliminar sede?');" />
+                        <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CssClass="btn btn-secondary btn-modern"
+                                    Visible="False" OnClick="btnCancelar_Click" CausesValidation="False" />
+                    </div>
+                </div>
+            </div>
 
+            <!-- Tabla de Resultados -->
+            <div class="table-wrapper">
+                <asp:Table ID="Table_" runat="server" CssClass="table table-modern-grid table-hover">
+                    <asp:TableRow ID="TableRow1" runat="server">
+                        <asp:TableCell ID="tcID" runat="server" Visible="false">ID</asp:TableCell>
+                        <asp:TableCell ID="tcCodIgo_Sede" runat="server">C&Oacute;DIGO SEDE</asp:TableCell>
+                        <asp:TableCell ID="tcNOMBRE_TIPO" runat="server">NOMBRE SEDE</asp:TableCell>
+                        <asp:TableCell ID="SELECCIONAR_TIPO_CI" runat="server">SELECCIONAR</asp:TableCell>
+                    </asp:TableRow>
+                </asp:Table>
+            </div>
 
-                  </tr>
-                  <tr>
-                        <td style="text-align: left; color: #FFFFFF; background-color: #FFFFFF;"
-                            class="style2" colspan="3">
-                             <asp:TextBox ID="CodIgo_Sede" runat="server" CssClass="form-control input-sm" MaxLength="2" Autocomplete = "off" placeholder="Ingrese Nombre Tipo Elemento Configuracion" onchange=""
-                        onkeypress="SoloNumeros()"></asp:TextBox>
-                             <asp:RequiredFieldValidator ID="rfvCodIgo_Sede" runat="server" ControlToValidate="CodIgo_Sede" ErrorMessage="*" ForeColor="Red" SetFocusOnError="True"></asp:RequiredFieldValidator>
-                        </td>
+            <!-- Hidden Fields -->
+            <asp:HiddenField ID="__mensaje" runat="server" />
+            <asp:HiddenField ID="__pagina" runat="server" />
+            <asp:HiddenField ID="Id_Sede" runat="server" Value="0" EnableViewState="False" />
 
-
-
-
-                   </tr>
-                  <tr>
-                        <td style="text-align: left; color: #FFFFFF; background-color: #000000;"
-                            class="style2" colspan="3"> Nombre Sede</td>
-
-
-
-
-                   </tr>
-                  <tr>
-                        <td style="text-align: left;"
-                            class="style2" colspan="3">
-                             <asp:TextBox ID="Descripcion_Sede" runat="server" CssClass="form-control input-sm" MaxLength="25" Autocomplete = "off" placeholder="Ingrese Nombre Tipo Elemento Configuracion" onchange="CambiaLetraMayuscula('Descripcion_Sede')"
-                        onkeypress="SoloLetrasMinusculas()"></asp:TextBox>
-                             <asp:RequiredFieldValidator ID="rfvDescripcion_Sede" runat="server" ControlToValidate="Descripcion_Sede" ErrorMessage="*" ForeColor="Red" SetFocusOnError="True"></asp:RequiredFieldValidator>
-                        </td>
-
-
-                   </tr>
-                  <tr>
-                        <td style="text-align: left"
-                            class="style2">
-                             &nbsp;</td>
-                         <td style="text-align: left"
-                            class="style2">
-                             &nbsp;</td>
-
-
-                         <td style="text-align: left"
-                            class="style2"> &nbsp;</td>
-
-
-
-                   </tr>
-                  <tr>
-                <td colspan="3" style="text-align: center">
-                   <asp:Button ID="btnRegistrar" runat="server"
-                       style="font-family: Calibri; color: #000000; font-size: medium"
-                        Text="Registrar"
-                        onclientclick="return Confirmar('¿Desea registrar sede?');"
-                        CssClass="btn btn-success" Visible="False" OnClick="btnRegistrar_Click" />
-                    &nbsp;
-                    <asp:Button ID="btnModificar" runat="server"
-                        style="font-family: Calibri; color: #000000; font-size: medium"
-                        Text="Modificar"  onclientclick="return Confirmar('¿Desea modificar sede?');" CssClass="btn btn-warning" Visible="False" OnClick="btnModificar_Click" />
-                    &nbsp;
-                    <asp:Button ID="btnEliminar" runat="server"
-                        style="font-family: Calibri; color: #000000; font-size: medium"
-                        Text="Eliminar"  onclientclick="return Confirmar('¿Desea eliminar sede?');" class="btn btn-danger" Visible="False" OnClick="btnEliminar_Click" />
-                    &nbsp;
-                    <asp:Button ID="btnCancelar" runat="server" class="btn btn-primary"
-                        style="font-family: Calibri;  font-size: medium" Text="Cancelar" CausesValidation="False" Visible="False" OnClick="btnCancelar_Click"
-                         />
-                    </td>
-            </tr>
-                 </thead>
-             </table>
-    </div> </div>
-
-    <div class ="container">
-         <div class="table-responsive" >
-             <table class="table text-center">
-        <tr>
-            <td>
-                &nbsp;</td>
-            <td>
-                &nbsp;</td>
-            <td>
-                &nbsp;</td>
-            <td>
-                &nbsp;</td>
-        </tr>
-        <tr>
-            <td colspan="4">
-
-                        <asp:Table ID="Table_" runat="server" CssClass="form-control input"
-                            class="table table-hover table-condensed" BackColor="White" BorderColor="White"
-                            CellPadding="6" CellSpacing="2" Font-Size="Small" GridLines="Both" Width="100%"
-                            style="text-align: left">
-                            <asp:TableRow ID="TableRow1" runat="server">
-                                <asp:TableCell ID="tcID"  runat="server" BackColor="Black" BorderColor="Black"
-                                    ForeColor="White" Width="7%" Visible="false">ID</asp:TableCell>
-
-                                 <asp:TableCell ID="tcCodIgo_Sede"  runat="server" BackColor="Black" BorderColor="Black"
-                                    ForeColor="White"  Width="15%">CODIGO SEDE</asp:TableCell>
-
-                                <asp:TableCell ID="tcNOMBRE_TIPO"  runat="server" BackColor="Black" BorderColor="Black"
-                                    ForeColor="White"  Width="15%">NOMBRE SEDE</asp:TableCell>
-
-                                <asp:TableCell ID="SELECCIONAR_TIPO_CI" runat="server" BackColor="Black" BorderColor="Black"
-                                    ForeColor="White" Width="7%">SELECCIONAR SEDE</asp:TableCell>
-
-                            </asp:TableRow>
-                        </asp:Table>
-
-                    </td>
-
-        </tr>
-
-        <tr>
-            <td colspan="3">
-                    <asp:HiddenField ID="__mensaje" runat="server" />
-                    <asp:HiddenField ID="__pagina" runat="server" />
-                    <asp:HiddenField ID="Id_Sede" runat="server" Value="0"
-                        EnableViewState="False" />
-                    </td>
-            <td>
-                    &nbsp;</td>
-        </tr>
-    </table>
-    </div> </div>
-
+        </div>
     </form>
 
-    <!-- Bootstrap 5.3 JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-    </body>
+</body>
 </html>

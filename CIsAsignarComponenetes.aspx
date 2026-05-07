@@ -13,8 +13,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
-    <!-- DataTables.net CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/datatables.net-bs5@2.0.1/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    <!-- Global Styles -->
+    <link href="CssJs/global-styles.css" rel="stylesheet" />
 
     <style>
         /* ===== NAVBAR ===== */
@@ -282,13 +282,18 @@
                 return false;
         }
     </script>
+
+    <!-- Scripts -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="../Otros_css_js/resaltar.js"></script>
 </head>
 <body onload="MostrarMensaje()">
 
     <!-- ========== NAVBAR ========== -->
     <nav class="navbar navbar-expand-lg navbar-modern fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="../menu.aspx">
+            <a class="navbar-brand" href="Menu.aspx">
                 <i class="bi bi-house-door-fill me-1"></i>Inicio
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -581,9 +586,4 @@
         </div>
     </form>
 
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="../Otros_css_js/resaltar.js"></script>
-
-</body>
 </html>

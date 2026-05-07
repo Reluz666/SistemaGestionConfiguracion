@@ -7,7 +7,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Elementos de Configuracion</title>
+    <title>Elementos de Configuración</title>
 
     <!-- Bootstrap 5.3 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -347,13 +347,17 @@
             }
         }
     </script>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="../Otros_css_js/resaltar.js"></script>
 </head>
 <body onload="MostrarMensaje()">
 
     <!-- ========== NAVBAR ========== -->
     <nav class="navbar navbar-expand-lg navbar-modern fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="../menu.aspx">
+            <a class="navbar-brand" href="Menu.aspx">
                 <i class="bi bi-house-door-fill me-1"></i>Inicio
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -472,7 +476,7 @@
                     <!-- Breadcrumb -->
             <nav aria-label="breadcrumb" class="breadcrumb-nav">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="../menu.aspx"><i class="bi bi-house-door"></i> Inicio</a></li>
+                    <li class="breadcrumb-item"><a href="Menu.aspx"><i class="bi bi-house-door"></i> Inicio</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Elementos de Configuración</li>
                 </ol>
             </nav>
@@ -485,71 +489,44 @@
                 <div class="card-body">
                     <div class="row g-3">
                         <div class="col-md-4 col-sm-6">
-                            <div class="form-check">
-                                <asp:CheckBox ID="cbnci" runat="server" CssClass="form-check-input" Text="Nombre CI" AutoPostBack="True" OnCheckedChanged="cbnci_CheckedChanged"/>
-                            </div>
-                            <asp:TextBox ID="txtnci" runat="server" CssClass="form-control form-control-modern mt-2" MaxLength="25" autocomplete="off" placeholder="Ingresar Nombre" Enabled="False"></asp:TextBox>
+                            <asp:TextBox ID="txtnci" runat="server" CssClass="form-control form-control-modern" MaxLength="25" autocomplete="off" placeholder="Nombre CI"></asp:TextBox>
                         </div>
                         <div class="col-md-4 col-sm-6">
-                            <div class="form-check">
-                                <asp:CheckBox ID="cbtci" runat="server" CssClass="form-check-input" Text="Tipo CI" AutoPostBack="True" OnCheckedChanged="cbtci_CheckedChanged"/>
-                            </div>
-                            <asp:DropDownList ID="ddltci" runat="server" CssClass="form-control form-control-modern mt-2" AppendDataBoundItems="True" Enabled="False">
-                                <asp:ListItem Value="-1">_____SELECCIONE TIPO CI_____</asp:ListItem>
+                            <asp:DropDownList ID="ddltci" runat="server" CssClass="form-control form-control-modern" AppendDataBoundItems="True">
+                                <asp:ListItem Value="">_____SELECCIONE TIPO CI_____</asp:ListItem>
                             </asp:DropDownList>
                         </div>
                         <div class="col-md-4 col-sm-6">
-                            <div class="form-check">
-                                <asp:CheckBox ID="cbeci" runat="server" CssClass="form-check-input" Text="Estado CI" AutoPostBack="True" OnCheckedChanged="cbeci_CheckedChanged"/>
-                            </div>
-                            <asp:DropDownList ID="ddleci" runat="server" CssClass="form-control form-control-modern mt-2" AppendDataBoundItems="True" Enabled="False">
-                                <asp:ListItem Value="-1">_____SELECCIONE ESTADO CI_____</asp:ListItem>
+                            <asp:DropDownList ID="ddleci" runat="server" CssClass="form-control form-control-modern" AppendDataBoundItems="True">
+                                <asp:ListItem Value="">_____SELECCIONE ESTADO CI_____</asp:ListItem>
                             </asp:DropDownList>
                         </div>
                         <div class="col-md-4 col-sm-6">
-                            <div class="form-check">
-                                <asp:CheckBox ID="cbpci" runat="server" CssClass="form-check-input" Text="Propietario CI" AutoPostBack="True" OnCheckedChanged="cbpci_CheckedChanged"/>
-                            </div>
-                            <asp:TextBox ID="txtpci" runat="server" CssClass="form-control form-control-modern mt-2" MaxLength="25" autocomplete="off" placeholder="Ingresar Propietario" Enabled="False"></asp:TextBox>
+                            <asp:TextBox ID="txtpci" runat="server" CssClass="form-control form-control-modern" MaxLength="25" autocomplete="off" placeholder="Propietario CI"></asp:TextBox>
                         </div>
                         <div class="col-md-4 col-sm-6">
-                            <div class="form-check">
-                                <asp:CheckBox ID="cbdci" runat="server" CssClass="form-check-input" Text="Descripción CI" AutoPostBack="True" OnCheckedChanged="cbdci_CheckedChanged"/>
-                            </div>
-                            <asp:DropDownList ID="ddldci" runat="server" CssClass="form-control form-control-modern mt-2" AppendDataBoundItems="True" Enabled="False">
-                                <asp:ListItem Value="-1">_____SELECCIONE DESCRIPCION CI_____</asp:ListItem>
+                            <asp:DropDownList ID="ddldci" runat="server" CssClass="form-control form-control-modern" AppendDataBoundItems="True">
+                                <asp:ListItem Value="">_____SELECCIONE DESCRIPCION CI_____</asp:ListItem>
                             </asp:DropDownList>
                         </div>
                         <div class="col-md-4 col-sm-6">
-                            <div class="form-check">
-                                <asp:CheckBox ID="cbici" runat="server" CssClass="form-check-input" Text="Impacto CI" AutoPostBack="True" OnCheckedChanged="cbici_CheckedChanged"/>
-                            </div>
-                            <asp:DropDownList ID="ddlici" runat="server" CssClass="form-control form-control-modern mt-2" AppendDataBoundItems="True" Enabled="False">
-                                <asp:ListItem Value="-1">_____SELECCIONE IMPACTO CI_____</asp:ListItem>
+                            <asp:DropDownList ID="ddlici" runat="server" CssClass="form-control form-control-modern" AppendDataBoundItems="True">
+                                <asp:ListItem Value="">_____SELECCIONE IMPACTO CI_____</asp:ListItem>
                             </asp:DropDownList>
                         </div>
                         <div class="col-md-4 col-sm-6">
-                            <div class="form-check">
-                                <asp:CheckBox ID="cbs" runat="server" CssClass="form-check-input" Text="Sede" AutoPostBack="True" OnCheckedChanged="cbs_CheckedChanged"/>
-                            </div>
-                            <asp:DropDownList ID="ddls" runat="server" CssClass="form-control form-control-modern mt-2" AppendDataBoundItems="True" Enabled="False" OnSelectedIndexChanged="ddls_SelectedIndexChanged">
-                                <asp:ListItem Value="-1">_____SELECCIONE SEDE_____</asp:ListItem>
+                            <asp:DropDownList ID="ddls" runat="server" CssClass="form-control form-control-modern" AppendDataBoundItems="True" OnSelectedIndexChanged="ddls_SelectedIndexChanged">
+                                <asp:ListItem Value="">_____SELECCIONE SEDE_____</asp:ListItem>
                             </asp:DropDownList>
                         </div>
                         <div class="col-md-4 col-sm-6">
-                            <div class="form-check">
-                                <asp:CheckBox ID="cbl" runat="server" CssClass="form-check-input" Text="Local" AutoPostBack="True" OnCheckedChanged="cbl_CheckedChanged"/>
-                            </div>
-                            <asp:DropDownList ID="ddll" runat="server" CssClass="form-control form-control-modern mt-2" AppendDataBoundItems="True" AutoPostBack="True" Enabled="False" OnSelectedIndexChanged="ddll_SelectedIndexChanged">
-                                <asp:ListItem Value="-1">_____SELECCIONE LOCAL_____</asp:ListItem>
+                            <asp:DropDownList ID="ddll" runat="server" CssClass="form-control form-control-modern" AppendDataBoundItems="True" AutoPostBack="True" OnSelectedIndexChanged="ddll_SelectedIndexChanged">
+                                <asp:ListItem Value="">_____SELECCIONE LOCAL_____</asp:ListItem>
                             </asp:DropDownList>
                         </div>
                         <div class="col-md-4 col-sm-6">
-                            <div class="form-check">
-                                <asp:CheckBox ID="cba" runat="server" CssClass="form-check-input" Text="Área" AutoPostBack="True" OnCheckedChanged="cba_CheckedChanged"/>
-                            </div>
-                            <asp:DropDownList ID="ddla" runat="server" CssClass="form-control form-control-modern mt-2" AppendDataBoundItems="True" Enabled="False">
-                                <asp:ListItem Value="-1">_____SELECCIONE AREA_____</asp:ListItem>
+                            <asp:DropDownList ID="ddla" runat="server" CssClass="form-control form-control-modern" AppendDataBoundItems="True">
+                                <asp:ListItem Value="">_____SELECCIONE AREA_____</asp:ListItem>
                             </asp:DropDownList>
                         </div>
                     </div>
@@ -644,17 +621,6 @@
             <asp:HiddenField ID="__mensaje" runat="server" />
         </div>
     </form>
-
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="../Otros_css_js/resaltar.js"></script>
-</body>
-</html>
-    </form>
-
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="../Otros_css_js/resaltar.js"></script>
 
 </body>
 </html>

@@ -257,25 +257,19 @@ public partial class ElementoConfiguracion : System.Web.UI.Page
 
         Boolean ok;
         ok = rfvNOMBRE_ELEMENTO_CONFIGURACION.IsValid;
-       
+
         ok = ok && rfvESTADO_ELEMENTO_CONFIGURACION.IsValid;
-        ok = ok && revESTADO_ELEMENTO_CONFIGURACION.IsValid;
         ok = ok && rfvPROPIETARIO.IsValid;
         ok = ok && rfvDESCRIPCION_ELEMENTO_CONFIGURACION.IsValid;
-        ok = ok && revDESCRIPCION_ELEMENTO_CONFIGURACION.IsValid;
         ok = ok && rfvIMPACTO_COMERCIAL_ELELEMTO_CONFIGURACION.IsValid;
-        ok = ok && revIMPACTO_COMERCIAL_ELELEMTO_CONFIGURACION.IsValid;
         ok = ok && rfvLOCALIZACION_FISICA.IsValid;
         ok = ok && rfvFECHA_REGISTRO.IsValid;
         ok = ok && rfvRESPONSABLE_REGISTRO.IsValid;
         ok = ok && rfvNIVEL_PRIORIDAD.IsValid;
-        ok = ok && revNIVEL_PRIORIDAD.IsValid;
         ok = ok && rfvNRO_SERIE.IsValid;
         ok = ok && rfvFABRICANTE_O_PROVEEDOR.IsValid;
         ok = ok && rfvMARCA.IsValid;
-        ok = ok && revMARCA.IsValid;
         ok = ok && rfvMODELO.IsValid;
-        ok = ok && revMODELO.IsValid;
         ok = ok && rfvIP.IsValid;
         ok = ok && rfvGATEWAY.IsValid;
         ok = ok && rfvGRUPO_TRABAJO.IsValid;

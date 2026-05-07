@@ -511,194 +511,12 @@ public partial class ElementosConfiguracion : System.Web.UI.Page
         }
 
         Cargar_Datos(this.ddltci, "[dbo].[pr_Obtener_Tipos_Elemento_Configuracion_2]", "Error, al intentar recuperar Estado Elemento Configuracion.");
-        if (this.__mensaje.Value.ToString().Trim() != "")
-        {
-            return;
-        }
         Cargar_Datos(this.ddleci, "[dbo].[pr_Obtener_Estado_Elemento_Configuracion]", "Error, al intentar recuperar Estado Elemento Configuracion.");
-        if (this.__mensaje.Value.ToString().Trim() != "")
-        {
-            return;
-        }
         Cargar_Datos(this.ddldci, "[dbo].[pr_Descripcion_Elemento_Configuracion]", "Error, al intentar recuperar Descripcion Elemento Configuracion.");
-        if (this.__mensaje.Value.ToString().Trim() != "")
-        {
-            return;
-        }
         Cargar_Datos(this.ddlici, "[dbo].[pr_Impacto_Comercial_Elemento_Configuracion_Hardware]", "Error, al intentar recuperar Impactos Comercial Elemento Configuracion.");
-        if (this.__mensaje.Value.ToString().Trim() != "")
-        {
-            return;
-        }
         Cargar_Datos(this.ddls, "[dbo].[pr_Obtener_Sedes]", "Error, al intentar recuperar Sedes Judiciales.");
-        if (this.__mensaje.Value.ToString().Trim() != "")
-        {
-            return;
-        }
 
-        if (Session["OpcionBusqueda"] == null)
-        {
-            this.Listar_Elementos_Configuracion("", "", "", "", "", "", "", "", "", "No hay Elementos Configuracion");
-        }
-        else
-        {
-            Object[] ob = (Object[])Session["OpcionBusqueda"];
-            this.cbnci.Checked = (bool)ob[1];
-            this.txtnci.Enabled = (bool)ob[1];
-            this.txtnci.Text = (string)ob[0];
-
-            this.cbtci.Checked = (bool)ob[3];
-            ddltci.Enabled = (bool)ob[3];
-            for (int i = 0; i < this.ddltci.Items.Count; i++)
-            {
-                if (this.ddltci.Items[i].Text == ob[2].ToString().Trim())
-                    this.ddltci.SelectedIndex = i;
-            }
-
-            this.cbeci.Checked = (bool)ob[5];
-            ddleci.Enabled = (bool)ob[5];
-            for (int i = 0; i < this.ddleci.Items.Count; i++)
-            {
-                if (this.ddleci.Items[i].Text == ob[4].ToString().Trim())
-                    this.ddleci.SelectedIndex = i;
-            }
-
-            this.cbpci.Checked = (bool)ob[7];
-            txtpci.Enabled = (bool)ob[7];
-            this.txtpci.Text = (string)ob[6];
-
-            this.cbdci.Checked = (bool)ob[9];
-            ddldci.Enabled = (bool)ob[9];
-            for (int i = 0; i < this.ddldci.Items.Count; i++)
-            {
-                if (this.ddldci.Items[i].Text == ob[8].ToString().Trim())
-                    this.ddldci.SelectedIndex = i;
-            }
-
-
-
-            this.cbs.Checked = (bool)ob[11];
-            ddls.Enabled = (bool)ob[11];
-            for (int i = 0; i < this.ddls.Items.Count; i++)
-            {
-                if (this.ddls.Items[i].Text == ob[10].ToString().Trim())
-                    this.ddls.SelectedIndex = i;
-            }
-
-            ddls_SelectedIndexChanged(sender, e);
-
-            this.cbl.Checked = (bool)ob[13];
-            ddll.Enabled = (bool)ob[13];
-            for (int i = 0; i < this.ddll.Items.Count; i++)
-            {
-                if (this.ddll.Items[i].Text == ob[12].ToString().Trim())
-                    this.ddll.SelectedIndex = i;
-            }
-
-            ddll_SelectedIndexChanged(sender, e);
-
-            this.cba.Checked = (bool)ob[15];
-            ddla.Enabled = (bool)ob[15];
-            for (int i = 0; i < this.ddla.Items.Count; i++)
-            {
-                if (this.ddla.Items[i].Text == ob[14].ToString().Trim())
-                    this.ddla.SelectedIndex = i;
-            }
-
-            this.cbici.Checked = (bool)ob[17];
-            ddlici.Enabled = (bool)ob[17];
-            for (int i = 0; i < this.ddlici.Items.Count; i++)
-            {
-                if (this.ddlici.Items[i].Text == ob[16].ToString().Trim())
-                    this.ddlici.SelectedIndex = i;
-            }
-
-
-            this.Listar_Elementos_Configuracion(ob[0].ToString().Trim(),
-            ob[2].ToString().Trim(),
-            ob[4].ToString().Trim(),
-            ob[6].ToString().Trim(),
-            ob[8].ToString().Trim(),
-            ob[16].ToString().Trim(),
-            ob[10].ToString().Trim(),
-            ob[12].ToString().Trim(),
-            ob[14].ToString().Trim(),
-            "No hay Elementos Configuracion con los criterios seleccionados");
-        }
-
-        //this.Listar_Elementos_Configuracion("","","", "","","","","","", "No hay Elementos Configuracion");
-    }
-
-    protected void cbnci_CheckedChanged(object sender, EventArgs e)
-    {
-        _Lista.ShowMessage(__mensaje, __pagina, "", "");
-        this.txtnci.Enabled = this.cbnci.Checked;
-        this.txtnci.Text = "";
-        this.txtnci.Focus();
-    }
-
-    protected void cbtci_CheckedChanged(object sender, EventArgs e)
-    {
-        _Lista.ShowMessage(__mensaje, __pagina, "", "");
-        ddltci.Enabled = cbtci.Checked;
-        this.ddltci.SelectedIndex = -1;
-        this.ddltci.Focus();
-    }
-
-    protected void cbeci_CheckedChanged(object sender, EventArgs e)
-    {
-        _Lista.ShowMessage(__mensaje, __pagina, "", "");
-        ddleci.Enabled = cbeci.Checked;
-        this.ddleci.SelectedIndex = -1;
-        this.ddleci.Focus();
-    }
-
-    protected void cbpci_CheckedChanged(object sender, EventArgs e)
-    {
-        _Lista.ShowMessage(__mensaje, __pagina, "", "");
-        txtpci.Enabled = cbpci.Checked;
-        this.txtnci.Text = "";
-        this.txtpci.Focus();
-    }
-
-    protected void cbdci_CheckedChanged(object sender, EventArgs e)
-    {
-        _Lista.ShowMessage(__mensaje, __pagina, "", "");
-        ddldci.Enabled = cbdci.Checked;
-        this.ddldci.SelectedIndex = -1;
-        this.ddldci.Focus();
-    }
-
-    protected void cbici_CheckedChanged(object sender, EventArgs e)
-    {
-        _Lista.ShowMessage(__mensaje, __pagina, "", "");
-        ddlici.Enabled = cbici.Checked;
-        this.ddlici.SelectedIndex = -1;
-        this.ddlici.Focus();
-    }
-
-    protected void cbs_CheckedChanged(object sender, EventArgs e)
-    {
-        _Lista.ShowMessage(__mensaje, __pagina, "", "");
-        ddls.Enabled = cbs.Checked;
-        this.ddls.SelectedIndex = -1;
-        this.ddls.Focus();
-    }
-
-    protected void cbl_CheckedChanged(object sender, EventArgs e)
-    {
-        _Lista.ShowMessage(__mensaje, __pagina, "", "");
-        ddll.Enabled = cbl.Checked;
-        this.ddll.SelectedIndex = -1;
-        this.ddll.Focus();
-    }
-
-    protected void cba_CheckedChanged(object sender, EventArgs e)
-    {
-        _Lista.ShowMessage(__mensaje, __pagina, "", "");
-        ddla.Enabled = cba.Checked;
-        this.ddla.SelectedIndex = -1;
-        this.ddla.Focus();
+        this.Listar_Elementos_Configuracion("", "", "", "", "", "", "", "", "", "No hay Elementos Configuracion");
     }
 
     protected void lbtnBuscar_Click(object sender, EventArgs e)
@@ -716,105 +534,30 @@ public partial class ElementosConfiguracion : System.Web.UI.Page
             return;
         }
 
-        Object[] ob;
+        String _NOMBRE_CI = txtnci.Text.Trim();
+        String _TIPO_CI = string.IsNullOrEmpty(ddltci.SelectedValue) ? "" : ddltci.SelectedItem.Text;
+        String _ESTADO_CI = string.IsNullOrEmpty(ddleci.SelectedValue) ? "" : ddleci.SelectedItem.Text;
+        String _PROPIETARIO_CI = txtpci.Text.Trim();
+        String _DESCRIPCION_CI = string.IsNullOrEmpty(ddldci.SelectedValue) ? "" : ddldci.SelectedItem.Text;
+        String _IMPACTO_CI = string.IsNullOrEmpty(ddlici.SelectedValue) ? "" : ddlici.SelectedItem.Text;
+        String _SEDE = string.IsNullOrEmpty(ddls.SelectedValue) ? "" : ddls.SelectedItem.Text;
+        String _LOCAL = string.IsNullOrEmpty(ddll.SelectedValue) ? "" : ddll.SelectedItem.Text;
+        String _AREA = string.IsNullOrEmpty(ddla.SelectedValue) ? "" : ddla.SelectedItem.Text;
 
-        bool ok = (cbnci.Checked == true || 
-        cbtci.Checked == true ||
-        cbeci.Checked == true ||
-        cbpci.Checked == true ||
-        cbdci.Checked == true ||
-        cbici.Checked == true ||
-        cbs.Checked == true ||
-        cbl.Checked == true ||
-        cba.Checked == true );
-        if(ok==false) {
-            _Lista.ShowMessage(__mensaje, __pagina, "Seleccione criterio(s) de busqueda.", "../ElementosConfiguracion.aspx");
+        bool hayCriterio = !string.IsNullOrEmpty(_NOMBRE_CI) || !string.IsNullOrEmpty(_TIPO_CI) ||
+            !string.IsNullOrEmpty(_ESTADO_CI) || !string.IsNullOrEmpty(_PROPIETARIO_CI) ||
+            !string.IsNullOrEmpty(_DESCRIPCION_CI) || !string.IsNullOrEmpty(_IMPACTO_CI) ||
+            !string.IsNullOrEmpty(_SEDE) || !string.IsNullOrEmpty(_LOCAL) || !string.IsNullOrEmpty(_AREA);
+
+        if (!hayCriterio)
+        {
+            _Lista.ShowMessage(__mensaje, __pagina, "Ingrese al menos un criterio de busqueda.", "");
             return;
         }
 
-        String _NOMBRE_CI = "";
-        String _TIPO_CI = "";
-        String _ESTADO_CI = "";
-        String _PROPIETARIO_CI = "";
-        String _DESCRIPCION_CI = "";
-        String _IMPACTO_CI = "";
-        String _SEDE = "";
-        String _LOCAL = "";
-        String _AREA = "";
-        if (cbnci.Checked == true)
-        {
-            _NOMBRE_CI = txtnci.Text.Trim();
-            if(_NOMBRE_CI.Trim().Length==0) {
-                _Lista.ShowMessage(__mensaje, __pagina, "Ingrese nombre elemento de configuracion.", "");
-                txtnci.Focus();
-                 return;
-            }
-
-        }
-        else if (cbtci.Checked == true)
-        {
-            _TIPO_CI = ddltci.SelectedItem.Text;   
-            //if(ddltci.SelectedValue==(-1).ToString()) {
-            //    _Lista.ShowMessage(__mensaje, __pagina, "Seleccione tipo CI.", "");
-            //    ddltci.Focus();
-            //    return;
-            //}         
-        }
-        else if (cbeci.Checked == true)
-        {
-            _ESTADO_CI = ddleci.SelectedItem.Text;
-        }
-        else if (cbpci.Checked == true)
-        {
-            _PROPIETARIO_CI = txtpci.Text.Trim();
-            if (_PROPIETARIO_CI.Trim().Length == 0)
-            {
-                _Lista.ShowMessage(__mensaje, __pagina, "Ingrese propietario del elemento de configuracion.", "");
-                txtpci.Focus();
-                return;
-            }
-        }
-        else if (cbdci.Checked == true)
-        {
-            _DESCRIPCION_CI = ddldci.SelectedItem.Text;
-        }
-        else if (cbici.Checked == true)
-        {
-            _IMPACTO_CI = ddlici.SelectedItem.Text;
-        }
-        else if (cbs.Checked == true)
-        {
-            _SEDE = ddls.SelectedItem.Text;
-        }
-        else if (cbl.Checked == true)
-        {
-            _LOCAL = ddll.SelectedItem.Text;
-        }
-        else if (cba.Checked == true)
-        {
-            _AREA = ddla.SelectedItem.Text;
-        }
-        //this.Listar_Elementos_Configuracion(_NOMBRE_CI, _TIPO_CI, _ESTADO_CI, _PROPIETARIO_CI, _DESCRIPCION_CI, _IMPACTO_CI, _SEDE, _LOCAL, _AREA, "No hay Elementos de Configuracion con el criterio o criterios seleccionados.");
-
-        ob = new Object[] {
-             txtnci.Text.Trim(), this.cbnci.Checked,
-             Convert.ToInt32(ddltci.SelectedValue)==-1?"": ddltci.SelectedItem.Text, this.cbtci.Checked,
-             Convert.ToInt32(ddleci.SelectedValue)==-1?"": ddleci.SelectedItem.Text, this.cbeci.Checked,
-             txtpci.Text.Trim(), this.cbpci.Checked,
-             Convert.ToInt32(ddldci.SelectedValue)==-1?"": ddldci.SelectedItem.Text, this.cbdci.Checked,
-             
-             Convert.ToInt32(ddls.SelectedValue)==-1?"": ddls.SelectedItem.Text, this.cbs.Checked,
-             Convert.ToInt32(ddll.SelectedValue)==-1?"": ddll.SelectedItem.Text, this.cbl.Checked,
-             Convert.ToInt32(ddla.SelectedValue)==-1?"": ddla.SelectedItem.Text, this.cba.Checked,
-             Convert.ToInt32(ddlici.SelectedValue)==-1?"": ddlici.SelectedItem.Text, this.cbici.Checked
-        };
-        Session["OpcionBusqueda"] = ob;
-
-        Response.Clear();
-        Response.Redirect("ElementosConfiguracion.aspx");
-        Response.Flush();
-
-        _Lista.ShowMessage(__mensaje, __pagina, "", "");
+        this.Listar_Elementos_Configuracion(_NOMBRE_CI, _TIPO_CI, _ESTADO_CI, _PROPIETARIO_CI,
+            _DESCRIPCION_CI, _IMPACTO_CI, _SEDE, _LOCAL, _AREA,
+            "No hay Elementos de Configuracion con los criterios seleccionados.");
     }
 
 

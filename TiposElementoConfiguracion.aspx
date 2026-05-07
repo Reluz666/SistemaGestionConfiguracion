@@ -13,6 +13,12 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+    <!-- Global Styles -->
+    <link href="CssJs/global-styles.css" rel="stylesheet" />
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
 
     <style>
         /* ===== NAVBAR ===== */
@@ -279,7 +285,7 @@
     <!-- ========== NAVBAR ========== -->
     <nav class="navbar navbar-expand-lg navbar-modern fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="../menu.aspx">
+            <a class="navbar-brand" href="Menu.aspx">
                 <i class="bi bi-house-door-fill me-1"></i>Inicio
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -399,7 +405,7 @@
                 <div class="card-header">
                     <i class="bi bi-list-ul me-2"></i>Ingrese Datos Tipos Elemento Configuracion
                 </div>
-                <div class="card-body p-4">
+                <div class="card-body p-3">
 
                     <!-- Nombre Tipo CI -->
                     <div class="row g-3 mb-3">
@@ -458,8 +464,6 @@
     </form>
 
     <!-- Scripts -->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="../Otros_css_js/resaltar.js"></script>
 
 </body>

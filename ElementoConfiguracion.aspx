@@ -113,6 +113,9 @@
             toastElement.addEventListener('hidden.bs.toast', function() { toastElement.remove(); });
         }
     </script>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body onload="MostrarMensaje()">
 
@@ -122,7 +125,7 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-modern fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="../menu.aspx">
+            <a class="navbar-brand" href="Menu.aspx">
                 <i class="bi bi-house-door-fill me-1"></i>Inicio
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -226,7 +229,7 @@
             <!-- Breadcrumb -->
             <nav aria-label="breadcrumb" class="breadcrumb-nav">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="../menu.aspx"><i class="bi bi-house-door"></i> Inicio</a></li>
+                    <li class="breadcrumb-item"><a href="Menu.aspx"><i class="bi bi-house-door"></i> Inicio</a></li>
                     <li class="breadcrumb-item"><a href="ElementosConfiguracion.aspx">Elementos de Configuración</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Nuevo Elemento</li>
                 </ol>
@@ -237,7 +240,7 @@
                 <div class="card-header">
                     <i class="bi bi-plus-circle-fill me-2"></i>Ingrese Datos Elemento Configuración
                 </div>
-                <div class="card-body p-4">
+                <div class="card-body p-3">
                     <div class="row g-3">
                         <!-- Tipo -->
                         <div class="col-md-6 col-sm-6">
@@ -421,7 +424,5 @@
         </div>
     </form>
 
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
