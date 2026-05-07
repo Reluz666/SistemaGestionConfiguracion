@@ -22,6 +22,7 @@ public partial class TiposElementoConfiguracion : System.Web.UI.Page
             this.btnCancelar.Visible = true;
             oculta(false);
         }
+        CargarDatosJson();
     }
 
     protected void Page_Init(object sender, EventArgs e)
@@ -237,12 +238,63 @@ public partial class TiposElementoConfiguracion : System.Web.UI.Page
             }
 
         }
-        catch (Exception)
+        catch (Exception ex)
         {
 
             this.__mensaje.Value = "Error inesperado al intentar conectarnos con el servidor.";
 
             this.__pagina.Value = "CerrarSession.aspx";
+        }
+    }
+
+    private void CargarDatosJson()
+    {
+        try
+        {
+            policia.clsaccesodatos servidor = new policia.clsaccesodatos();
+            servidor.cadenaconexion = Ruta;
+            if (servidor.abrirconexion() == true)
+            {
+                dt = servidor.consultar("[dbo].[pr_Lista_Locales]", "", "").Tables[0];
+                if (dt.Rows.Count > 0)
+                {
+                    System.Text.StringBuilder json = new System.Text.StringBuilder();
+                    json.Append("[");
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        if (i > 0) json.Append(",");
+                        json.Append("{");
+                        json.Append("\"id\":\"" + dt.Rows[i]["ID LOCAL"].ToString().Trim() + "\",");
+                        json.Append("\"codigo\":\"" + System.Web.HttpUtility.JavaScriptStringEncode(dt.Rows[i]["LOCAL CODIGO"].ToString().Trim()) + "\",");
+                        json.Append("\"nombre\":\"" + System.Web.HttpUtility.JavaScriptStringEncode(dt.Rows[i]["LOCAL NOMBRE"].ToString().Trim()) + "\",");
+                        json.Append("\"direccion\":\"" + System.Web.HttpUtility.JavaScriptStringEncode(dt.Rows[i]["LOCAL DIRECCION"].ToString().Trim()) + "\",");
+                        json.Append("\"sede\":\"" + System.Web.HttpUtility.JavaScriptStringEncode(dt.Rows[i]["SEDE"].ToString().Trim()) + "\",");
+                        json.Append("\"idUbi\":\"" + dt.Rows[i]["ID UBI"].ToString().Trim() + "\",");
+                        json.Append("\"ubiGeo\":\"" + System.Web.HttpUtility.JavaScriptStringEncode(dt.Rows[i]["UBICACION GEOGRAFICA"].ToString().Trim()) + "\",");
+                        json.Append("\"telefono\":\"" + System.Web.HttpUtility.JavaScriptStringEncode(dt.Rows[i]["TELEFONO"].ToString().Trim()) + "\",");
+                        json.Append("\"paginaWeb\":\"" + System.Web.HttpUtility.JavaScriptStringEncode(dt.Rows[i]["PAGINA WEB"].ToString().Trim()) + "\",");
+                        json.Append("\"email\":\"" + System.Web.HttpUtility.JavaScriptStringEncode(dt.Rows[i]["EMAIL"].ToString().Trim()) + "\",");
+                        json.Append("\"totalCis\":\"" + dt.Rows[i]["TOTAL CIS"].ToString().Trim() + "\"");
+                        json.Append("}");
+                    }
+                    json.Append("]");
+                    this.datosJson.Value = json.ToString();
+                }
+                else
+                {
+                    this.datosJson.Value = "[]";
+                }
+                servidor.cerrarconexion();
+            }
+            else
+            {
+                servidor.cerrarconexion();
+                this.datosJson.Value = "[]";
+            }
+        }
+        catch (Exception ex)
+        {
+            this.datosJson.Value = "[]";
         }
     }
 
@@ -326,7 +378,7 @@ public partial class TiposElementoConfiguracion : System.Web.UI.Page
                 ShowMessage(servidor.getMensageError(), "CerrarSession.aspx");
             }
         }
-        catch (Exception)
+        catch (Exception ex)
         {
             servidor.cancelarconexiontrans();
             ShowMessage("Error inesperado al intentar conectarnos con el servidor.", "CerrarSession.aspx");
@@ -529,7 +581,7 @@ public partial class TiposElementoConfiguracion : System.Web.UI.Page
                 this.__pagina.Value = "";
             }
         }
-        catch (Exception)
+        catch (Exception ex)
         {
             this.__mensaje.Value = "Error inesperado al intentar conectarnos con el servidor.";
             this.__pagina.Value = "";
@@ -619,7 +671,7 @@ public partial class TiposElementoConfiguracion : System.Web.UI.Page
                 this.__pagina.Value = "";
             }
         }
-        catch (Exception)
+        catch (Exception ex)
         {
             ok = false;
             this.__mensaje.Value = "Error inesperado al intentar conectarnos con el servidor.";
@@ -661,7 +713,7 @@ public partial class TiposElementoConfiguracion : System.Web.UI.Page
                 this.__pagina.Value = "";
             }
         }
-        catch (Exception)
+        catch (Exception ex)
         {
             ok = false;
             this.__mensaje.Value = "Error inesperado al intentar conectarnos con el servidor.";

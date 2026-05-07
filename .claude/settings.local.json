@@ -17,7 +17,9 @@
       "Bash(xxd -l 500 ElementosConfiguracion.aspx)",
       "Bash(grep -E '^[áéíóúñÁÉÍÓÚÑ]|^[A-Za-z]$')",
       "Bash(xxd ElementosConfiguracion.aspx)",
-      "Bash(xxd Personal.aspx)"
+      "Bash(xxd Personal.aspx)",
+      "Bash(dir D:\\\\PROYECTOS\\\\SistemaGestionConfiguracion\\\\ElementosConfiguracion*)",
+      "Bash(git checkout *)"
     ]
   }
 }

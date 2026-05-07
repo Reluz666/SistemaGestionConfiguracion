@@ -323,6 +323,7 @@
                         <td colspan="5" >
                             <asp:HiddenField ID="__pagina" runat="server" />
                             <asp:HiddenField ID="__mensaje" runat="server" />
+                            <asp:HiddenField ID="datosJson" runat="server" />
                         </td>
                         <td >
                             &nbsp;</td>
@@ -335,6 +336,227 @@
 
     <!-- Scripts -->
     <script type="text/javascript" src="../Otros_css_js/resaltar.js"></script>
+
+    <!-- ========== LIST VIEW SECTION ========== -->
+    <div class="container mt-4" id="listViewSection">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0"><i class="bi bi-list-ul me-2"></i>Lista de Relaciones de Elementos de Configuracion</h5>
+            </div>
+            <div class="card-body">
+                <!-- Search Input -->
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-search"></i></span>
+                            <input type="text" id="txtBuscarLista" class="form-control" placeholder="Buscar por nombre, tipo, estado, propietario..." onkeyup="filtrarLista()" />
+                            <button class="btn btn-outline-secondary" type="button" onclick="filtrarLista()">Buscar</button>
+                        </div>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <span id="lblTotalRegistros" class="text-muted"></span>
+                    </div>
+                </div>
+
+                <!-- Table -->
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover table-bordered" id="tblListaRelaciones">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre CI</th>
+                                <th>Tipo CI</th>
+                                <th>Estado CI</th>
+                                <th>Propietario</th>
+                                <th>Sede</th>
+                                <th>Local</th>
+                                <th>Area</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbodyListaRelaciones">
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <nav>
+                            <ul class="pagination mb-0" id="paginationControls">
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <span id="lblPaginacion" class="text-muted"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        // ========== LIST VIEW PAGINATION AND SEARCH ==========
+        var currentPage = 1;
+        var itemsPerPage = 10;
+        var allData = [];
+        var filteredData = [];
+
+        function cargarDatosJson() {
+            var jsonData = document.getElementById('datosJson').value;
+            if (jsonData && jsonData.trim() !== '') {
+                try {
+                    allData = JSON.parse(jsonData);
+                    filteredData = allData;
+                    renderizarTabla();
+                } catch (e) {
+                    console.error('Error parsing JSON:', e);
+                }
+            }
+        }
+
+        function filtrarLista() {
+            var searchTerm = document.getElementById('txtBuscarLista').value.toLowerCase().trim();
+            if (searchTerm === '') {
+                filteredData = allData;
+            } else {
+                filteredData = allData.filter(function(item) {
+                    var nombreCI = (item.NOMBRE_CI || '').toLowerCase();
+                    var tipoCI = (item.TIPO_CI || '').toLowerCase();
+                    var estadoCI = (item.ESTADO_CI || '').toLowerCase();
+                    var propietario = (item.PROPIETARIO_CI || '').toLowerCase();
+                    var sede = (item.SEDE || '').toLowerCase();
+                    var local = (item.LOCAL || '').toLowerCase();
+                    var area = (item.AREA || '').toLowerCase();
+                    var tipoRelacion = (item.TIPO_RELACION || '').toLowerCase();
+
+                    return nombreCI.indexOf(searchTerm) !== -1 ||
+                           tipoCI.indexOf(searchTerm) !== -1 ||
+                           estadoCI.indexOf(searchTerm) !== -1 ||
+                           propietario.indexOf(searchTerm) !== -1 ||
+                           sede.indexOf(searchTerm) !== -1 ||
+                           local.indexOf(searchTerm) !== -1 ||
+                           area.indexOf(searchTerm) !== -1 ||
+                           tipoRelacion.indexOf(searchTerm) !== -1;
+                });
+            }
+            currentPage = 1;
+            renderizarTabla();
+        }
+
+        function renderizarTabla() {
+            var tbody = document.getElementById('tbodyListaRelaciones');
+            tbody.innerHTML = '';
+
+            var startIndex = (currentPage - 1) * itemsPerPage;
+            var endIndex = startIndex + itemsPerPage;
+            var pageData = filteredData.slice(startIndex, endIndex);
+
+            if (pageData.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="9" class="text-center text-muted">No se encontraron registros</td></tr>';
+                document.getElementById('lblTotalRegistros').textContent = 'Total: 0 registros';
+                return;
+            }
+
+            for (var i = 0; i < pageData.length; i++) {
+                var item = pageData[i];
+                var row = document.createElement('tr');
+                row.innerHTML =
+                    '<td>' + (item.ID_RELACION || '') + '</td>' +
+                    '<td>' + (item.NOMBRE_CI || '') + '</td>' +
+                    '<td>' + (item.TIPO_CI || '') + '</td>' +
+                    '<td>' + (item.ESTADO_CI || '') + '</td>' +
+                    '<td>' + (item.PROPIETARIO_CI || '') + '</td>' +
+                    '<td>' + (item.SEDE || '') + '</td>' +
+                    '<td>' + (item.LOCAL || '') + '</td>' +
+                    '<td>' + (item.AREA || '') + '</td>' +
+                    '<td><a href="RelacionElementosConfiguracion.aspx?Operacion=M&IDR=' + item.ID_RELACION + '" class="btn btn-sm btn-primary"><i class="bi bi-pencil"></i> Editar</a></td>';
+                tbody.appendChild(row);
+            }
+
+            document.getElementById('lblTotalRegistros').textContent = 'Total: ' + filteredData.length + ' registros';
+            renderizarPaginacion();
+        }
+
+        function renderizarPaginacion() {
+            var pagination = document.getElementById('paginationControls');
+            pagination.innerHTML = '';
+
+            var totalPages = Math.ceil(filteredData.length / itemsPerPage);
+            if (totalPages <= 1) {
+                document.getElementById('lblPaginacion').textContent = '';
+                return;
+            }
+
+            // Previous button
+            var prevLi = document.createElement('li');
+            prevLi.className = 'page-item' + (currentPage === 1 ? ' disabled' : '');
+            prevLi.innerHTML = '<a class="page-link" href="#" onclick="irPagina(' + (currentPage - 1) + '); return false;">Anterior</a>';
+            pagination.appendChild(prevLi);
+
+            // Page numbers
+            var maxVisible = 5;
+            var startPage = Math.max(1, currentPage - Math.floor(maxVisible / 2));
+            var endPage = Math.min(totalPages, startPage + maxVisible - 1);
+
+            if (endPage - startPage < maxVisible - 1) {
+                startPage = Math.max(1, endPage - maxVisible + 1);
+            }
+
+            if (startPage > 1) {
+                var firstLi = document.createElement('li');
+                firstLi.className = 'page-item';
+                firstLi.innerHTML = '<a class="page-link" href="#" onclick="irPagina(1); return false;">1</a>';
+                pagination.appendChild(firstLi);
+                if (startPage > 2) {
+                    var ellipsisLi = document.createElement('li');
+                    ellipsisLi.className = 'page-item disabled';
+                    ellipsisLi.innerHTML = '<span class="page-link">...</span>';
+                    pagination.appendChild(ellipsisLi);
+                }
+            }
+
+            for (var p = startPage; p <= endPage; p++) {
+                var li = document.createElement('li');
+                li.className = 'page-item' + (p === currentPage ? ' active' : '');
+                li.innerHTML = '<a class="page-link" href="#" onclick="irPagina(' + p + '); return false;">' + p + '</a>';
+                pagination.appendChild(li);
+            }
+
+            if (endPage < totalPages) {
+                if (endPage < totalPages - 1) {
+                    var ellipsisLi = document.createElement('li');
+                    ellipsisLi.className = 'page-item disabled';
+                    ellipsisLi.innerHTML = '<span class="page-link">...</span>';
+                    pagination.appendChild(ellipsisLi);
+                }
+                var lastLi = document.createElement('li');
+                lastLi.className = 'page-item';
+                lastLi.innerHTML = '<a class="page-link" href="#" onclick="irPagina(' + totalPages + '); return false;">' + totalPages + '</a>';
+                pagination.appendChild(lastLi);
+            }
+
+            // Next button
+            var nextLi = document.createElement('li');
+            nextLi.className = 'page-item' + (currentPage === totalPages ? ' disabled' : '');
+            nextLi.innerHTML = '<a class="page-link" href="#" onclick="irPagina(' + (currentPage + 1) + '); return false;">Siguiente</a>';
+            pagination.appendChild(nextLi);
+
+            document.getElementById('lblPaginacion').textContent = 'Pagina ' + currentPage + ' de ' + totalPages;
+        }
+
+        function irPagina(page) {
+            var totalPages = Math.ceil(filteredData.length / itemsPerPage);
+            if (page < 1 || page > totalPages) return;
+            currentPage = page;
+            renderizarTabla();
+        }
+
+        // Load data on page load
+        $(document).ready(function() {
+            cargarDatosJson();
+        });
+    </script>
 
 </body>
 </html>

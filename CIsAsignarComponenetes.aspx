@@ -281,6 +281,191 @@
             if (!confirm(men))
                 return false;
         }
+
+        // =====================================================
+        // LISTA: Buscar, paginar y renderizar CIs (lado cliente)
+        // =====================================================
+        var todosLosCIs = [];
+        var itemsPorPagina = 10;
+        var paginaActual = 1;
+
+        function cargarDatosLista() {
+            var jsonData = document.getElementById('datosJson').value;
+            if (!jsonData || jsonData.trim() === '') {
+                todosLosCIs = [];
+                return;
+            }
+            try {
+                todosLosCIs = JSON.parse(jsonData);
+            } catch (e) {
+                todosLosCIs = [];
+            }
+        }
+
+        function normalizar(texto) {
+            if (!texto) return '';
+            return texto.toString().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+        }
+
+        function coincideBusqueda(ci) {
+            var texto = normalizar(document.getElementById('txtBuscarLista').value);
+            if (texto === '') return true;
+            return (
+                normalizar(ci.NOMBRE_CI).includes(texto) ||
+                normalizar(ci.NOMBRE_TIPO_CI).includes(texto) ||
+                normalizar(ci.NRO_SERIE).includes(texto) ||
+                normalizar(ci.MARCA).includes(texto) ||
+                normalizar(ci.MODELO).includes(texto) ||
+                normalizar(ci.ESTADO_CI).includes(texto) ||
+                normalizar(ci.DESCRIPCION_CI).includes(texto) ||
+                normalizar(ci.SEDE).includes(texto) ||
+                normalizar(ci.LOCAL).includes(texto) ||
+                normalizar(ci.AREA).includes(texto)
+            );
+        }
+
+        function obtenerCIsFiltrados() {
+            return todosLosCIs.filter(coincideBusqueda);
+        }
+
+        function obtenerTotalPaginas(totalItems) {
+            return Math.ceil(totalItems / itemsPorPagina);
+        }
+
+        function renderizarTabla(pagina) {
+            var filtrados = obtenerCIsFiltrados();
+            var totalPaginas = obtenerTotalPaginas(filtrados.length);
+            if (totalPaginas === 0) totalPaginas = 1;
+            if (pagina < 1) pagina = 1;
+            if (pagina > totalPaginas) pagina = totalPaginas;
+            paginaActual = pagina;
+
+            var inicio = (pagina - 1) * itemsPorPagina;
+            var fin = inicio + itemsPorPagina;
+            var paginaItems = filtrados.slice(inicio, fin);
+
+            var tbody = document.getElementById('tbodyListaCIs');
+            if (!tbody) return;
+            tbody.innerHTML = '';
+
+            if (paginaItems.length === 0) {
+                var tr = document.createElement('tr');
+                tr.innerHTML = '<td colspan="9" class="text-center text-muted">No se encontraron resultados</td>';
+                tbody.appendChild(tr);
+            } else {
+                paginaItems.forEach(function (ci) {
+                    var tr = document.createElement('tr');
+                    var estadoColor = (ci.ESTADO_CI === 'ACTIVO')
+                        ? '<span style="color:#0066cc;font-weight:600;">' + ci.ESTADO_CI + '</span>'
+                        : '<span style="color:#cc0000;font-weight:600;">' + ci.ESTADO_CI + '</span>';
+                    var marcaModelo = '<span style="color:red;">' + (ci.MARCA || '') + '</span> / <span style="color:blue;">' + (ci.MODELO || '') + '</span>';
+                    tr.innerHTML =
+                        '<td>' + (ci.NOMBRE_CI || '') + '</td>' +
+                        '<td>' + (ci.NOMBRE_TIPO_CI || '') + '</td>' +
+                        '<td>' + (ci.NRO_SERIE || '') + '</td>' +
+                        '<td>' + marcaModelo + '</td>' +
+                        '<td>' + estadoColor + '</td>' +
+                        '<td>' + (ci.DESCRIPCION_CI || '') + '</td>' +
+                        '<td>' + (ci.SEDE || '') + '</td>' +
+                        '<td>' + (ci.LOCAL || '') + '</td>' +
+                        '<td>' + (ci.AREA || '') + '</td>';
+                    tbody.appendChild(tr);
+                });
+            }
+
+            // Actualizar etiquetas de rango
+            var total = filtrados.length;
+            var desde = total === 0 ? 0 : inicio + 1;
+            var hasta = Math.min(inicio + itemsPorPagina, total);
+            var lblDesde = document.getElementById('lblDesde');
+            var lblHasta = document.getElementById('lblHasta');
+            var lblTotal = document.getElementById('lblTotal');
+            if (lblDesde) lblDesde.textContent = desde;
+            if (lblHasta) lblHasta.textContent = hasta;
+            if (lblTotal) lblTotal.textContent = total;
+
+            renderizarPaginacion(totalPaginas, pagina);
+        }
+
+        function renderizarPaginacion(totalPaginas, paginaAct) {
+            var ul = document.getElementById('ulPaginacion');
+            if (!ul) return;
+            ul.innerHTML = '';
+
+            // Boton Anterior
+            var liPrev = document.createElement('li');
+            liPrev.className = 'page-item' + (paginaAct <= 1 ? ' disabled' : '');
+            liPrev.innerHTML = '<a class="page-link" href="#" onclick="return false;">Anterior</a>';
+            liPrev.addEventListener('click', function () {
+                if (paginaAct > 1) renderizarTabla(paginaAct - 1);
+            });
+            ul.appendChild(liPrev);
+
+            var maxVisible = 5;
+            var startPage = Math.max(1, paginaAct - Math.floor(maxVisible / 2));
+            var endPage = Math.min(totalPaginas, startPage + maxVisible - 1);
+            if (endPage - startPage < maxVisible - 1) {
+                startPage = Math.max(1, endPage - maxVisible + 1);
+            }
+
+            if (startPage > 1) {
+                var liFirst = document.createElement('li');
+                liFirst.className = 'page-item';
+                liFirst.innerHTML = '<a class="page-link" href="#">1</a>';
+                liFirst.addEventListener('click', function () { renderizarTabla(1); });
+                ul.appendChild(liFirst);
+                if (startPage > 2) {
+                    var liDots = document.createElement('li');
+                    liDots.className = 'page-item disabled';
+                    liDots.innerHTML = '<a class="page-link" href="#">...</a>';
+                    ul.appendChild(liDots);
+                }
+            }
+
+            for (var i = startPage; i <= endPage; i++) {
+                var li = document.createElement('li');
+                li.className = 'page-item' + (i === paginaAct ? ' active' : '');
+                li.innerHTML = '<a class="page-link" href="#">' + i + '</a>';
+                (function (pg) {
+                    li.addEventListener('click', function () { renderizarTabla(pg); });
+                })(i);
+                ul.appendChild(li);
+            }
+
+            if (endPage < totalPaginas) {
+                if (endPage < totalPaginas - 1) {
+                    var liDots2 = document.createElement('li');
+                    liDots2.className = 'page-item disabled';
+                    liDots2.innerHTML = '<a class="page-link" href="#">...</a>';
+                    ul.appendChild(liDots2);
+                }
+                var liLast = document.createElement('li');
+                liLast.className = 'page-item';
+                liLast.innerHTML = '<a class="page-link" href="#">' + totalPaginas + '</a>';
+                liLast.addEventListener('click', function () { renderizarTabla(totalPaginas); });
+                ul.appendChild(liLast);
+            }
+
+            // Boton Siguiente
+            var liNext = document.createElement('li');
+            liNext.className = 'page-item' + (paginaAct >= totalPaginas ? ' disabled' : '');
+            liNext.innerHTML = '<a class="page-link" href="#">Siguiente</a>';
+            liNext.addEventListener('click', function () {
+                if (paginaAct < totalPaginas) renderizarTabla(paginaAct + 1);
+            });
+            ul.appendChild(liNext);
+        }
+
+        function filtrarListaCIs() {
+            renderizarTabla(1);
+        }
+
+        // Inicializar lista al cargar la pagina
+        var datosJsonCtrl = document.getElementById('datosJson');
+        if (datosJsonCtrl && datosJsonCtrl.value && datosJsonCtrl.value.trim() !== '') {
+            cargarDatosLista();
+            renderizarTabla(1);
+        }
     </script>
 
     <!-- Scripts -->
@@ -406,6 +591,66 @@
 
     <!-- ========== FORMULARIO ========== -->
     <form id="form1" runat="server">
+        <asp:HiddenField ID="datosJson" runat="server" />
+
+        <!-- ========== LISTA CON BUSQUEDA Y PAGINACION ========== -->
+        <div class="container mt-4">
+            <div class="table-wrapper">
+                <div class="container-fluid">
+                    <div class="card-header">
+                        <i class="bi bi-list-ul me-2"></i>Lista de Elementos de Configuracion
+                    </div>
+
+                    <!-- Buscador -->
+                    <div class="row mb-3 mt-3">
+                        <div class="col-md-12">
+                            <div class="input-group">
+                                <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
+                                <input type="text" id="txtBuscarLista" class="form-control"
+                                    placeholder="Buscar por nombre, tipo, serie, marca, estado o sede..."
+                                    onkeyup="filtrarListaCIs()" autocomplete="off" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tabla de lista -->
+                    <div class="table-responsive">
+                        <table class="table table-condensed table-striped table-hover" id="tblListaCIs"
+                            style="font-size:0.85rem; width:100%;">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>NOMBRE CI</th>
+                                    <th>TIPO CI</th>
+                                    <th>NRO SERIE</th>
+                                    <th>MARCA / MODELO</th>
+                                    <th>ESTADO CI</th>
+                                    <th>DESCRIPCION</th>
+                                    <th>SEDE</th>
+                                    <th>LOCAL</th>
+                                    <th>AREA</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbodyListaCIs">
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Paginacion -->
+                    <div class="row mt-2 align-items-center">
+                        <div class="col-md-6 text-secondary" style="font-size:0.85rem;">
+                            Mostrando <span id="lblDesde">0</span> - <span id="lblHasta">0</span> de <span id="lblTotal">0</span> registros
+                        </div>
+                        <div class="col-md-6">
+                            <nav aria-label="Paginacion">
+                                <ul class="pagination justify-content-end mb-0" id="ulPaginacion" style="font-size:0.85rem;">
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="container">
             <div class="table-wrapper">
                <div class="container-fluid">

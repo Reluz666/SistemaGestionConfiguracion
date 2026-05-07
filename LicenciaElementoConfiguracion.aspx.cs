@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.Script.Serialization;
 
 public partial class Licencia_Elemento_Configuracion : System.Web.UI.Page
 {
@@ -54,7 +55,7 @@ public partial class Licencia_Elemento_Configuracion : System.Web.UI.Page
                 this.__pagina.Value = "";
             }
         }
-        catch (Exception)
+        catch (Exception ex)
         {
             this.__mensaje.Value = "Error inesperado al intentar conectarnos con el servidor.";
             this.__pagina.Value = "";
@@ -231,7 +232,7 @@ public partial class Licencia_Elemento_Configuracion : System.Web.UI.Page
                 _Lista.ShowMessage(__mensaje, __pagina, servidor.getMensageError(), "CerrarSession.aspx");
             }
         }
-        catch (Exception)
+        catch (Exception ex)
         {
             _Lista.ShowMessage(__mensaje, __pagina, "Error inesperado al intentar conectarnos con el servidor.", "");
         }
@@ -392,6 +393,8 @@ public partial class Licencia_Elemento_Configuracion : System.Web.UI.Page
 
 
         Listar_Detalle_Relacion_Licencia_Elemento_Configuracion((DataTable)Session["_DET_RELACION_LICENCIA_CI"]);
+
+        Cargar_Lista_Json();
     }
 
 
@@ -638,7 +641,7 @@ public partial class Licencia_Elemento_Configuracion : System.Web.UI.Page
                 this.__pagina.Value = "";
             }
         }
-        catch (Exception)
+        catch (Exception ex)
         {
             ok = false;
             this.__mensaje.Value = "Error inesperado al intentar conectarnos con el servidor.";
@@ -680,13 +683,147 @@ public partial class Licencia_Elemento_Configuracion : System.Web.UI.Page
                 this.__pagina.Value = "";
             }
         }
-        catch (Exception)
+        catch (Exception ex)
         {
             ok = false;
             this.__mensaje.Value = "Error inesperado al intentar conectarnos con el servidor.";
             this.__pagina.Value = "";
         }
         return ok;
+    }
+
+    private void Cargar_Lista_Json()
+    {
+        try
+        {
+            DataTable dt = getLicencias("", "", "", "", "");
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                var lista = new List<object>();
+                foreach (DataRow row in dt.Rows)
+                {
+                    lista.Add(new
+                    {
+                        LICENCIA = row["LICENCIA"].ToString(),
+                        TIPO_LICENCIA = row["TIPO LICENCIA"].ToString(),
+                        NOMBRE = row["NOMBRE"].ToString(),
+                        VERSION = row["VERSION"].ToString(),
+                        SUSCRIPCION = row["SUSCRIPCION"].ToString(),
+                        FEC_INI = row["FEC. INI."].ToString(),
+                        FEC_FIN = row["FEC. FIN"].ToString(),
+                        PERPETUA = row["PERPETUA"].ToString(),
+                        VENCE_LICENCIA = row["VENCE LICENCIA"].ToString()
+                    });
+                }
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                datosJson.Value = serializer.Serialize(lista);
+            }
+            else
+            {
+                datosJson.Value = "[]";
+            }
+        }
+        catch (Exception ex)
+        {
+            datosJson.Value = "[]";
+        }
+    }
+
+    private DataTable getLicencias(string _TIPOLICENCIA, string _SUSCRIPCIONLICENCIA, string _LICENCIAPERPETUA, string _FECHA_INICIO_SUSCRIPCION_LICENCIA, string _FECHA_FIN_SUSCRIPCION_LICENCIA)
+    {
+        _Lista.ShowMessage(__mensaje, __pagina, "", "");
+        DataTable dt = null;
+
+        try
+        {
+            policia.clsaccesodatos servidor = new policia.clsaccesodatos();
+            servidor.cadenaconexion = Ruta;
+            if (servidor.abrirconexion() == true)
+            {
+                dt = servidor.consultar("[dbo].[pr_ListaLicencias]", _TIPOLICENCIA, _SUSCRIPCIONLICENCIA, _LICENCIAPERPETUA, _FECHA_INICIO_SUSCRIPCION_LICENCIA, _FECHA_FIN_SUSCRIPCION_LICENCIA).Tables[0];
+                if (dt.Rows.Count == 0)
+                {
+                    this.__mensaje.Value = "";
+                    this.__pagina.Value = "";
+                }
+            }
+            else
+            {
+                servidor.cerrarconexion();
+                this.__mensaje.Value = servidor.getMensageError();
+                this.__pagina.Value = "CerrarSession.aspx";
+            }
+        }
+        catch (Exception ex)
+        {
+            this.__mensaje.Value = "Error inesperado al intentar conectarnos con el servidor.";
+            this.__pagina.Value = "CerrarSession.aspx";
+        }
+        return dt;
+    }
+
+    private DataTable getDetalleLicencias(int ID_LICENCIA_ELE_CONF)
+    {
+        _Lista.ShowMessage(__mensaje, __pagina, "", "");
+        DataTable dt = null;
+
+        try
+        {
+            policia.clsaccesodatos servidor = new policia.clsaccesodatos();
+            servidor.cadenaconexion = Ruta;
+            if (servidor.abrirconexion() == true)
+            {
+                dt = servidor.consultar("[dbo].[pr_ListaRelacionLicenciaElementosConfiguracion]", ID_LICENCIA_ELE_CONF).Tables[0];
+            }
+            else
+            {
+                servidor.cerrarconexion();
+                this.__mensaje.Value = servidor.getMensageError();
+                this.__pagina.Value = "CerrarSession.aspx";
+            }
+        }
+        catch (Exception ex)
+        {
+            this.__mensaje.Value = "Error inesperado al intentar conectarnos con el servidor.";
+            this.__pagina.Value = "CerrarSession.aspx";
+        }
+        return dt;
+    }
+
+    protected void btnEditarLista_Click(object sender, EventArgs e)
+    {
+        string argumento = Request["__EVENTARGUMENT"];
+        if (string.IsNullOrEmpty(argumento))
+            return;
+
+        string idLicencia = argumento.Trim();
+        DataTable dtLicencias = getLicencias("", "", "", "", "");
+        DataRow[] rows = dtLicencias.Select("LICENCIA = '" + idLicencia + "'");
+        if (rows.Length == 0)
+        {
+            _Lista.ShowMessage(__mensaje, __pagina, "Licencia no encontrada.", "");
+            return;
+        }
+
+        DataRow row = rows[0];
+        DataTable dtDetalle = getDetalleLicencias(Convert.ToInt32(idLicencia));
+        Session["_DET_RELACION_LICENCIA_CI"] = dtDetalle;
+
+        Session["__CABECERA_LICENCIA__"] = new object[] {
+            idLicencia,
+            row["TIPO LICENCIA"].ToString(),
+            row["SUSCRIPCION"].ToString(),
+            row["NOMBRE"].ToString(),
+            row["VERSION"].ToString(),
+            row["FEC. INI."].ToString(),
+            row["FEC. FIN"].ToString(),
+            row["PERPETUA"].ToString().ToLower(),
+            row["DESCRIPCION"].ToString()
+        };
+
+        Response.Clear();
+        Response.Redirect("LicenciaElementoConfiguracion.aspx");
+        Response.Flush();
     }
 
 }

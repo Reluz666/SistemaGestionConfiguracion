@@ -5,6 +5,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Text;
+using System.Web.Script.Serialization;
 
 public partial class RelacionesElementosConfiguracion : System.Web.UI.Page
 {
@@ -15,7 +17,58 @@ public partial class RelacionesElementosConfiguracion : System.Web.UI.Page
 
     Lista _Lista = new Lista();
 
-   
+    private void Cargar_Datos_Json()
+    {
+        try
+        {
+            policia.clsaccesodatos servidor = new policia.clsaccesodatos();
+            servidor.cadenaconexion = Ruta;
+
+            if (servidor.abrirconexion() == true)
+            {
+                DataTable dt = servidor.consultar("[dbo].[pr_ListaRelacionElementosConfiguracion]",
+                "", "", "", "", "", "", "", "").Tables[0];
+
+                if (dt.Rows.Count > 0)
+                {
+                    List<Dictionary<string, object>> jsonList = new List<Dictionary<string, object>>();
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        Dictionary<string, object> row = new Dictionary<string, object>();
+                        row["ID_RELACION"] = dt.Rows[i]["ID_RELACION"].ToString();
+                        row["NOMBRE_CI"] = dt.Rows[i]["PADRE CI"].ToString();
+                        row["TIPO_CI"] = dt.Rows[i]["PADRE TIPO CI"].ToString();
+                        row["ESTADO_CI"] = dt.Rows[i]["PADRE ESTADO CI"].ToString();
+                        row["PROPIETARIO_CI"] = dt.Rows[i]["PADRE PROPIETARIO CI"].ToString();
+                        row["SEDE"] = dt.Rows[i]["PADRE SEDE"].ToString();
+                        row["LOCAL"] = dt.Rows[i]["PADRE LOCAL"].ToString();
+                        row["AREA"] = dt.Rows[i]["PADRE AREA"].ToString();
+                        row["TIPO_RELACION"] = dt.Rows[i]["TIPO RELACION"].ToString();
+                        jsonList.Add(row);
+                    }
+
+                    JavaScriptSerializer serializer = new JavaScriptSerializer();
+                    datosJson.Value = serializer.Serialize(jsonList);
+                }
+                else
+                {
+                    datosJson.Value = "[]";
+                }
+
+                servidor.cerrarconexion();
+            }
+            else
+            {
+                servidor.cerrarconexion();
+                datosJson.Value = "[]";
+            }
+        }
+        catch (Exception ex)
+        {
+            datosJson.Value = "[]";
+        }
+    }
+
 
     private void Listar_Relacion_Elementos_Configuracion(string PADRE_CI,
     string PADRE_TIPO_CI,
@@ -209,7 +262,7 @@ public partial class RelacionesElementosConfiguracion : System.Web.UI.Page
             }
 
         }
-        catch (Exception)
+        catch (Exception ex)
         {
             _Lista.ShowMessage(__mensaje, __pagina, "Error inesperado al intentar conectarnos con el servidor.", "../CerrarSession.aspx");
         }
@@ -221,6 +274,9 @@ public partial class RelacionesElementosConfiguracion : System.Web.UI.Page
 
     protected void Page_init(object sender, EventArgs e) {
         _Lista.ShowMessage(__mensaje, __pagina, "", "");
+
+        // Load all relaciones for the list view JSON
+        Cargar_Datos_Json();
 
         string[] Datos = (string[])Session["__JSAR__"];
 
@@ -397,7 +453,7 @@ public partial class RelacionesElementosConfiguracion : System.Web.UI.Page
                 this.__pagina.Value = "";
             }
         }
-        catch (Exception)
+        catch (Exception ex)
         {
             this.__mensaje.Value = "Error inesperado al intentar conectarnos con el servidor.";
             this.__pagina.Value = "";
@@ -725,7 +781,7 @@ public partial class RelacionesElementosConfiguracion : System.Web.UI.Page
                 this.__pagina.Value = "";
             }
         }
-        catch (Exception)
+        catch (Exception ex)
         {
             ok = false;
             this.__mensaje.Value = "Error inesperado al intentar conectarnos con el servidor.";
@@ -767,7 +823,7 @@ public partial class RelacionesElementosConfiguracion : System.Web.UI.Page
                 this.__pagina.Value = "";
             }
         }
-        catch (Exception)
+        catch (Exception ex)
         {
             ok = false;
             this.__mensaje.Value = "Error inesperado al intentar conectarnos con el servidor.";

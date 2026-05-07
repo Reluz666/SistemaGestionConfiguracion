@@ -498,6 +498,62 @@
 
         <asp:HiddenField ID="__mensaje" runat="server" />
         <asp:HiddenField ID="__pagina" runat="server" />
+        <asp:HiddenField ID="datosJson" runat="server" />
+
+        <!-- ========== LISTA CON BUSQUEDA Y PAGINACION ========== -->
+        <div class="container mt-4" id="listSection">
+            <div class="form-card">
+                <div class="card-header">
+                    <i class="bi bi-list-ul me-2"></i>Lista de Licencias
+                </div>
+                <div class="card-body">
+                    <!-- Buscador -->
+                    <div class="row mb-3">
+                        <div class="col-md-8">
+                            <input type="text" id="txtBuscarLicencia" class="form-control form-control-modern"
+                                placeholder="Buscar por licencia, nombre, version o suscripcion..." />
+                        </div>
+                        <div class="col-md-4">
+                            <span id="lblTotalRegistros" class="badge bg-primary fs-6 align-middle"></span>
+                        </div>
+                    </div>
+
+                    <!-- Tabla de resultados -->
+                    <div class="table-wrapper">
+                        <table class="table table-modern-grid" id="tblListaLicencias">
+                            <thead>
+                                <tr>
+                                    <th>LICENCIA</th>
+                                    <th>TIPO LICENCIA</th>
+                                    <th>NOMBRE</th>
+                                    <th>VERSION</th>
+                                    <th>SUSCRIPCION</th>
+                                    <th>FEC. INI.</th>
+                                    <th>FEC. FIN</th>
+                                    <th>PERPETUA</th>
+                                    <th>VENCE</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbodyLicencias">
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Paginacion -->
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <span id="lblPaginaActual" class="text-muted"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <nav aria-label="Paginacion licencias">
+                                <ul class="pagination justify-content-end mb-0" id="paginationControls">
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </form>
 
     <script type="text/javascript">
@@ -528,6 +584,185 @@
             showTime: 12,
             dateFormat: "%d/%m/%Y"
         });
+    </script>
+
+    <script type="text/javascript">
+        // ===== Variables globales para paginacion =====
+        var allData = [];
+        var currentPage = 1;
+        var pageSize = 10;
+        var filteredData = [];
+
+        // ===== Inicializacion al cargar la pagina =====
+        $(document).ready(function () {
+            // Obtener datos del HiddenField
+            var jsonData = document.getElementById("datosJson").value;
+            if (jsonData && jsonData.trim() !== "") {
+                try {
+                    allData = JSON.parse(jsonData);
+                    filteredData = allData;
+                    renderTable();
+                    renderPagination();
+                } catch (e) {
+                    console.error("Error al parsear JSON:", e);
+                }
+            }
+
+            // Evento de busqueda
+            $("#txtBuscarLicencia").on("keyup", function () {
+                var searchTerm = $(this).val().toLowerCase().trim();
+                if (searchTerm === "") {
+                    filteredData = allData;
+                } else {
+                    filteredData = allData.filter(function (item) {
+                        return item.LICENCIA.toLowerCase().indexOf(searchTerm) !== -1 ||
+                               item.NOMBRE.toLowerCase().indexOf(searchTerm) !== -1 ||
+                               item.VERSION.toLowerCase().indexOf(searchTerm) !== -1 ||
+                               item.SUSCRIPCION.toLowerCase().indexOf(searchTerm) !== -1 ||
+                               item["TIPO LICENCIA"].toLowerCase().indexOf(searchTerm) !== -1;
+                    });
+                }
+                currentPage = 1;
+                renderTable();
+                renderPagination();
+            });
+        });
+
+        // ===== Renderizar tabla con datos de la pagina actual =====
+        function renderTable() {
+            var tbody = document.getElementById("tbodyLicencias");
+            tbody.innerHTML = "";
+
+            // Calcular indices
+            var startIndex = (currentPage - 1) * pageSize;
+            var endIndex = Math.min(startIndex + pageSize, filteredData.length);
+            var pageData = filteredData.slice(startIndex, endIndex);
+
+            // Actualizar etiqueta de total
+            document.getElementById("lblTotalRegistros").textContent =
+                "Total: " + filteredData.length + " registro(s)";
+
+            if (pageData.length === 0) {
+                var tr = document.createElement("tr");
+                tr.innerHTML = '<td colspan="9" class="text-center text-muted">No se encontraron resultados</td>';
+                tbody.appendChild(tr);
+                return;
+            }
+
+            // Generar filas
+            for (var i = 0; i < pageData.length; i++) {
+                var item = pageData[i];
+                var tr = document.createElement("tr");
+
+                var perpColor = item.PERPETUA === "SI" ? "color:#0066cc;" : "color:#cc0000;";
+                var venceColor = "";
+                if (item["VENCE LICENCIA"] === "LICENCIA VENCIDA") {
+                    venceColor = "color:#cc0000;";
+                } else if (item["VENCE LICENCIA"] === "LICENCIA NO DUELE") {
+                    venceColor = "color:#008800;";
+                } else {
+                    venceColor = "color:#0066cc;";
+                }
+
+                tr.innerHTML =
+                    '<td>' + item.LICENCIA + '</td>' +
+                    '<td>' + item["TIPO LICENCIA"] + '</td>' +
+                    '<td>' + item.NOMBRE + '</td>' +
+                    '<td>' + item.VERSION + '</td>' +
+                    '<td>' + item.SUSCRIPCION + '</td>' +
+                    '<td>' + item["FEC. INI."] + '</td>' +
+                    '<td>' + item["FEC. FIN"] + '</td>' +
+                    '<td style="' + perpColor + '">' + item.PERPETUA + '</td>' +
+                    '<td style="' + venceColor + '">' + item["VENCE LICENCIA"] + '</td>';
+                tbody.appendChild(tr);
+            }
+        }
+
+        // ===== Renderizar controles de paginacion =====
+        function renderPagination() {
+            var totalPages = Math.ceil(filteredData.length / pageSize);
+            var ul = document.getElementById("paginationControls");
+            ul.innerHTML = "";
+
+            // Etiqueta de pagina actual
+            document.getElementById("lblPaginaActual").textContent =
+                "Pagina " + currentPage + " de " + (totalPages > 0 ? totalPages : 1);
+
+            if (totalPages <= 1) {
+                return;
+            }
+
+            // Boton Anterior
+            var liPrev = document.createElement("li");
+            liPrev.className = "page-item" + (currentPage === 1 ? " disabled" : "");
+            liPrev.innerHTML = '<a class="page-link" href="#" aria-label="Anterior">&laquo;</a>';
+            if (currentPage > 1) {
+                liPrev.onclick = function () { goToPage(currentPage - 1); return false; };
+            }
+            ul.appendChild(liPrev);
+
+            // Numeros de pagina
+            var maxVisible = 5;
+            var startPage = Math.max(1, currentPage - Math.floor(maxVisible / 2));
+            var endPage = Math.min(totalPages, startPage + maxVisible - 1);
+            if (endPage - startPage < maxVisible - 1) {
+                startPage = Math.max(1, endPage - maxVisible + 1);
+            }
+
+            if (startPage > 1) {
+                var liFirst = document.createElement("li");
+                liFirst.className = "page-item";
+                liFirst.innerHTML = '<a class="page-link" href="#">1</a>';
+                liFirst.onclick = function () { goToPage(1); return false; };
+                ul.appendChild(liFirst);
+                if (startPage > 2) {
+                    var liEllipsis = document.createElement("li");
+                    liEllipsis.className = "page-item disabled";
+                    liEllipsis.innerHTML = '<a class="page-link" href="#">...</a>';
+                    ul.appendChild(liEllipsis);
+                }
+            }
+
+            for (var i = startPage; i <= endPage; i++) {
+                var li = document.createElement("li");
+                li.className = "page-item" + (i === currentPage ? " active" : "");
+                li.innerHTML = '<a class="page-link" href="#">' + i + '</a>';
+                li.onclick = function (page) {
+                    return function () { goToPage(page); return false; };
+                }(i);
+                ul.appendChild(li);
+            }
+
+            if (endPage < totalPages) {
+                if (endPage < totalPages - 1) {
+                    var liEllipsis2 = document.createElement("li");
+                    liEllipsis2.className = "page-item disabled";
+                    liEllipsis2.innerHTML = '<a class="page-link" href="#">...</a>';
+                    ul.appendChild(liEllipsis2);
+                }
+                var liLast = document.createElement("li");
+                liLast.className = "page-item";
+                liLast.innerHTML = '<a class="page-link" href="#">' + totalPages + '</a>';
+                liLast.onclick = function () { goToPage(totalPages); return false; };
+                ul.appendChild(liLast);
+            }
+
+            // Boton Siguiente
+            var liNext = document.createElement("li");
+            liNext.className = "page-item" + (currentPage === totalPages ? " disabled" : "");
+            liNext.innerHTML = '<a class="page-link" href="#" aria-label="Siguiente">&raquo;</a>';
+            if (currentPage < totalPages) {
+                liNext.onclick = function () { goToPage(currentPage + 1); return false; };
+            }
+            ul.appendChild(liNext);
+        }
+
+        // ===== Ir a una pagina especifica =====
+        function goToPage(page) {
+            currentPage = page;
+            renderTable();
+            renderPagination();
+        }
     </script>
 
 </body>

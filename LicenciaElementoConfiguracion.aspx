@@ -720,6 +720,70 @@
                 </div>
             </div>
         </div>
+
+        <!-- ========== LISTA DE LICENCIAS CON BUSQUEDA Y PAGINACION ========== -->
+        <div class="container-fluid mt-4">
+            <div class="form-card">
+                <div class="card-header">
+                    <i class="bi bi-list-ul me-2"></i>Lista de Licencias
+                </div>
+                <div class="card-body p-3">
+                    <!-- Buscador -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-search"></i></span>
+                                <input type="text" id="txtBuscarLicencia" class="form-control" placeholder="Buscar por nombre, tipo, suscripcion..." autocomplete="off" />
+                            </div>
+                        </div>
+                        <div class="col-md-6 text-end">
+                            <span id="lblContador" class="badge bg-secondary"></span>
+                        </div>
+                    </div>
+
+                    <!-- Tabla de Resultados -->
+                    <div class="table-responsive">
+                        <table class="table table-hover table-condensed table-modern-grid" id="tblListaLicencias" style="display:none;">
+                            <thead>
+                                <tr>
+                                    <th>LICENCIA</th>
+                                    <th>TIPO LICENCIA</th>
+                                    <th>NOMBRE</th>
+                                    <th>VERSION</th>
+                                    <th>SUSCRIPCION</th>
+                                    <th>FEC. INI.</th>
+                                    <th>FEC. FIN</th>
+                                    <th>PERPETUA</th>
+                                    <th>DESCRIPCION</th>
+                                    <th>VENCE</th>
+                                    <th>ACCION</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbodyLicencias"></tbody>
+                        </table>
+                        <div id="divSinResultados" class="alert alert-info text-center" style="display:none;">
+                            No se encontraron licencias.
+                        </div>
+                    </div>
+
+                    <!-- Paginacion -->
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <nav>
+                                <ul class="pagination justify-content-center" id="ulPaginacion"></ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- HiddenField para datos JSON -->
+        <asp:HiddenField ID="datosJson" runat="server" />
+
+        <!-- Hidden button to handle edit postback from JavaScript -->
+        <asp:Button ID="btnEditarLista" runat="server" OnClick="btnEditarLista_Click" Style="display:none;" />
+
     </form>
 
     <script type="text/javascript" src="../Otros_css_js/resaltar.js"></script>
@@ -739,6 +803,175 @@
             showTime: 12,
             dateFormat: "%d/%m/%Y"
         });
+    </script>
+
+    <!-- Script para lista con busqueda y paginacion -->
+    <script type="text/javascript">
+        var datosLicencias = [];
+        var paginaActual = 1;
+        var itemsPorPagina = 10;
+
+        function cargarDatos() {
+            try {
+                var jsonVal = document.getElementById('datosJson').value;
+                if (jsonVal && jsonVal.trim() !== '') {
+                    datosLicencias = JSON.parse(jsonVal);
+                } else {
+                    datosLicencias = [];
+                }
+            } catch (e) {
+                datosLicencias = [];
+            }
+        }
+
+        function formatearFecha(fechaStr) {
+            if (!fechaStr || fechaStr.trim() === '') return '---';
+            try {
+                var fecha = new Date(fechaStr);
+                var dia = fecha.getDate().toString().padStart(2, '0');
+                var mes = (fecha.getMonth() + 1).toString().padStart(2, '0');
+                var anio = fecha.getFullYear();
+                return dia + '/' + mes + '/' + anio;
+            } catch (e) {
+                return fechaStr;
+            }
+        }
+
+        function renderizarTabla() {
+            var filtro = document.getElementById('txtBuscarLicencia').value.toUpperCase();
+            var datosFiltrados = datosLicencias.filter(function (item) {
+                if (!filtro) return true;
+                return (item.NOMBRE && item.NOMBRE.toUpperCase().indexOf(filtro) !== -1) ||
+                       (item['TIPO LICENCIA'] && item['TIPO LICENCIA'].toUpperCase().indexOf(filtro) !== -1) ||
+                       (item.SUSCRIPCION && item.SUSCRIPCION.toUpperCase().indexOf(filtro) !== -1) ||
+                       (item.DESCRIPCION && item.DESCRIPCION.toUpperCase().indexOf(filtro) !== -1) ||
+                       (item.VERSION && item.VERSION.toUpperCase().indexOf(filtro) !== -1);
+            });
+
+            var tbl = document.getElementById('tblListaLicencias');
+            var tbody = document.getElementById('tbodyLicencias');
+            var divSinResultados = document.getElementById('divSinResultados');
+            var lblContador = document.getElementById('lblContador');
+
+            if (datosFiltrados.length === 0) {
+                tbl.style.display = 'none';
+                divSinResultados.style.display = 'block';
+                lblContador.textContent = '';
+                return;
+            }
+
+            tbl.style.display = 'table';
+            divSinResultados.style.display = 'none';
+            lblContador.textContent = 'Total: ' + datosFiltrados.length + ' licencia(s)';
+
+            var totalPaginas = Math.ceil(datosFiltrados.length / itemsPorPagina);
+            var inicio = (paginaActual - 1) * itemsPorPagina;
+            var fin = inicio + itemsPorPagina;
+            var datosPagina = datosFiltrados.slice(inicio, fin);
+
+            tbody.innerHTML = '';
+            for (var i = 0; i < datosPagina.length; i++) {
+                var item = datosPagina[i];
+                var perpetua = item.PERPETUA || '';
+                var vence = item['VENCE LICENCIA'] || '';
+                var tr = document.createElement('tr');
+                tr.innerHTML = '<td>' + (item.LICENCIA || '') + '</td>' +
+                    '<td>' + (item['TIPO LICENCIA'] || '') + '</td>' +
+                    '<td>' + (item.NOMBRE || '') + '</td>' +
+                    '<td>' + (item.VERSION || '') + '</td>' +
+                    '<td>' + (item.SUSCRIPCION || '') + '</td>' +
+                    '<td>' + formatearFecha(item['FEC. INI.']) + '</td>' +
+                    '<td>' + formatearFecha(item['FEC. FIN']) + '</td>' +
+                    '<td style="color:' + (perpetua === 'SI' ? 'blue' : 'red') + '">' + perpetua + '</td>' +
+                    '<td>' + (item.DESCRIPCION || '') + '</td>' +
+                    '<td style="color:' + (vence === 'LICENCIA VENCIDA' ? 'red' : (vence === 'LICENCIA NO VENCE' ? 'green' : 'blue')) + '">' + vence + '</td>' +
+                    '<td><button type="button" class="btn btn-primary btn-sm" onclick="editarLicencia(\'' + (item.LICENCIA || '') + '\')">Editar</button></td>';
+                tbody.appendChild(tr);
+            }
+
+            renderizarPaginacion(totalPaginas, datosFiltrados.length);
+        }
+
+        function renderizarPaginacion(totalPaginas, totalItems) {
+            var ul = document.getElementById('ulPaginacion');
+            ul.innerHTML = '';
+
+            if (totalPaginas <= 1) return;
+
+            var liPrev = document.createElement('li');
+            liPrev.className = 'page-item' + (paginaActual === 1 ? ' disabled' : '');
+            liPrev.innerHTML = '<a class="page-link" href="#" onclick="irPagina(' + (paginaActual - 1) + '); return false;">&laquo; Anterior</a>';
+            ul.appendChild(liPrev);
+
+            var maxBotones = 5;
+            var inicio = Math.max(1, paginaActual - Math.floor(maxBotones / 2));
+            var fin = Math.min(totalPaginas, inicio + maxBotones - 1);
+            if (fin - inicio + 1 < maxBotones) {
+                inicio = Math.max(1, fin - maxBotones + 1);
+            }
+
+            if (inicio > 1) {
+                var li = document.createElement('li');
+                li.className = 'page-item';
+                li.innerHTML = '<a class="page-link" href="#" onclick="irPagina(1); return false;">1</a>';
+                ul.appendChild(li);
+                if (inicio > 2) {
+                    var liPuntos = document.createElement('li');
+                    liPuntos.className = 'page-item disabled';
+                    liPuntos.innerHTML = '<a class="page-link" href="#">...</a>';
+                    ul.appendChild(liPuntos);
+                }
+            }
+
+            for (var i = inicio; i <= fin; i++) {
+                var li = document.createElement('li');
+                li.className = 'page-item' + (i === paginaActual ? ' active' : '');
+                li.innerHTML = '<a class="page-link" href="#" onclick="irPagina(' + i + '); return false;">' + i + '</a>';
+                ul.appendChild(li);
+            }
+
+            if (fin < totalPaginas) {
+                if (fin < totalPaginas - 1) {
+                    var liPuntos = document.createElement('li');
+                    liPuntos.className = 'page-item disabled';
+                    liPuntos.innerHTML = '<a class="page-link" href="#">...</a>';
+                    ul.appendChild(liPuntos);
+                }
+                var li = document.createElement('li');
+                li.className = 'page-item';
+                li.innerHTML = '<a class="page-link" href="#" onclick="irPagina(' + totalPaginas + '); return false;">' + totalPaginas + '</a>';
+                ul.appendChild(li);
+            }
+
+            var liSig = document.createElement('li');
+            liSig.className = 'page-item' + (paginaActual === totalPaginas ? ' disabled' : '');
+            liSig.innerHTML = '<a class="page-link" href="#" onclick="irPagina(' + (paginaActual + 1) + '); return false;">Siguiente &raquo;</a>';
+            ul.appendChild(liSig);
+        }
+
+        function irPagina(numPagina) {
+            paginaActual = numPagina;
+            renderizarTabla();
+        }
+
+        function editarLicencia(idLicencia) {
+            __doPostBack('btnEditarLista', idLicencia);
+        }
+
+        function initLista() {
+            cargarDatos();
+            renderizarTabla();
+            document.getElementById('txtBuscarLicencia').addEventListener('keyup', function () {
+                paginaActual = 1;
+                renderizarTabla();
+            });
+        }
+
+        if (window.addEventListener) {
+            window.addEventListener('load', initLista, false);
+        } else if (window.attachEvent) {
+            window.attachEvent('onload', initLista);
+        }
     </script>
 
 </body>

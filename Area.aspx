@@ -85,6 +85,160 @@
             document.getElementById(Caja).value = document.getElementById(Caja).value.toUpperCase();
         }
 
+        // ========== LISTA AREAS CON PAGINACION ==========
+        var datosAreas = [];
+        var itemsPorPagina = 10;
+        var paginaActual = 1;
+
+        function cargarDatosAreas() {
+            var input = document.getElementById('datosJson');
+            if (input && input.value) {
+                try {
+                    datosAreas = JSON.parse(input.value);
+                    filtrarAreas();
+                } catch (e) {
+                    console.error('Error parsing JSON:', e);
+                }
+            }
+        }
+
+        function filtrarAreas() {
+            var textoBusqueda = document.getElementById('txtBuscarArea').value.toLowerCase().trim();
+            var datosFiltrados;
+
+            if (textoBusqueda === "") {
+                datosFiltrados = datosAreas;
+            } else {
+                datosFiltrados = datosAreas.filter(function(item) {
+                    return item.CODIGOAREA.toLowerCase().indexOf(textoBusqueda) !== -1 ||
+                           item.AREA.toLowerCase().indexOf(textoBusqueda) !== -1 ||
+                           item.SEDE.toLowerCase().indexOf(textoBusqueda) !== -1 ||
+                           item.LOCAL.toLowerCase().indexOf(textoBusqueda) !== -1 ||
+                           item.DIRECCIONLOCAL.toLowerCase().indexOf(textoBusqueda) !== -1;
+                });
+            }
+
+            paginaActual = 1;
+            mostrarPagina(datosFiltrados);
+            document.getElementById('lblTotalAreas').textContent = 'Total: ' + datosFiltrados.length + ' registro(s)';
+        }
+
+        function mostrarPagina(datos) {
+            var tbody = document.getElementById('tbodyAreas');
+            var pagination = document.getElementById('paginationAreas');
+            var totalPaginas = Math.ceil(datos.length / itemsPorPagina);
+            var inicio = (paginaActual - 1) * itemsPorPagina;
+            var fin = inicio + itemsPorPagina;
+            var datosPagina = datos.slice(inicio, fin);
+
+            // Limpiar tabla
+            tbody.innerHTML = '';
+
+            if (datosPagina.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="8" class="text-center">No se encontraron registros</td></tr>';
+                pagination.innerHTML = '';
+                return;
+            }
+
+            // Llenar tabla
+            for (var i = 0; i < datosPagina.length; i++) {
+                var item = datosPagina[i];
+                var row = document.createElement('tr');
+                row.innerHTML =
+                    '<td>' + item.SEDE + '</td>' +
+                    '<td>' + item.LOCAL + '</td>' +
+                    '<td>' + item.DIRECCIONLOCAL + '</td>' +
+                    '<td>' + item.CODIGOAREA + '</td>' +
+                    '<td>' + item.AREA + '</td>' +
+                    '<td>' + item.NROPISO + '</td>' +
+                    '<td>' + item.NROAMBIENTE + '</td>' +
+                    '<td><button type="button" class="btn btn-dark btn-sm" onclick="seleccionarArea(\'' + item.IDAREA + '\', \'' + item.CODIGOAREA + '\', \'' + item.AREA.replace(/'/g, "\\'") + '\', \'' + item.NROPISO + '\', \'' + item.NROAMBIENTE + '\', \'' + item.IDLOCAL + '\', \'' + item.LOCAL.replace(/'/g, "\\'") + '\')"><i class="bi bi-cursor-fill"></i> Seleccionar</button></td>';
+                tbody.appendChild(row);
+            }
+
+            // Generar paginacion
+            pagination.innerHTML = '';
+            if (totalPaginas > 1) {
+                var badgeAntes = document.createElement('span');
+                badgeAntes.className = 'page-link bg-secondary text-white';
+                badgeAntes.style.borderRadius = '8px';
+                badgeAntes.innerHTML = 'P&aacute;gina ' + paginaActual + ' de ' + totalPaginas;
+                badgeAntes.style.marginRight = '10px';
+                pagination.appendChild(badgeAntes);
+
+                // Boton Anterior
+                var btnAnterior = document.createElement('button');
+                btnAnterior.className = 'btn btn-outline-dark btn-sm';
+                btnAnterior.innerHTML = '<i class="bi bi-chevron-left"></i> Anterior';
+                btnAnterior.onclick = function() {
+                    if (paginaActual > 1) {
+                        paginaActual--;
+                        mostrarPagina(datos);
+                    }
+                };
+                if (paginaActual === 1) btnAnterior.disabled = true;
+                pagination.appendChild(btnAnterior);
+
+                // Numeros de pagina
+                var maxVisible = 5;
+                var startPage = Math.max(1, paginaActual - Math.floor(maxVisible / 2));
+                var endPage = Math.min(totalPaginas, startPage + maxVisible - 1);
+
+                if (endPage - startPage + 1 < maxVisible) {
+                    startPage = Math.max(1, endPage - maxVisible + 1);
+                }
+
+                for (var p = startPage; p <= endPage; p++) {
+                    var btn = document.createElement('button');
+                    btn.className = 'btn btn-sm ' + (p === paginaActual ? 'btn-dark' : 'btn-outline-dark');
+                    btn.innerHTML = p;
+                    btn.onclick = (function(page) {
+                        return function() {
+                            paginaActual = page;
+                            mostrarPagina(datos);
+                        };
+                    })(p);
+                    pagination.appendChild(btn);
+                }
+
+                // Boton Siguiente
+                var btnSiguiente = document.createElement('button');
+                btnSiguiente.className = 'btn btn-outline-dark btn-sm';
+                btnSiguiente.innerHTML = 'Siguiente <i class="bi bi-chevron-right"></i>';
+                btnSiguiente.onclick = function() {
+                    if (paginaActual < totalPaginas) {
+                        paginaActual++;
+                        mostrarPagina(datos);
+                    }
+                };
+                if (paginaActual === totalPaginas) btnSiguiente.disabled = true;
+                pagination.appendChild(btnSiguiente);
+            }
+        }
+
+        function seleccionarArea(idArea, codigoArea, area, nroPiso, nroAmbiente, idLocal, local) {
+            document.getElementById('Id_Area').value = idArea;
+            document.getElementById('Codigo_Area').value = codigoArea;
+            document.getElementById('Descripcion_Area').value = area;
+            document.getElementById('Nro_Piso').value = nroPiso;
+            document.getElementById('Nro_Ambiente').value = nroAmbiente;
+            document.getElementById('hfCodigo_Local_Judicial').value = idLocal;
+            document.getElementById('Local_Judicial').value = local;
+
+            document.getElementById('btnRegistrar').style.display = 'none';
+            document.getElementById('btnModificar').style.display = '';
+            document.getElementById('btnEliminar').style.display = '';
+            document.getElementById('btnCancelar').style.display = '';
+
+            // Scroll al formulario
+            document.querySelector('.form-card').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Cargar datos al iniciar la pagina
+        window.addEventListener('load', function() {
+            cargarDatosAreas();
+        });
+
         function Activa(Opcion) {
             if (Opcion == 1) {
                 if (document.getElementById('cbs').checked == true) {
@@ -391,10 +545,56 @@
                 </asp:Table>
             </div>
 
+            <!-- ========== LISTA DE AREAS CON BUSQUEDA Y PAGINACION ========== -->
+            <div class="form-card mt-4" id="listaAreasSection">
+                <div class="card-header">
+                    <i class="bi bi-list-ul me-2"></i>Listado de &Aacute;reas
+                </div>
+                <div class="card-body p-3">
+                    <!-- Buscador -->
+                    <div class="row mb-3">
+                        <div class="col-md-6 col-sm-6">
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-search"></i></span>
+                                <input type="text" id="txtBuscarArea" class="form-control" placeholder="Buscar por c&oacute;digo, nombre, sede o local..." onkeyup="filtrarAreas()" />
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6 text-end">
+                            <span id="lblTotalAreas" class="badge bg-secondary"></span>
+                        </div>
+                    </div>
+
+                    <!-- Tabla HTML de Areas -->
+                    <div class="table-responsive">
+                        <table class="table table-modern-grid table-hover" id="tblAreas">
+                            <thead>
+                                <tr style="background-color: Black; color: White;">
+                                    <th>SEDE</th>
+                                    <th>LOCAL</th>
+                                    <th>DIRECCI&Oacute;N LOCAL</th>
+                                    <th>C&Oacute;DIGO AREA</th>
+                                    <th>&Aacute;REA</th>
+                                    <th>NRO PISO</th>
+                                    <th>NRO AMBIENTE</th>
+                                    <th>ACCI&Oacute;N</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbodyAreas">
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Paginacion -->
+                    <div class="pagination-wrapper" id="paginationAreas">
+                    </div>
+                </div>
+            </div>
+
             <!-- Hidden Fields -->
             <asp:HiddenField ID="__mensaje" runat="server" />
             <asp:HiddenField ID="__pagina" runat="server" />
             <asp:HiddenField ID="Id_Area" runat="server" Value="0" EnableViewState="False" />
+            <asp:HiddenField ID="datosJson" runat="server" />
 
         </div>
     </form>

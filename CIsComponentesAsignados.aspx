@@ -21,6 +21,20 @@
         .auto-style1 {
             width: 309px;
         }
+        /* List Section Styles */
+        .list-section {
+            margin-top: 20px;
+        }
+        .list-section .card {
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .list-section .input-group-text {
+            background-color: #e9ecef;
+        }
+        .table-sm td, .table-sm th {
+            padding: 0.5rem;
+        }
     </style>
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -383,16 +397,318 @@
                     <td colspan="5" >
                         <asp:HiddenField ID="__pagina" runat="server" />
                         <asp:HiddenField ID="__mensaje" runat="server" />
+                        <asp:HiddenField ID="datosJson" runat="server" />
                     </td>
 
                 </tr>
                     </table>
+
+                    <!-- ========== NUEVA SECCION LISTA CON BUSQUEDA Y PAGINACION ========== -->
+                    <div class="list-section mt-4">
+                        <div class="card">
+                            <div class="card-header bg-primary text-white">
+                                <h5 class="mb-0"><i class="bi bi-list-ul me-2"></i>Lista de Componentes</h5>
+                            </div>
+                            <div class="card-body">
+                                <!-- Search Input -->
+                                <div class="row mb-3">
+                                    <div class="col-12">
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="bi bi-search"></i></span>
+                                            <input type="text" id="txtBuscarComponente" class="form-control" placeholder="Buscar por nombre, tipo, serie, marca o descripcion..." autocomplete="off" />
+                                            <button type="button" class="btn btn-outline-secondary" id="btnLimpiarBusqueda" title="Limpiar busqueda">
+                                                <i class="bi bi-x-circle"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Results Table -->
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-hover table-sm" id="tblComponentes">
+                                        <thead class="table-dark">
+                                            <tr>
+                                                <th>Tipo Componente</th>
+                                                <th>Descripcion</th>
+                                                <th>Fabricante</th>
+                                                <th>Nro. Serie</th>
+                                                <th>Modelo</th>
+                                                <th>Marca</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tbodyComponentes">
+                                            <!-- Data rows will be populated via JavaScript -->
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <!-- No Results Message -->
+                                <div id="divNoResults" class="alert alert-info text-center d-none">
+                                    <i class="bi bi-info-circle me-2"></i>No se encontraron componentes
+                                </div>
+
+                                <!-- Pagination Controls -->
+                                <div class="row align-items-center">
+                                    <div class="col-md-4">
+                                        <span id="spanInfoPagina" class="text-muted">Mostrando 0 - 0 de 0</span>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <nav aria-label="Paginacion componentes">
+                                            <ul class="pagination pagination-sm justify-content-end mb-0" id="ulPaginacion">
+                                                <!-- Pagination buttons will be generated via JavaScript -->
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                </div>
             </div>
         </div>
     </form>
 
     <script type="text/javascript" src="Otros_css_js/resaltar.js"></script>
+
+    <script type="text/javascript">
+        // ========== LIST SECTION WITH SEARCH AND PAGINATION ==========
+        var todosLosComponentes = [];
+        var itemsPorPagina = 10;
+        var paginaActual = 1;
+
+        $(document).ready(function () {
+            // Load data from hidden field
+            var datosJson = document.getElementById('datosJson');
+            if (datosJson && datosJson.value) {
+                try {
+                    todosLosComponentes = JSON.parse(datosJson.value);
+                    renderizarTabla();
+                } catch (e) {
+                    console.error('Error parsing JSON:', e);
+                }
+            }
+
+            // Search input event
+            $('#txtBuscarComponente').on('keyup', function () {
+                filtrarYRenderizar();
+            });
+
+            // Clear search button
+            $('#btnLimpiarBusqueda').on('click', function () {
+                $('#txtBuscarComponente').val('');
+                filtrarYRenderizar();
+            });
+        });
+
+        function filtrarYRenderizar() {
+            var textoBusqueda = $('#txtBuscarComponente').val().toLowerCase().trim();
+
+            if (textoBusqueda === '') {
+                renderizarTabla();
+            } else {
+                var filtrados = todosLosComponentes.filter(function (item) {
+                    return item.TIPO_COMPONENTE.toLowerCase().indexOf(textoBusqueda) !== -1 ||
+                           item.DESCRIPCION.toLowerCase().indexOf(textoBusqueda) !== -1 ||
+                           item.FABRICANTE.toLowerCase().indexOf(textoBusqueda) !== -1 ||
+                           item.NRO_SERIE.toLowerCase().indexOf(textoBusqueda) !== -1 ||
+                           item.MODELO.toLowerCase().indexOf(textoBusqueda) !== -1 ||
+                           item.MARCA.toLowerCase().indexOf(textoBusqueda) !== -1;
+                });
+                renderizarTablaFiltrada(filtrados);
+            }
+        }
+
+        function renderizarTablaFiltrada(datos) {
+            var tbody = $('#tbodyComponentes');
+            tbody.empty();
+
+            if (datos.length === 0) {
+                $('#divNoResults').removeClass('d-none');
+                $('#tblComponentes').addClass('d-none');
+                $('#spanInfoPagina').text('Mostrando 0 de 0');
+                $('#ulPaginacion').empty();
+                return;
+            }
+
+            $('#divNoResults').addClass('d-none');
+            $('#tblComponentes').removeClass('d-none');
+
+            // Paginate filtered results
+            var totalPaginas = Math.ceil(datos.length / itemsPorPagina);
+            if (paginaActual > totalPaginas) paginaActual = 1;
+
+            var inicio = (paginaActual - 1) * itemsPorPagina;
+            var fin = inicio + itemsPorPagina;
+            var datosPagina = datos.slice(inicio, fin);
+
+            // Render rows
+            $.each(datosPagina, function (index, item) {
+                var row = '<tr>' +
+                    '<td>' + item.TIPO_COMPONENTE + '</td>' +
+                    '<td>' + item.DESCRIPCION + '</td>' +
+                    '<td>' + item.FABRICANTE + '</td>' +
+                    '<td>' + item.NRO_SERIE + '</td>' +
+                    '<td>' + item.MODELO + '</td>' +
+                    '<td>' + item.MARCA + '</td>' +
+                    '</tr>';
+                tbody.append(row);
+            });
+
+            // Update info
+            var totalMostrados = datos.length === 0 ? 0 : inicio + 1;
+            var finRegistro = Math.min(fin, datos.length);
+            $('#spanInfoPagina').text('Mostrando ' + totalMostrados + ' - ' + finRegistro + ' de ' + datos.length);
+
+            // Render pagination
+            renderizarPaginacion(totalPaginas, datos);
+        }
+
+        function renderizarTabla() {
+            var tbody = $('#tbodyComponentes');
+            tbody.empty();
+
+            if (todosLosComponentes.length === 0) {
+                $('#divNoResults').removeClass('d-none');
+                $('#tblComponentes').addClass('d-none');
+                $('#spanInfoPagina').text('Mostrando 0 de 0');
+                $('#ulPaginacion').empty();
+                return;
+            }
+
+            $('#divNoResults').addClass('d-none');
+            $('#tblComponentes').removeClass('d-none');
+
+            // Calculate pagination
+            var totalPaginas = Math.ceil(todosLosComponentes.length / itemsPorPagina);
+            if (paginaActual > totalPaginas) paginaActual = 1;
+
+            var inicio = (paginaActual - 1) * itemsPorPagina;
+            var fin = Math.min(inicio + itemsPorPagina, todosLosComponentes.length);
+
+            // Render rows
+            for (var i = inicio; i < fin; i++) {
+                var item = todosLosComponentes[i];
+                var row = '<tr>' +
+                    '<td>' + item.TIPO_COMPONENTE + '</td>' +
+                    '<td>' + item.DESCRIPCION + '</td>' +
+                    '<td>' + item.FABRICANTE + '</td>' +
+                    '<td>' + item.NRO_SERIE + '</td>' +
+                    '<td>' + item.MODELO + '</td>' +
+                    '<td>' + item.MARCA + '</td>' +
+                    '</tr>';
+                tbody.append(row);
+            }
+
+            // Update info
+            var totalMostrados = todosLosComponentes.length === 0 ? 0 : inicio + 1;
+            $('#spanInfoPagina').text('Mostrando ' + totalMostrados + ' - ' + fin + ' de ' + todosLosComponentes.length);
+
+            // Render pagination
+            renderizarPaginacion(totalPaginas, todosLosComponentes);
+        }
+
+        function renderizarPaginacion(totalPaginas, datosActuales) {
+            var ul = $('#ulPaginacion');
+            ul.empty();
+
+            if (totalPaginas <= 1) {
+                return;
+            }
+
+            var maxBotones = 5;
+            var inicioRango = Math.max(1, paginaActual - Math.floor(maxBotones / 2));
+            var finRango = Math.min(totalPaginas, inicioRango + maxBotones - 1);
+
+            if (finRango - inicioRango < maxBotones - 1) {
+                inicioRango = Math.max(1, finRango - maxBotones + 1);
+            }
+
+            // Previous button
+            var prevDisabled = paginaActual === 1 ? 'disabled' : '';
+            ul.append('<li class="page-item ' + prevDisabled + '"><a class="page-link" href="#" aria-label="Anterior"><span aria-hidden="true">&laquo;</span></a></li>');
+
+            // Page numbers
+            for (var i = inicioRango; i <= finRango; i++) {
+                var activeClass = i === paginaActual ? 'active' : '';
+                ul.append('<li class="page-item ' + activeClass + '"><a class="page-link" href="#">' + i + '</a></li>');
+            }
+
+            // Next button
+            var nextDisabled = paginaActual === totalPaginas ? 'disabled' : '';
+            ul.append('<li class="page-item ' + nextDisabled + '"><a class="page-link" href="#" aria-label="Siguiente"><span aria-hidden="true">&raquo;</span></a></li>');
+
+            // Bind click events
+            $('#ulPaginacion li.page-item a').not('.disabled').on('click', function (e) {
+                e.preventDefault();
+                var texto = $(this).text().trim();
+                var textoLower = texto.toLowerCase();
+
+                if (textoLower === '«') {
+                    textoLower = 'anterior';
+                } else if (textoLower === '»') {
+                    textoLower = 'siguiente';
+                }
+
+                if (textoLower === 'anterior') {
+                    if (paginaActual > 1) {
+                        paginaActual--;
+                        var textoBusqueda = $('#txtBuscarComponente').val().toLowerCase().trim();
+                        if (textoBusqueda === '') {
+                            renderizarTabla();
+                        } else {
+                            var filtrados = todosLosComponentes.filter(function (item) {
+                                return item.TIPO_COMPONENTE.toLowerCase().indexOf(textoBusqueda) !== -1 ||
+                                       item.DESCRIPCION.toLowerCase().indexOf(textoBusqueda) !== -1 ||
+                                       item.FABRICANTE.toLowerCase().indexOf(textoBusqueda) !== -1 ||
+                                       item.NRO_SERIE.toLowerCase().indexOf(textoBusqueda) !== -1 ||
+                                       item.MODELO.toLowerCase().indexOf(textoBusqueda) !== -1 ||
+                                       item.MARCA.toLowerCase().indexOf(textoBusqueda) !== -1;
+                            });
+                            renderizarTablaFiltrada(filtrados);
+                        }
+                    }
+                } else if (textoLower === 'siguiente') {
+                    if (paginaActual < totalPaginas) {
+                        paginaActual++;
+                        var textoBusqueda = $('#txtBuscarComponente').val().toLowerCase().trim();
+                        if (textoBusqueda === '') {
+                            renderizarTabla();
+                        } else {
+                            var filtrados = todosLosComponentes.filter(function (item) {
+                                return item.TIPO_COMPONENTE.toLowerCase().indexOf(textoBusqueda) !== -1 ||
+                                       item.DESCRIPCION.toLowerCase().indexOf(textoBusqueda) !== -1 ||
+                                       item.FABRICANTE.toLowerCase().indexOf(textoBusqueda) !== -1 ||
+                                       item.NRO_SERIE.toLowerCase().indexOf(textoBusqueda) !== -1 ||
+                                       item.MODELO.toLowerCase().indexOf(textoBusqueda) !== -1 ||
+                                       item.MARCA.toLowerCase().indexOf(textoBusqueda) !== -1;
+                            });
+                            renderizarTablaFiltrada(filtrados);
+                        }
+                    }
+                } else {
+                    var nuevaPagina = parseInt(texto);
+                    if (!isNaN(nuevaPagina) && nuevaPagina >= 1 && nuevaPagina <= totalPaginas) {
+                        paginaActual = nuevaPagina;
+                        var textoBusqueda = $('#txtBuscarComponente').val().toLowerCase().trim();
+                        if (textoBusqueda === '') {
+                            renderizarTabla();
+                        } else {
+                            var filtrados = todosLosComponentes.filter(function (item) {
+                                return item.TIPO_COMPONENTE.toLowerCase().indexOf(textoBusqueda) !== -1 ||
+                                       item.DESCRIPCION.toLowerCase().indexOf(textoBusqueda) !== -1 ||
+                                       item.FABRICANTE.toLowerCase().indexOf(textoBusqueda) !== -1 ||
+                                       item.NRO_SERIE.toLowerCase().indexOf(textoBusqueda) !== -1 ||
+                                       item.MODELO.toLowerCase().indexOf(textoBusqueda) !== -1 ||
+                                       item.MARCA.toLowerCase().indexOf(textoBusqueda) !== -1;
+                            });
+                            renderizarTablaFiltrada(filtrados);
+                        }
+                    }
+                }
+            });
+        }
+    </script>
 
 </body>
 </html>

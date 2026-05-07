@@ -171,6 +171,177 @@
 
             showPage(1);
         }
+
+        // ===== FUNCIONES PARA LISTA DE PERSONAL CON BUSQUEDA Y PAGINACION =====
+        var datosPersonalJson = [];
+        var listaCurrentPage = 1;
+        var listaRowsPerPage = 10;
+        var listaFilteredData = [];
+
+        function cargarDatosPersonal() {
+            var datosJsonField = document.getElementById('datosJson');
+            if (datosJsonField && datosJsonField.value) {
+                try {
+                    datosPersonalJson = JSON.parse(datosJsonField.value);
+                    listaFilteredData = datosPersonalJson.slice();
+                    renderizarTablaPersonal();
+                } catch (e) {
+                    console.error('Error parsing JSON:', e);
+                }
+            }
+        }
+
+        function filtrarTablaPersonal() {
+            var searchText = document.getElementById('txtBuscarPersonal').value.toLowerCase().trim();
+            if (searchText === '') {
+                listaFilteredData = datosPersonalJson.slice();
+            } else {
+                listaFilteredData = datosPersonalJson.filter(function(item) {
+                    return item.CODIGO.toLowerCase().includes(searchText) ||
+                           item.NOMBRE.toLowerCase().includes(searchText) ||
+                           item.APELLIDO_PATERNO.toLowerCase().includes(searchText) ||
+                           item.APELLIDO_MATERNO.toLowerCase().includes(searchText) ||
+                           item.NRO_DOC_IDENT.toLowerCase().includes(searchText) ||
+                           item.AREA.toLowerCase().includes(searchText) ||
+                           item.DEPENDENCIA.toLowerCase().includes(searchText) ||
+                           item.CARGO.toLowerCase().includes(searchText) ||
+                           item.SEDE.toLowerCase().includes(searchText) ||
+                           item.LOCAL.toLowerCase().includes(searchText);
+                });
+            }
+            listaCurrentPage = 1;
+            renderizarTablaPersonal();
+        }
+
+        function renderizarTablaPersonal() {
+            var tbody = document.getElementById('tbodyListaPersonal');
+            if (!tbody) return;
+
+            var totalRows = listaFilteredData.length;
+            var totalPages = Math.ceil(totalRows / listaRowsPerPage);
+            var start = (listaCurrentPage - 1) * listaRowsPerPage;
+            var end = start + listaRowsPerPage;
+
+            // Actualizar contador
+            var lblContador = document.getElementById('lblContadorPersonal');
+            if (lblContador) {
+                if (totalRows === 0) {
+                    lblContador.textContent = 'No se encontraron registros';
+                } else {
+                    lblContador.textContent = 'Mostrando ' + (start + 1) + '-' + Math.min(end, totalRows) + ' de ' + totalRows + ' registros';
+                }
+            }
+
+            // Limpiar tabla
+            tbody.innerHTML = '';
+
+            if (totalRows === 0) {
+                var tr = document.createElement('tr');
+                tr.innerHTML = '<td colspan="14" class="text-center text-muted py-4">No hay datos disponibles</td>';
+                tbody.appendChild(tr);
+                return;
+            }
+
+            // Renderizar filas
+            for (var i = start; i < end && i < totalRows; i++) {
+                var item = listaFilteredData[i];
+                var tr = document.createElement('tr');
+                var estadoClass = item.ESTADO === 'ACTIVO' ? 'estado-activo' : 'estado-inactivo';
+                tr.innerHTML =
+                    '<td>' + item.CODIGO + '</td>' +
+                    '<td>' + item.NOMBRE + ' ' + item.APELLIDO_PATERNO + ' ' + item.APELLIDO_MATERNO + '</td>' +
+                    '<td>' + item.TIPO_DOC_IDENT + '</td>' +
+                    '<td>' + item.NRO_DOC_IDENT + '</td>' +
+                    '<td>' + item.PROFESION + '</td>' +
+                    '<td>' + item.TELEFONO + '</td>' +
+                    '<td>' + item.EMAIL + '</td>' +
+                    '<td>' + item.SEDE + '</td>' +
+                    '<td>' + item.LOCAL + '</td>' +
+                    '<td>' + item.AREA + '</td>' +
+                    '<td>' + item.DEPENDENCIA + '</td>' +
+                    '<td>' + item.CARGO + '</td>' +
+                    '<td class="' + estadoClass + '">' + item.ESTADO + '</td>' +
+                    '<td><button type="button" class="btn btn-sm btn-primary" onclick="seleccionarPersonal(\'' + item.ID_PERSONAL + '\')"><i class="bi bi-pencil-square"></i></button></td>';
+                tbody.appendChild(tr);
+            }
+
+            // Renderizar paginacion
+            renderizarPaginacionListaPersonal(totalPages);
+        }
+
+        function renderizarPaginacionListaPersonal(totalPages) {
+            var wrapper = document.getElementById('paginationListaPersonal');
+            if (!wrapper) return;
+
+            wrapper.innerHTML = '';
+
+            if (totalPages <= 1) {
+                wrapper.style.display = 'none';
+                return;
+            }
+
+            wrapper.style.display = 'flex';
+
+            // Boton Anterior
+            var prev = document.createElement('li');
+            prev.className = 'page-item' + (listaCurrentPage === 1 ? ' disabled' : '');
+            prev.innerHTML = '<a class="page-link" href="#" aria-label="Anterior">&laquo;</a>';
+            prev.addEventListener('click', function (e) {
+                e.preventDefault();
+                if (listaCurrentPage > 1) {
+                    listaCurrentPage--;
+                    renderizarTablaPersonal();
+                }
+            });
+            wrapper.appendChild(prev);
+
+            // Numeros de pagina
+            for (var i = 1; i <= totalPages; i++) {
+                var li = document.createElement('li');
+                li.className = 'page-item' + (i === listaCurrentPage ? ' active' : '');
+                li.innerHTML = '<a class="page-link" href="#">' + i + '</a>';
+                li.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    listaCurrentPage = parseInt(this.textContent);
+                    renderizarTablaPersonal();
+                });
+                wrapper.appendChild(li);
+            }
+
+            // Boton Siguiente
+            var next = document.createElement('li');
+            next.className = 'page-item' + (listaCurrentPage === totalPages ? ' disabled' : '');
+            next.innerHTML = '<a class="page-link" href="#" aria-label="Siguiente">&raquo;</a>';
+            next.addEventListener('click', function (e) {
+                e.preventDefault();
+                if (listaCurrentPage < totalPages) {
+                    listaCurrentPage++;
+                    renderizarTablaPersonal();
+                }
+            });
+            wrapper.appendChild(next);
+        }
+
+        function seleccionarPersonal(idPersonal) {
+            // Buscar el personal por ID y simular click en el boton editar correspondiente
+            var linkButtons = document.querySelectorAll('#TablePersonal tbody tr td a');
+            for (var i = 0; i < linkButtons.length; i++) {
+                var arg = linkButtons[i].getAttribute('commandargument') || linkButtons[i].href;
+                if (arg && arg.indexOf(idPersonal + ',') === 0) {
+                    linkButtons[i].click();
+                    // Scroll al formulario
+                    document.querySelector('.form-card').scrollIntoView({ behavior: 'smooth' });
+                    return;
+                }
+            }
+        }
+
+        // Inicializar cuando el documento este listo
+        $(document).ready(function() {
+            cargarDatosPersonal();
+            // Re-inicializar paginacion original
+            initPagination();
+        });
     </script>
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -291,6 +462,67 @@
 
     <!-- Espaciador para navbar fija -->
     <div class="top-spacer"></div>
+
+    <!-- ========== LISTA DE PERSONAL CON BUSQUEDA Y PAGINACION ========== -->
+    <div class="container mb-4">
+        <div class="form-card">
+            <div class="card-header">
+                <i class="bi bi-list-ul me-2"></i>Lista de Personal
+            </div>
+            <div class="card-body p-3">
+                <!-- Buscador -->
+                <div class="row mb-3">
+                    <div class="col-md-8">
+                        <div class="input-group">
+                            <span class="input-group-text bg-white">
+                                <i class="bi bi-search"></i>
+                            </span>
+                            <input type="text" id="txtBuscarPersonal" class="form-control form-control-modern"
+                                   placeholder="Buscar por C&oacute;digo, Nombre, Apellido, DNI, &Aacute;rea, Dependencia, Cargo..."
+                                   onkeyup="filtrarTablaPersonal()" />
+                            <button class="btn btn-outline-secondary" type="button" onclick="document.getElementById('txtBuscarPersonal').value=''; filtrarTablaPersonal();">
+                                <i class="bi bi-x-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-end">
+                        <span id="lblContadorPersonal" class="form-text text-muted"></span>
+                    </div>
+                </div>
+
+                <!-- Tabla HTML para lista de Personal -->
+                <div class="table-wrapper" style="max-height: 500px; overflow-y: auto;">
+                    <table id="tblListaPersonal" class="table table-modern-grid table-hover" style="min-width: 1000px;">
+                        <thead>
+                            <tr>
+                                <th style="width: 60px;">C&Oacute;DIGO</th>
+                                <th style="width: 150px;">NOMBRE COMPLETO</th>
+                                <th style="width: 80px;">TIPO DOC</th>
+                                <th style="width: 90px;">NRO. DOC</th>
+                                <th style="width: 100px;">PROFESI&Oacute;N</th>
+                                <th style="width: 80px;">TEL&Eacute;FONO</th>
+                                <th style="width: 140px;">EMAIL</th>
+                                <th style="width: 100px;">SEDE</th>
+                                <th style="width: 80px;">LOCAL</th>
+                                <th style="width: 100px;">&Aacute;REA</th>
+                                <th style="width: 120px;">DEPENDENCIA</th>
+                                <th style="width: 100px;">CARGO</th>
+                                <th style="width: 70px;">ESTADO</th>
+                                <th style="width: 80px;">ACCI&Oacute;N</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbodyListaPersonal">
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Paginacion para lista -->
+                <div class="pagination-wrapper">
+                    <ul id="paginationListaPersonal" class="pagination" style="flex-wrap: wrap;"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- ========== FORMULARIO ========== -->
     <form id="form1" runat="server">
@@ -518,6 +750,7 @@
             <asp:HiddenField ID="__mensaje" runat="server" />
             <asp:HiddenField ID="__pagina" runat="server" />
             <asp:HiddenField ID="ID_PERSONAL" runat="server" Value="0" EnableViewState="False" />
+            <asp:HiddenField ID="datosJson" runat="server" EnableViewState="False" />
 
         </div>
     </form>

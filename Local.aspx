@@ -216,6 +216,63 @@
     <!-- Espaciador para navbar fija -->
     <div class="top-spacer"></div>
 
+    <!-- ========== LIST VIEW SECTION ========== -->
+    <div class="container">
+        <div class="form-card mt-4">
+            <div class="card-header">
+                <i class="bi bi-list-ul me-2"></i>Lista de Locales
+            </div>
+            <div class="card-body p-3">
+                <!-- Buscador -->
+                <div class="row g-2 mb-3">
+                    <div class="col-md-6 col-sm-6">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-search"></i></span>
+                            <input type="text" id="txtBuscarLocal" class="form-control form-control-modern"
+                                   placeholder="Buscar por c&oacute;digo, nombre, direcci&oacute;n o sede..."
+                                   onkeyup="filtrarLocales()" />
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-3">
+                        <span id="lblTotalRegistros" class="badge bg-primary align-middle" style="padding: 0.5rem 1rem; font-size: 0.9rem;"></span>
+                    </div>
+                </div>
+
+                <!-- Tabla HTML para lista -->
+                <div class="table-wrapper" style="max-height: 500px; overflow-y: auto;">
+                    <table id="tblListaLocales" class="table table-modern-grid table-hover">
+                        <thead style="position: sticky; top: 0; z-index: 1;">
+                            <tr style="background-color: #000; color: #fff;">
+                                <th width="12%">C&Oacute;DIGO</th>
+                                <th width="18%">NOMBRE</th>
+                                <th width="20%">DIRECCI&Oacute;N</th>
+                                <th width="15%">SEDE</th>
+                                <th width="15%">UBICACI&Oacute;N GEOGR&Aacute;FICA</th>
+                                <th width="10%">TEL&Eacute;FONO</th>
+                                <th width="10%">TOTAL CIS</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbodyLocales">
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Paginacion -->
+                <div class="pagination-wrapper">
+                    <div class="d-flex flex-wrap gap-2 align-items-center">
+                        <button type="button" id="btnAnterior" class="btn btn-outline-primary btn-sm" onclick="paginarLocales(-1)" disabled>
+                            <i class="bi bi-chevron-left"></i> Anterior
+                        </button>
+                        <span id="lblPaginacion" class="badge bg-secondary" style="padding: 0.5rem 1rem; font-size: 0.9rem;"></span>
+                        <button type="button" id="btnSiguiente" class="btn btn-outline-primary btn-sm" onclick="paginarLocales(1)" disabled>
+                            Siguiente <i class="bi bi-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- ========== FORMULARIO ========== -->
     <form id="form1" runat="server">
         <div class="container">
@@ -456,9 +513,157 @@
             <asp:HiddenField ID="__mensaje" runat="server" />
             <asp:HiddenField ID="__pagina" runat="server" />
             <asp:HiddenField ID="Id_Local" runat="server" Value="0" EnableViewState="False" />
+            <asp:HiddenField ID="datosJson" runat="server" Value="" EnableViewState="False" />
 
         </div>
     </form>
+
+    <script type="text/javascript">
+        // ========== VARIABLES GLOBALES PARA LISTA ==========
+        var todosLosLocales = [];
+        var localesFiltrados = [];
+        var paginaActual = 1;
+        var elementosPorPagina = 10;
+        var datosJsonControl = null;
+
+        // ========== INICIALIZACION AL CARGAR PAGINA ==========
+        function inicializarListaLocales() {
+            datosJsonControl = document.getElementById('<%= datosJson.ClientID %>');
+            if (datosJsonControl && datosJsonControl.value) {
+                try {
+                    todosLosLocales = JSON.parse(datosJsonControl.value);
+                    localesFiltrados = todosLosLocales;
+                    filtrarLocales();
+                } catch (e) {
+                    console.error('Error al parsear datos JSON:', e);
+                }
+            }
+        }
+
+        // ========== FILTRAR LOCALES ==========
+        function filtrarLocales() {
+            var textoBusqueda = document.getElementById('txtBuscarLocal').value.toLowerCase().trim();
+            if (textoBusqueda === '') {
+                localesFiltrados = todosLosLocales;
+            } else {
+                localesFiltrados = todosLosLocales.filter(function(local) {
+                    return local.codigo.toLowerCase().indexOf(textoBusqueda) !== -1 ||
+                           local.nombre.toLowerCase().indexOf(textoBusqueda) !== -1 ||
+                           local.direccion.toLowerCase().indexOf(textoBusqueda) !== -1 ||
+                           local.sede.toLowerCase().indexOf(textoBusqueda) !== -1;
+                });
+            }
+            paginaActual = 1;
+            renderizarTablaLocales();
+        }
+
+        // ========== RENDERIZAR TABLA ==========
+        function renderizarTablaLocales() {
+            var tbody = document.getElementById('tbodyLocales');
+            if (!tbody) return;
+
+            var inicio = (paginaActual - 1) * elementosPorPagina;
+            var fin = inicio + elementosPorPagina;
+            var localesPagina = localesFiltrados.slice(inicio, fin);
+
+            var html = '';
+            if (localesPagina.length === 0) {
+                html = '<tr><td colspan="7" class="text-center py-4">No se encontraron registros</td></tr>';
+            } else {
+                for (var i = 0; i < localesPagina.length; i++) {
+                    var local = localesPagina[i];
+                    html += '<tr onclick="seleccionarLocal(\'' + local.id + '\',\'' + local.codigo + '\',\'' + local.nombre + '\',\'' + local.direccion + '\',\'' + local.sede + '\',\'' + local.idUbi + '\',\'' + local.ubiGeo + '\',\'' + local.telefono + '\',\'' + local.paginaWeb + '\',\'' + local.email + '\',\'' + local.totalCis + '\')" style="cursor:pointer;">';
+                    html += '<td>' + local.codigo + '</td>';
+                    html += '<td>' + local.nombre + '</td>';
+                    html += '<td>' + local.direccion + '</td>';
+                    html += '<td>' + local.sede + '</td>';
+                    html += '<td>' + local.ubiGeo + '</td>';
+                    html += '<td>' + local.telefono + '</td>';
+                    html += '<td>' + local.totalCis + '</td>';
+                    html += '</tr>';
+                }
+            }
+            tbody.innerHTML = html;
+
+            // Actualizar total de registros
+            var lblTotal = document.getElementById('lblTotalRegistros');
+            if (lblTotal) {
+                lblTotal.textContent = 'Total: ' + localesFiltrados.length + ' registro(s)';
+            }
+
+            // Actualizar paginacion
+            actualizarPaginacion();
+        }
+
+        // ========== ACTUALIZAR PAGINACION ==========
+        function actualizarPaginacion() {
+            var totalPaginas = Math.ceil(localesFiltrados.length / elementosPorPagina);
+            var lblPaginacion = document.getElementById('lblPaginacion');
+            var btnAnterior = document.getElementById('btnAnterior');
+            var btnSiguiente = document.getElementById('btnSiguiente');
+
+            if (lblPaginacion) {
+                lblPaginacion.textContent = 'P&aacute;gina ' + paginaActual + ' de ' + (totalPaginas > 0 ? totalPaginas : 1);
+            }
+            if (btnAnterior) {
+                btnAnterior.disabled = (paginaActual <= 1);
+            }
+            if (btnSiguiente) {
+                btnSiguiente.disabled = (paginaActual >= totalPaginas);
+            }
+        }
+
+        // ========== PAGINAR ==========
+        function paginarLocales(direccion) {
+            var totalPaginas = Math.ceil(localesFiltrados.length / elementosPorPagina);
+            if (direccion === -1 && paginaActual > 1) {
+                paginaActual--;
+            } else if (direccion === 1 && paginaActual < totalPaginas) {
+                paginaActual++;
+            }
+            renderizarTablaLocales();
+        }
+
+        // ========== SELECCIONAR LOCAL DESDE LISTA ==========
+        function seleccionarLocal(id, codigo, nombre, direccion, sede, idUbi, ubiGeo, telefono, paginaWeb, email, totalCis) {
+            document.getElementById('<%= Id_Local.ClientID %>').value = id;
+            document.getElementById('<%= Codigo_Local.ClientID %>').value = codigo;
+            document.getElementById('<%= Nombre_Local.ClientID %>').value = nombre;
+            document.getElementById('<%= Direccion_Local.ClientID %>').value = direccion;
+
+            // Seleccionar sede en dropdown
+            var sedeDropdown = document.getElementById('<%= Sede.ClientID %>');
+            if (sedeDropdown) {
+                for (var i = 0; i < sedeDropdown.options.length; i++) {
+                    if (sedeDropdown.options[i].text.trim() === sede.trim()) {
+                        sedeDropdown.selectedIndex = i;
+                        break;
+                    }
+                }
+            }
+
+            document.getElementById('<%= hfCodigo_Ubicacion_Geografica.ClientID %>').value = idUbi;
+            document.getElementById('<%= Ubicacion_Geografica.ClientID %>').value = ubiGeo;
+            document.getElementById('<%= Telefono_local.ClientID %>').value = telefono;
+            document.getElementById('<%= Pagnia_Web_Local.ClientID %>').value = paginaWeb;
+            document.getElementById('<%= Email_Local.ClientID %>').value = email;
+            document.getElementById('<%= Total_CIS_Local.ClientID %>').value = totalCis;
+
+            // Mostrar botones modificar/eliminar y ocultar registrar
+            document.getElementById('<%= btnRegistrar.ClientID %>').style.display = 'none';
+            document.getElementById('<%= btnCancelar.ClientID %>').style.display = '';
+
+            // Scroll al formulario
+            document.querySelector('.form-card').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Asignar al cargar pagina
+        if (window.addEventListener) {
+            window.addEventListener('load', inicializarListaLocales);
+        } else if (window.attachEvent) {
+            window.attachEvent('onload', inicializarListaLocales);
+        }
+    </script>
 
 </body>
 </html>

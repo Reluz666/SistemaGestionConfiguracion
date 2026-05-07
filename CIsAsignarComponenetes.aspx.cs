@@ -14,6 +14,60 @@ public partial class ElementosConfiguracion : System.Web.UI.Page
 
     Lista _Lista = new Lista();
 
+    private void Cargar_Datos_Json()
+    {
+        try
+        {
+            policia.clsaccesodatos servidor = new policia.clsaccesodatos();
+            servidor.cadenaconexion = Ruta;
+            if (servidor.abrirconexion() == true)
+            {
+                DataTable dt = servidor.consultar("[dbo].[pr_ListaElementosConfiguracionAsignarComponenetes]",
+                    "", "", "", "", "", "", "", "", "", "", "").Tables[0];
+
+                if (dt.Rows.Count == 0)
+                {
+                    datosJson.Value = "[]";
+                    servidor.cerrarconexion();
+                }
+                else
+                {
+                    System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                    sb.Append("[");
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        if (i > 0) sb.Append(",");
+                        sb.Append("{");
+                        sb.Append("\"ID_CI\":\"" + System.Web.HttpUtility.HtmlEncode(dt.Rows[i]["ID CI"].ToString()) + "\",");
+                        sb.Append("\"NOMBRE_CI\":\"" + System.Web.HttpUtility.HtmlEncode(dt.Rows[i]["NOMBRE CI"].ToString()) + "\",");
+                        sb.Append("\"NOMBRE_TIPO_CI\":\"" + System.Web.HttpUtility.HtmlEncode(dt.Rows[i]["NOMBRE TIPO CI"].ToString()) + "\",");
+                        sb.Append("\"NRO_SERIE\":\"" + System.Web.HttpUtility.HtmlEncode(dt.Rows[i]["NRO SERIE"].ToString()) + "\",");
+                        sb.Append("\"MARCA\":\"" + System.Web.HttpUtility.HtmlEncode(dt.Rows[i]["MARCA"].ToString()) + "\",");
+                        sb.Append("\"MODELO\":\"" + System.Web.HttpUtility.HtmlEncode(dt.Rows[i]["MODELO"].ToString()) + "\",");
+                        sb.Append("\"ESTADO_CI\":\"" + System.Web.HttpUtility.HtmlEncode(dt.Rows[i]["ESTADO CI"].ToString()) + "\",");
+                        sb.Append("\"DESCRIPCION_CI\":\"" + System.Web.HttpUtility.HtmlEncode(dt.Rows[i]["DESCRIPCION CI"].ToString()) + "\",");
+                        sb.Append("\"SEDE\":\"" + System.Web.HttpUtility.HtmlEncode(dt.Rows[i]["SEDE"].ToString()) + "\",");
+                        sb.Append("\"LOCAL\":\"" + System.Web.HttpUtility.HtmlEncode(dt.Rows[i]["LOCAL"].ToString()) + "\",");
+                        sb.Append("\"AREA\":\"" + System.Web.HttpUtility.HtmlEncode(dt.Rows[i]["AREA"].ToString()) + "\"");
+                        sb.Append("}");
+                    }
+                    sb.Append("]");
+                    datosJson.Value = sb.ToString();
+                    servidor.cerrarconexion();
+                }
+            }
+            else
+            {
+                datosJson.Value = "[]";
+                servidor.cerrarconexion();
+            }
+        }
+        catch (Exception ex)
+        {
+            datosJson.Value = "[]";
+        }
+    }
+
     private void Listar_Elementos_Configuracion(String NOMBRE_CI, String TIPO_CI, String ESTADO_CI,
     String PROPIETARIO_CI, String DESCRIPCION_CI, String IMPACTO_CI, String SEDE, String LOCAL, String AREA, String NRO_SERIE, String MARCA, String Mensaje)
     {
@@ -329,7 +383,7 @@ public partial class ElementosConfiguracion : System.Web.UI.Page
             }
 
         }
-        catch (Exception)
+        catch (Exception ex)
         {
             _Lista.ShowMessage(__mensaje, __pagina, "Error inesperado al intentar conectarnos con el servidor.", "../CerrarSession.aspx");
         }
@@ -341,6 +395,9 @@ public partial class ElementosConfiguracion : System.Web.UI.Page
 
     protected void Page_init(object sender, EventArgs e)
     {
+        // Cargar datos JSON para la lista con busqueda y paginacion
+        Cargar_Datos_Json();
+
         _Lista.ShowMessage(__mensaje, __pagina, "", "");
 
         string[] Datos = (string[])Session["__JSAR__"];
@@ -719,7 +776,7 @@ public partial class ElementosConfiguracion : System.Web.UI.Page
                 this.__pagina.Value = "";
             }
         }
-        catch (Exception)
+        catch (Exception ex)
         {
             this.__mensaje.Value = "Error inesperado al intentar conectarnos con el servidor.";
             this.__pagina.Value = "";
@@ -842,7 +899,7 @@ public partial class ElementosConfiguracion : System.Web.UI.Page
                 this.__pagina.Value = "";
             }
         }
-        catch (Exception)
+        catch (Exception ex)
         {
             ok = false;
             this.__mensaje.Value = "Error inesperado al intentar conectarnos con el servidor.";
@@ -884,7 +941,7 @@ public partial class ElementosConfiguracion : System.Web.UI.Page
                 this.__pagina.Value = "";
             }
         }
-        catch (Exception)
+        catch (Exception ex)
         {
             ok = false;
             this.__mensaje.Value = "Error inesperado al intentar conectarnos con el servidor.";

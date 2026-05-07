@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.Script.Serialization;
 
 public partial class LicenciasElementoConfiguracion : System.Web.UI.Page
 {
@@ -92,9 +93,49 @@ public partial class LicenciasElementoConfiguracion : System.Web.UI.Page
             ob[2].ToString().Trim(),
             ob[4].ToString().Trim(),
             ob[6].ToString().Trim(),
-            ob[7].ToString().Trim());            
+            ob[7].ToString().Trim());
         }
-       
+
+        // Cargar todos los licencias para la lista JSON (sin filtros)
+        Cargar_Lista_Json();
+
+    }
+
+    private void Cargar_Lista_Json()
+    {
+        try
+        {
+            DataTable dt = getLicencias("", "", "", "", "");
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                var lista = new List<object>();
+                foreach (DataRow row in dt.Rows)
+                {
+                    lista.Add(new
+                    {
+                        LICENCIA = row["LICENCIA"].ToString(),
+                        TIPO_LICENCIA = row["TIPO LICENCIA"].ToString(),
+                        NOMBRE = row["NOMBRE"].ToString(),
+                        VERSION = row["VERSION"].ToString(),
+                        SUSCRIPCION = row["SUSCRIPCION"].ToString(),
+                        FEC_INI = row["FEC. INI."].ToString(),
+                        FEC_FIN = row["FEC. FIN"].ToString(),
+                        PERPETUA = row["PERPETUA"].ToString(),
+                        VENCE_LICENCIA = row["VENCE LICENCIA"].ToString()
+                    });
+                }
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                datosJson.Value = serializer.Serialize(lista);
+            }
+            else
+            {
+                datosJson.Value = "[]";
+            }
+        }
+        catch (Exception)
+        {
+            datosJson.Value = "[]";
+        }
     }
 
     protected void Enviar_Datos_Licencia(object sender, EventArgs e)

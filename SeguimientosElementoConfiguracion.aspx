@@ -648,6 +648,7 @@
                     <td colspan="5" >
                         <asp:HiddenField ID="__pagina" runat="server" />
                         <asp:HiddenField ID="__mensaje" runat="server" />
+                        <asp:HiddenField ID="datosJson" runat="server" />
                     </td>
                     <td >
                         &nbsp;</td>
@@ -657,6 +658,64 @@
             </div>
         </div>
     </form>
+
+    <!-- ========== LISTA CON BUSQUEDA Y PAGINACION ========== -->
+    <div class="container mt-4" id="listSection">
+        <div class="table-wrapper">
+            <div class="form-card">
+                <div class="card-header">
+                    <i class="bi bi-list-ul me-2"></i>Lista de Seguimientos
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-search"></i></span>
+                                <input type="text" id="txtBuscar" class="form-control form-control-modern" placeholder="Buscar por nombre, tipo, serie..." />
+                            </div>
+                        </div>
+                        <div class="col-md-6 text-end">
+                            <span class="badge bg-secondary" id="lblTotalRegistros">Total: 0 registros</span>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-modern-grid" id="tblLista">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>NOMBRE CI</th>
+                                    <th>TIPO CI</th>
+                                    <th>NRO. SERIE</th>
+                                    <th>DESCRIPCION</th>
+                                    <th>SEDE</th>
+                                    <th>RESPONSABLE</th>
+                                    <th>FECHA SEGUIMIENTO</th>
+                                    <th>ESTADO ACTUAL</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbodyLista">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <div>
+                            <span>Mostrando </span>
+                            <select id="pageSizeSelect" class="form-select form-select-sm d-inline-block" style="width: 70px;">
+                                <option value="10" selected>10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                            </select>
+                            <span> por pagina</span>
+                        </div>
+                        <nav>
+                            <ul class="pagination pagination-sm mb-0" id="paginationControls">
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script type="text/javascript" src="../Otros_css_js/resaltar.js"></script>
 
@@ -675,6 +734,217 @@
             showTime: 12,
             dateFormat: "%d/%m/%Y"
         });
+    </script>
+
+    <!-- ========== SCRIPT PARA LISTA CON BUSQUEDA Y PAGINACION ========== -->
+    <script type="text/javascript">
+        var allData = [];
+        var filteredData = [];
+        var currentPage = 1;
+        var pageSize = 10;
+
+        function parseJsonDate(jsonDate) {
+            if (!jsonDate) return '';
+            var date = new Date(parseInt(jsonDate.replace(/\/Date\((\d+)\)\//gi, '$1')));
+            if (isNaN(date.getTime())) return jsonDate;
+            var day = ("0" + date.getDate()).slice(-2);
+            var month = ("0" + (date.getMonth() + 1)).slice(-2);
+            var year = date.getFullYear();
+            return day + "/" + month + "/" + year;
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            var map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            };
+            return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+        }
+
+        function renderTable(data) {
+            var tbody = document.getElementById('tbodyLista');
+            if (!tbody) return;
+
+            tbody.innerHTML = '';
+
+            var start = (currentPage - 1) * pageSize;
+            var end = start + pageSize;
+            var pageData = data.slice(start, end);
+
+            if (pageData.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="9" class="text-center">No se encontraron registros</td></tr>';
+                return;
+            }
+
+            for (var i = 0; i < pageData.length; i++) {
+                var row = pageData[i];
+                var tr = document.createElement('tr');
+                tr.innerHTML = '<td>' + escapeHtml(row.ID) + '</td>' +
+                    '<td>' + escapeHtml(row.NOMBRE) + '</td>' +
+                    '<td>' + escapeHtml(row.TIPO) + '</td>' +
+                    '<td>' + escapeHtml(row.NRO_SERIE) + '</td>' +
+                    '<td>' + escapeHtml(row.DESCRIPCION) + '</td>' +
+                    '<td>' + escapeHtml(row.SEDE) + '</td>' +
+                    '<td>' + escapeHtml(row.RESPONSABLE) + '</td>' +
+                    '<td>' + parseJsonDate(row.FECHA_SEGUIMIENTO) + '</td>' +
+                    '<td>' + escapeHtml(row.ESTADO_ACTUAL) + '</td>';
+                tbody.appendChild(tr);
+            }
+        }
+
+        function renderPagination(data) {
+            var pagination = document.getElementById('paginationControls');
+            if (!pagination) return;
+
+            pagination.innerHTML = '';
+            var totalPages = Math.ceil(data.length / pageSize);
+
+            if (totalPages <= 1) return;
+
+            // Previous button
+            var prevLi = document.createElement('li');
+            prevLi.className = 'page-item' + (currentPage === 1 ? ' disabled' : '');
+            prevLi.innerHTML = '<a class="page-link" href="#" aria-label="Previous">&laquo;</a>';
+            prevLi.onclick = function() {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderTable(data);
+                    renderPagination(data);
+                }
+                return false;
+            };
+            pagination.appendChild(prevLi);
+
+            // Page numbers
+            var maxVisible = 5;
+            var startPage = Math.max(1, currentPage - Math.floor(maxVisible / 2));
+            var endPage = Math.min(totalPages, startPage + maxVisible - 1);
+
+            if (endPage - startPage < maxVisible - 1) {
+                startPage = Math.max(1, endPage - maxVisible + 1);
+            }
+
+            if (startPage > 1) {
+                var firstLi = document.createElement('li');
+                firstLi.className = 'page-item';
+                firstLi.innerHTML = '<a class="page-link" href="#">1</a>';
+                firstLi.onclick = function() { currentPage = 1; renderTable(data); renderPagination(data); return false; };
+                pagination.appendChild(firstLi);
+                if (startPage > 2) {
+                    var ellipsis = document.createElement('li');
+                    ellipsis.className = 'page-item disabled';
+                    ellipsis.innerHTML = '<a class="page-link" href="#">...</a>';
+                    pagination.appendChild(ellipsis);
+                }
+            }
+
+            for (var i = startPage; i <= endPage; i++) {
+                var li = document.createElement('li');
+                li.className = 'page-item' + (i === currentPage ? ' active' : '');
+                li.innerHTML = '<a class="page-link" href="#">' + i + '</a>';
+                li.onclick = function(p) {
+                    return function() { currentPage = p; renderTable(data); renderPagination(data); return false; };
+                }(i);
+                pagination.appendChild(li);
+            }
+
+            if (endPage < totalPages) {
+                if (endPage < totalPages - 1) {
+                    var ellipsis2 = document.createElement('li');
+                    ellipsis2.className = 'page-item disabled';
+                    ellipsis2.innerHTML = '<a class="page-link" href="#">...</a>';
+                    pagination.appendChild(ellipsis2);
+                }
+                var lastLi = document.createElement('li');
+                lastLi.className = 'page-item';
+                lastLi.innerHTML = '<a class="page-link" href="#">' + totalPages + '</a>';
+                lastLi.onclick = function() { currentPage = totalPages; renderTable(data); renderPagination(data); return false; };
+                pagination.appendChild(lastLi);
+            }
+
+            // Next button
+            var nextLi = document.createElement('li');
+            nextLi.className = 'page-item' + (currentPage === totalPages ? ' disabled' : '');
+            nextLi.innerHTML = '<a class="page-link" href="#" aria-label="Next">&raquo;</a>';
+            nextLi.onclick = function() {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderTable(data);
+                    renderPagination(data);
+                }
+                return false;
+            };
+            pagination.appendChild(nextLi);
+        }
+
+        function filterData(searchTerm) {
+            searchTerm = searchTerm.toLowerCase().trim();
+            if (searchTerm === '') {
+                filteredData = allData;
+            } else {
+                filteredData = allData.filter(function(item) {
+                    return (item.NOMBRE && item.NOMBRE.toLowerCase().indexOf(searchTerm) !== -1) ||
+                        (item.TIPO && item.TIPO.toLowerCase().indexOf(searchTerm) !== -1) ||
+                        (item.NRO_SERIE && item.NRO_SERIE.toLowerCase().indexOf(searchTerm) !== -1) ||
+                        (item.DESCRIPCION && item.DESCRIPCION.toLowerCase().indexOf(searchTerm) !== -1) ||
+                        (item.SEDE && item.SEDE.toLowerCase().indexOf(searchTerm) !== -1) ||
+                        (item.RESPONSABLE && item.RESPONSABLE.toLowerCase().indexOf(searchTerm) !== -1) ||
+                        (item.ESTADO_ACTUAL && item.ESTADO_ACTUAL.toLowerCase().indexOf(searchTerm) !== -1);
+                });
+            }
+            currentPage = 1;
+            var lblTotal = document.getElementById('lblTotalRegistros');
+            if (lblTotal) lblTotal.textContent = 'Total: ' + filteredData.length + ' registros';
+            renderTable(filteredData);
+            renderPagination(filteredData);
+        }
+
+        function initListSection() {
+            var hiddenField = document.getElementById('datosJson');
+            if (!hiddenField || hiddenField.value === '') return;
+
+            try {
+                allData = JSON.parse(hiddenField.value);
+                filteredData = allData;
+                currentPage = 1;
+
+                var lblTotal = document.getElementById('lblTotalRegistros');
+                if (lblTotal) lblTotal.textContent = 'Total: ' + filteredData.length + ' registros';
+
+                renderTable(filteredData);
+                renderPagination(filteredData);
+
+                var txtBuscar = document.getElementById('txtBuscar');
+                if (txtBuscar) {
+                    txtBuscar.onkeyup = function() {
+                        filterData(this.value);
+                    };
+                }
+
+                var pageSizeSelect = document.getElementById('pageSizeSelect');
+                if (pageSizeSelect) {
+                    pageSizeSelect.onchange = function() {
+                        pageSize = parseInt(this.value, 10);
+                        currentPage = 1;
+                        renderTable(filteredData);
+                        renderPagination(filteredData);
+                    };
+                }
+            } catch (e) {
+                console.error('Error parsing JSON data: ' + e);
+            }
+        }
+
+        // Initialize on page load
+        if (window.addEventListener) {
+            window.addEventListener('DOMContentLoaded', initListSection);
+        } else {
+            window.attachEvent('onload', initListSection);
+        }
     </script>
 
 </body>
