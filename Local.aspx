@@ -1,4 +1,5 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Local.aspx.cs" Inherits="TiposElementoConfiguracion" UnobtrusiveValidationMode="None" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Local.aspx.cs" Inherits="Local" UnobtrusiveValidationMode="None" %>
+<%@ Register src="NavBar.ascx" tagname="NavBar" tagprefix="uc1" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -26,6 +27,73 @@
 
         .position-static {
             text-align: left;
+        }
+
+        /* ===== GUIA ESTILO TABLAS ===== */
+        .table-wrapper {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.08);
+            padding: 1.5rem;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .table-modern thead th {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 0.75rem 0.5rem !important;
+            border: none !important;
+            white-space: nowrap;
+        }
+
+        .table-modern tbody td {
+            padding: 0.6rem 0.5rem !important;
+            border-bottom: 1px solid #f1f1f1;
+            vertical-align: middle;
+            font-size: 0.85rem;
+            color: #2d3436;
+        }
+
+        .table-modern tbody tr:hover td {
+            background: rgba(233,69,96,0.04);
+        }
+
+        .table-modern tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .estado-activo { color: #198754; font-weight: 600; }
+        .estado-inactivo { color: #dc3545; font-weight: 600; }
+
+        .search-input {
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 0.6rem 1rem;
+            font-size: 0.95rem;
+        }
+
+        .search-input:focus {
+            border-color: #e94560;
+            box-shadow: 0 0 0 4px rgba(233,69,96,0.1);
+            outline: none;
+        }
+
+        .btn-accion {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            border-radius: 6px;
+            text-decoration: none;
+        }
+
+        .page-info {
+            text-align: center;
+            margin-top: 1rem;
+            color: #6c757d;
+            font-size: 0.9rem;
         }
     </style>
 
@@ -102,116 +170,7 @@
 </head>
 <body onload="MostrarMensaje()">
 
-    <!-- ========== NAVBAR ========== -->
-    <nav class="navbar navbar-expand-lg navbar-modern fixed-top">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="Menu.aspx">
-                <i class="bi bi-house-door-fill me-1"></i>Inicio
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarNav" aria-controls="navbarNav"
-                    aria-expanded="false" aria-label="Navegaci&oacute;n">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-
-                    <!-- Mantenimiento -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="mantenimientoDropdown"
-                           role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-briefcase-fill me-1"></i>Mantenimiento
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="mantenimientoDropdown">
-                            <li><a class="dropdown-item" href="Personal.aspx">Personal</a></li>
-                            <li class="dropdown-submenu">
-                                <a class="dropdown-item dropdown-toggle" href="#">Tablas Instituci&oacute;n</a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="Sede.aspx">Sede</a></li>
-                                    <li><a class="dropdown-item" href="Local.aspx">Local</a></li>
-                                    <li><a class="dropdown-item" href="Area.aspx">&Aacute;rea</a></li>
-                                    <li><a class="dropdown-item" href="Dependencia.aspx">Dependencia</a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown-submenu">
-                                <a class="dropdown-item dropdown-toggle" href="#">Tablas Personal</a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="Cargo.aspx">Cargo</a></li>
-                                    <li><a class="dropdown-item" href="ProfecionOcupacion.aspx">Profesi&oacute;n - Ocupaci&oacute;n</a></li>
-                                </ul>
-                            </li>
-                            <li><hr class="dropdown-divider" /></li>
-                            <li class="dropdown-submenu">
-                                <a class="dropdown-item dropdown-toggle" href="#">Tablas Elemento Configuraci&oacute;n</a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="Modelo.aspx">Modelo</a></li>
-                                    <li><a class="dropdown-item" href="Marca.aspx">Marca</a></li>
-                                    <li><a class="dropdown-item" href="DescripcionElementoConfiguracion.aspx">Descripci&oacute;n Elemento Configuraci&oacute;n</a></li>
-                                    <li><a class="dropdown-item" href="TiposElementoConfiguracion.aspx">Tipos Elemento Configuraci&oacute;n</a></li>
-                                    <li><a class="dropdown-item" href="TipoRelacionElementoConfiguracion.aspx">Tipo Relaci&oacute;n Elemento Configuraci&oacute;n</a></li>
-                                    <li><a class="dropdown-item" href="TipoComponeneteCI.aspx">Tipo Componente Elemento Configuraci&oacute;n</a></li>
-                                    <li><a class="dropdown-item" href="EstadoActualCI.aspx">Estado Actual Elemento Configuraci&oacute;n</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <!-- Gesti&oacute;n de Configuraci&oacute;n -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="gestionDropdown"
-                           role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-person-lines-fill me-1"></i>Gesti&oacute;n de Configuraci&oacute;n
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="gestionDropdown">
-                            <li><a class="dropdown-item" href="ElementosConfiguracion.aspx">Elementos de Configuraci&oacute;n</a></li>
-                            <li><a class="dropdown-item" href="RelacionesElementosConfiguracion.aspx">Relaci&oacute;n de Elementos de Configuraci&oacute;n</a></li>
-                            <li><hr class="dropdown-divider" /></li>
-                            <li><a class="dropdown-item" href="CIsAsignarComponenetes.aspx">Asignar Componentes Elementos de Configuraci&oacute;n</a></li>
-                            <li><hr class="dropdown-divider" /></li>
-                            <li><a class="dropdown-item" href="LicenciasElementoConfiguracion.aspx">Licencias de Elementos de Configuraci&oacute;n</a></li>
-                            <li><hr class="dropdown-divider" /></li>
-                            <li><a class="dropdown-item" href="SeguimientosElementoConfiguracion.aspx">Seguimiento de Elementos de Configuraci&oacute;n</a></li>
-                        </ul>
-                    </li>
-
-                    <!-- Reportes -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="reportesDropdown"
-                           role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-file-earmark-bar-graph-fill me-1"></i>Reportes
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="reportesDropdown">
-                            <li><a class="dropdown-item" href="../Reportes/ReporteElementosConfiguracion.aspx">Reporte de Elementos de Configuraci&oacute;n</a></li>
-                            <li><a class="dropdown-item" href="../Reportes/ReporteRelacionesElementosConfiguracion.aspx">Reporte de Relaciones de Elementos de Configuraci&oacute;n</a></li>
-                            <li><a class="dropdown-item" href="../Reportes/ReporteSeguimientosElementoConfiguracion.aspx">Reporte de Seguimientos de Elementos de Configuraci&oacute;n</a></li>
-                            <li><a class="dropdown-item" href="../Reportes/ReporteLicenciasElementoConfiguracion.aspx">Reporte de Licencias de Elementos de Configuraci&oacute;n</a></li>
-                            <li><a class="dropdown-item" href="../Reportes/ReporteCIsSeguidos.aspx">Reporte de Elementos de Configuraci&oacute;n Seguidos</a></li>
-                            <li><a class="dropdown-item" href="../Reportes/ReporteComponentesAsignados.aspx">Reporte de Componentes de Elementos de Configuraci&oacute;n Asignados</a></li>
-                            <li><hr class="dropdown-divider" /></li>
-                            <li><a class="dropdown-item" href="../Reportes/ReporteDatosCorrectosCI.aspx">Reporte de Datos Correctos de Elementos de Configuraci&oacute;n</a></li>
-                            <li><a class="dropdown-item" href="../Reportes/ReporteDatosIncorrectosCI.aspx">Reporte de Datos Incorrectos de Elementos de Configuraci&oacute;n</a></li>
-                            <li><a class="dropdown-item" href="../Reportes/ReporteCIsInformacionContenidaEnCMDB.aspx">Reporte de Informaci&oacute;n de Elementos de Configuraci&oacute;n Contenidas en la CMDB</a></li>
-                        </ul>
-                    </li>
-
-                    <!-- Configuraciones -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="configDropdown"
-                           role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-gear-fill me-1"></i>Configuraciones
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="configDropdown">
-                            <li><a class="dropdown-item" href="Usuario.aspx">Usuarios</a></li>
-                            <li><a class="dropdown-item" href="../Configuracion/Usuarios.aspx">Permisos</a></li>
-                            <li><hr class="dropdown-divider" /></li>
-                            <li><a class="dropdown-item" href="CerrarSession.aspx" style="color: #e94560;">Cerrar Sesi&oacute;n</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <uc1:NavBar ID="NavBar1" runat="server" />
 
     <!-- Espaciador para navbar fija -->
     <div class="top-spacer"></div>
@@ -224,25 +183,27 @@
             </div>
             <div class="card-body p-3">
                 <!-- Buscador -->
-                <div class="row g-2 mb-3">
-                    <div class="col-md-6 col-sm-6">
+                <div class="row mb-3">
+                    <div class="col-md-6">
                         <div class="input-group">
-                            <span class="input-group-text"><i class="bi bi-search"></i></span>
-                            <input type="text" id="txtBuscarLocal" class="form-control form-control-modern"
+                            <span class="input-group-text bg-white border-end-0">
+                                <i class="bi bi-search text-muted"></i>
+                            </span>
+                            <input type="text" id="txtBuscarLocal" class="form-control border-start-0 search-input"
                                    placeholder="Buscar por c&oacute;digo, nombre, direcci&oacute;n o sede..."
                                    onkeyup="filtrarLocales()" />
                         </div>
                     </div>
-                    <div class="col-md-2 col-sm-3">
-                        <span id="lblTotalRegistros" class="badge bg-primary align-middle" style="padding: 0.5rem 1rem; font-size: 0.9rem;"></span>
+                    <div class="col-md-6 text-end">
+                        <span id="lblTotalRegistros" class="text-muted"></span>
                     </div>
                 </div>
 
                 <!-- Tabla HTML para lista -->
                 <div class="table-wrapper" style="max-height: 500px; overflow-y: auto;">
-                    <table id="tblListaLocales" class="table table-modern-grid table-hover">
-                        <thead style="position: sticky; top: 0; z-index: 1;">
-                            <tr style="background-color: #000; color: #fff;">
+                    <table id="tblListaLocales" class="table table-modern table-hover">
+                        <thead>
+                            <tr>
                                 <th width="12%">C&Oacute;DIGO</th>
                                 <th width="18%">NOMBRE</th>
                                 <th width="20%">DIRECCI&Oacute;N</th>
@@ -258,17 +219,9 @@
                 </div>
 
                 <!-- Paginacion -->
-                <div class="pagination-wrapper">
-                    <div class="d-flex flex-wrap gap-2 align-items-center">
-                        <button type="button" id="btnAnterior" class="btn btn-outline-primary btn-sm" onclick="paginarLocales(-1)" disabled>
-                            <i class="bi bi-chevron-left"></i> Anterior
-                        </button>
-                        <span id="lblPaginacion" class="badge bg-secondary" style="padding: 0.5rem 1rem; font-size: 0.9rem;"></span>
-                        <button type="button" id="btnSiguiente" class="btn btn-outline-primary btn-sm" onclick="paginarLocales(1)" disabled>
-                            Siguiente <i class="bi bi-chevron-right"></i>
-                        </button>
-                    </div>
+                <div class="pagination-wrapper" id="paginationLocal">
                 </div>
+                <div class="page-info" id="pageInfoLocal"></div>
             </div>
         </div>
     </div>
@@ -428,87 +381,6 @@
                 </div>
             </div>
 
-            <!-- Card Buscador -->
-            <div class="form-card mt-4">
-                <div class="card-header">
-                    <i class="bi bi-search me-2"></i>Buscar Local
-                </div>
-                <div class="card-body p-3">
-                    <div class="row g-2 mb-2">
-                        <div class="col-md-3 col-sm-6">
-                            <div class="form-check">
-                                <asp:CheckBox ID="cbnl" runat="server" CssClass="form-check-input" Text="Nombre Local" onChange="Activa(1);"/>
-                            </div>
-                            <asp:TextBox ID="nl" runat="server" CssClass="form-control form-control-modern mt-2"
-                                         MaxLength="50" Autocomplete="off" placeholder="Ingrese nombre local a buscar"
-                                         Enabled="False" />
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="form-check">
-                                <asp:CheckBox ID="cbs" runat="server" CssClass="form-check-input" Text="Sede" onChange="Activa(2);"/>
-                            </div>
-                            <asp:DropDownList ID="ddls" runat="server" CssClass="form-control form-control-modern mt-2"
-                                              AppendDataBoundItems="True" Enabled="False" onChange="Activa();">
-                                <asp:ListItem Value="-1">_____SELECCIONE SEDE_____</asp:ListItem>
-                            </asp:DropDownList>
-                        </div>
-                        <div class="col-md-3 col-sm-6 d-flex align-items-end">
-                            <div class="d-flex flex-wrap gap-2">
-                                <asp:LinkButton ID="lbtnBuscar" runat="server" CausesValidation="False" CssClass="btn btn-info btn-modern"
-                                                OnClick="lbtnBuscar_Click" UseSubmitBehavior="False">
-                                    <i class="bi bi-search"></i> Buscar
-                                </asp:LinkButton>
-                                <asp:Button ID="btnActualizarInformacion" runat="server" CssClass="btn btn-warning btn-modern"
-                                            OnClick="btnActualizarInformacion_Click" Text="Actualizar Informaci&oacute;n" CausesValidation="False" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Tabla de Resultados -->
-            <div class="table-wrapper mt-4">
-                <asp:Table ID="Table_" runat="server" CssClass="table table-modern-grid table-hover">
-                    <asp:TableRow ID="TableRow1" runat="server">
-                        <asp:TableCell ID="tcID_LOCAL" runat="server" BackColor="Black" BorderColor="Black"
-                                      ForeColor="White" Width="7%" Visible="false">ID LOCAL</asp:TableCell>
-
-                        <asp:TableCell ID="tcLOCAL_CODIGO" runat="server" BackColor="Black" BorderColor="Black"
-                                       ForeColor="White" Width="15%">LOCAL C&Oacute;DIGO</asp:TableCell>
-
-                        <asp:TableCell ID="tcLOCAL_NOMBRE" runat="server" BackColor="Black" BorderColor="Black"
-                                       ForeColor="White" Width="15%">LOCAL NOMBRE</asp:TableCell>
-
-                        <asp:TableCell ID="tcLOCAL_DIRECCION" runat="server" BackColor="Black" BorderColor="Black"
-                                       ForeColor="White" Width="15%">LOCAL DIRECCI&Oacute;N</asp:TableCell>
-
-                        <asp:TableCell ID="tcSEDE" runat="server" BackColor="Black" BorderColor="Black"
-                                       ForeColor="White" Width="15%">SEDE</asp:TableCell>
-
-                        <asp:TableCell ID="tcID_UBI" runat="server" BackColor="Black" BorderColor="Black"
-                                       ForeColor="White" Width="15%" Visible="false">ID UBI</asp:TableCell>
-
-                        <asp:TableCell ID="tcUBICACION_GEOGRAFICA" runat="server" BackColor="Black" BorderColor="Black"
-                                       ForeColor="White" Width="15%">UBICACI&Oacute;N GEOGR&Aacute;FICA</asp:TableCell>
-
-                        <asp:TableCell ID="tcTELEFONO" runat="server" BackColor="Black" BorderColor="Black"
-                                       ForeColor="White" Width="15%">TEL&Eacute;FONO</asp:TableCell>
-
-                        <asp:TableCell ID="tcPAGINA_WEB" runat="server" BackColor="Black" BorderColor="Black"
-                                       ForeColor="White" Width="15%">P&Aacute;GINA WEB</asp:TableCell>
-
-                        <asp:TableCell ID="tcEMAIL" runat="server" BackColor="Black" BorderColor="Black"
-                                       ForeColor="White" Width="15%">EMAIL</asp:TableCell>
-
-                        <asp:TableCell ID="tcTOTAL_CIS" runat="server" BackColor="Black" BorderColor="Black"
-                                       ForeColor="White" Width="15%">TOTAL CIS</asp:TableCell>
-
-                        <asp:TableCell ID="SELECCIONAR_LOCAL" runat="server" BackColor="Black" BorderColor="Black"
-                                       ForeColor="White" Width="7%">SELECCIONAR LOCAL</asp:TableCell>
-                    </asp:TableRow>
-                </asp:Table>
-            </div>
-
             <!-- Hidden Fields -->
             <asp:HiddenField ID="__mensaje" runat="server" />
             <asp:HiddenField ID="__pagina" runat="server" />
@@ -520,108 +392,146 @@
 
     <script type="text/javascript">
         // ========== VARIABLES GLOBALES PARA LISTA ==========
-        var todosLosLocales = [];
-        var localesFiltrados = [];
+        var datosCompletos = [];
         var paginaActual = 1;
-        var elementosPorPagina = 10;
+        var tamanioPagina = 10;
         var datosJsonControl = null;
 
         // ========== INICIALIZACION AL CARGAR PAGINA ==========
-        function inicializarListaLocales() {
+        function inicializarDatos() {
             datosJsonControl = document.getElementById('<%= datosJson.ClientID %>');
             if (datosJsonControl && datosJsonControl.value) {
                 try {
-                    todosLosLocales = JSON.parse(datosJsonControl.value);
-                    localesFiltrados = todosLosLocales;
-                    filtrarLocales();
+                    datosCompletos = JSON.parse(datosJsonControl.value);
+                    Paginar(1);
                 } catch (e) {
-                    console.error('Error al parsear datos JSON:', e);
+                    console.error('Error parsing JSON:', e);
                 }
             }
         }
 
-        // ========== FILTRAR LOCALES ==========
-        function filtrarLocales() {
-            var textoBusqueda = document.getElementById('txtBuscarLocal').value.toLowerCase().trim();
-            if (textoBusqueda === '') {
-                localesFiltrados = todosLosLocales;
-            } else {
-                localesFiltrados = todosLosLocales.filter(function(local) {
-                    return local.codigo.toLowerCase().indexOf(textoBusqueda) !== -1 ||
-                           local.nombre.toLowerCase().indexOf(textoBusqueda) !== -1 ||
-                           local.direccion.toLowerCase().indexOf(textoBusqueda) !== -1 ||
-                           local.sede.toLowerCase().indexOf(textoBusqueda) !== -1;
-                });
+        // ========== FILTRAR ==========
+        function filtrarTabla(texto) {
+            texto = texto.toUpperCase();
+            var datosFiltrados = [];
+
+            for (var i = 0; i < datosCompletos.length; i++) {
+                var row = datosCompletos[i];
+                var textoFila = Object.values(row).join(' ').toUpperCase();
+                if (textoFila.indexOf(texto) > -1) {
+                    datosFiltrados.push(row);
+                }
             }
+
             paginaActual = 1;
-            renderizarTablaLocales();
+            renderizarTabla(datosFiltrados);
+            var totalPaginas = Math.ceil(datosFiltrados.length / tamanioPagina);
+            generarPaginacion(totalPaginas, paginaActual);
+            document.getElementById('lblTotalRegistros').textContent = 'Total: ' + datosFiltrados.length + ' elementos';
         }
 
-        // ========== RENDERIZAR TABLA ==========
-        function renderizarTablaLocales() {
-            var tbody = document.getElementById('tbodyLocales');
-            if (!tbody) return;
-
-            var inicio = (paginaActual - 1) * elementosPorPagina;
-            var fin = inicio + elementosPorPagina;
-            var localesPagina = localesFiltrados.slice(inicio, fin);
-
-            var html = '';
-            if (localesPagina.length === 0) {
-                html = '<tr><td colspan="7" class="text-center py-4">No se encontraron registros</td></tr>';
-            } else {
-                for (var i = 0; i < localesPagina.length; i++) {
-                    var local = localesPagina[i];
-                    html += '<tr onclick="seleccionarLocal(\'' + local.id + '\',\'' + local.codigo + '\',\'' + local.nombre + '\',\'' + local.direccion + '\',\'' + local.sede + '\',\'' + local.idUbi + '\',\'' + local.ubiGeo + '\',\'' + local.telefono + '\',\'' + local.paginaWeb + '\',\'' + local.email + '\',\'' + local.totalCis + '\')" style="cursor:pointer;">';
-                    html += '<td>' + local.codigo + '</td>';
-                    html += '<td>' + local.nombre + '</td>';
-                    html += '<td>' + local.direccion + '</td>';
-                    html += '<td>' + local.sede + '</td>';
-                    html += '<td>' + local.ubiGeo + '</td>';
-                    html += '<td>' + local.telefono + '</td>';
-                    html += '<td>' + local.totalCis + '</td>';
-                    html += '</tr>';
-                }
-            }
-            tbody.innerHTML = html;
-
-            // Actualizar total de registros
-            var lblTotal = document.getElementById('lblTotalRegistros');
-            if (lblTotal) {
-                lblTotal.textContent = 'Total: ' + localesFiltrados.length + ' registro(s)';
-            }
-
-            // Actualizar paginacion
-            actualizarPaginacion();
-        }
-
-        // ========== ACTUALIZAR PAGINACION ==========
-        function actualizarPaginacion() {
-            var totalPaginas = Math.ceil(localesFiltrados.length / elementosPorPagina);
-            var lblPaginacion = document.getElementById('lblPaginacion');
-            var btnAnterior = document.getElementById('btnAnterior');
-            var btnSiguiente = document.getElementById('btnSiguiente');
-
-            if (lblPaginacion) {
-                lblPaginacion.textContent = 'P&aacute;gina ' + paginaActual + ' de ' + (totalPaginas > 0 ? totalPaginas : 1);
-            }
-            if (btnAnterior) {
-                btnAnterior.disabled = (paginaActual <= 1);
-            }
-            if (btnSiguiente) {
-                btnSiguiente.disabled = (paginaActual >= totalPaginas);
-            }
+        // Alias para compatibilidad
+        function filtrarLocales() {
+            filtrarTabla(document.getElementById('txtBuscarLocal').value);
         }
 
         // ========== PAGINAR ==========
-        function paginarLocales(direccion) {
-            var totalPaginas = Math.ceil(localesFiltrados.length / elementosPorPagina);
-            if (direccion === -1 && paginaActual > 1) {
-                paginaActual--;
-            } else if (direccion === 1 && paginaActual < totalPaginas) {
-                paginaActual++;
+        function Paginar(pagina) {
+            paginaActual = pagina;
+            var inicio = (pagina - 1) * tamanioPagina;
+            var fin = inicio + tamanioPagina;
+            var datosPagina = datosCompletos.slice(inicio, fin);
+
+            renderizarTabla(datosPagina);
+
+            var totalPaginas = Math.ceil(datosCompletos.length / tamanioPagina);
+            generarPaginacion(totalPaginas, pagina);
+            document.getElementById('pageInfoLocal').textContent = 'Pagina ' + pagina + ' de ' + totalPaginas + ' (Total: ' + datosCompletos.length + ' registros)';
+            document.querySelector('.table-wrapper').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // ========== RENDERIZAR TABLA ==========
+        function renderizarTabla(datos) {
+            var tbody = document.getElementById('tbodyLocales');
+            if (!tbody) return;
+
+            var sb = '';
+
+            if (datos.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" class="text-center text-muted py-4">No se encontraron elementos</td></tr>';
+                return;
             }
-            renderizarTablaLocales();
+
+            for (var i = 0; i < datos.length; i++) {
+                var row = datos[i];
+                sb += '<tr onclick="seleccionarLocal(\'' + row.id + '\',\'' + row.codigo + '\',\'' + row.nombre + '\',\'' + row.direccion + '\',\'' + row.sede + '\',\'' + row.idUbi + '\',\'' + row.ubiGeo + '\',\'' + row.telefono + '\',\'' + row.paginaWeb + '\',\'' + row.email + '\',\'' + row.totalCis + '\')" style="cursor:pointer;">';
+                sb += '<td>' + htmlEncode(row.codigo) + '</td>';
+                sb += '<td>' + htmlEncode(row.nombre) + '</td>';
+                sb += '<td>' + htmlEncode(row.direccion) + '</td>';
+                sb += '<td>' + htmlEncode(row.sede) + '</td>';
+                sb += '<td>' + htmlEncode(row.ubiGeo) + '</td>';
+                sb += '<td>' + htmlEncode(row.telefono) + '</td>';
+                sb += '<td>' + htmlEncode(row.totalCis) + '</td>';
+                sb += '</tr>';
+            }
+
+            tbody.innerHTML = sb;
+        }
+
+        function htmlEncode(str) {
+            if (!str) return '';
+            return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+        // ========== GENERAR PAGINACION ==========
+        function generarPaginacion(totalPaginas, pagina) {
+            var pagination = document.getElementById('paginationLocal');
+            if (!pagination) return;
+            if (totalPaginas <= 1) {
+                pagination.innerHTML = '';
+                return;
+            }
+
+            var sb = '<nav><ul class="pagination mb-0">';
+
+            // Anterior
+            if (pagina > 1) {
+                sb += '<li class="page-item"><a class="page-link" href="javascript:Paginar(' + (pagina - 1) + ')">Anterior</a></li>';
+            } else {
+                sb += '<li class="page-item disabled"><span class="page-link">Anterior</span></li>';
+            }
+
+            // Numeros de pagina (rango de 2 antes y despues)
+            var inicio = Math.max(1, pagina - 2);
+            var fin = Math.min(totalPaginas, pagina + 2);
+
+            if (inicio > 1) {
+                sb += '<li class="page-item"><a class="page-link" href="javascript:Paginar(1)">1</a></li>';
+                if (inicio > 2) sb += '<li class="page-item disabled"><span class="page-link">...</span></li>';
+            }
+
+            for (var i = inicio; i <= fin; i++) {
+                if (i === pagina) {
+                    sb += '<li class="page-item active"><span class="page-link">' + i + '</span></li>';
+                } else {
+                    sb += '<li class="page-item"><a class="page-link" href="javascript:Paginar(' + i + ')">' + i + '</a></li>';
+                }
+            }
+
+            if (fin < totalPaginas) {
+                if (fin < totalPaginas - 1) sb += '<li class="page-item disabled"><span class="page-link">...</span></li>';
+                sb += '<li class="page-item"><a class="page-link" href="javascript:Paginar(' + totalPaginas + ')">' + totalPaginas + '</a></li>';
+            }
+
+            // Siguiente
+            if (pagina < totalPaginas) {
+                sb += '<li class="page-item"><a class="page-link" href="javascript:Paginar(' + (pagina + 1) + ')">Siguiente</a></li>';
+            } else {
+                sb += '<li class="page-item disabled"><span class="page-link">Siguiente</span></li>';
+            }
+
+            sb += '</ul></nav>';
+            pagination.innerHTML = sb;
         }
 
         // ========== SELECCIONAR LOCAL DESDE LISTA ==========
@@ -659,9 +569,9 @@
 
         // Asignar al cargar pagina
         if (window.addEventListener) {
-            window.addEventListener('load', inicializarListaLocales);
+            window.addEventListener('load', inicializarDatos, false);
         } else if (window.attachEvent) {
-            window.attachEvent('onload', inicializarListaLocales);
+            window.attachEvent('onload', inicializarDatos);
         }
     </script>
 

@@ -76,7 +76,7 @@ public partial class ElementosConfiguracion : System.Web.UI.Page
                 _Lista.ShowMessage(__mensaje, __pagina, servidor.getMensageError(), "CerrarSession.aspx");
             }
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             datosJson.Value = "[]";
             _Lista.ShowMessage(__mensaje, __pagina, "Error inesperado al intentar conectarnos con el servidor.", "CerrarSession.aspx");

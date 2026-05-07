@@ -1,4 +1,5 @@
 <%@ Page Language="C#" AutoEventWireup="true" CodeFile="LicenciasElementoConfiguracion.aspx.cs" Inherits="LicenciasElementoConfiguracion" UnobtrusiveValidationMode="None" %>
+<%@ Register src="NavBar.ascx" tagname="NavBar" tagprefix="uc1" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -144,77 +145,73 @@
         .table-wrapper {
             background: #fff;
             border-radius: 16px;
-            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
-            padding: 1rem;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            overflow-x: auto;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.08);
+            padding: 1.5rem;
+            border: 1px solid rgba(0,0,0,0.05);
         }
 
-        .table-modern-grid {
-            border-collapse: separate !important;
-            border-spacing: 0;
-            width: 100%;
-            min-width: 900px;
-        }
-
-        .table-modern-grid thead tr th {
+        .table-modern thead th {
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             color: #fff;
             font-weight: 600;
-            font-size: 0.7rem;
+            font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            padding: 0.6rem 0.5rem !important;
+            padding: 0.75rem 0.5rem !important;
             border: none !important;
             white-space: nowrap;
         }
 
-        .table-modern-grid thead tr th:first-child {
-            border-radius: 10px 0 0 10px;
-        }
-
-        .table-modern-grid thead tr th:last-child {
-            border-radius: 0 10px 10px 0;
-        }
-
-        .table-modern-grid tbody tr td {
-            padding: 0.5rem 0.45rem !important;
-            border: none;
+        .table-modern tbody td {
+            padding: 0.6rem 0.5rem !important;
             border-bottom: 1px solid #f1f1f1;
             vertical-align: middle;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: #2d3436;
-            background: #fff;
         }
 
-        .table-modern-grid tbody tr:hover td {
-            background: rgba(233, 69, 96, 0.04);
+        .table-modern tbody tr:hover td {
+            background: rgba(233,69,96,0.04);
         }
 
-        .table-modern-grid tbody tr:last-child td {
+        .table-modern tbody tr:last-child td {
             border-bottom: none;
         }
 
-        /* Link button "Editar" en la tabla */
-        .btn-link-personal {
-            color: #d40924;
-            font-weight: 700;
-            font-size: 0.8rem;
-            text-decoration: none;
-            cursor: pointer;
-            background: rgba(212, 9, 36, 0.08);
-            padding: 0.25rem 0.6rem;
-            border-radius: 6px;
-            border: 1px solid rgba(212, 9, 36, 0.3);
-            transition: all 0.2s ease;
-            display: inline-block;
+        .estado-activo { color: #198754; font-weight: 600; }
+        .estado-inactivo { color: #dc3545; font-weight: 600; }
+
+        .search-input {
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 0.6rem 1rem;
+            font-size: 0.95rem;
         }
 
-        .btn-link-personal:hover {
-            background: rgba(212, 9, 36, 0.15);
-            border-color: #d40924;
+        .search-input:focus {
+            border-color: #e94560;
+            box-shadow: 0 0 0 4px rgba(233,69,96,0.1);
+            outline: none;
+        }
+
+        .btn-accion {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            border-radius: 6px;
             text-decoration: none;
-            transform: translateY(-1px);
+        }
+
+        .page-info {
+            text-align: center;
+            margin-top: 1rem;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+        .pagination-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-top: 1.5rem;
         }
 
         /* ===== BOTONES ===== */
@@ -280,276 +277,64 @@
 </head>
 <body onload="MostrarMensaje()">
 
-    <!-- ========== NAVBAR ========== -->
-    <nav class="navbar navbar-expand-lg navbar-modern fixed-top">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="Menu.aspx">
-                <i class="bi bi-house-door-fill me-1"></i>Inicio
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarNav" aria-controls="navbarNav"
-                    aria-expanded="false" aria-label="Navegaci&oacute;n">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-
-                    <!-- Mantenimiento -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="mantenimientoDropdown"
-                           role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-briefcase-fill me-1"></i>Mantenimiento
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="mantenimientoDropdown">
-                            <li><a class="dropdown-item" href="Personal.aspx">Personal</a></li>
-                            <li class="dropdown-submenu">
-                                <a class="dropdown-item dropdown-toggle" href="#">Tablas Instituci&oacute;n</a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="Sede.aspx">Sede</a></li>
-                                    <li><a class="dropdown-item" href="Local.aspx">Local</a></li>
-                                    <li><a class="dropdown-item" href="Area.aspx">&Aacute;rea</a></li>
-                                    <li><a class="dropdown-item" href="Dependencia.aspx">Dependencia</a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown-submenu">
-                                <a class="dropdown-item dropdown-toggle" href="#">Tablas Personal</a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="Cargo.aspx">Cargo</a></li>
-                                    <li><a class="dropdown-item" href="ProfecionOcupacion.aspx">Profesi&oacute;n - Ocupaci&oacute;n</a></li>
-                                </ul>
-                            </li>
-                            <li><hr class="dropdown-divider" /></li>
-                            <li class="dropdown-submenu">
-                                <a class="dropdown-item dropdown-toggle" href="#">Tablas Elemento Configuraci&oacute;n</a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="Modelo.aspx">Modelo</a></li>
-                                    <li><a class="dropdown-item" href="Marca.aspx">Marca</a></li>
-                                    <li><a class="dropdown-item" href="DescripcionElementoConfiguracion.aspx">Descripci&oacute;n Elemento Configuraci&oacute;n</a></li>
-                                    <li><a class="dropdown-item" href="TiposElementoConfiguracion.aspx">Tipos Elemento Configuraci&oacute;n</a></li>
-                                    <li><a class="dropdown-item" href="TipoRelacionElementoConfiguracion.aspx">Tipo Relaci&oacute;n Elemento Configuraci&oacute;n</a></li>
-                                    <li><a class="dropdown-item" href="TipoComponeneteCI.aspx">Tipo Componente Elemento Configuraci&oacute;n</a></li>
-                                    <li><a class="dropdown-item" href="EstadoActualCI.aspx">Estado Actual Elemento Configuraci&oacute;n</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <!-- Gesti&oacute;n de Configuraci&oacute;n -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="gestionDropdown"
-                           role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-person-lines-fill me-1"></i>Gesti&oacute;n de Configuraci&oacute;n
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="gestionDropdown">
-                            <li><a class="dropdown-item" href="ElementosConfiguracion.aspx">Elementos de Configuraci&oacute;n</a></li>
-                            <li><a class="dropdown-item" href="RelacionesElementosConfiguracion.aspx">Relaci&oacute;n de Elementos de Configuraci&oacute;n</a></li>
-                            <li><hr class="dropdown-divider" /></li>
-                            <li><a class="dropdown-item" href="CIsAsignarComponenetes.aspx">Asignar Componentes Elementos de Configuraci&oacute;n</a></li>
-                            <li><hr class="dropdown-divider" /></li>
-                            <li><a class="dropdown-item" href="LicenciasElementoConfiguracion.aspx">Licencias de Elementos de Configuraci&oacute;n</a></li>
-                            <li><hr class="dropdown-divider" /></li>
-                            <li><a class="dropdown-item" href="SeguimientosElementoConfiguracion.aspx">Seguimiento de Elementos de Configuraci&oacute;n</a></li>
-                        </ul>
-                    </li>
-
-                    <!-- Reportes -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="reportesDropdown"
-                           role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-file-earmark-bar-graph-fill me-1"></i>Reportes
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="reportesDropdown">
-                            <li><a class="dropdown-item" href="../Reportes/ReporteElementosConfiguracion.aspx">Reporte de Elementos de Configuraci&oacute;n</a></li>
-                            <li><a class="dropdown-item" href="../Reportes/ReporteRelacionesElementosConfiguracion.aspx">Reporte de Relaciones de Elementos de Configuraci&oacute;n</a></li>
-                            <li><a class="dropdown-item" href="../Reportes/ReporteSeguimientosElementoConfiguracion.aspx">Reporte de Seguimientos de Elementos de Configuraci&oacute;n</a></li>
-                            <li><a class="dropdown-item" href="../Reportes/ReporteLicenciasElementoConfiguracion.aspx">Reporte de Licencias de Elementos de Configuraci&oacute;n</a></li>
-                            <li><a class="dropdown-item" href="../Reportes/ReporteCIsSeguidos.aspx">Reporte de Elementos de Configuraci&oacute;n Seguidos</a></li>
-                            <li><a class="dropdown-item" href="../Reportes/ReporteComponentesAsignados.aspx">Reporte de Componentes de Elementos de Configuraci&oacute;n Asignados</a></li>
-                            <li><hr class="dropdown-divider" /></li>
-                            <li><a class="dropdown-item" href="../Reportes/ReporteDatosCorrectosCI.aspx">Reporte de Datos Correctos de Elementos de Configuraci&oacute;n</a></li>
-                            <li><a class="dropdown-item" href="../Reportes/ReporteDatosIncorrectosCI.aspx">Reporte de Datos Incorrectos de Elementos de Configuraci&oacute;n</a></li>
-                            <li><a class="dropdown-item" href="../Reportes/ReporteCIsInformacionContenidaEnCMDB.aspx">Reporte de Informaci&oacute;n de Elementos de Configuraci&oacute;n Contenidas en la CMDB</a></li>
-                        </ul>
-                    </li>
-
-                    <!-- Configuraciones -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="configDropdown"
-                           role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-gear-fill me-1"></i>Configuraciones
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="configDropdown">
-                            <li><a class="dropdown-item" href="Usuario.aspx">Usuarios</a></li>
-                            <li><a class="dropdown-item" href="../Configuracion/Usuarios.aspx">Permisos</a></li>
-                            <li><hr class="dropdown-divider" /></li>
-                            <li><a class="dropdown-item" href="CerrarSession.aspx" style="color: #e94560;">Cerrar Sesi&oacute;n</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <uc1:NavBar ID="NavBar1" runat="server" />
 
     <!-- Espaciador para navbar fija -->
     <div class="top-spacer"></div>
 
     <!-- ========== FORMULARIO ========== -->
     <form id="form1" runat="server">
-        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
-        <div class="container">
-            <div>
-                <div class="table-wrapper">
-                    <div class="container-fluid">
-                <table class="table table text-center">
-                    <tr>
-                        <td style="text-align: left" colspan="7">
-                       <asp:Button ID="btnNuevaLicencia" runat="server"
-                    Style="font-family: Calibri; color: #000000; font-size: medium"
-                    Text="Nueva Licencia Elemento Configuracion"
-                    CssClass="btn btn-info" UseSubmitBehavior="False" OnClick="btnNuevaLicencia_Click" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: left" >
-                            <asp:CheckBox ID="cbtl" runat="server" CssClass="form-check-input position-static&quot" Font-Size="X-Small" Text="Tipo Licencia" AutoPostBack="True" OnCheckedChanged="cbtl_CheckedChanged"/>
-                        </td>
-                        <td style="text-align: left" >
-                            <asp:CheckBox ID="cbs" runat="server" CssClass="form-check-input position-static&quot" Font-Size="X-Small" Text="Suscripcion" AutoPostBack="True" OnCheckedChanged="cbs_CheckedChanged"/>
-                        </td>
-                        <td style="text-align: left" >
-                            <asp:CheckBox ID="cbp" runat="server" CssClass="form-check-input position-static&quot" Font-Size="X-Small" Text="Licencia Perpetua" AutoPostBack="True" OnCheckedChanged="cbp_CheckedChanged"/>
-                        </td>
-                        <td style="text-align: left" class="auto-style1" colspan="4" >
-                            <asp:CheckBox ID="cbf" runat="server" CssClass="form-check-input position-static&quot" Font-Size="X-Small" Text="Fecha Vencimiento Suscripcion" AutoPostBack="True" OnCheckedChanged="cbf_CheckedChanged"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <asp:DropDownList ID="ddltl" runat="server" CssClass="form-control input-sm"
-                                        AppendDataBoundItems="True" Enabled="False" AutoPostBack="True" OnSelectedIndexChanged="ddltl_SelectedIndexChanged"
-                                       >
-                                        <asp:ListItem Value="-1">_____SELECCIONE TIPO LICENCIA_____</asp:ListItem>
-                                    </asp:DropDownList>
-                        </td>
-                        <td>
-                            <asp:DropDownList ID="ddls" runat="server" CssClass="form-control input-sm"
-                                        AppendDataBoundItems="True" Enabled="False"
-                                       >
-                                        <asp:ListItem Value="-1">_____SELECCIONE SUSCRIPCION LICENCIA_____</asp:ListItem>
-                                    </asp:DropDownList>
-                        </td>
-                        <td>
-                            <asp:DropDownList ID="ddlp" runat="server" CssClass="form-control input-sm"
-                                        AppendDataBoundItems="True" Enabled="False"
-                                       >
-                                        <asp:ListItem Value="-1">_____SELECCIONE OPCION_____</asp:ListItem>
-                                        <asp:ListItem Value="1">SI</asp:ListItem>
-                                        <asp:ListItem Value="0">NO</asp:ListItem>
-                                    </asp:DropDownList>
-                        </td>
-                        <td class="auto-style1">
-                            <strong>Fec. Ini:</strong></td>
-                        <td style="text-align: left" >
-                    <asp:TextBox ID="txtFechaInicioSuscripcion" runat="server"
-                        class="form-control" placeholder="Ingrese fec. inicio" Width="" onFocus='' onChange='' onBlur='' Enabled="False"></asp:TextBox>
-
-                    <input id="btnFechaInicioSuscripcion" type="button"
-                        value="..." style="height: 25px; width: 25px;"
-                        class="form-check" /></td>
-                        <td>
-
-                            <strong>Fec. Fin</strong>:</td>
-                       <td style="text-align: left" >
-
-                    <asp:TextBox ID="txtFechaFinSuscripcion" runat="server" class="form-control" placeholder="Ingrese fec. fin" onFocus='' onChange='' onBlur='' Enabled="False"></asp:TextBox>
-                    <input id="btnFechaFinSuscripcion" type="button"
-                        value="..." style="height: 25px; width: 25px;" class="form-check" /></td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: left" >
-                            &nbsp;</td>
-                        <td style="text-align: left" >
-                            &nbsp;</td>
-                        <td style="text-align: left" >
-                            &nbsp;</td>
-                        <td style="text-align: right" colspan="2" >
-                            <asp:LinkButton ID="lbtnBuscar" runat="server" CausesValidation="False" class="btn btn-info" Text="Buscar  &lt;span class='glyphicon glyphicon-search'&gt;&lt;/span&gt;" UseSubmitBehavior="False" OnClick="lbtnBuscar_Click" />
-                            </td>
-                        <td style="text-align: left" colspan="2" >
-                            <asp:Button ID="btnActualizarInformacion" runat="server" class="btn btn-success" CssClass="btn btn-warning" Text="Actualizar Informacion" OnClick="btnActualizarInformacion_Click" />
-                        </td>
-                    </tr>
-                    </table>
-                   </div>
-                </div>
-
-                <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-                    <ContentTemplate>
-                        <asp:Table ID="tblLicencias" runat="server"
-                            CssClass="table table-condensed table-responsive" Font-Size="Small">
-                        </asp:Table>
-                    </ContentTemplate>
-                    <Triggers>
-                    </Triggers>
-                </asp:UpdatePanel>
-            </div>
-        </div>
-
         <asp:HiddenField ID="__mensaje" runat="server" />
         <asp:HiddenField ID="__pagina" runat="server" />
         <asp:HiddenField ID="datosJson" runat="server" />
 
         <!-- ========== LISTA CON BUSQUEDA Y PAGINACION ========== -->
         <div class="container mt-4" id="listSection">
-            <div class="form-card">
-                <div class="card-header">
-                    <i class="bi bi-list-ul me-2"></i>Lista de Licencias
-                </div>
-                <div class="card-body">
-                    <!-- Buscador -->
-                    <div class="row mb-3">
-                        <div class="col-md-8">
-                            <input type="text" id="txtBuscarLicencia" class="form-control form-control-modern"
-                                placeholder="Buscar por licencia, nombre, version o suscripcion..." />
-                        </div>
-                        <div class="col-md-4">
-                            <span id="lblTotalRegistros" class="badge bg-primary fs-6 align-middle"></span>
-                        </div>
+            <div class="table-wrapper">
+                <div class="form-card">
+                    <div class="card-header">
+                        <i class="bi bi-list-ul me-2"></i>Lista de Licencias
                     </div>
-
-                    <!-- Tabla de resultados -->
-                    <div class="table-wrapper">
-                        <table class="table table-modern-grid" id="tblListaLicencias">
-                            <thead>
-                                <tr>
-                                    <th>LICENCIA</th>
-                                    <th>TIPO LICENCIA</th>
-                                    <th>NOMBRE</th>
-                                    <th>VERSION</th>
-                                    <th>SUSCRIPCION</th>
-                                    <th>FEC. INI.</th>
-                                    <th>FEC. FIN</th>
-                                    <th>PERPETUA</th>
-                                    <th>VENCE</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tbodyLicencias">
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <!-- Paginacion -->
-                    <div class="row mt-3">
-                        <div class="col-md-6">
-                            <span id="lblPaginaActual" class="text-muted"></span>
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0">
+                                        <i class="bi bi-search text-muted"></i>
+                                    </span>
+                                    <input type="text" id="txtBuscarLicencia" class="form-control border-start-0 search-input"
+                                        placeholder="Buscar por licencia, nombre, version o suscripcion..." />
+                                </div>
+                            </div>
+                            <div class="col-md-6 text-end">
+                                <span id="lblTotalRegistros" class="text-muted"></span>
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <nav aria-label="Paginacion licencias">
-                                <ul class="pagination justify-content-end mb-0" id="paginationControls">
-                                </ul>
-                            </nav>
+
+                        <div class="table-responsive">
+                            <table class="table table-modern table-hover" id="tblListaLicencias">
+                                <thead>
+                                    <tr>
+                                        <th>LICENCIA</th>
+                                        <th>TIPO LICENCIA</th>
+                                        <th>NOMBRE</th>
+                                        <th>VERSION</th>
+                                        <th>SUSCRIPCION</th>
+                                        <th>FEC. INI.</th>
+                                        <th>FEC. FIN</th>
+                                        <th>PERPETUA</th>
+                                        <th>VENCE</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbodyLicencias">
+                                </tbody>
+                            </table>
                         </div>
+
+                        <div class="pagination-wrapper">
+                            <nav><ul class="pagination mb-0" id="paginationControls"></ul></nav>
+                        </div>
+                        <div class="page-info" id="pageInfoLicencia"></div>
                     </div>
                 </div>
             </div>
@@ -587,11 +372,16 @@
     </script>
 
     <script type="text/javascript">
-        // ===== Variables globales para paginacion =====
+        // ===== Variables globales =====
         var allData = [];
         var currentPage = 1;
         var pageSize = 10;
         var filteredData = [];
+
+        function htmlEncode(str) {
+            if (!str) return '';
+            return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
 
         // ===== Inicializacion al cargar la pagina =====
         $(document).ready(function () {
@@ -601,167 +391,139 @@
                 try {
                     allData = JSON.parse(jsonData);
                     filteredData = allData;
-                    renderTable();
-                    renderPagination();
+                    Paginar(1);
                 } catch (e) {
                     console.error("Error al parsear JSON:", e);
                 }
             }
+        });
 
-            // Evento de busqueda
-            $("#txtBuscarLicencia").on("keyup", function () {
-                var searchTerm = $(this).val().toLowerCase().trim();
-                if (searchTerm === "") {
-                    filteredData = allData;
-                } else {
-                    filteredData = allData.filter(function (item) {
-                        return item.LICENCIA.toLowerCase().indexOf(searchTerm) !== -1 ||
-                               item.NOMBRE.toLowerCase().indexOf(searchTerm) !== -1 ||
-                               item.VERSION.toLowerCase().indexOf(searchTerm) !== -1 ||
-                               item.SUSCRIPCION.toLowerCase().indexOf(searchTerm) !== -1 ||
-                               item["TIPO LICENCIA"].toLowerCase().indexOf(searchTerm) !== -1;
-                    });
+        function filtrarTabla(texto) {
+            texto = texto.toUpperCase();
+            var datosFiltrados = [];
+
+            for (var i = 0; i < allData.length; i++) {
+                var row = allData[i];
+                var textoFila = Object.values(row).join(' ').toUpperCase();
+                if (textoFila.indexOf(texto) > -1) {
+                    datosFiltrados.push(row);
                 }
-                currentPage = 1;
-                renderTable();
-                renderPagination();
+            }
+
+            filteredData = datosFiltrados;
+            currentPage = 1;
+            Paginar(1);
+        }
+
+        // Evento de busqueda
+        $(document).ready(function () {
+            $("#txtBuscarLicencia").on("keyup", function () {
+                filtrarTabla(this.value);
             });
         });
 
-        // ===== Renderizar tabla con datos de la pagina actual =====
-        function renderTable() {
+        function Paginar(pagina) {
+            currentPage = pagina;
             var tbody = document.getElementById("tbodyLicencias");
-            tbody.innerHTML = "";
+            if (!tbody) return;
 
-            // Calcular indices
-            var startIndex = (currentPage - 1) * pageSize;
-            var endIndex = Math.min(startIndex + pageSize, filteredData.length);
-            var pageData = filteredData.slice(startIndex, endIndex);
+            var totalPaginas = Math.ceil(filteredData.length / pageSize);
+            var inicio = (pagina - 1) * pageSize;
+            var fin = inicio + pageSize;
+            var datosPagina = filteredData.slice(inicio, fin);
 
             // Actualizar etiqueta de total
-            document.getElementById("lblTotalRegistros").textContent =
-                "Total: " + filteredData.length + " registro(s)";
+            var lblTotal = document.getElementById("lblTotalRegistros");
+            if (lblTotal) lblTotal.textContent = 'Total: ' + filteredData.length + ' elementos';
 
-            if (pageData.length === 0) {
-                var tr = document.createElement("tr");
-                tr.innerHTML = '<td colspan="9" class="text-center text-muted">No se encontraron resultados</td>';
-                tbody.appendChild(tr);
+            tbody.innerHTML = "";
+
+            if (datosPagina.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="9" class="text-center text-muted py-4">No se encontraron elementos</td></tr>';
+                document.getElementById("pageInfoLicencia").textContent = '';
                 return;
             }
 
             // Generar filas
-            for (var i = 0; i < pageData.length; i++) {
-                var item = pageData[i];
+            for (var i = 0; i < datosPagina.length; i++) {
+                var item = datosPagina[i];
                 var tr = document.createElement("tr");
 
-                var perpColor = item.PERPETUA === "SI" ? "color:#0066cc;" : "color:#cc0000;";
+                var perpColor = item.PERPETUA === "SI" ? "#0066cc" : "#cc0000";
                 var venceColor = "";
                 if (item["VENCE LICENCIA"] === "LICENCIA VENCIDA") {
-                    venceColor = "color:#cc0000;";
+                    venceColor = "#cc0000";
                 } else if (item["VENCE LICENCIA"] === "LICENCIA NO DUELE") {
-                    venceColor = "color:#008800;";
+                    venceColor = "#008800";
                 } else {
-                    venceColor = "color:#0066cc;";
+                    venceColor = "#0066cc";
                 }
 
                 tr.innerHTML =
-                    '<td>' + item.LICENCIA + '</td>' +
-                    '<td>' + item["TIPO LICENCIA"] + '</td>' +
-                    '<td>' + item.NOMBRE + '</td>' +
-                    '<td>' + item.VERSION + '</td>' +
-                    '<td>' + item.SUSCRIPCION + '</td>' +
-                    '<td>' + item["FEC. INI."] + '</td>' +
-                    '<td>' + item["FEC. FIN"] + '</td>' +
-                    '<td style="' + perpColor + '">' + item.PERPETUA + '</td>' +
-                    '<td style="' + venceColor + '">' + item["VENCE LICENCIA"] + '</td>';
+                    '<td>' + htmlEncode(item.LICENCIA) + '</td>' +
+                    '<td>' + htmlEncode(item["TIPO LICENCIA"]) + '</td>' +
+                    '<td>' + htmlEncode(item.NOMBRE) + '</td>' +
+                    '<td>' + htmlEncode(item.VERSION) + '</td>' +
+                    '<td>' + htmlEncode(item.SUSCRIPCION) + '</td>' +
+                    '<td>' + htmlEncode(item["FEC. INI."]) + '</td>' +
+                    '<td>' + htmlEncode(item["FEC. FIN"]) + '</td>' +
+                    '<td style="color:' + perpColor + '; font-weight:600;">' + htmlEncode(item.PERPETUA) + '</td>' +
+                    '<td style="color:' + venceColor + '; font-weight:600;">' + htmlEncode(item["VENCE LICENCIA"]) + '</td>';
                 tbody.appendChild(tr);
             }
+
+            generarPaginacion(totalPaginas, pagina);
+            document.getElementById("pageInfoLicencia").textContent = 'Pagina ' + pagina + ' de ' + totalPaginas + ' (Total: ' + filteredData.length + ' registros)';
         }
 
-        // ===== Renderizar controles de paginacion =====
-        function renderPagination() {
-            var totalPages = Math.ceil(filteredData.length / pageSize);
+        function generarPaginacion(totalPaginas, pagina) {
             var ul = document.getElementById("paginationControls");
-            ul.innerHTML = "";
+            if (!ul) return;
+            ul.innerHTML = '';
 
-            // Etiqueta de pagina actual
-            document.getElementById("lblPaginaActual").textContent =
-                "Pagina " + currentPage + " de " + (totalPages > 0 ? totalPages : 1);
-
-            if (totalPages <= 1) {
+            if (totalPaginas <= 1) {
                 return;
             }
 
-            // Boton Anterior
-            var liPrev = document.createElement("li");
-            liPrev.className = "page-item" + (currentPage === 1 ? " disabled" : "");
-            liPrev.innerHTML = '<a class="page-link" href="#" aria-label="Anterior">&laquo;</a>';
-            if (currentPage > 1) {
-                liPrev.onclick = function () { goToPage(currentPage - 1); return false; };
+            var sb = '';
+
+            // Anterior
+            if (pagina > 1) {
+                sb += '<li class="page-item"><a class="page-link" href="javascript:Paginar(' + (pagina - 1) + ')">Anterior</a></li>';
+            } else {
+                sb += '<li class="page-item disabled"><span class="page-link">Anterior</span></li>';
             }
-            ul.appendChild(liPrev);
 
             // Numeros de pagina
-            var maxVisible = 5;
-            var startPage = Math.max(1, currentPage - Math.floor(maxVisible / 2));
-            var endPage = Math.min(totalPages, startPage + maxVisible - 1);
-            if (endPage - startPage < maxVisible - 1) {
-                startPage = Math.max(1, endPage - maxVisible + 1);
+            var inicio = Math.max(1, pagina - 2);
+            var fin = Math.min(totalPaginas, pagina + 2);
+
+            if (inicio > 1) {
+                sb += '<li class="page-item"><a class="page-link" href="javascript:Paginar(1)">1</a></li>';
+                if (inicio > 2) sb += '<li class="page-item disabled"><span class="page-link">...</span></li>';
             }
 
-            if (startPage > 1) {
-                var liFirst = document.createElement("li");
-                liFirst.className = "page-item";
-                liFirst.innerHTML = '<a class="page-link" href="#">1</a>';
-                liFirst.onclick = function () { goToPage(1); return false; };
-                ul.appendChild(liFirst);
-                if (startPage > 2) {
-                    var liEllipsis = document.createElement("li");
-                    liEllipsis.className = "page-item disabled";
-                    liEllipsis.innerHTML = '<a class="page-link" href="#">...</a>';
-                    ul.appendChild(liEllipsis);
+            for (var i = inicio; i <= fin; i++) {
+                if (i === pagina) {
+                    sb += '<li class="page-item active"><span class="page-link">' + i + '</span></li>';
+                } else {
+                    sb += '<li class="page-item"><a class="page-link" href="javascript:Paginar(' + i + ')">' + i + '</a></li>';
                 }
             }
 
-            for (var i = startPage; i <= endPage; i++) {
-                var li = document.createElement("li");
-                li.className = "page-item" + (i === currentPage ? " active" : "");
-                li.innerHTML = '<a class="page-link" href="#">' + i + '</a>';
-                li.onclick = function (page) {
-                    return function () { goToPage(page); return false; };
-                }(i);
-                ul.appendChild(li);
+            if (fin < totalPaginas) {
+                if (fin < totalPaginas - 1) sb += '<li class="page-item disabled"><span class="page-link">...</span></li>';
+                sb += '<li class="page-item"><a class="page-link" href="javascript:Paginar(' + totalPaginas + ')">' + totalPaginas + '</a></li>';
             }
 
-            if (endPage < totalPages) {
-                if (endPage < totalPages - 1) {
-                    var liEllipsis2 = document.createElement("li");
-                    liEllipsis2.className = "page-item disabled";
-                    liEllipsis2.innerHTML = '<a class="page-link" href="#">...</a>';
-                    ul.appendChild(liEllipsis2);
-                }
-                var liLast = document.createElement("li");
-                liLast.className = "page-item";
-                liLast.innerHTML = '<a class="page-link" href="#">' + totalPages + '</a>';
-                liLast.onclick = function () { goToPage(totalPages); return false; };
-                ul.appendChild(liLast);
+            // Siguiente
+            if (pagina < totalPaginas) {
+                sb += '<li class="page-item"><a class="page-link" href="javascript:Paginar(' + (pagina + 1) + ')">Siguiente</a></li>';
+            } else {
+                sb += '<li class="page-item disabled"><span class="page-link">Siguiente</span></li>';
             }
 
-            // Boton Siguiente
-            var liNext = document.createElement("li");
-            liNext.className = "page-item" + (currentPage === totalPages ? " disabled" : "");
-            liNext.innerHTML = '<a class="page-link" href="#" aria-label="Siguiente">&raquo;</a>';
-            if (currentPage < totalPages) {
-                liNext.onclick = function () { goToPage(currentPage + 1); return false; };
-            }
-            ul.appendChild(liNext);
-        }
-
-        // ===== Ir a una pagina especifica =====
-        function goToPage(page) {
-            currentPage = page;
-            renderTable();
-            renderPagination();
+            ul.innerHTML = sb;
         }
     </script>
 

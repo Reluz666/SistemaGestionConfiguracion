@@ -60,10 +60,9 @@ public partial class Dashboard : System.Web.UI.Page
                 servidor.cerrarconexion();
             }
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            // En caso de error, mostrar 0 o dejar los valores por defecto
-            System.Diagnostics.Debug.WriteLine("Error cargando estadísticas: " + ex.Message);
+            System.Diagnostics.Debug.WriteLine("Error cargando estadísticas");
         }
     }
 
@@ -89,9 +88,9 @@ public partial class Dashboard : System.Web.UI.Page
                 servidor.cerrarconexion();
             }
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            System.Diagnostics.Debug.WriteLine("Error cargando últimos EC: " + ex.Message);
+            System.Diagnostics.Debug.WriteLine("Error cargando últimos EC");
         }
     }
 
@@ -118,9 +117,9 @@ public partial class Dashboard : System.Web.UI.Page
                 servidor.cerrarconexion();
             }
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            System.Diagnostics.Debug.WriteLine("Error cargando seguimientos: " + ex.Message);
+            System.Diagnostics.Debug.WriteLine("Error cargando seguimientos");
         }
     }
 }

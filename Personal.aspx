@@ -1,4 +1,5 @@
 <%@ Page Language="C#" AutoEventWireup="true" CodeFile="Personal.aspx.cs" Inherits="Personal" UnobtrusiveValidationMode="None" %>
+<%@ Register src="NavBar.ascx" tagname="NavBar" tagprefix="uc1" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -50,8 +51,8 @@
             color: #2d3436;
         }
 
-        .estado-activo { color: #00b894; font-weight: 600; }
-        .estado-inactivo { color: #e94560; font-weight: 600; }
+        .estado-activo { color: #198754; font-weight: 600; }
+        .estado-inactivo { color: #dc3545; font-weight: 600; }
 
         /* ===== PAGINACION ===== */
         .pagination-wrapper {
@@ -77,7 +78,74 @@
             background: rgba(233, 69, 96, 0.1);
             color: #e94560;
         }
+
+        /* ===== GUIA ESTILO TABLAS ===== */
+        .table-wrapper {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.08);
+            padding: 1.5rem;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .table-modern thead th {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 0.75rem 0.5rem !important;
+            border: none !important;
+            white-space: nowrap;
+        }
+
+        .table-modern tbody td {
+            padding: 0.6rem 0.5rem !important;
+            border-bottom: 1px solid #f1f1f1;
+            vertical-align: middle;
+            font-size: 0.85rem;
+            color: #2d3436;
+        }
+
+        .table-modern tbody tr:hover td {
+            background: rgba(233,69,96,0.04);
+        }
+
+        .table-modern tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .search-input {
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 0.6rem 1rem;
+            font-size: 0.95rem;
+        }
+
+        .search-input:focus {
+            border-color: #e94560;
+            box-shadow: 0 0 0 4px rgba(233,69,96,0.1);
+            outline: none;
+        }
+
+        .btn-accion {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            border-radius: 6px;
+            text-decoration: none;
+        }
+
+        .page-info {
+            text-align: center;
+            margin-top: 1rem;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
     </style>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script lang="javascript" type="text/javascript">
         function MostrarMensaje() {
@@ -109,82 +177,20 @@
             document.getElementById(Caja).value = document.getElementById(Caja).value.toUpperCase();
         }
 
-        function pageLoad() {
-            initPagination();
-        }
-
-        function initPagination() {
-            var rows = document.querySelectorAll('#TablePersonal tbody tr');
-            var rowsPerPage = 10;
-            var totalRows = rows.length;
-            var totalPages = Math.ceil(totalRows / rowsPerPage);
-            var currentPage = 1;
-
-            function showPage(page) {
-                currentPage = page;
-                var start = (page - 1) * rowsPerPage;
-                var end = start + rowsPerPage;
-                rows.forEach(function (row, idx) {
-                    row.style.display = (idx >= start && idx < end) ? '' : 'none';
-                });
-                renderPagination();
-            }
-
-            function renderPagination() {
-                var wrapper = document.getElementById('paginationWrapper');
-                if (!wrapper || totalPages <= 1) {
-                    if (wrapper) wrapper.style.display = 'none';
-                    return;
-                }
-                wrapper.style.display = 'flex';
-                wrapper.innerHTML = '';
-
-                var prev = document.createElement('li');
-                prev.className = 'page-item' + (currentPage === 1 ? ' disabled' : '');
-                prev.innerHTML = '<a class="page-link" href="#" aria-label="Anterior">&laquo;</a>';
-                prev.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    if (currentPage > 1) showPage(currentPage - 1);
-                });
-                wrapper.appendChild(prev);
-
-                for (var i = 1; i <= totalPages; i++) {
-                    var li = document.createElement('li');
-                    li.className = 'page-item' + (i === currentPage ? ' active' : '');
-                    li.innerHTML = '<a class="page-link" href="#">' + i + '</a>';
-                    li.addEventListener('click', function (e) {
-                        e.preventDefault();
-                        showPage(parseInt(this.textContent));
-                    });
-                    wrapper.appendChild(li);
-                }
-
-                var next = document.createElement('li');
-                next.className = 'page-item' + (currentPage === totalPages ? ' disabled' : '');
-                next.innerHTML = '<a class="page-link" href="#" aria-label="Siguiente">&raquo;</a>';
-                next.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    if (currentPage < totalPages) showPage(currentPage + 1);
-                });
-                wrapper.appendChild(next);
-            }
-
-            showPage(1);
-        }
-
-        // ===== FUNCIONES PARA LISTA DE PERSONAL CON BUSQUEDA Y PAGINACION =====
+        // ===== VARIABLES GLOBALES PARA LISTA DE PERSONAL =====
         var datosPersonalJson = [];
         var listaCurrentPage = 1;
         var listaRowsPerPage = 10;
         var listaFilteredData = [];
 
+        // ===== FUNCIONES PARA LISTA DE PERSONAL CON BUSQUEDA Y PAGINACION =====
         function cargarDatosPersonal() {
             var datosJsonField = document.getElementById('datosJson');
             if (datosJsonField && datosJsonField.value) {
                 try {
                     datosPersonalJson = JSON.parse(datosJsonField.value);
                     listaFilteredData = datosPersonalJson.slice();
-                    renderizarTablaPersonal();
+                    filtrarTablaPersonal();
                 } catch (e) {
                     console.error('Error parsing JSON:', e);
                 }
@@ -211,6 +217,8 @@
             }
             listaCurrentPage = 1;
             renderizarTablaPersonal();
+            generarPaginacionPersonal(Math.ceil(listaFilteredData.length / listaRowsPerPage));
+            document.getElementById('lblContadorPersonal').textContent = 'Total: ' + listaFilteredData.length + ' elementos';
         }
 
         function renderizarTablaPersonal() {
@@ -222,246 +230,120 @@
             var start = (listaCurrentPage - 1) * listaRowsPerPage;
             var end = start + listaRowsPerPage;
 
-            // Actualizar contador
-            var lblContador = document.getElementById('lblContadorPersonal');
-            if (lblContador) {
-                if (totalRows === 0) {
-                    lblContador.textContent = 'No se encontraron registros';
-                } else {
-                    lblContador.textContent = 'Mostrando ' + (start + 1) + '-' + Math.min(end, totalRows) + ' de ' + totalRows + ' registros';
-                }
-            }
-
-            // Limpiar tabla
             tbody.innerHTML = '';
 
             if (totalRows === 0) {
                 var tr = document.createElement('tr');
                 tr.innerHTML = '<td colspan="14" class="text-center text-muted py-4">No hay datos disponibles</td>';
                 tbody.appendChild(tr);
+                document.getElementById('pageInfoPersonal').textContent = '';
                 return;
             }
 
-            // Renderizar filas
             for (var i = start; i < end && i < totalRows; i++) {
                 var item = listaFilteredData[i];
                 var tr = document.createElement('tr');
                 var estadoClass = item.ESTADO === 'ACTIVO' ? 'estado-activo' : 'estado-inactivo';
                 tr.innerHTML =
-                    '<td>' + item.CODIGO + '</td>' +
-                    '<td>' + item.NOMBRE + ' ' + item.APELLIDO_PATERNO + ' ' + item.APELLIDO_MATERNO + '</td>' +
-                    '<td>' + item.TIPO_DOC_IDENT + '</td>' +
-                    '<td>' + item.NRO_DOC_IDENT + '</td>' +
-                    '<td>' + item.PROFESION + '</td>' +
-                    '<td>' + item.TELEFONO + '</td>' +
-                    '<td>' + item.EMAIL + '</td>' +
-                    '<td>' + item.SEDE + '</td>' +
-                    '<td>' + item.LOCAL + '</td>' +
-                    '<td>' + item.AREA + '</td>' +
-                    '<td>' + item.DEPENDENCIA + '</td>' +
-                    '<td>' + item.CARGO + '</td>' +
-                    '<td class="' + estadoClass + '">' + item.ESTADO + '</td>' +
-                    '<td><button type="button" class="btn btn-sm btn-primary" onclick="seleccionarPersonal(\'' + item.ID_PERSONAL + '\')"><i class="bi bi-pencil-square"></i></button></td>';
+                    '<td>' + htmlEncode(item.CODIGO) + '</td>' +
+                    '<td>' + htmlEncode(item.NOMBRE) + ' ' + htmlEncode(item.APELLIDO_PATERNO) + ' ' + htmlEncode(item.APELLIDO_MATERNO) + '</td>' +
+                    '<td>' + htmlEncode(item.TIPO_DOC_IDENT) + '</td>' +
+                    '<td>' + htmlEncode(item.NRO_DOC_IDENT) + '</td>' +
+                    '<td>' + htmlEncode(item.PROFESION) + '</td>' +
+                    '<td>' + htmlEncode(item.TELEFONO) + '</td>' +
+                    '<td>' + htmlEncode(item.EMAIL) + '</td>' +
+                    '<td>' + htmlEncode(item.SEDE) + '</td>' +
+                    '<td>' + htmlEncode(item.LOCAL) + '</td>' +
+                    '<td>' + htmlEncode(item.AREA) + '</td>' +
+                    '<td>' + htmlEncode(item.DEPENDENCIA) + '</td>' +
+                    '<td>' + htmlEncode(item.CARGO) + '</td>' +
+                    '<td class="' + estadoClass + '">' + htmlEncode(item.ESTADO) + '</td>' +
+                    '<td class="text-center"><button type="button" class="btn btn-primary btn-sm btn-accion" onclick="seleccionarPersonal(\'' + item.ID_PERSONAL + '\')"><i class="bi bi-pencil-square"></i></button></td>';
                 tbody.appendChild(tr);
             }
 
-            // Renderizar paginacion
-            renderizarPaginacionListaPersonal(totalPages);
+            document.getElementById('pageInfoPersonal').textContent = 'Pagina ' + listaCurrentPage + ' de ' + totalPages + ' (Total: ' + totalRows + ' registros)';
         }
 
-        function renderizarPaginacionListaPersonal(totalPages) {
+        function htmlEncode(str) {
+            if (!str) return '';
+            return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+        function generarPaginacionPersonal(totalPages) {
             var wrapper = document.getElementById('paginationListaPersonal');
             if (!wrapper) return;
 
             wrapper.innerHTML = '';
 
             if (totalPages <= 1) {
-                wrapper.style.display = 'none';
                 return;
             }
 
-            wrapper.style.display = 'flex';
+            var sb = '<nav><ul class="pagination mb-0">';
 
-            // Boton Anterior
-            var prev = document.createElement('li');
-            prev.className = 'page-item' + (listaCurrentPage === 1 ? ' disabled' : '');
-            prev.innerHTML = '<a class="page-link" href="#" aria-label="Anterior">&laquo;</a>';
-            prev.addEventListener('click', function (e) {
-                e.preventDefault();
-                if (listaCurrentPage > 1) {
-                    listaCurrentPage--;
-                    renderizarTablaPersonal();
-                }
-            });
-            wrapper.appendChild(prev);
-
-            // Numeros de pagina
-            for (var i = 1; i <= totalPages; i++) {
-                var li = document.createElement('li');
-                li.className = 'page-item' + (i === listaCurrentPage ? ' active' : '');
-                li.innerHTML = '<a class="page-link" href="#">' + i + '</a>';
-                li.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    listaCurrentPage = parseInt(this.textContent);
-                    renderizarTablaPersonal();
-                });
-                wrapper.appendChild(li);
+            if (listaCurrentPage > 1) {
+                sb += '<li class="page-item"><a class="page-link" href="javascript:PaginarPersonal(' + (listaCurrentPage - 1) + ')">Anterior</a></li>';
+            } else {
+                sb += '<li class="page-item disabled"><span class="page-link">Anterior</span></li>';
             }
 
-            // Boton Siguiente
-            var next = document.createElement('li');
-            next.className = 'page-item' + (listaCurrentPage === totalPages ? ' disabled' : '');
-            next.innerHTML = '<a class="page-link" href="#" aria-label="Siguiente">&raquo;</a>';
-            next.addEventListener('click', function (e) {
-                e.preventDefault();
-                if (listaCurrentPage < totalPages) {
-                    listaCurrentPage++;
-                    renderizarTablaPersonal();
+            var inicio = Math.max(1, listaCurrentPage - 2);
+            var fin = Math.min(totalPages, listaCurrentPage + 2);
+
+            if (inicio > 1) {
+                sb += '<li class="page-item"><a class="page-link" href="javascript:PaginarPersonal(1)">1</a></li>';
+                if (inicio > 2) sb += '<li class="page-item disabled"><span class="page-link">...</span></li>';
+            }
+
+            for (var i = inicio; i <= fin; i++) {
+                if (i === listaCurrentPage) {
+                    sb += '<li class="page-item active"><span class="page-link">' + i + '</span></li>';
+                } else {
+                    sb += '<li class="page-item"><a class="page-link" href="javascript:PaginarPersonal(' + i + ')">' + i + '</a></li>';
                 }
-            });
-            wrapper.appendChild(next);
+            }
+
+            if (fin < totalPages) {
+                if (fin < totalPages - 1) sb += '<li class="page-item disabled"><span class="page-link">...</span></li>';
+                sb += '<li class="page-item"><a class="page-link" href="javascript:PaginarPersonal(' + totalPages + ')">' + totalPages + '</a></li>';
+            }
+
+            if (listaCurrentPage < totalPages) {
+                sb += '<li class="page-item"><a class="page-link" href="javascript:PaginarPersonal(' + (listaCurrentPage + 1) + ')">Siguiente</a></li>';
+            } else {
+                sb += '<li class="page-item disabled"><span class="page-link">Siguiente</span></li>';
+            }
+
+            sb += '</ul></nav>';
+            wrapper.innerHTML = sb;
+        }
+
+        function PaginarPersonal(pagina) {
+            var totalPages = Math.ceil(listaFilteredData.length / listaRowsPerPage);
+            if (pagina < 1 || pagina > totalPages) return;
+            listaCurrentPage = pagina;
+            renderizarTablaPersonal();
+            generarPaginacionPersonal(totalPages);
+            document.querySelector('.table-wrapper').scrollIntoView({ behavior: 'smooth' });
         }
 
         function seleccionarPersonal(idPersonal) {
-            // Buscar el personal por ID y simular click en el boton editar correspondiente
-            var linkButtons = document.querySelectorAll('#TablePersonal tbody tr td a');
+            var linkButtons = document.querySelectorAll('#tblListaPersonal tbody tr td a');
             for (var i = 0; i < linkButtons.length; i++) {
                 var arg = linkButtons[i].getAttribute('commandargument') || linkButtons[i].href;
                 if (arg && arg.indexOf(idPersonal + ',') === 0) {
                     linkButtons[i].click();
-                    // Scroll al formulario
                     document.querySelector('.form-card').scrollIntoView({ behavior: 'smooth' });
                     return;
                 }
             }
         }
-
-        // Inicializar cuando el documento este listo
-        $(document).ready(function() {
-            cargarDatosPersonal();
-            // Re-inicializar paginacion original
-            initPagination();
-        });
     </script>
-
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body onload="MostrarMensaje()">
 
-    <!-- ========== NAVBAR ========== -->
-    <nav class="navbar navbar-expand-lg navbar-modern fixed-top">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="Menu.aspx">
-                <i class="bi bi-house-door-fill me-1"></i>Inicio
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarNav" aria-controls="navbarNav"
-                    aria-expanded="false" aria-label="Navegaci&oacute;n">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-
-                    <!-- Mantenimiento -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="mantenimientoDropdown"
-                           role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-briefcase-fill me-1"></i>Mantenimiento
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="mantenimientoDropdown">
-                            <li><a class="dropdown-item" href="Personal.aspx">Personal</a></li>
-                            <li class="dropdown-submenu">
-                                <a class="dropdown-item dropdown-toggle" href="#">Tablas Instituci&oacute;n</a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="Sede.aspx">Sede</a></li>
-                                    <li><a class="dropdown-item" href="Local.aspx">Local</a></li>
-                                    <li><a class="dropdown-item" href="Area.aspx">&Aacute;rea</a></li>
-                                    <li><a class="dropdown-item" href="Dependencia.aspx">Dependencia</a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown-submenu">
-                                <a class="dropdown-item dropdown-toggle" href="#">Tablas Personal</a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="Cargo.aspx">Cargo</a></li>
-                                    <li><a class="dropdown-item" href="ProfecionOcupacion.aspx">Profesi&oacute;n - Ocupaci&oacute;n</a></li>
-                                </ul>
-                            </li>
-                            <li><hr class="dropdown-divider" /></li>
-                            <li class="dropdown-submenu">
-                                <a class="dropdown-item dropdown-toggle" href="#">Tablas Elemento Configuraci&oacute;n</a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="Modelo.aspx">Modelo</a></li>
-                                    <li><a class="dropdown-item" href="Marca.aspx">Marca</a></li>
-                                    <li><a class="dropdown-item" href="DescripcionElementoConfiguracion.aspx">Descripci&oacute;n Elemento Configuraci&oacute;n</a></li>
-                                    <li><a class="dropdown-item" href="TiposElementoConfiguracion.aspx">Tipos Elemento Configuraci&oacute;n</a></li>
-                                    <li><a class="dropdown-item" href="TipoRelacionElementoConfiguracion.aspx">Tipo Relaci&oacute;n Elemento Configuraci&oacute;n</a></li>
-                                    <li><a class="dropdown-item" href="TipoComponeneteCI.aspx">Tipo Componente Elemento Configuraci&oacute;n</a></li>
-                                    <li><a class="dropdown-item" href="EstadoActualCI.aspx">Estado Actual Elemento Configuraci&oacute;n</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <!-- Gesti&oacute;n de Configuraci&oacute;n -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="gestionDropdown"
-                           role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-person-lines-fill me-1"></i>Gesti&oacute;n de Configuraci&oacute;n
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="gestionDropdown">
-                            <li><a class="dropdown-item" href="ElementosConfiguracion.aspx">Elementos de Configuraci&oacute;n</a></li>
-                            <li><a class="dropdown-item" href="RelacionesElementosConfiguracion.aspx">Relaci&oacute;n de Elementos de Configuraci&oacute;n</a></li>
-                            <li><hr class="dropdown-divider" /></li>
-                            <li><a class="dropdown-item" href="CIsAsignarComponenetes.aspx">Asignar Componentes Elementos de Configuraci&oacute;n</a></li>
-                            <li><hr class="dropdown-divider" /></li>
-                            <li><a class="dropdown-item" href="LicenciasElementoConfiguracion.aspx">Licencias de Elementos de Configuraci&oacute;n</a></li>
-                            <li><hr class="dropdown-divider" /></li>
-                            <li><a class="dropdown-item" href="SeguimientosElementoConfiguracion.aspx">Seguimiento de Elementos de Configuraci&oacute;n</a></li>
-                        </ul>
-                    </li>
-
-                    <!-- Reportes -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="reportesDropdown"
-                           role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-file-earmark-bar-graph-fill me-1"></i>Reportes
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="reportesDropdown">
-                            <li><a class="dropdown-item" href="../Reportes/ReporteElementosConfiguracion.aspx">Reporte de Elementos de Configuraci&oacute;n</a></li>
-                            <li><a class="dropdown-item" href="../Reportes/ReporteRelacionesElementosConfiguracion.aspx">Reporte de Relaciones de Elementos de Configuraci&oacute;n</a></li>
-                            <li><a class="dropdown-item" href="../Reportes/ReporteSeguimientosElementoConfiguracion.aspx">Reporte de Seguimientos de Elementos de Configuraci&oacute;n</a></li>
-                            <li><a class="dropdown-item" href="../Reportes/ReporteLicenciasElementoConfiguracion.aspx">Reporte de Licencias de Elementos de Configuraci&oacute;n</a></li>
-                            <li><a class="dropdown-item" href="../Reportes/ReporteCIsSeguidos.aspx">Reporte de Elementos de Configuraci&oacute;n Seguidos</a></li>
-                            <li><a class="dropdown-item" href="../Reportes/ReporteComponentesAsignados.aspx">Reporte de Componentes de Elementos de Configuraci&oacute;n Asignados</a></li>
-                            <li><hr class="dropdown-divider" /></li>
-                            <li><a class="dropdown-item" href="../Reportes/ReporteDatosCorrectosCI.aspx">Reporte de Datos Correctos de Elementos de Configuraci&oacute;n</a></li>
-                            <li><a class="dropdown-item" href="../Reportes/ReporteDatosIncorrectosCI.aspx">Reporte de Datos Incorrectos de Elementos de Configuraci&oacute;n</a></li>
-                            <li><a class="dropdown-item" href="../Reportes/ReporteCIsInformacionContenidaEnCMDB.aspx">Reporte de Informaci&oacute;n de Elementos de Configuraci&oacute;n Contenidas en la CMDB</a></li>
-                        </ul>
-                    </li>
-
-                    <!-- Configuraciones -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="configDropdown"
-                           role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-gear-fill me-1"></i>Configuraciones
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="configDropdown">
-                            <li><a class="dropdown-item" href="Usuario.aspx">Usuarios</a></li>
-                            <li><a class="dropdown-item" href="../Configuracion/Usuarios.aspx">Permisos</a></li>
-                            <li><hr class="dropdown-divider" /></li>
-                            <li><a class="dropdown-item" href="CerrarSession.aspx" style="color: #e94560;">Cerrar Sesi&oacute;n</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Espaciador para navbar fija -->
-    <div class="top-spacer"></div>
+    <uc1:NavBar ID="NavBar1" runat="server" />
 
     <!-- ========== LISTA DE PERSONAL CON BUSQUEDA Y PAGINACION ========== -->
     <div class="container mb-4">
@@ -474,10 +356,10 @@
                 <div class="row mb-3">
                     <div class="col-md-8">
                         <div class="input-group">
-                            <span class="input-group-text bg-white">
-                                <i class="bi bi-search"></i>
+                            <span class="input-group-text bg-white border-end-0">
+                                <i class="bi bi-search text-muted"></i>
                             </span>
-                            <input type="text" id="txtBuscarPersonal" class="form-control form-control-modern"
+                            <input type="text" id="txtBuscarPersonal" class="form-control border-start-0 search-input"
                                    placeholder="Buscar por C&oacute;digo, Nombre, Apellido, DNI, &Aacute;rea, Dependencia, Cargo..."
                                    onkeyup="filtrarTablaPersonal()" />
                             <button class="btn btn-outline-secondary" type="button" onclick="document.getElementById('txtBuscarPersonal').value=''; filtrarTablaPersonal();">
@@ -492,7 +374,7 @@
 
                 <!-- Tabla HTML para lista de Personal -->
                 <div class="table-wrapper" style="max-height: 500px; overflow-y: auto;">
-                    <table id="tblListaPersonal" class="table table-modern-grid table-hover" style="min-width: 1000px;">
+                    <table id="tblListaPersonal" class="table table-modern table-hover" style="min-width: 1000px;">
                         <thead>
                             <tr>
                                 <th style="width: 60px;">C&Oacute;DIGO</th>
@@ -520,6 +402,7 @@
                 <div class="pagination-wrapper">
                     <ul id="paginationListaPersonal" class="pagination" style="flex-wrap: wrap;"></ul>
                 </div>
+                <div class="page-info" id="pageInfoPersonal"></div>
             </div>
         </div>
     </div>
@@ -718,34 +601,6 @@
                 </div>
             </div>
 
-            <!-- Tabla de Resultados - asp:Table directa con paginacion manual JS -->
-            <div class="table-wrapper">
-                <asp:Table ID="TablePersonal" runat="server" CssClass="table table-modern-grid table-hover">
-                    <asp:TableRow ID="TableRow1" runat="server">
-                        <asp:TableCell ID="tcId" runat="server" Visible="false">ID PER</asp:TableCell>
-                        <asp:TableCell ID="tcSede" runat="server">SEDE</asp:TableCell>
-                        <asp:TableCell ID="tcLocal" runat="server">LOCAL</asp:TableCell>
-                        <asp:TableCell ID="tcArea" runat="server">&Aacute;REA</asp:TableCell>
-                        <asp:TableCell ID="tcDependencia" runat="server">DEPENDENCIA</asp:TableCell>
-                        <asp:TableCell ID="tcCodigo" runat="server">C&Oacute;DIGO</asp:TableCell>
-                        <asp:TableCell ID="tcPersonal" runat="server">PERSONAL</asp:TableCell>
-                        <asp:TableCell ID="tcTipoDocIdent" runat="server">TIPO DOC</asp:TableCell>
-                        <asp:TableCell ID="tcNroDoc" runat="server">NRO. DOC.</asp:TableCell>
-                        <asp:TableCell ID="tcProfesion" runat="server">PROFESI&Oacute;N</asp:TableCell>
-                        <asp:TableCell ID="tcTelefono" runat="server">TEL&Eacute;FONO</asp:TableCell>
-                        <asp:TableCell ID="tcEmail" runat="server">EMAIL</asp:TableCell>
-                        <asp:TableCell ID="tcCargo" runat="server">CARGO</asp:TableCell>
-                        <asp:TableCell ID="tcEstado" runat="server">ESTADO</asp:TableCell>
-                        <asp:TableCell ID="seleccionar_personal" runat="server">SELECCIONAR</asp:TableCell>
-                    </asp:TableRow>
-                </asp:Table>
-
-                <!-- Paginacion manual -->
-                <div class="pagination-wrapper">
-                    <ul id="paginationWrapper" class="pagination" style="flex-wrap: wrap;"></ul>
-                </div>
-            </div>
-
             <!-- Hidden Fields -->
             <asp:HiddenField ID="__mensaje" runat="server" />
             <asp:HiddenField ID="__pagina" runat="server" />
@@ -759,8 +614,8 @@
     <script type="text/javascript" src="Otros_css_js/resaltar.js"></script>
 
     <script type="text/javascript">
-        $(document).ready(function () {
-            initPagination();
+        $(document).ready(function() {
+            cargarDatosPersonal();
         });
     </script>
 

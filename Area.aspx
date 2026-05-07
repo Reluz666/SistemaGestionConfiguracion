@@ -1,4 +1,5 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Area.aspx.cs" Inherits="TiposElementoConfiguracion" UnobtrusiveValidationMode="None" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Area.aspx.cs" Inherits="Area" UnobtrusiveValidationMode="None" %>
+<%@ Register src="NavBar.ascx" tagname="NavBar" tagprefix="uc1" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -40,6 +41,73 @@
         .pagination-wrapper .page-link:hover {
             background: rgba(233, 69, 96, 0.1);
             color: #e94560;
+        }
+
+        /* ===== GUIA ESTILO TABLAS ===== */
+        .table-wrapper {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.08);
+            padding: 1.5rem;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .table-modern thead th {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 0.75rem 0.5rem !important;
+            border: none !important;
+            white-space: nowrap;
+        }
+
+        .table-modern tbody td {
+            padding: 0.6rem 0.5rem !important;
+            border-bottom: 1px solid #f1f1f1;
+            vertical-align: middle;
+            font-size: 0.85rem;
+            color: #2d3436;
+        }
+
+        .table-modern tbody tr:hover td {
+            background: rgba(233,69,96,0.04);
+        }
+
+        .table-modern tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .estado-activo { color: #198754; font-weight: 600; }
+        .estado-inactivo { color: #dc3545; font-weight: 600; }
+
+        .search-input {
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 0.6rem 1rem;
+            font-size: 0.95rem;
+        }
+
+        .search-input:focus {
+            border-color: #e94560;
+            box-shadow: 0 0 0 4px rgba(233,69,96,0.1);
+            outline: none;
+        }
+
+        .btn-accion {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            border-radius: 6px;
+            text-decoration: none;
+        }
+
+        .page-info {
+            text-align: center;
+            margin-top: 1rem;
+            color: #6c757d;
+            font-size: 0.9rem;
         }
     </style>
 
@@ -120,12 +188,12 @@
 
             paginaActual = 1;
             mostrarPagina(datosFiltrados);
-            document.getElementById('lblTotalAreas').textContent = 'Total: ' + datosFiltrados.length + ' registro(s)';
+            generarPaginacion(Math.ceil(datosFiltrados.length / itemsPorPagina), datosFiltrados.length);
+            document.getElementById('lblTotalAreas').textContent = 'Total: ' + datosFiltrados.length + ' elementos';
         }
 
         function mostrarPagina(datos) {
             var tbody = document.getElementById('tbodyAreas');
-            var pagination = document.getElementById('paginationAreas');
             var totalPaginas = Math.ceil(datos.length / itemsPorPagina);
             var inicio = (paginaActual - 1) * itemsPorPagina;
             var fin = inicio + itemsPorPagina;
@@ -135,8 +203,7 @@
             tbody.innerHTML = '';
 
             if (datosPagina.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="8" class="text-center">No se encontraron registros</td></tr>';
-                pagination.innerHTML = '';
+                tbody.innerHTML = '<tr><td colspan="8" class="text-center text-muted py-4">No se encontraron elementos</td></tr>';
                 return;
             }
 
@@ -145,75 +212,98 @@
                 var item = datosPagina[i];
                 var row = document.createElement('tr');
                 row.innerHTML =
-                    '<td>' + item.SEDE + '</td>' +
-                    '<td>' + item.LOCAL + '</td>' +
-                    '<td>' + item.DIRECCIONLOCAL + '</td>' +
-                    '<td>' + item.CODIGOAREA + '</td>' +
-                    '<td>' + item.AREA + '</td>' +
-                    '<td>' + item.NROPISO + '</td>' +
-                    '<td>' + item.NROAMBIENTE + '</td>' +
-                    '<td><button type="button" class="btn btn-dark btn-sm" onclick="seleccionarArea(\'' + item.IDAREA + '\', \'' + item.CODIGOAREA + '\', \'' + item.AREA.replace(/'/g, "\\'") + '\', \'' + item.NROPISO + '\', \'' + item.NROAMBIENTE + '\', \'' + item.IDLOCAL + '\', \'' + item.LOCAL.replace(/'/g, "\\'") + '\')"><i class="bi bi-cursor-fill"></i> Seleccionar</button></td>';
+                    '<td>' + htmlEncode(item.SEDE) + '</td>' +
+                    '<td>' + htmlEncode(item.LOCAL) + '</td>' +
+                    '<td>' + htmlEncode(item.DIRECCIONLOCAL) + '</td>' +
+                    '<td>' + htmlEncode(item.CODIGOAREA) + '</td>' +
+                    '<td>' + htmlEncode(item.AREA) + '</td>' +
+                    '<td>' + htmlEncode(item.NROPISO) + '</td>' +
+                    '<td>' + htmlEncode(item.NROAMBIENTE) + '</td>' +
+                    '<td class="text-center"><button type="button" class="btn btn-primary btn-sm btn-accion me-1" onclick="seleccionarArea(\'' + item.IDAREA + '\', \'' + item.CODIGOAREA + '\', \'' + item.AREA.replace(/'/g, "\\'") + '\', \'' + item.NROPISO + '\', \'' + item.NROAMBIENTE + '\', \'' + item.IDLOCAL + '\', \'' + item.LOCAL.replace(/'/g, "\\'") + '\')"><i class="bi bi-pencil-square"></i> Seleccionar</button></td>';
                 tbody.appendChild(row);
             }
+        }
 
-            // Generar paginacion
+        function htmlEncode(str) {
+            if (!str) return '';
+            return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+        function generarPaginacion(totalPaginas, totalItems) {
+            var pagination = document.getElementById('paginationAreas');
+            var pageInfo = document.getElementById('pageInfoArea');
+            if (!pagination) return;
+
             pagination.innerHTML = '';
-            if (totalPaginas > 1) {
-                var badgeAntes = document.createElement('span');
-                badgeAntes.className = 'page-link bg-secondary text-white';
-                badgeAntes.style.borderRadius = '8px';
-                badgeAntes.innerHTML = 'P&aacute;gina ' + paginaActual + ' de ' + totalPaginas;
-                badgeAntes.style.marginRight = '10px';
-                pagination.appendChild(badgeAntes);
-
-                // Boton Anterior
-                var btnAnterior = document.createElement('button');
-                btnAnterior.className = 'btn btn-outline-dark btn-sm';
-                btnAnterior.innerHTML = '<i class="bi bi-chevron-left"></i> Anterior';
-                btnAnterior.onclick = function() {
-                    if (paginaActual > 1) {
-                        paginaActual--;
-                        mostrarPagina(datos);
-                    }
-                };
-                if (paginaActual === 1) btnAnterior.disabled = true;
-                pagination.appendChild(btnAnterior);
-
-                // Numeros de pagina
-                var maxVisible = 5;
-                var startPage = Math.max(1, paginaActual - Math.floor(maxVisible / 2));
-                var endPage = Math.min(totalPaginas, startPage + maxVisible - 1);
-
-                if (endPage - startPage + 1 < maxVisible) {
-                    startPage = Math.max(1, endPage - maxVisible + 1);
-                }
-
-                for (var p = startPage; p <= endPage; p++) {
-                    var btn = document.createElement('button');
-                    btn.className = 'btn btn-sm ' + (p === paginaActual ? 'btn-dark' : 'btn-outline-dark');
-                    btn.innerHTML = p;
-                    btn.onclick = (function(page) {
-                        return function() {
-                            paginaActual = page;
-                            mostrarPagina(datos);
-                        };
-                    })(p);
-                    pagination.appendChild(btn);
-                }
-
-                // Boton Siguiente
-                var btnSiguiente = document.createElement('button');
-                btnSiguiente.className = 'btn btn-outline-dark btn-sm';
-                btnSiguiente.innerHTML = 'Siguiente <i class="bi bi-chevron-right"></i>';
-                btnSiguiente.onclick = function() {
-                    if (paginaActual < totalPaginas) {
-                        paginaActual++;
-                        mostrarPagina(datos);
-                    }
-                };
-                if (paginaActual === totalPaginas) btnSiguiente.disabled = true;
-                pagination.appendChild(btnSiguiente);
+            if (totalPaginas <= 1) {
+                pageInfo.textContent = '';
+                return;
             }
+
+            var sb = '<nav><ul class="pagination mb-0">';
+
+            // Anterior
+            if (paginaActual > 1) {
+                sb += '<li class="page-item"><a class="page-link" href="javascript:PaginarAreas(' + (paginaActual - 1) + ')">Anterior</a></li>';
+            } else {
+                sb += '<li class="page-item disabled"><span class="page-link">Anterior</span></li>';
+            }
+
+            // Numeros de pagina (rango de 2 antes y despues)
+            var inicio = Math.max(1, paginaActual - 2);
+            var fin = Math.min(totalPaginas, paginaActual + 2);
+
+            if (inicio > 1) {
+                sb += '<li class="page-item"><a class="page-link" href="javascript:PaginarAreas(1)">1</a></li>';
+                if (inicio > 2) sb += '<li class="page-item disabled"><span class="page-link">...</span></li>';
+            }
+
+            for (var i = inicio; i <= fin; i++) {
+                if (i === paginaActual) {
+                    sb += '<li class="page-item active"><span class="page-link">' + i + '</span></li>';
+                } else {
+                    sb += '<li class="page-item"><a class="page-link" href="javascript:PaginarAreas(' + i + ')">' + i + '</a></li>';
+                }
+            }
+
+            if (fin < totalPaginas) {
+                if (fin < totalPaginas - 1) sb += '<li class="page-item disabled"><span class="page-link">...</span></li>';
+                sb += '<li class="page-item"><a class="page-link" href="javascript:PaginarAreas(' + totalPaginas + ')">' + totalPaginas + '</a></li>';
+            }
+
+            // Siguiente
+            if (paginaActual < totalPaginas) {
+                sb += '<li class="page-item"><a class="page-link" href="javascript:PaginarAreas(' + (paginaActual + 1) + ')">Siguiente</a></li>';
+            } else {
+                sb += '<li class="page-item disabled"><span class="page-link">Siguiente</span></li>';
+            }
+
+            sb += '</ul></nav>';
+            pagination.innerHTML = sb;
+
+            pageInfo.textContent = 'Pagina ' + paginaActual + ' de ' + totalPaginas + ' (Total: ' + totalItems + ' registros)';
+        }
+
+        function PaginarAreas(pagina) {
+            var textoBusqueda = document.getElementById('txtBuscarArea').value.toLowerCase().trim();
+            var datosFiltrados;
+
+            if (textoBusqueda === "") {
+                datosFiltrados = datosAreas;
+            } else {
+                datosFiltrados = datosAreas.filter(function(item) {
+                    return item.CODIGOAREA.toLowerCase().indexOf(textoBusqueda) !== -1 ||
+                           item.AREA.toLowerCase().indexOf(textoBusqueda) !== -1 ||
+                           item.SEDE.toLowerCase().indexOf(textoBusqueda) !== -1 ||
+                           item.LOCAL.toLowerCase().indexOf(textoBusqueda) !== -1 ||
+                           item.DIRECCIONLOCAL.toLowerCase().indexOf(textoBusqueda) !== -1;
+                });
+            }
+
+            paginaActual = pagina;
+            mostrarPagina(datosFiltrados);
+            generarPaginacion(Math.ceil(datosFiltrados.length / itemsPorPagina), datosFiltrados.length);
+            document.querySelector('.table-wrapper').scrollIntoView({ behavior: 'smooth' });
         }
 
         function seleccionarArea(idArea, codigoArea, area, nroPiso, nroAmbiente, idLocal, local) {
@@ -263,116 +353,7 @@
 </head>
 <body onload="MostrarMensaje()">
 
-    <!-- ========== NAVBAR ========== -->
-    <nav class="navbar navbar-expand-lg navbar-modern fixed-top">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="Menu.aspx">
-                <i class="bi bi-house-door-fill me-1"></i>Inicio
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarNav" aria-controls="navbarNav"
-                    aria-expanded="false" aria-label="Navegaci&oacute;n">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-
-                    <!-- Mantenimiento -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="mantenimientoDropdown"
-                           role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-briefcase-fill me-1"></i>Mantenimiento
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="mantenimientoDropdown">
-                            <li><a class="dropdown-item" href="Personal.aspx">Personal</a></li>
-                            <li class="dropdown-submenu">
-                                <a class="dropdown-item dropdown-toggle" href="#">Tablas Instituci&oacute;n</a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="Sede.aspx">Sede</a></li>
-                                    <li><a class="dropdown-item" href="Local.aspx">Local</a></li>
-                                    <li><a class="dropdown-item" href="Area.aspx">&Aacute;rea</a></li>
-                                    <li><a class="dropdown-item" href="Dependencia.aspx">Dependencia</a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown-submenu">
-                                <a class="dropdown-item dropdown-toggle" href="#">Tablas Personal</a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="Cargo.aspx">Cargo</a></li>
-                                    <li><a class="dropdown-item" href="ProfecionOcupacion.aspx">Profesi&oacute;n - Ocupaci&oacute;n</a></li>
-                                </ul>
-                            </li>
-                            <li><hr class="dropdown-divider" /></li>
-                            <li class="dropdown-submenu">
-                                <a class="dropdown-item dropdown-toggle" href="#">Tablas Elemento Configuraci&oacute;n</a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="Modelo.aspx">Modelo</a></li>
-                                    <li><a class="dropdown-item" href="Marca.aspx">Marca</a></li>
-                                    <li><a class="dropdown-item" href="DescripcionElementoConfiguracion.aspx">Descripci&oacute;n Elemento Configuraci&oacute;n</a></li>
-                                    <li><a class="dropdown-item" href="TiposElementoConfiguracion.aspx">Tipos Elemento Configuraci&oacute;n</a></li>
-                                    <li><a class="dropdown-item" href="TipoRelacionElementoConfiguracion.aspx">Tipo Relaci&oacute;n Elemento Configuraci&oacute;n</a></li>
-                                    <li><a class="dropdown-item" href="TipoComponeneteCI.aspx">Tipo Componente Elemento Configuraci&oacute;n</a></li>
-                                    <li><a class="dropdown-item" href="EstadoActualCI.aspx">Estado Actual Elemento Configuraci&oacute;n</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <!-- Gesti&oacute;n de Configuraci&oacute;n -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="gestionDropdown"
-                           role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-person-lines-fill me-1"></i>Gesti&oacute;n de Configuraci&oacute;n
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="gestionDropdown">
-                            <li><a class="dropdown-item" href="ElementosConfiguracion.aspx">Elementos de Configuraci&oacute;n</a></li>
-                            <li><a class="dropdown-item" href="RelacionesElementosConfiguracion.aspx">Relaci&oacute;n de Elementos de Configuraci&oacute;n</a></li>
-                            <li><hr class="dropdown-divider" /></li>
-                            <li><a class="dropdown-item" href="CIsAsignarComponenetes.aspx">Asignar Componentes Elementos de Configuraci&oacute;n</a></li>
-                            <li><hr class="dropdown-divider" /></li>
-                            <li><a class="dropdown-item" href="LicenciasElementoConfiguracion.aspx">Licencias de Elementos de Configuraci&oacute;n</a></li>
-                            <li><hr class="dropdown-divider" /></li>
-                            <li><a class="dropdown-item" href="SeguimientosElementoConfiguracion.aspx">Seguimiento de Elementos de Configuraci&oacute;n</a></li>
-                        </ul>
-                    </li>
-
-                    <!-- Reportes -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="reportesDropdown"
-                           role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-file-earmark-bar-graph-fill me-1"></i>Reportes
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="reportesDropdown">
-                            <li><a class="dropdown-item" href="../Reportes/ReporteElementosConfiguracion.aspx">Reporte de Elementos de Configuraci&oacute;n</a></li>
-                            <li><a class="dropdown-item" href="../Reportes/ReporteRelacionesElementosConfiguracion.aspx">Reporte de Relaciones de Elementos de Configuraci&oacute;n</a></li>
-                            <li><a class="dropdown-item" href="../Reportes/ReporteSeguimientosElementoConfiguracion.aspx">Reporte de Seguimientos de Elementos de Configuraci&oacute;n</a></li>
-                            <li><a class="dropdown-item" href="../Reportes/ReporteLicenciasElementoConfiguracion.aspx">Reporte de Licencias de Elementos de Configuraci&oacute;n</a></li>
-                            <li><a class="dropdown-item" href="../Reportes/ReporteCIsSeguidos.aspx">Reporte de Elementos de Configuraci&oacute;n Seguidos</a></li>
-                            <li><a class="dropdown-item" href="../Reportes/ReporteComponentesAsignados.aspx">Reporte de Componentes de Elementos de Configuraci&oacute;n Asignados</a></li>
-                            <li><hr class="dropdown-divider" /></li>
-                            <li><a class="dropdown-item" href="../Reportes/ReporteDatosCorrectosCI.aspx">Reporte de Datos Correctos de Elementos de Configuraci&oacute;n</a></li>
-                            <li><a class="dropdown-item" href="../Reportes/ReporteDatosIncorrectosCI.aspx">Reporte de Datos Incorrectos de Elementos de Configuraci&oacute;n</a></li>
-                            <li><a class="dropdown-item" href="../Reportes/ReporteCIsInformacionContenidaEnCMDB.aspx">Reporte de Informaci&oacute;n de Elementos de Configuraci&oacute;n Contenidas en la CMDB</a></li>
-                        </ul>
-                    </li>
-
-                    <!-- Configuraciones -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="configDropdown"
-                           role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-gear-fill me-1"></i>Configuraciones
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="configDropdown">
-                            <li><a class="dropdown-item" href="Usuario.aspx">Usuarios</a></li>
-                            <li><a class="dropdown-item" href="../Configuracion/Usuarios.aspx">Permisos</a></li>
-                            <li><hr class="dropdown-divider" /></li>
-                            <li><a class="dropdown-item" href="CerrarSession.aspx" style="color: #e94560;">Cerrar Sesi&oacute;n</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <uc1:NavBar ID="NavBar1" runat="server" />
 
     <!-- Espaciador para navbar fija -->
     <div class="top-spacer"></div>
@@ -471,80 +452,6 @@
                 </div>
             </div>
 
-            <!-- Card Buscador -->
-            <div class="form-card mt-4">
-                <div class="card-header">
-                    <i class="bi bi-search me-2"></i>Buscar &Aacute;rea
-                </div>
-                <div class="card-body p-3">
-                    <div class="row g-2 mb-2">
-                        <div class="col-md-3 col-sm-6">
-                            <div class="form-check">
-                                <asp:CheckBox ID="cbs" runat="server" CssClass="form-check-input" Text="Sede" onChange="Activa(1);"/>
-                            </div>
-                            <asp:DropDownList ID="ddls" runat="server" CssClass="form-control form-control-modern mt-2"
-                                              AppendDataBoundItems="True" Enabled="False" onChange="Activa();"
-                                              AutoPostBack="True" OnSelectedIndexChanged="ddls_SelectedIndexChanged">
-                                <asp:ListItem Value="-1">_____SELECCIONE SEDE_____</asp:ListItem>
-                            </asp:DropDownList>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="form-check">
-                                <asp:CheckBox ID="cbl" runat="server" CssClass="form-check-input" Text="Local" onChange="Activa(2);"/>
-                            </div>
-                            <asp:DropDownList ID="ddll" runat="server" CssClass="form-control form-control-modern mt-2"
-                                              AppendDataBoundItems="True" Enabled="False" onChange="Activa();">
-                                <asp:ListItem Value="-1">_____SELECCIONE LOCAL_____</asp:ListItem>
-                            </asp:DropDownList>
-                        </div>
-                        <div class="col-md-3 col-sm-6 d-flex align-items-end">
-                            <div class="d-flex flex-wrap gap-2">
-                                <asp:LinkButton ID="lbtnBuscar" runat="server" CausesValidation="False" CssClass="btn btn-info btn-modern"
-                                                OnClick="lbtnBuscar_Click" UseSubmitBehavior="False">
-                                    <i class="bi bi-search"></i> Buscar
-                                </asp:LinkButton>
-                                <asp:Button ID="btnActualizarInformacion" runat="server" CssClass="btn btn-warning btn-modern"
-                                            OnClick="btnActualizarInformacion_Click" Text="Actualizar Informaci&oacute;n" CausesValidation="False" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Tabla de Resultados -->
-            <div class="table-wrapper mt-4">
-                <asp:Table ID="Table_" runat="server" CssClass="table table-modern-grid table-hover">
-                    <asp:TableRow ID="TableRow1" runat="server">
-                        <asp:TableCell ID="tcID_AREA" runat="server" BackColor="Black" BorderColor="Black"
-                                      ForeColor="White" Width="7%" Visible="false">ID AREA</asp:TableCell>
-
-                        <asp:TableCell ID="tcSEDE" runat="server" BackColor="Black" BorderColor="Black"
-                                       ForeColor="White" Width="15%">SEDE</asp:TableCell>
-
-                        <asp:TableCell ID="tcLOCAL" runat="server" BackColor="Black" BorderColor="Black"
-                                       ForeColor="White" Width="15%">LOCAL</asp:TableCell>
-
-                        <asp:TableCell ID="tcDIRECCION_LOCAL" runat="server" BackColor="Black" BorderColor="Black"
-                                       ForeColor="White" Width="15%">DIRECCI&Oacute;N LOCAL</asp:TableCell>
-
-                        <asp:TableCell ID="tcCODIGO_AREA" runat="server" BackColor="Black" BorderColor="Black"
-                                       ForeColor="White" Width="15%">C&Oacute;DIGO AREA</asp:TableCell>
-
-                        <asp:TableCell ID="tcAREA" runat="server" BackColor="Black" BorderColor="Black"
-                                       ForeColor="White" Width="15%">&Aacute;REA</asp:TableCell>
-
-                        <asp:TableCell ID="tcNRO_PISO" runat="server" BackColor="Black" BorderColor="Black"
-                                       ForeColor="White" Width="15%">NRO PISO</asp:TableCell>
-
-                        <asp:TableCell ID="tcNRO_AMBIENTE" runat="server" BackColor="Black" BorderColor="Black"
-                                       ForeColor="White" Width="15%">NRO AMBIENTE</asp:TableCell>
-
-                        <asp:TableCell ID="SELECCIONAR_AREA" runat="server" BackColor="Black" BorderColor="Black"
-                                       ForeColor="White" Width="7%">SELECCIONAR AREA</asp:TableCell>
-                    </asp:TableRow>
-                </asp:Table>
-            </div>
-
             <!-- ========== LISTA DE AREAS CON BUSQUEDA Y PAGINACION ========== -->
             <div class="form-card mt-4" id="listaAreasSection">
                 <div class="card-header">
@@ -555,8 +462,12 @@
                     <div class="row mb-3">
                         <div class="col-md-6 col-sm-6">
                             <div class="input-group">
-                                <span class="input-group-text"><i class="bi bi-search"></i></span>
-                                <input type="text" id="txtBuscarArea" class="form-control" placeholder="Buscar por c&oacute;digo, nombre, sede o local..." onkeyup="filtrarAreas()" />
+                                <span class="input-group-text bg-white border-end-0">
+                                    <i class="bi bi-search text-muted"></i>
+                                </span>
+                                <input type="text" id="txtBuscarArea" class="form-control border-start-0 search-input"
+                                    placeholder="Buscar por c&oacute;digo, nombre, sede o local..."
+                                    onkeyup="filtrarAreas()" />
                             </div>
                         </div>
                         <div class="col-md-6 col-sm-6 text-end">
@@ -566,9 +477,9 @@
 
                     <!-- Tabla HTML de Areas -->
                     <div class="table-responsive">
-                        <table class="table table-modern-grid table-hover" id="tblAreas">
+                        <table class="table table-modern table-hover" id="tblAreas">
                             <thead>
-                                <tr style="background-color: Black; color: White;">
+                                <tr>
                                     <th>SEDE</th>
                                     <th>LOCAL</th>
                                     <th>DIRECCI&Oacute;N LOCAL</th>
@@ -587,6 +498,7 @@
                     <!-- Paginacion -->
                     <div class="pagination-wrapper" id="paginationAreas">
                     </div>
+                    <div class="page-info" id="pageInfoArea"></div>
                 </div>
             </div>
 

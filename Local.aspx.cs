@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -6,14 +6,11 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class TiposElementoConfiguracion : System.Web.UI.Page
+public partial class Local : System.Web.UI.Page
 {
-    //private String Ruta = "SERVER=JOSE-PC;DATABASE=GCS;Encrypt=False;INTEGRATED SECURITY=True;packet size=4096;";
     private String Ruta = System.Configuration.ConfigurationManager.ConnectionStrings["CadenaConeccion"].ToString();
-
-    System.Web.UI.WebControls.TableRow tRow;
     Lista _Lista = new Lista();
-    System.Data.DataTable dt;
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (Convert.ToInt32(this.Id_Local.Value.Trim()) == 0)
@@ -34,16 +31,11 @@ public partial class TiposElementoConfiguracion : System.Web.UI.Page
 
         if (Datos == null)
         {
-
             this.__mensaje.Value = "Ud. no esta autorizado para ingresar a esta página, inicie sesion por favor.";
-
             this.__pagina.Value = "CerrarSession.aspx";
-
             return;
-
         }
 
-        //verificar permiso para acceder a esta pagina.
         bool rpta = this.VERIFICAR_PERMISO_ACCESO_PAGINA_WEB(Convert.ToInt32(Datos[0]),
         "Local.aspx");
         if (rpta == false)
@@ -54,197 +46,12 @@ public partial class TiposElementoConfiguracion : System.Web.UI.Page
         }
 
         Cargar_Datos(this.Sede, "[dbo].[pr_Obtener_Sedes]", "Error, al intentar recuperar Sedes Judiciales.");
-        if (this.__mensaje.Value.ToString().Trim() != "")
-        {
-            return;
-        }
-        Cargar_Datos(this.ddls, "[dbo].[pr_Obtener_Sedes]", "Error, al intentar recuperar Sedes Judiciales.");
-        if (this.__mensaje.Value.ToString().Trim() != "")
-        {
-            return;
-        }
-        if (Session["OpcionBusqueda"] == null)
-        {
-            this.Lista_Locales("", "", "No hay Locales registrados");
-        }
-        else
-        {
-            Object[] ob = (Object[])Session["OpcionBusqueda"];
-            this.cbnl.Checked = (bool)ob[1];
-            this.nl.Enabled = (bool)ob[1];
-            this.nl.Text = (string)ob[0];
-
-            this.cbs.Checked = (bool)ob[3];
-            ddls.Enabled = (bool)ob[3];
-            for (int i = 0; i < this.ddls.Items.Count; i++)
-            {
-                if (this.ddls.Items[i].Text == ob[2].ToString().Trim())
-                    this.ddls.SelectedIndex = i;
-            }
-
-            this.Lista_Locales(ob[0].ToString().Trim(),
-            ob[2].ToString().Trim(),
-            "No hay Locales con los criterios seleccionados");
-        }
     }
 
     private void ShowMessage(string msg, string paginaweb)
     {
         this.__mensaje.Value = msg;
         this.__pagina.Value = paginaweb;
-    }
-    private void Lista_Locales(string LOCAL_NOMBRE, string SEDE, string MENSAJE)
-    {
-        _Lista.ShowMessage(__mensaje, __pagina, "", "");
-        //********************** AGREGADO EN REQUE EL 21-03-2023 ***************************
-        _Lista.Limpiar_Tabla(Table_);
-        try
-        {
-            policia.clsaccesodatos servidor = new policia.clsaccesodatos();
-            servidor.cadenaconexion = Ruta;
-            if (servidor.abrirconexion() == true)
-            {
-                dt = servidor.consultar("[dbo].[pr_Lista_Locales]", LOCAL_NOMBRE, SEDE).Tables[0];
-                if (dt.Rows.Count == 0)
-                {
-                    servidor.cerrarconexion();
-                    _Lista.ShowMessage(__mensaje, __pagina, MENSAJE, "");
-                }
-                else
-                {
-                    for (int i = 0; i < dt.Rows.Count; i++)
-                    {
-                        tRow = new TableRow();
-                        for (int j = 0; j < 12; j++)//Cabecera de la tabla
-                        {
-                            TableCell tCell = new TableCell();
-                            switch (j)
-                            {
-                                case 0:
-                                    tCell.Text = dt.Rows[i]["ID LOCAL"].ToString().Trim();
-                                    tCell.Visible = false;
-                                    tRow.Cells.Add(tCell);
-                                    break;
-                                case 1:
-                                    tCell.Text = dt.Rows[i]["LOCAL CODIGO"].ToString().Trim();
-                                    tCell.Visible = true;
-                                    tRow.Cells.Add(tCell);
-                                    break;
-                                case 2:
-                                    tCell.Text = dt.Rows[i]["LOCAL NOMBRE"].ToString().Trim();
-                                    tCell.Visible = true;
-                                    tRow.Cells.Add(tCell);
-                                    break;
-                                case 3:
-                                    tCell.Text = dt.Rows[i]["LOCAL DIRECCION"].ToString().Trim();
-                                    tCell.Visible = true;
-                                    tRow.Cells.Add(tCell);
-                                    break;
-                                case 4:
-                                    tCell.Text = dt.Rows[i]["SEDE"].ToString().Trim();
-                                    tCell.Visible = true;
-                                    tRow.Cells.Add(tCell);
-                                    break;
-                                case 5:
-                                    tCell.Text = dt.Rows[i]["ID UBI"].ToString().Trim();
-                                    tCell.Visible = false;
-                                    tRow.Cells.Add(tCell);
-                                    break;
-                                case 6:
-                                    tCell.Text = dt.Rows[i]["UBICACION GEOGRAFICA"].ToString().Trim();
-                                    tCell.Visible = true;
-                                    tRow.Cells.Add(tCell);
-                                    break;
-                                case 7:
-                                    tCell.Text = dt.Rows[i]["TELEFONO"].ToString().Trim();
-                                    tCell.Visible = true;
-                                    tRow.Cells.Add(tCell);
-                                    break;
-                                case 8:
-                                    tCell.Text = dt.Rows[i]["PAGINA WEB"].ToString().Trim();
-                                    tCell.Visible = true;
-                                    tRow.Cells.Add(tCell);
-                                    break;
-                                case 9:
-                                    tCell.Text = dt.Rows[i]["EMAIL"].ToString().Trim();
-                                    tCell.Visible = true;
-                                    tRow.Cells.Add(tCell);
-                                    break;
-                                case 10:
-                                    tCell.Text = dt.Rows[i]["TOTAL CIS"].ToString().Trim();
-                                    tCell.Visible = true;
-                                    tRow.Cells.Add(tCell);
-                                    break;
-                                case 11:
-                                    //verificar permiso para enviar datos.
-                                    string[] Datos = (string[])Session["__JSAR__"];
-                                    bool rpta = this.VERIFICAR_PERMISOS_DERECHOS_ACCESO_PAGINA_WEB(Convert.ToInt32(Datos[0]),
-                                    "Local.aspx", "SELECCIONAR");
-
-                                    if (rpta == true)
-                                    {
-                                        System.Web.UI.WebControls.Button b = new System.Web.UI.WebControls.Button();
-                                        b.Text = "Local";
-                                        b.ToolTip = "Seleccione Local";
-                                        b.BorderStyle = BorderStyle.None;
-                                        b.CausesValidation = false;
-                                        b.UseSubmitBehavior = true;
-                                        b.CssClass = "btn btn-dark";
-                                        b.CommandArgument = dt.Rows[i]["ID LOCAL"].ToString().Trim() + "," +
-                                                            dt.Rows[i]["LOCAL CODIGO"].ToString().Trim() + "," +
-                                                            dt.Rows[i]["LOCAL NOMBRE"].ToString().Trim() + "," +
-                                                            dt.Rows[i]["LOCAL DIRECCION"].ToString().Trim() + "," +
-                                                            dt.Rows[i]["SEDE"].ToString().Trim() + "," +
-                                                            dt.Rows[i]["ID UBI"].ToString().Trim() + "," +
-                                                            dt.Rows[i]["UBICACION GEOGRAFICA"].ToString().Trim() + "," +
-                                                            dt.Rows[i]["TELEFONO"].ToString().Trim() + "," +
-                                                            dt.Rows[i]["PAGINA WEB"].ToString().Trim() + "," +
-                                                            dt.Rows[i]["EMAIL"].ToString().Trim() + "," +
-                                                            dt.Rows[i]["TOTAL CIS"].ToString().Trim();
-                                        b.Click += new System.EventHandler(visualiza_datos_local);
-                                        tCell.HorizontalAlign = HorizontalAlign.Center;
-                                        tCell.Controls.Add(b);
-                                        tRow.Cells.Add(tCell);
-                                    }
-                                    else
-                                    {
-                                        tCell.Text = "SIN PERMISO PARA ESTA OPCION";
-                                        tCell.ForeColor = System.Drawing.Color.Red;
-                                        tCell.Font.Bold = true;
-                                        tCell.Visible = true;
-                                        tRow.Cells.Add(tCell);
-                                    }
-                                    break;
-
-
-                            }
-                        }
-
-                        this.Table_.Rows.Add(tRow);
-                    }
-
-                    servidor.cerrarconexion();
-
-                }
-
-            }
-            else
-            {
-                servidor.cerrarconexion();
-
-                this.__mensaje.Value = servidor.getMensageError();
-
-                this.__pagina.Value = "CerrarSession.aspx";
-            }
-
-        }
-        catch (Exception ex)
-        {
-
-            this.__mensaje.Value = "Error inesperado al intentar conectarnos con el servidor.";
-
-            this.__pagina.Value = "CerrarSession.aspx";
-        }
     }
 
     private void CargarDatosJson()
@@ -255,7 +62,7 @@ public partial class TiposElementoConfiguracion : System.Web.UI.Page
             servidor.cadenaconexion = Ruta;
             if (servidor.abrirconexion() == true)
             {
-                dt = servidor.consultar("[dbo].[pr_Lista_Locales]", "", "").Tables[0];
+                DataTable dt = servidor.consultar("[dbo].[pr_Lista_Locales]", "", "").Tables[0];
                 if (dt.Rows.Count > 0)
                 {
                     System.Text.StringBuilder json = new System.Text.StringBuilder();
@@ -292,7 +99,7 @@ public partial class TiposElementoConfiguracion : System.Web.UI.Page
                 this.datosJson.Value = "[]";
             }
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             this.datosJson.Value = "[]";
         }
@@ -325,7 +132,6 @@ public partial class TiposElementoConfiguracion : System.Web.UI.Page
         this.btnRegistrar.Visible = false;
         this.btnCancelar.Visible = true;
         oculta(true);
-
     }
 
     private void Matenimiento_Local(int _Id_Local,
@@ -378,14 +184,12 @@ public partial class TiposElementoConfiguracion : System.Web.UI.Page
                 ShowMessage(servidor.getMensageError(), "CerrarSession.aspx");
             }
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             servidor.cancelarconexiontrans();
             ShowMessage("Error inesperado al intentar conectarnos con el servidor.", "CerrarSession.aspx");
         }
     }
-
-
 
     private void oculta(bool ok)
     {
@@ -398,7 +202,6 @@ public partial class TiposElementoConfiguracion : System.Web.UI.Page
         this.__mensaje.Value = "";
         this.__pagina.Value = "";
 
-        //verificar permiso para REGISTRAR datos.
         string[] Datos = (string[])Session["__JSAR__"];
         bool rpta = this.VERIFICAR_PERMISOS_DERECHOS_ACCESO_PAGINA_WEB(Convert.ToInt32(Datos[0]),
         "Local.aspx", "NUEVO");
@@ -441,7 +244,6 @@ public partial class TiposElementoConfiguracion : System.Web.UI.Page
         this.__mensaje.Value = "";
         this.__pagina.Value = "";
 
-        //verificar permiso para REGISTRAR datos.
         string[] Datos = (string[])Session["__JSAR__"];
         bool rpta = this.VERIFICAR_PERMISOS_DERECHOS_ACCESO_PAGINA_WEB(Convert.ToInt32(Datos[0]),
         "Local.aspx", "MODIFICAR");
@@ -465,8 +267,9 @@ public partial class TiposElementoConfiguracion : System.Web.UI.Page
         {
             return;
         }
-        
-        if (Telefono_local.Text.Trim().Length<6) {
+
+        if (Telefono_local.Text.Trim().Length < 6)
+        {
             this.__mensaje.Value = "Numero Telefonico debe Tener como Minimo 6 Numeros.";
             this.__pagina.Value = "";
             Telefono_local.Focus();
@@ -491,7 +294,6 @@ public partial class TiposElementoConfiguracion : System.Web.UI.Page
         this.__mensaje.Value = "";
         this.__pagina.Value = "";
 
-        //verificar permiso para eliminar datos.
         string[] Datos = (string[])Session["__JSAR__"];
         bool rpta = this.VERIFICAR_PERMISOS_DERECHOS_ACCESO_PAGINA_WEB(Convert.ToInt32(Datos[0]),
         "Local.aspx", "ELIMINAR");
@@ -522,11 +324,8 @@ public partial class TiposElementoConfiguracion : System.Web.UI.Page
              "E");
     }
 
-
-
     protected void btnCancelar_Click(object sender, EventArgs e)
     {
-        //verificar permiso para eliminar datos.
         string[] Datos = (string[])Session["__JSAR__"];
         bool rpta = this.VERIFICAR_PERMISOS_DERECHOS_ACCESO_PAGINA_WEB(Convert.ToInt32(Datos[0]),
         "Local.aspx", "CANCELAR");
@@ -539,11 +338,8 @@ public partial class TiposElementoConfiguracion : System.Web.UI.Page
         this.Response.Redirect("Local.aspx");
     }
 
-
     private void Cargar_Datos(System.Web.UI.WebControls.DropDownList ddl, String Procedimeinto_Almacenado, String Mensaje, params Object[] p)
     {
-
-
         try
         {
             policia.clsaccesodatos servidor = new policia.clsaccesodatos();
@@ -581,61 +377,11 @@ public partial class TiposElementoConfiguracion : System.Web.UI.Page
                 this.__pagina.Value = "";
             }
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             this.__mensaje.Value = "Error inesperado al intentar conectarnos con el servidor.";
             this.__pagina.Value = "";
         }
-    }
-
-    protected void lbtnBuscar_Click(object sender, EventArgs e)
-    {
-        _Lista.ShowMessage(__mensaje, __pagina, "", "");
-
-        //verificar permiso para eliminar datos.
-        string[] Datos = (string[])Session["__JSAR__"];
-        bool rpta = this.VERIFICAR_PERMISOS_DERECHOS_ACCESO_PAGINA_WEB(Convert.ToInt32(Datos[0]),
-        "Local.aspx", "BUSCAR");
-        if (rpta == false)
-        {
-            this.__mensaje.Value = "Ud. no esta autorizado para BUSCAR datos en esta pagina web.";
-            this.__pagina.Value = "CerrarSession.aspx";
-            return;
-        }
-
-        Object[] ob;
-
-        bool ok = (cbnl.Checked == true ||
-        cbs.Checked == true );
-        if (ok == false)
-        {
-            _Lista.ShowMessage(__mensaje, __pagina, "Seleccione opciones para empezar la busqueda.", "");
-            return;
-        }
-
-
-        ob = new Object[] {
-             nl.Text.Trim(), this.cbnl.Checked,
-             Convert.ToInt32(ddls.SelectedValue)==-1?"": ddls.SelectedItem.Text, this.cbs.Checked
-        };
-
-        Session["OpcionBusqueda"] = ob;
-
-        Response.Clear();
-        Response.Redirect("Local.aspx");
-        Response.Flush();
-
-        _Lista.ShowMessage(__mensaje, __pagina, "", "");
-    }
-
-    protected void btnActualizarInformacion_Click(object sender, EventArgs e)
-    {
-        _Lista.ShowMessage(__mensaje, __pagina, "", "");
-        Session["OpcionBusqueda"] = null;
-        Response.Clear();
-        Response.Redirect("Local.aspx");
-        Response.Flush();
-        _Lista.ShowMessage(__mensaje, __pagina, "", "");
     }
 
     public bool VERIFICAR_PERMISOS_DERECHOS_ACCESO_PAGINA_WEB(int _ID_USUARIO, string _PAGINA_WEB, string _DERECHO)
@@ -654,14 +400,12 @@ public partial class TiposElementoConfiguracion : System.Web.UI.Page
                     dt = null;
                     ok = false;
                     servidor.cerrarconexion();
-
                 }
                 else
                 {
                     ok = Convert.ToBoolean(dt.Rows[0].ItemArray[0].ToString());
                     servidor.cerrarconexion();
                 }
-
             }
             else
             {
@@ -671,7 +415,7 @@ public partial class TiposElementoConfiguracion : System.Web.UI.Page
                 this.__pagina.Value = "";
             }
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             ok = false;
             this.__mensaje.Value = "Error inesperado al intentar conectarnos con el servidor.";
@@ -696,14 +440,12 @@ public partial class TiposElementoConfiguracion : System.Web.UI.Page
                     dt = null;
                     ok = false;
                     servidor.cerrarconexion();
-
                 }
                 else
                 {
                     ok = Convert.ToBoolean(dt.Rows[0].ItemArray[0].ToString());
                     servidor.cerrarconexion();
                 }
-
             }
             else
             {
@@ -713,7 +455,7 @@ public partial class TiposElementoConfiguracion : System.Web.UI.Page
                 this.__pagina.Value = "";
             }
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             ok = false;
             this.__mensaje.Value = "Error inesperado al intentar conectarnos con el servidor.";

@@ -1,4 +1,5 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="CIsComponentesAsignados.aspx.cs" Inherits="ElementosConfiguracion"  UnobtrusiveValidationMode="None" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="CIsComponentesAsignados.aspx.cs" Inherits="CIsComponentesAsignados"  UnobtrusiveValidationMode="None" %>
+<%@ Register src="NavBar.ascx" tagname="NavBar" tagprefix="uc1" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -30,8 +31,83 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         .list-section .input-group-text {
-            background-color: #e9ecef;
+            background-color: #fff;
+            border-right: 0;
         }
+
+        /* ===== GUIA ESTILO TABLAS ===== */
+        .table-wrapper {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.08);
+            padding: 1.5rem;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .table-modern thead th {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 0.75rem 0.5rem !important;
+            border: none !important;
+            white-space: nowrap;
+        }
+
+        .table-modern tbody td {
+            padding: 0.6rem 0.5rem !important;
+            border-bottom: 1px solid #f1f1f1;
+            vertical-align: middle;
+            font-size: 0.85rem;
+            color: #2d3436;
+        }
+
+        .table-modern tbody tr:hover td {
+            background: rgba(233,69,96,0.04);
+        }
+
+        .table-modern tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .estado-activo { color: #198754; font-weight: 600; }
+        .estado-inactivo { color: #dc3545; font-weight: 600; }
+
+        .search-input {
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 0.6rem 1rem;
+            font-size: 0.95rem;
+        }
+
+        .search-input:focus {
+            border-color: #e94560;
+            box-shadow: 0 0 0 4px rgba(233,69,96,0.1);
+            outline: none;
+        }
+
+        .btn-accion {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            border-radius: 6px;
+            text-decoration: none;
+        }
+
+        .page-info {
+            text-align: center;
+            margin-top: 1rem;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+        .pagination-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-top: 1.5rem;
+        }
+
         .table-sm td, .table-sm th {
             padding: 0.5rem;
         }
@@ -63,116 +139,7 @@
 </head>
 <body onload="MostrarMensaje()">
 
-    <!-- ========== NAVBAR ========== -->
-    <nav class="navbar navbar-expand-lg navbar-modern fixed-top">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="Menu.aspx">
-                <i class="bi bi-house-door-fill me-1"></i>Inicio
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarNav" aria-controls="navbarNav"
-                    aria-expanded="false" aria-label="Navegaci&oacute;n">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-
-                    <!-- Mantenimiento -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="mantenimientoDropdown"
-                           role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-briefcase-fill me-1"></i>Mantenimiento
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="mantenimientoDropdown">
-                            <li><a class="dropdown-item" href="Personal.aspx">Personal</a></li>
-                            <li class="dropdown-submenu">
-                                <a class="dropdown-item dropdown-toggle" href="#">Tablas Instituci&oacute;n</a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="Sede.aspx">Sede</a></li>
-                                    <li><a class="dropdown-item" href="Local.aspx">Local</a></li>
-                                    <li><a class="dropdown-item" href="Area.aspx">&Aacute;rea</a></li>
-                                    <li><a class="dropdown-item" href="Dependencia.aspx">Dependencia</a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown-submenu">
-                                <a class="dropdown-item dropdown-toggle" href="#">Tablas Personal</a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="Cargo.aspx">Cargo</a></li>
-                                    <li><a class="dropdown-item" href="ProfecionOcupacion.aspx">Profesi&oacute;n - Ocupaci&oacute;n</a></li>
-                                </ul>
-                            </li>
-                            <li><hr class="dropdown-divider" /></li>
-                            <li class="dropdown-submenu">
-                                <a class="dropdown-item dropdown-toggle" href="#">Tablas Elemento Configuraci&oacute;n</a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="Modelo.aspx">Modelo</a></li>
-                                    <li><a class="dropdown-item" href="Marca.aspx">Marca</a></li>
-                                    <li><a class="dropdown-item" href="DescripcionElementoConfiguracion.aspx">Descripci&oacute;n Elemento Configuraci&oacute;n</a></li>
-                                    <li><a class="dropdown-item" href="TiposElementoConfiguracion.aspx">Tipos Elemento Configuraci&oacute;n</a></li>
-                                    <li><a class="dropdown-item" href="TipoRelacionElementoConfiguracion.aspx">Tipo Relaci&oacute;n Elemento Configuraci&oacute;n</a></li>
-                                    <li><a class="dropdown-item" href="TipoComponeneteCI.aspx">Tipo Componente Elemento Configuraci&oacute;n</a></li>
-                                    <li><a class="dropdown-item" href="EstadoActualCI.aspx">Estado Actual Elemento Configuraci&oacute;n</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <!-- Gesti&oacute;n de Configuraci&oacute;n -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="gestionDropdown"
-                           role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-person-lines-fill me-1"></i>Gesti&oacute;n de Configuraci&oacute;n
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="gestionDropdown">
-                            <li><a class="dropdown-item" href="ElementosConfiguracion.aspx">Elementos de Configuraci&oacute;n</a></li>
-                            <li><a class="dropdown-item" href="RelacionesElementosConfiguracion.aspx">Relaci&oacute;n de Elementos de Configuraci&oacute;n</a></li>
-                            <li><hr class="dropdown-divider" /></li>
-                            <li><a class="dropdown-item" href="CIsAsignarComponenetes.aspx">Asignar Componentes Elementos de Configuraci&oacute;n</a></li>
-                            <li><hr class="dropdown-divider" /></li>
-                            <li><a class="dropdown-item" href="LicenciasElementoConfiguracion.aspx">Licencias de Elementos de Configuraci&oacute;n</a></li>
-                            <li><hr class="dropdown-divider" /></li>
-                            <li><a class="dropdown-item" href="SeguimientosElementoConfiguracion.aspx">Seguimiento de Elementos de Configuraci&oacute;n</a></li>
-                        </ul>
-                    </li>
-
-                    <!-- Reportes -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="reportesDropdown"
-                           role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-file-earmark-bar-graph-fill me-1"></i>Reportes
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="reportesDropdown">
-                            <li><a class="dropdown-item" href="../Reportes/ReporteElementosConfiguracion.aspx">Reporte de Elementos de Configuraci&oacute;n</a></li>
-                            <li><a class="dropdown-item" href="../Reportes/ReporteRelacionesElementosConfiguracion.aspx">Reporte de Relaciones de Elementos de Configuraci&oacute;n</a></li>
-                            <li><a class="dropdown-item" href="../Reportes/ReporteSeguimientosElementoConfiguracion.aspx">Reporte de Seguimientos de Elementos de Configuraci&oacute;n</a></li>
-                            <li><a class="dropdown-item" href="../Reportes/ReporteLicenciasElementoConfiguracion.aspx">Reporte de Licencias de Elementos de Configuraci&oacute;n</a></li>
-                            <li><a class="dropdown-item" href="../Reportes/ReporteCIsSeguidos.aspx">Reporte de Elementos de Configuraci&oacute;n Seguidos</a></li>
-                            <li><a class="dropdown-item" href="../Reportes/ReporteComponentesAsignados.aspx">Reporte de Componentes de Elementos de Configuraci&oacute;n Asignados</a></li>
-                            <li><hr class="dropdown-divider" /></li>
-                            <li><a class="dropdown-item" href="../Reportes/ReporteDatosCorrectosCI.aspx">Reporte de Datos Correctos de Elementos de Configuraci&oacute;n</a></li>
-                            <li><a class="dropdown-item" href="../Reportes/ReporteDatosIncorrectosCI.aspx">Reporte de Datos Incorrectos de Elementos de Configuraci&oacute;n</a></li>
-                            <li><a class="dropdown-item" href="../Reportes/ReporteCIsInformacionContenidaEnCMDB.aspx">Reporte de Informaci&oacute;n de Elementos de Configuraci&oacute;n Contenidas en la CMDB</a></li>
-                        </ul>
-                    </li>
-
-                    <!-- Configuraciones -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="configDropdown"
-                           role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-gear-fill me-1"></i>Configuraciones
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="configDropdown">
-                            <li><a class="dropdown-item" href="Usuario.aspx">Usuarios</a></li>
-                            <li><a class="dropdown-item" href="../Configuracion/Usuarios.aspx">Permisos</a></li>
-                            <li><hr class="dropdown-divider" /></li>
-                            <li><a class="dropdown-item" href="CerrarSession.aspx" style="color: #e94560;">Cerrar Sesi&oacute;n</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <uc1:NavBar ID="NavBar1" runat="server" />
 
     <!-- Espaciador para navbar fija -->
     <div class="top-spacer"></div>
@@ -283,188 +250,10 @@
                                             <asp:ListItem Value="-1">_____SELECCIONE AREA_____</asp:ListItem>
                                         </asp:DropDownList>
                             </td>
-                            <td class="auto-style1">
-                                <asp:LinkButton ID="lbtnBuscar" runat="server" CausesValidation="False" class="btn btn-info" OnClick="lbtnBuscar_Click" Text="Buscar  &lt;span class='glyphicon glyphicon-search'&gt;&lt;/span&gt;" UseSubmitBehavior="False" />
-                                <asp:Button ID="btnActualizarInformacion" runat="server" class="btn btn-success" CssClass="btn btn-warning" onclick="btnActualizarInformacion_Click" Text="Actualizar Informacion" />
-                            </td>
-                        </tr>
-                        <tr>
-                        <td colspan="5">
-                            <asp:Table ID="Table_" runat="server" BackColor="White"
-                                class="table table-condensed"
-                            BorderColor="White" CellPadding="2" CellSpacing="0" Font-Size="X-Small"
-                            GridLines="Both" style="text-align: left">
-                            <asp:TableRow ID="CABECERA" runat="server">
-                                <asp:TableCell ID="_ID_CI" runat="server" BackColor="#FFFFC0" BorderColor="#FFFFC0"
-                                         ForeColor="Green" Visible="False">ID CI</asp:TableCell>
-
-                                <asp:TableCell ID="_NOMBRE_CI" runat="server" BackColor="Black" BorderColor="Black"
-                                    ForeColor="White" >NOMBRE CI</asp:TableCell>
-
-                               <asp:TableCell ID="_NOMBRE_TIPO_CI" runat="server" BackColor="Black" BorderColor="Black"
-                                    ForeColor="White" >TIPO CI</asp:TableCell>
-
-                                <asp:TableCell ID="_NRO_SERIE" runat="server" BackColor="Black" BorderColor="Black"
-                                    ForeColor="White" >NRO SERIE</asp:TableCell>
-
-                                <asp:TableCell ID="_FABRICANTE_PROVEEDOR" runat="server" BackColor="Black" BorderColor="Black"
-                                    ForeColor="White" >FABRICANTE<BR />PROVEEDOR</asp:TableCell>
-
-                                <asp:TableCell ID="_MARCA_MODELO" runat="server" BackColor="Black" BorderColor="Black"
-                                    ForeColor="White" >MARCA/<br />MODELO</asp:TableCell>
-
-                                <asp:TableCell ID="_IP" runat="server" BackColor="Black" BorderColor="Black"
-                                    ForeColor="White" >IP</asp:TableCell>
-
-                                <asp:TableCell ID="_GATEWAY" runat="server" BackColor="Black" BorderColor="Black"
-                                    ForeColor="White" >GATEWAY</asp:TableCell>
-
-                                <asp:TableCell ID="_GRUPO_TRABAJO" runat="server" BackColor="Black" BorderColor="Black"
-                                    ForeColor="White" >GRUPO<br />TRABAJO</asp:TableCell>
-
-                                <asp:TableCell ID="_ESTADO_CI" runat="server" BackColor="Black" BorderColor="Black"
-                                    ForeColor="White" >ESTADO CI</asp:TableCell>
-
-                               <asp:TableCell ID="_PROPIETARIO" runat="server" BackColor="Black" BorderColor="Black"
-                                    ForeColor="White" >PROPIETARIO</asp:TableCell>
-
-                                <asp:TableCell ID="_DESCRIPCION_CI" runat="server" BackColor="Black" BorderColor="Black"
-                                    ForeColor="White" >DESCRIPCION CI</asp:TableCell>
-
-                                 <asp:TableCell ID="_IMPACTO_PRIORIDAD" runat="server" BackColor="Black" BorderColor="Black"
-                                    ForeColor="White" >IMPACTO/<br />PRIORIDAD</asp:TableCell>
-
-
-                                <asp:TableCell ID="_SEDE_LOCAL" runat="server" BackColor="Black" BorderColor="Black"
-                                    ForeColor="White" >SEDE/<br />LOCAL</asp:TableCell>
-
-
-                               <asp:TableCell ID="_AREA" runat="server" BackColor="Black" BorderColor="Black"
-                                    ForeColor="White" >AREA</asp:TableCell>
-                                <asp:TableCell ID="_NRO_PISO" runat="server" BackColor="Black" BorderColor="Black"
-                                    ForeColor="White" >NRO PISO</asp:TableCell>
-                                <asp:TableCell ID="_NRO_AMBIENTE" runat="server" BackColor="Black" BorderColor="Black"
-                                    ForeColor="White" >NRO AMBIENTE</asp:TableCell>
-
-
-                                <asp:TableCell ID="EDITAR" runat="server" BackColor="Black" BorderColor="Black"
-                                    ForeColor="White" Width="3%" HorizontalAlign="Center">COMPONENTES</asp:TableCell>
-                            </asp:TableRow>
-                        </asp:Table>
-                        </td>
-
-                    </tr>
-                    <tr>
-                    <td colspan="5">
-                        &nbsp;</td>
-
-                </tr>
-                    <tr>
-                    <td colspan="5">
-                        <asp:Table ID="Table_0" runat="server" BackColor="White"
-                            class="table table-condensed"
-                        BorderColor="White" CellPadding="2" CellSpacing="0" Font-Size="X-Small"
-                        GridLines="Both" style="text-align: left">
-                        <asp:TableRow ID="CABECERA0" runat="server">
-                            <asp:TableCell ID="_ID_COMPONENETE" runat="server" BackColor="#FFFFC0" BorderColor="#FFFFC0"
-                                     ForeColor="Green" Visible="False">ID COMPONENETE</asp:TableCell>
-
-                            <asp:TableCell ID="_TIPO_COMPONENTE" runat="server" BackColor="Black" BorderColor="Black"
-                                ForeColor="White" >TIPO COMPONENTE</asp:TableCell>
-
-                            <asp:TableCell ID="_IDESCRIPCION" runat="server" BackColor="Black" BorderColor="Black"
-                                ForeColor="White">DESCRIPCION</asp:TableCell>
-
-                            <asp:TableCell ID="FABRICANTE" runat="server" BackColor="Black" BorderColor="Black"
-                                ForeColor="White" >FABRICANTE</asp:TableCell>
-
-                            <asp:TableCell ID="_NRO_SERIE_" runat="server" BackColor="Black" BorderColor="Black"
-                                ForeColor="White" >NRO SERIE</asp:TableCell>
-
-                            <asp:TableCell ID="_MODELO" runat="server" BackColor="Black" BorderColor="Black"
-                                ForeColor="White" >MODELO</asp:TableCell>
-
-                             <asp:TableCell ID="_MARCA" runat="server" BackColor="Black" BorderColor="Black"
-                                ForeColor="White" >MARCA</asp:TableCell>
-
-
-                        </asp:TableRow>
-                    </asp:Table>
-                    </td>
-
-                </tr>
-                <tr>
-                    <td colspan="5" >
-                        <asp:HiddenField ID="__pagina" runat="server" />
-                        <asp:HiddenField ID="__mensaje" runat="server" />
-                        <asp:HiddenField ID="datosJson" runat="server" />
-                    </td>
-
-                </tr>
-                    </table>
-
-                    <!-- ========== NUEVA SECCION LISTA CON BUSQUEDA Y PAGINACION ========== -->
-                    <div class="list-section mt-4">
-                        <div class="card">
-                            <div class="card-header bg-primary text-white">
-                                <h5 class="mb-0"><i class="bi bi-list-ul me-2"></i>Lista de Componentes</h5>
-                            </div>
-                            <div class="card-body">
-                                <!-- Search Input -->
-                                <div class="row mb-3">
-                                    <div class="col-12">
-                                        <div class="input-group">
-                                            <span class="input-group-text"><i class="bi bi-search"></i></span>
-                                            <input type="text" id="txtBuscarComponente" class="form-control" placeholder="Buscar por nombre, tipo, serie, marca o descripcion..." autocomplete="off" />
-                                            <button type="button" class="btn btn-outline-secondary" id="btnLimpiarBusqueda" title="Limpiar busqueda">
-                                                <i class="bi bi-x-circle"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Results Table -->
-                                <div class="table-responsive">
-                                    <table class="table table-striped table-hover table-sm" id="tblComponentes">
-                                        <thead class="table-dark">
-                                            <tr>
-                                                <th>Tipo Componente</th>
-                                                <th>Descripcion</th>
-                                                <th>Fabricante</th>
-                                                <th>Nro. Serie</th>
-                                                <th>Modelo</th>
-                                                <th>Marca</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="tbodyComponentes">
-                                            <!-- Data rows will be populated via JavaScript -->
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                                <!-- No Results Message -->
-                                <div id="divNoResults" class="alert alert-info text-center d-none">
-                                    <i class="bi bi-info-circle me-2"></i>No se encontraron componentes
-                                </div>
-
-                                <!-- Pagination Controls -->
-                                <div class="row align-items-center">
-                                    <div class="col-md-4">
-                                        <span id="spanInfoPagina" class="text-muted">Mostrando 0 - 0 de 0</span>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <nav aria-label="Paginacion componentes">
-                                            <ul class="pagination pagination-sm justify-content-end mb-0" id="ulPaginacion">
-                                                <!-- Pagination buttons will be generated via JavaScript -->
-                                            </ul>
-                                        </nav>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-               </div>
+                    <asp:HiddenField ID="__pagina" runat="server" />
+                    <asp:HiddenField ID="__mensaje" runat="server" />
+                    <asp:HiddenField ID="datosJson" runat="server" />
+                </div>
             </div>
         </div>
     </form>

@@ -55,7 +55,7 @@ public partial class Licencia_Elemento_Configuracion : System.Web.UI.Page
                 this.__pagina.Value = "";
             }
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             this.__mensaje.Value = "Error inesperado al intentar conectarnos con el servidor.";
             this.__pagina.Value = "";
@@ -232,7 +232,7 @@ public partial class Licencia_Elemento_Configuracion : System.Web.UI.Page
                 _Lista.ShowMessage(__mensaje, __pagina, servidor.getMensageError(), "CerrarSession.aspx");
             }
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             _Lista.ShowMessage(__mensaje, __pagina, "Error inesperado al intentar conectarnos con el servidor.", "");
         }
@@ -641,7 +641,7 @@ public partial class Licencia_Elemento_Configuracion : System.Web.UI.Page
                 this.__pagina.Value = "";
             }
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             ok = false;
             this.__mensaje.Value = "Error inesperado al intentar conectarnos con el servidor.";
@@ -683,7 +683,7 @@ public partial class Licencia_Elemento_Configuracion : System.Web.UI.Page
                 this.__pagina.Value = "";
             }
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             ok = false;
             this.__mensaje.Value = "Error inesperado al intentar conectarnos con el servidor.";
@@ -723,7 +723,7 @@ public partial class Licencia_Elemento_Configuracion : System.Web.UI.Page
                 datosJson.Value = "[]";
             }
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             datosJson.Value = "[]";
         }
@@ -754,7 +754,7 @@ public partial class Licencia_Elemento_Configuracion : System.Web.UI.Page
                 this.__pagina.Value = "CerrarSession.aspx";
             }
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             this.__mensaje.Value = "Error inesperado al intentar conectarnos con el servidor.";
             this.__pagina.Value = "CerrarSession.aspx";
@@ -782,7 +782,7 @@ public partial class Licencia_Elemento_Configuracion : System.Web.UI.Page
                 this.__pagina.Value = "CerrarSession.aspx";
             }
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             this.__mensaje.Value = "Error inesperado al intentar conectarnos con el servidor.";
             this.__pagina.Value = "CerrarSession.aspx";
