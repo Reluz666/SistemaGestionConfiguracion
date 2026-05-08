@@ -93,21 +93,16 @@ public partial class Personal : System.Web.UI.Page
         {
             return;
         }
-        Cargar_Datos(this.Sede, "[dbo].[pr_Obtener_Sedes]", "Error, al intentar recuperar Sedes Judiciales.");
-        if (this.__mensaje.Value.ToString().Trim() != "")
-        {
-            return;
-        }
-        Cargar_Datos(this.Dependencia, "[dbo].[pr_Obtener_Dependencias]", "Error, al intentar recuperar Dependencias Judiciales.");
-        if (this.__mensaje.Value.ToString().Trim() != "")
-        {
-            return;
-        }
-        Cargar_Datos(this.Cargo, "[dbo].[pr_Obtener_Cargos]", "Error, al intentar recuperar Cargos.");
-        if (this.__mensaje.Value.ToString().Trim() != "")
-        {
-            return;
-        }
+        Cargar_Datos(this.Sede, "[dbo].[pr_Obtener_Sedes]", "");
+        if (this.__mensaje.Value.ToString().Trim() != "") { return; }
+        Cargar_Datos(this.Dependencia, "[dbo].[pr_Obtener_Dependencias]", "");
+        if (this.__mensaje.Value.ToString().Trim() != "") { return; }
+        Cargar_Datos(this.Cargo, "[dbo].[pr_Obtener_Cargos]", "");
+        if (this.__mensaje.Value.ToString().Trim() != "") { return; }
+        Cargar_Datos(this.Local, "[dbo].[pr_Obtener_Locales]", "");
+        if (this.__mensaje.Value.ToString().Trim() != "") { return; }
+        Cargar_Datos(this.Area, "[dbo].[pr_Obtener_Areas]", "");
+        if (this.__mensaje.Value.ToString().Trim() != "") { return; }
         Cargar_Lista_Personal();
     }
 

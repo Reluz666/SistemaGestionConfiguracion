@@ -551,7 +551,7 @@
                         <div class="col-md-3 col-sm-6">
                             <label class="form-label-modern">Local</label>
                             <asp:DropDownList ID="Local" runat="server" CssClass="form-control form-control-modern"
-                                             AppendDataBoundItems="True" AutoPostBack="True"
+                                             AppendDataBoundItems="True"
                                              OnSelectedIndexChanged="Local_SelectedIndexChanged">
                                 <asp:ListItem Value="-1">___SELECCIONE LOCAL___</asp:ListItem>
                             </asp:DropDownList>
