@@ -145,20 +145,20 @@
   "hotPaths": [
     {
       "path": "Personal.aspx",
-      "accessCount": 229,
-      "lastAccessed": 1778271337841,
+      "accessCount": 230,
+      "lastAccessed": 1778271780809,
       "type": "file"
     },
     {
       "path": "Personal.aspx.cs",
-      "accessCount": 78,
-      "lastAccessed": 1778271355102,
+      "accessCount": 83,
+      "lastAccessed": 1778271880724,
       "type": "file"
     },
     {
       "path": "CIsComponentesAsignados.aspx",
-      "accessCount": 31,
-      "lastAccessed": 1778269081241,
+      "accessCount": 32,
+      "lastAccessed": 1778271836770,
       "type": "file"
     },
     {
