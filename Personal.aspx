@@ -442,28 +442,24 @@
                         </div>
                         <div class="col-md-3 col-sm-6">
                             <label class="form-label-modern">Local</label>
-                            <asp:DropDownList ID="Local" runat="server" CssClass="form-control form-control-modern"
-                                             AppendDataBoundItems="True" AutoPostBack="True"
-                                             OnSelectedIndexChanged="Local_SelectedIndexChanged">
-                                <asp:ListItem Value="-1">Seleccione una opción</asp:ListItem>
+                            <asp:DropDownList ID="ddlLocal" runat="server" CssClass="form-control form-control-modern"
+                                             AutoPostBack="True" OnSelectedIndexChanged="ddlLocal_SelectedIndexChanged">
                             </asp:DropDownList>
-                            <asp:RequiredFieldValidator ID="rfvLocal" runat="server" ControlToValidate="Local"
-                                                       ErrorMessage="*" CssClass="validator-error" />
-                            <asp:RegularExpressionValidator ID="revLocal" runat="server" ControlToValidate="Local"
+                            <asp:RequiredFieldValidator ID="rfvLocal" runat="server" ControlToValidate="ddlLocal"
+                                                       ErrorMessage="*" CssClass="validator-error" InitialValue="-1" />
+                            <asp:RegularExpressionValidator ID="revLocal" runat="server" ControlToValidate="ddlLocal"
                                                              Display="Dynamic" ErrorMessage="*"
                                                              CssClass="validator-error"
                                                              ValidationExpression="\d{1,999}" />
                         </div>
                         <div class="col-md-3 col-sm-6">
                             <label class="form-label-modern">&Aacute;rea</label>
-                            <asp:DropDownList ID="Area" runat="server" CssClass="form-control form-control-modern"
-                                             AppendDataBoundItems="True" AutoPostBack="True"
-                                             OnSelectedIndexChanged="Area_SelectedIndexChanged">
-                                <asp:ListItem Value="-1">Seleccione una opción</asp:ListItem>
+                            <asp:DropDownList ID="ddlArea" runat="server" CssClass="form-control form-control-modern"
+                                             AutoPostBack="True" OnSelectedIndexChanged="ddlArea_SelectedIndexChanged">
                             </asp:DropDownList>
-                            <asp:RequiredFieldValidator ID="rfvArea" runat="server" ControlToValidate="Area"
-                                                       ErrorMessage="*" CssClass="validator-error" />
-                            <asp:RegularExpressionValidator ID="revArea" runat="server" ControlToValidate="Area"
+                            <asp:RequiredFieldValidator ID="rfvArea" runat="server" ControlToValidate="ddlArea"
+                                                       ErrorMessage="*" CssClass="validator-error" InitialValue="-1" />
+                            <asp:RegularExpressionValidator ID="revArea" runat="server" ControlToValidate="ddlArea"
                                                              Display="Dynamic" ErrorMessage="*"
                                                              CssClass="validator-error"
                                                              ValidationExpression="\d{1,999}" />
