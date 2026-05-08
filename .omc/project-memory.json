@@ -145,20 +145,20 @@
   "hotPaths": [
     {
       "path": "Personal.aspx",
-      "accessCount": 235,
-      "lastAccessed": 1778274371953,
+      "accessCount": 237,
+      "lastAccessed": 1778276049821,
       "type": "file"
     },
     {
       "path": "Personal.aspx.cs",
-      "accessCount": 108,
-      "lastAccessed": 1778274452723,
+      "accessCount": 113,
+      "lastAccessed": 1778276067383,
       "type": "file"
     },
     {
       "path": "CIsComponentesAsignados.aspx",
-      "accessCount": 33,
-      "lastAccessed": 1778274346287,
+      "accessCount": 36,
+      "lastAccessed": 1778275949950,
       "type": "file"
     },
     {
@@ -240,15 +240,15 @@
       "type": "file"
     },
     {
-      "path": "GCS_3.sql",
-      "accessCount": 11,
-      "lastAccessed": 1777667268834,
+      "path": "Sede.aspx",
+      "accessCount": 12,
+      "lastAccessed": 1778275912517,
       "type": "file"
     },
     {
-      "path": "Sede.aspx",
+      "path": "GCS_3.sql",
       "accessCount": 11,
-      "lastAccessed": 1778269089562,
+      "lastAccessed": 1777667268834,
       "type": "file"
     },
     {
@@ -258,15 +258,15 @@
       "type": "file"
     },
     {
-      "path": "LicenciaElementoConfiguracion.aspx",
-      "accessCount": 10,
-      "lastAccessed": 1778269082306,
+      "path": "Local.aspx",
+      "accessCount": 11,
+      "lastAccessed": 1778275912601,
       "type": "file"
     },
     {
-      "path": "Local.aspx",
+      "path": "LicenciaElementoConfiguracion.aspx",
       "accessCount": 10,
-      "lastAccessed": 1778269082774,
+      "lastAccessed": 1778269082306,
       "type": "file"
     },
     {

@@ -102,9 +102,12 @@ public partial class Personal : System.Web.UI.Page
         if (this.__mensaje.Value.ToString().Trim() != "") { return; }
         Cargar_Datos(this.Cargo, "[dbo].[pr_Obtener_Cargos]", "");
         if (this.__mensaje.Value.ToString().Trim() != "") { return; }
-        // Cargar Locales y Areas sin filtro para que esten disponibles en el formulario
-        Cargar_Datos(this.ddlLocal, "[dbo].[pr_Obtener_Locales]", "");
-        Cargar_Datos(this.ddlArea, "[dbo].[pr_Obtener_Areas]", "");
+
+        if (!IsPostBack)
+        {
+            Cargar_Datos(this.ddlLocal, "[dbo].[pr_Obtener_Locales]", "");
+            Cargar_Datos(this.ddlArea, "[dbo].[pr_Obtener_Areas]", "");
+        }
         Cargar_Lista_Personal();
     }
 

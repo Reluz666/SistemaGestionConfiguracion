@@ -1,62 +1,17 @@
 {
   "agents": [
     {
-      "agent_id": "a5298600d4c5b9417",
-      "agent_type": "general-purpose",
-      "started_at": "2026-05-08T19:24:44.909Z",
+      "agent_id": "ad1732d01919d9e76",
+      "agent_type": "Explore",
+      "started_at": "2026-05-08T21:31:47.007Z",
       "parent_mode": "none",
       "status": "completed",
-      "completed_at": "2026-05-08T19:25:01.607Z",
-      "duration_ms": 16698
-    },
-    {
-      "agent_id": "a58c1bcc3b137e9c9",
-      "agent_type": "general-purpose",
-      "started_at": "2026-05-08T19:24:44.965Z",
-      "parent_mode": "none",
-      "status": "completed",
-      "completed_at": "2026-05-08T19:25:25.940Z",
-      "duration_ms": 40975
-    },
-    {
-      "agent_id": "a532bc53bd0f143d7",
-      "agent_type": "general-purpose",
-      "started_at": "2026-05-08T19:29:29.473Z",
-      "parent_mode": "none",
-      "status": "completed",
-      "completed_at": "2026-05-08T19:35:56.849Z",
-      "duration_ms": 387376
-    },
-    {
-      "agent_id": "a20739e46c451ad60",
-      "agent_type": "general-purpose",
-      "started_at": "2026-05-08T19:37:41.506Z",
-      "parent_mode": "none",
-      "status": "completed",
-      "completed_at": "2026-05-08T19:38:19.675Z",
-      "duration_ms": 38169
-    },
-    {
-      "agent_id": "a406e2c7283a18fbc",
-      "agent_type": "general-purpose",
-      "started_at": "2026-05-08T19:37:41.561Z",
-      "parent_mode": "none",
-      "status": "completed",
-      "completed_at": "2026-05-08T19:38:46.213Z",
-      "duration_ms": 64652
-    },
-    {
-      "agent_id": "ac1131f72a1d69dd3",
-      "agent_type": "general-purpose",
-      "started_at": "2026-05-08T19:37:41.612Z",
-      "parent_mode": "none",
-      "status": "completed",
-      "completed_at": "2026-05-08T19:38:22.164Z",
-      "duration_ms": 40552
+      "completed_at": "2026-05-08T21:32:14.079Z",
+      "duration_ms": 27072
     }
   ],
-  "total_spawned": 4,
-  "total_completed": 6,
+  "total_spawned": 1,
+  "total_completed": 1,
   "total_failed": 0,
-  "last_updated": "2026-05-08T20:57:55.715Z"
+  "last_updated": "2026-05-08T21:32:14.181Z"
 }
