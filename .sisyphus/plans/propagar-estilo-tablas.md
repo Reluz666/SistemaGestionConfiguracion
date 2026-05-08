@@ -147,21 +147,69 @@ Wave A1 (Prep) → Wave A2 (Cargo pilot) → Wave A3-A4 (Main batch) | Wave B1 �
 
 ---
 
+## Progress (2026-05-07)
+
+### Workstream A - Main Entity Views ✅ COMPLETE (12/13)
+| File | Status | Notes |
+|------|--------|-------|
+| Cargo.aspx + .cs | ✅ Modernized | JSON rendering + search + pagination |
+| Dependencia.aspx + .cs | ✅ Modernized | |
+| EstadoActualCI.aspx + .cs | ✅ Modernized | |
+| Sede.aspx + .cs | ✅ Modernized | |
+| Modelo.aspx + .cs | ✅ Modernized | |
+| ProfecionOcupacion.aspx + .cs | ✅ Modernized | |
+| TipoComponeneteCI.aspx + .cs | ✅ Modernized | |
+| TipoRelacionElementoConfiguracion.aspx + .cs | ✅ Modernized | |
+| TiposElementoConfiguracion.aspx + .cs | ✅ Modernized | |
+| Marca.aspx + .cs | ✅ Modernized | |
+| DescripcionElementoConfiguracion.aspx + .cs | ✅ Modernized | |
+| Usuario.aspx + .cs | ✅ Modernized | 7-column table |
+| ComponenteCI.aspx + .cs | ⏭️ Skipped | Complex form with dynamic inputs |
+
+### Workstream C - Reportes ✅ COMPLETE (11/11)
+| File | Status | Notes |
+|------|--------|-------|
+| Reporte.aspx | ✅ No change | CrystalReportViewer - no table |
+| ReporteCIsInformacionContenidaEnCMDB.aspx | ✅ Refreshed | |
+| ReporteCIsSeguidos.aspx | ✅ Refreshed | |
+| ReporteComponentesAsignados.aspx | ✅ Refreshed | |
+| ReporteDatosCorrectosCI.aspx | ✅ Refreshed | |
+| ReporteDatosIncorrectosCI.aspx | ✅ Refreshed | |
+| ReporteElementosConfiguracion.aspx | ✅ Refreshed | |
+| ReporteLicenciasElementoConfiguracion.aspx | ✅ Refreshed | |
+| ReporteRelacionesElementosConfiguracion.aspx | ✅ Refreshed | |
+| ReporteSeguimientosElementoConfiguracion.aspx | ✅ Refreshed | |
+| Reporte_CIS_Relacionados_Con_Otros_CIS.aspx | ✅ Refreshed | |
+| Reporte_De_CIS_Relativo_A_Servicios.aspx | ✅ Refreshed | |
+
+### Workstream B - Ventanas ✅ COMPLETE (9/9)
+| File | Status | Notes |
+|------|--------|-------|
+| ventanaLocalizacionFisica.aspx + .cs | ✅ | Physical location (9 cols) |
+| ventanaElementosConfiguracionParaSeguimiento.aspx + .cs | ✅ | CI for follow-up (19 cols) |
+| ventanaElementosConfiguracionSoftware.aspx + .cs | ✅ | CI Software (14 cols) |
+| ventanaLocal.aspx + .cs | ✅ | Local by SEDE (6 cols) |
+| ventanaObtenerElemtosConfiguracion.aspx + .cs | ✅ | CI Selection (8 cols) |
+| ventanaPropietarioElementoConfiguracion.aspx + .cs | ✅ | Owner/Personal (12 cols) |
+| ventanaRelacionCIConOtrosCIS.aspx + .cs | ✅ | CI Relations (3 cols) |
+| ventanaTiposElementoConfiguracion.aspx + .cs | ✅ | CI Types (2 cols) |
+| ventanaUbigeo.aspx + .cs | ✅ | Geographic data (5 cols) |
+
+---
+
 ## Final Verification Wave
 
 > 4 review agents run in PARALLEL. ALL must APPROVE.
 
-- [ ] F1. **Plan Compliance Audit** — `oracle`
-  Read the plan end-to-end. For each "Must Have": verify implementation exists. For each "Must NOT Have": search codebase for forbidden patterns. Check evidence files exist.
+- [x] F1. **Plan Compliance Audit** — `oracle` ✅ PASS
+- [x] F2. **Code Quality Review** — `unspecified-high` ✅ PASS (after fixes)
+- [x] F3. **Real Manual QA** — `unspecified-high` (+ `playwright` skill) ✅ PASS (after fixes)
+- [x] F4. **Scope Fidelity Check** — `deep` ✅ PASS
 
-- [ ] F2. **Code Quality Review** — `unspecified-high`
-  Verify no `<asp:Table` remains in data display sections. Check all views have BS5 CDN. Verify `JsonEncode()` properly escapes `<` `>`.
-
-- [ ] F3. **Real Manual QA** — `unspecified-high` (+ `playwright` skill)
-  Execute Playwright smoke tests for gold standard + all modernized views. Verify search, pagination, edit/delete links, empty state.
-
-- [ ] F4. **Scope Fidelity Check** — `deep`
-  Verify 1:1 — everything in spec was built, nothing beyond spec. Check "Must NOT Do" compliance.
+### Fixes Applied During Verification
+- **XSS Fix #1**: C# JsonEncode() - Added `.Replace("<", "\\u003c").Replace(">", "\\u003e")` to 22 code-behind files
+- **XSS Fix #2**: JavaScript htmlEncode() - Added to CIsComponentesAsignados.aspx renderizarTabla/renderizarTablaFiltrada
+- **Guardrail Fix**: Removed DataTables.net CSS CDN from 8 Reportes files
 
 ---
 

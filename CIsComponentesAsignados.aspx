@@ -308,6 +308,11 @@
             }
         }
 
+        function htmlEncode(str) {
+            if (!str) return '';
+            return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+        }
+
         function renderizarTablaFiltrada(datos) {
             var tbody = $('#tbodyComponentes');
             tbody.empty();
@@ -334,12 +339,12 @@
             // Render rows
             $.each(datosPagina, function (index, item) {
                 var row = '<tr>' +
-                    '<td>' + item.TIPO_COMPONENTE + '</td>' +
-                    '<td>' + item.DESCRIPCION + '</td>' +
-                    '<td>' + item.FABRICANTE + '</td>' +
-                    '<td>' + item.NRO_SERIE + '</td>' +
-                    '<td>' + item.MODELO + '</td>' +
-                    '<td>' + item.MARCA + '</td>' +
+                    '<td>' + htmlEncode(item.TIPO_COMPONENTE) + '</td>' +
+                    '<td>' + htmlEncode(item.DESCRIPCION) + '</td>' +
+                    '<td>' + htmlEncode(item.FABRICANTE) + '</td>' +
+                    '<td>' + htmlEncode(item.NRO_SERIE) + '</td>' +
+                    '<td>' + htmlEncode(item.MODELO) + '</td>' +
+                    '<td>' + htmlEncode(item.MARCA) + '</td>' +
                     '</tr>';
                 tbody.append(row);
             });
@@ -379,12 +384,12 @@
             for (var i = inicio; i < fin; i++) {
                 var item = todosLosComponentes[i];
                 var row = '<tr>' +
-                    '<td>' + item.TIPO_COMPONENTE + '</td>' +
-                    '<td>' + item.DESCRIPCION + '</td>' +
-                    '<td>' + item.FABRICANTE + '</td>' +
-                    '<td>' + item.NRO_SERIE + '</td>' +
-                    '<td>' + item.MODELO + '</td>' +
-                    '<td>' + item.MARCA + '</td>' +
+                    '<td>' + htmlEncode(item.TIPO_COMPONENTE) + '</td>' +
+                    '<td>' + htmlEncode(item.DESCRIPCION) + '</td>' +
+                    '<td>' + htmlEncode(item.FABRICANTE) + '</td>' +
+                    '<td>' + htmlEncode(item.NRO_SERIE) + '</td>' +
+                    '<td>' + htmlEncode(item.MODELO) + '</td>' +
+                    '<td>' + htmlEncode(item.MARCA) + '</td>' +
                     '</tr>';
                 tbody.append(row);
             }

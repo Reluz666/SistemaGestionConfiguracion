@@ -330,7 +330,7 @@
                     <tr>
                     <td colspan="5">
                         <asp:Table ID="Table_" runat="server" BackColor="White"
-                            class="table table-condensed"
+                            class="table table-modern table-hover table-condensed"
                         BorderColor="White" CellPadding="2" CellSpacing="0" Font-Size="Small"
                         GridLines="Both" style="text-align: left; font-size: x-small;" Width="100%">
                         <asp:TableRow ID="CABECERA" runat="server">

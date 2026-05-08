@@ -16,8 +16,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
-    <!-- DataTables.net CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/datatables.net-bs5@2.0.1/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
 
     <style>
         /* ===== NAVBAR ===== */
@@ -369,7 +367,7 @@
                     <tr>
                     <td colspan="5">
                         <asp:Table ID="Table_" runat="server" BackColor="White"
-                            class="table table-condensed"
+                            CssClass="table table-modern table-hover table-condensed"
                         BorderColor="White" CellPadding="2" CellSpacing="0" Font-Size="Small"
                         GridLines="Both" style="text-align: left" Width="100%">
                         <asp:TableRow ID="CABECERA" runat="server">

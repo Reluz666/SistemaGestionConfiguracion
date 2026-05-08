@@ -15,8 +15,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
-    <!-- DataTables.net CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/datatables.net-bs5@2.0.1/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
 
     <style>
         /* ===== NAVBAR ===== */
@@ -389,7 +387,7 @@
                 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                     <ContentTemplate>
                         <asp:Table ID="tblLicencias" runat="server"
-                            CssClass="table table-condensed table-responsive" Font-Size="Small">
+                            CssClass="table table-modern table-hover table-condensed table-responsive" Font-Size="Small">
                         </asp:Table>
                     </ContentTemplate>
                     <Triggers>

@@ -3,7 +3,7 @@
 <!-- ========== NAVBAR MODERNO ========== -->
 <nav class="navbar navbar-expand-lg navbar-modern fixed-top">
     <div class="container-fluid">
-        <a class="navbar-brand" href="Menu.aspx">
+        <a class="navbar-brand" href="../Menu.aspx">
             <i class="bi bi-house-door-fill me-1"></i>Inicio
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -22,34 +22,34 @@
                         <i class="bi bi-briefcase-fill me-1"></i>Mantenimiento
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="mantenimientoDropdown">
-                        <li><a class="dropdown-item" href="Personal.aspx">Personal</a></li>
+                        <li><a class="dropdown-item" href="../Personal.aspx">Personal</a></li>
                         <li class="dropdown-submenu">
                             <a class="dropdown-item dropdown-toggle" href="#">Tablas Instituci&oacute;n</a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="Sede.aspx">Sede</a></li>
-                                <li><a class="dropdown-item" href="Local.aspx">Local</a></li>
-                                <li><a class="dropdown-item" href="Area.aspx">&Aacute;rea</a></li>
-                                <li><a class="dropdown-item" href="Dependencia.aspx">Dependencia</a></li>
+                                <li><a class="dropdown-item" href="../Sede.aspx">Sede</a></li>
+                                <li><a class="dropdown-item" href="../Local.aspx">Local</a></li>
+                                <li><a class="dropdown-item" href="../Area.aspx">&Aacute;rea</a></li>
+                                <li><a class="dropdown-item" href="../Dependencia.aspx">Dependencia</a></li>
                             </ul>
                         </li>
                         <li class="dropdown-submenu">
                             <a class="dropdown-item dropdown-toggle" href="#">Tablas Personal</a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="Cargo.aspx">Cargo</a></li>
-                                <li><a class="dropdown-item" href="ProfecionOcupacion.aspx">Profesi&oacute;n - Ocupaci&oacute;n</a></li>
+                                <li><a class="dropdown-item" href="../Cargo.aspx">Cargo</a></li>
+                                <li><a class="dropdown-item" href="../ProfecionOcupacion.aspx">Profesi&oacute;n - Ocupaci&oacute;n</a></li>
                             </ul>
                         </li>
                         <li><hr class="dropdown-divider" /></li>
                         <li class="dropdown-submenu">
                             <a class="dropdown-item dropdown-toggle" href="#">Tablas Elemento Configuraci&oacute;n</a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="Modelo.aspx">Modelo</a></li>
-                                <li><a class="dropdown-item" href="Marca.aspx">Marca</a></li>
-                                <li><a class="dropdown-item" href="DescripcionElementoConfiguracion.aspx">Descripci&oacute;n Elemento Configuraci&oacute;n</a></li>
-                                <li><a class="dropdown-item" href="TiposElementoConfiguracion.aspx">Tipos Elemento Configuraci&oacute;n</a></li>
-                                <li><a class="dropdown-item" href="TipoRelacionElementoConfiguracion.aspx">Tipo Relaci&oacute;n Elemento Configuraci&oacute;n</a></li>
-                                <li><a class="dropdown-item" href="TipoComponeneteCI.aspx">Tipo Componente Elemento Configuraci&oacute;n</a></li>
-                                <li><a class="dropdown-item" href="EstadoActualCI.aspx">Estado Actual Elemento Configuraci&oacute;n</a></li>
+                                <li><a class="dropdown-item" href="../Modelo.aspx">Modelo</a></li>
+                                <li><a class="dropdown-item" href="../Marca.aspx">Marca</a></li>
+                                <li><a class="dropdown-item" href="../DescripcionElementoConfiguracion.aspx">Descripci&oacute;n Elemento Configuraci&oacute;n</a></li>
+                                <li><a class="dropdown-item" href="../TiposElementoConfiguracion.aspx">Tipos Elemento Configuraci&oacute;n</a></li>
+                                <li><a class="dropdown-item" href="../TipoRelacionElementoConfiguracion.aspx">Tipo Relaci&oacute;n Elemento Configuraci&oacute;n</a></li>
+                                <li><a class="dropdown-item" href="../TipoComponeneteCI.aspx">Tipo Componente Elemento Configuraci&oacute;n</a></li>
+                                <li><a class="dropdown-item" href="../EstadoActualCI.aspx">Estado Actual Elemento Configuraci&oacute;n</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -62,14 +62,14 @@
                         <i class="bi bi-person-lines-fill me-1"></i>Gesti&oacute;n de Configuraci&oacute;n
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="gestionDropdown">
-                        <li><a class="dropdown-item" href="ElementosConfiguracion.aspx">Elementos de Configuraci&oacute;n</a></li>
-                        <li><a class="dropdown-item" href="RelacionesElementosConfiguracion.aspx">Relaci&oacute;n de Elementos de Configuraci&oacute;n</a></li>
+                        <li><a class="dropdown-item" href="../ElementosConfiguracion.aspx">Elementos de Configuraci&oacute;n</a></li>
+                        <li><a class="dropdown-item" href="../RelacionesElementosConfiguracion.aspx">Relaci&oacute;n de Elementos de Configuraci&oacute;n</a></li>
                         <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="CIsAsignarComponenetes.aspx">Asignar Componentes Elementos de Configuraci&oacute;n</a></li>
+                        <li><a class="dropdown-item" href="../CIsAsignarComponenetes.aspx">Asignar Componentes Elementos de Configuraci&oacute;n</a></li>
                         <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="LicenciasElementoConfiguracion.aspx">Licencias de Elementos de Configuraci&oacute;n</a></li>
+                        <li><a class="dropdown-item" href="../LicenciasElementoConfiguracion.aspx">Licencias de Elementos de Configuraci&oacute;n</a></li>
                         <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="SeguimientosElementoConfiguracion.aspx">Seguimiento de Elementos de Configuraci&oacute;n</a></li>
+                        <li><a class="dropdown-item" href="../SeguimientosElementoConfiguracion.aspx">Seguimiento de Elementos de Configuraci&oacute;n</a></li>
                     </ul>
                 </li>
 
@@ -100,7 +100,7 @@
                         <i class="bi bi-gear-fill me-1"></i>Configuraciones
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="configDropdown">
-                        <li><a class="dropdown-item" href="Usuario.aspx">Usuarios</a></li>
+                        <li><a class="dropdown-item" href="../Usuario.aspx">Usuarios</a></li>
                         <li><a class="dropdown-item" href="../Configuracion/Usuarios.aspx">Permisos</a></li>
                         <li><hr class="dropdown-divider" /></li>
                         <li><a class="dropdown-item" href="CerrarSession.aspx" style="color: #e94560;">Cerrar Sesi&oacute;n</a></li>

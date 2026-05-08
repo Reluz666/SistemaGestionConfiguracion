@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -7,15 +8,15 @@ using System.Web.UI.WebControls;
 
 public partial class TiposElementoConfiguracion : System.Web.UI.Page
 {
-    //private String Ruta = "SERVER=JOSE-PC;DATABASE=GCS;Encrypt=False;INTEGRATED SECURITY=True;packet size=4096;";
     private String Ruta = System.Configuration.ConfigurationManager.ConnectionStrings["CadenaConeccion"].ToString();
 
     System.Web.UI.WebControls.TableRow tRow;
     Lista _Lista = new Lista();
     System.Data.DataTable dt;
+
     protected void Page_Load(object sender, EventArgs e)
     {
-        
+
     }
 
     protected void Page_Init(object sender, EventArgs e)
@@ -34,7 +35,7 @@ public partial class TiposElementoConfiguracion : System.Web.UI.Page
         else
         {
             Object[] ob = (Object[])Session["OpcionBusqueda"];
-           
+
             this.cbs.Checked = (bool)ob[1];
             ddls.Enabled = (bool)ob[1];
             for (int i = 0; i < this.ddls.Items.Count; i++)
@@ -42,7 +43,7 @@ public partial class TiposElementoConfiguracion : System.Web.UI.Page
                 if (this.ddls.Items[i].Text == ob[0].ToString().Trim())
                     this.ddls.SelectedIndex = i;
             }
-            this.Lista_Locales("",ob[0].ToString().Trim(),
+            this.Lista_Locales("", ob[0].ToString().Trim(),
             "No hay Locales con los criterios seleccionados");
         }
     }
@@ -52,11 +53,11 @@ public partial class TiposElementoConfiguracion : System.Web.UI.Page
         this.__mensaje.Value = msg;
         this.__pagina.Value = paginaweb;
     }
+
     private void Lista_Locales(string LOCAL_NOMBRE, string SEDE, string MENSAJE)
     {
         _Lista.ShowMessage(__mensaje, __pagina, "", "");
-        //********************** AGREGADO EN REQUE EL 21-03-2023 ***************************
-        _Lista.Limpiar_Tabla(Table_);
+
         try
         {
             policia.clsaccesodatos servidor = new policia.clsaccesodatos();
@@ -64,121 +65,67 @@ public partial class TiposElementoConfiguracion : System.Web.UI.Page
             if (servidor.abrirconexion() == true)
             {
                 dt = servidor.consultar("[dbo].[pr_Lista_Locales]", LOCAL_NOMBRE, SEDE).Tables[0];
+                servidor.cerrarconexion();
+
                 if (dt.Rows.Count == 0)
                 {
-                    servidor.cerrarconexion();
                     _Lista.ShowMessage(__mensaje, __pagina, MENSAJE, "");
+                    datosJson.Value = "[]";
                 }
                 else
                 {
+                    System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                    sb.Append("[");
+
                     for (int i = 0; i < dt.Rows.Count; i++)
                     {
-                        tRow = new TableRow();
-                        for (int j = 0; j < 8; j++)//Cabecera de la tabla
-                        {
-                            TableCell tCell = new TableCell();
-                            switch (j)
-                            {
-                                case 0:
-                                    tCell.Text = dt.Rows[i]["ID LOCAL"].ToString().Trim();
-                                    tCell.Visible = false;
-                                    tRow.Cells.Add(tCell);
-                                    break;
-                                case 1:
-                                    tCell.Text = dt.Rows[i]["LOCAL CODIGO"].ToString().Trim();
-                                    tCell.Visible = true;
-                                    tRow.Cells.Add(tCell);
-                                    break;
-                                case 2:
-                                    tCell.Text = dt.Rows[i]["LOCAL NOMBRE"].ToString().Trim();
-                                    tCell.Visible = true;
-                                    tRow.Cells.Add(tCell);
-                                    break;
-                                case 3:
-                                    tCell.Text = dt.Rows[i]["LOCAL DIRECCION"].ToString().Trim();
-                                    tCell.Visible = true;
-                                    tRow.Cells.Add(tCell);
-                                    break;
-                                case 4:
-                                    tCell.Text = dt.Rows[i]["SEDE"].ToString().Trim();
-                                    tCell.Visible = true;
-                                    tRow.Cells.Add(tCell);
-                                    break;
-                                case 5:
-                                    tCell.Text = dt.Rows[i]["ID UBI"].ToString().Trim();
-                                    tCell.Visible = false;
-                                    tRow.Cells.Add(tCell);
-                                    break;
-                                case 6:
-                                    tCell.Text = dt.Rows[i]["UBICACION GEOGRAFICA"].ToString().Trim();
-                                    tCell.Visible = true;
-                                    tRow.Cells.Add(tCell);
-                                    break;
-                                case 7:
-                                    System.Web.UI.WebControls.Button b = new System.Web.UI.WebControls.Button();
-
-                                    b.Height = 25;
-
-                                    b.Text = "Local";
-                                    b.ToolTip = "Seleccione Local";
-
-                                    b.BackColor = System.Drawing.Color.SpringGreen;
-
-                                    b.BorderStyle = BorderStyle.None;
-
-                                    b.CausesValidation = false;
-
-                                    b.UseSubmitBehavior = false;
-
-                                    //b.PostBackUrl = "~/#";
-
-                                    b.OnClientClick = "LOCAL('" + dt.Rows[i]["ID LOCAL"].ToString() + "','" + dt.Rows[i]["LOCAL CODIGO"].ToString() + "','" + dt.Rows[i]["LOCAL NOMBRE"].ToString() + "','" + dt.Rows[i]["LOCAL DIRECCION"].ToString() + "','" + dt.Rows[i]["SEDE"].ToString() + "','" + dt.Rows[i]["ID UBI"].ToString() + "','" + dt.Rows[i]["UBICACION GEOGRAFICA"].ToString() + "','" + "');";
-
-                                    tCell.HorizontalAlign = HorizontalAlign.Center;
-
-                                    tCell.Controls.Add(b);
-
-                                    tRow.Cells.Add(tCell);
-                                    break;
-
-
-                            }
-                        }
-
-                        this.Table_.Rows.Add(tRow);
+                        if (i > 0) sb.Append(",");
+                        DataRow row = dt.Rows[i];
+                        sb.Append("{");
+                        sb.Append("\"ID LOCAL\":\"" + JsonEncode(row["ID LOCAL"].ToString()) + "\",");
+                        sb.Append("\"LOCAL CODIGO\":\"" + JsonEncode(row["LOCAL CODIGO"].ToString()) + "\",");
+                        sb.Append("\"LOCAL NOMBRE\":\"" + JsonEncode(row["LOCAL NOMBRE"].ToString()) + "\",");
+                        sb.Append("\"LOCAL DIRECCION\":\"" + JsonEncode(row["LOCAL DIRECCION"].ToString()) + "\",");
+                        sb.Append("\"SEDE\":\"" + JsonEncode(row["SEDE"].ToString()) + "\",");
+                        sb.Append("\"ID UBI\":\"" + JsonEncode(row["ID UBI"].ToString()) + "\",");
+                        sb.Append("\"UBICACION GEOGRAFICA\":\"" + JsonEncode(row["UBICACION GEOGRAFICA"].ToString()) + "\"");
+                        sb.Append("}");
                     }
 
-                    servidor.cerrarconexion();
-
+                    sb.Append("]");
+                    datosJson.Value = sb.ToString();
                 }
-
             }
             else
             {
                 servidor.cerrarconexion();
-
                 this.__mensaje.Value = servidor.getMensageError();
-
                 this.__pagina.Value = "CerrarSession.aspx";
+                datosJson.Value = "[]";
             }
-
         }
         catch (Exception)
         {
-
             this.__mensaje.Value = "Error inesperado al intentar conectarnos con el servidor.";
-
             this.__pagina.Value = "CerrarSession.aspx";
+            datosJson.Value = "[]";
         }
     }
 
-   
-    
-
-     private void Cargar_Datos(System.Web.UI.WebControls.DropDownList ddl, String Procedimeinto_Almacenado, String Mensaje, params Object[] p)
+    private string JsonEncode(string str)
     {
+        if (string.IsNullOrEmpty(str)) return "";
+        return str.Replace("\\", "\\\\")
+                   .Replace("\"", "\\\"")
+                   .Replace("\n", "\\n")
+                   .Replace("\r", "\\r")
+                   .Replace("\t", "\\t")
+                   .Replace("<", "\\u003c")
+                   .Replace(">", "\\u003e");
+    }
 
-
+    private void Cargar_Datos(System.Web.UI.WebControls.DropDownList ddl, String Procedimeinto_Almacenado, String Mensaje, params Object[] p)
+    {
         try
         {
             policia.clsaccesodatos servidor = new policia.clsaccesodatos();
@@ -229,15 +176,12 @@ public partial class TiposElementoConfiguracion : System.Web.UI.Page
 
         Object[] ob;
 
-        bool ok = (cbs.Checked == true ||
-        cbs.Checked == true);
+        bool ok = (cbs.Checked == true);
         if (ok == false)
         {
             _Lista.ShowMessage(__mensaje, __pagina, "Seleccione opciones para empezar la busqueda.", "");
-
             return;
         }
-
 
         ob = new Object[] {
              Convert.ToInt32(ddls.SelectedValue)==-1?"": ddls.SelectedItem.Text, this.cbs.Checked

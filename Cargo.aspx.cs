@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -11,7 +11,6 @@ public partial class TiposElementoConfiguracion : System.Web.UI.Page
     //private String Ruta = "SERVER=JOSE-PC;DATABASE=GCS;Encrypt=False;INTEGRATED SECURITY=True;packet size=4096;";
     private String Ruta = System.Configuration.ConfigurationManager.ConnectionStrings["CadenaConeccion"].ToString();
 
-    System.Web.UI.WebControls.TableRow tRow;
     Lista _Lista = new Lista();
     System.Data.DataTable dt;
     protected void Page_Load(object sender, EventArgs e)
@@ -20,7 +19,6 @@ public partial class TiposElementoConfiguracion : System.Web.UI.Page
         {
             this.btnRegistrar.Visible = true;
             this.btnCancelar.Visible = true;
-            oculta(false);
         }
     }
 
@@ -33,18 +31,13 @@ public partial class TiposElementoConfiguracion : System.Web.UI.Page
 
         if (Datos == null)
         {
-
             this.__mensaje.Value = "Ud. no esta autorizado para ingresar a esta página, inicie sesion por favor.";
-
             this.__pagina.Value = "CerrarSession.aspx";
-
             return;
-
         }
 
         //verificar permiso para acceder a esta pagina.
-        bool rpta = this.VERIFICAR_PERMISO_ACCESO_PAGINA_WEB(Convert.ToInt32(Datos[0]),
-        "Cargo.aspx");
+        bool rpta = this.VERIFICAR_PERMISO_ACCESO_PAGINA_WEB(Convert.ToInt32(Datos[0]), "Cargo.aspx");
         if (rpta == false)
         {
             this.__mensaje.Value = "Ud. no tiene permiso para ACCEDER esta pagina web.";
@@ -60,11 +53,10 @@ public partial class TiposElementoConfiguracion : System.Web.UI.Page
         this.__mensaje.Value = msg;
         this.__pagina.Value = paginaweb;
     }
+
     private void Lista_Cargos()
     {
         _Lista.ShowMessage(__mensaje, __pagina, "", "");
-        //********************** AGREGADO EN REQUE EL 21-03-2023 ***************************
-        _Lista.Limpiar_Tabla(Table_);
         try
         {
             policia.clsaccesodatos servidor = new policia.clsaccesodatos();
@@ -72,91 +64,59 @@ public partial class TiposElementoConfiguracion : System.Web.UI.Page
             if (servidor.abrirconexion() == true)
             {
                 dt = servidor.consultar("[dbo].[pr_Lista_Cargos]").Tables[0];
+                servidor.cerrarconexion();
+
                 if (dt.Rows.Count == 0)
                 {
-                    servidor.cerrarconexion();
+                    datosJson.Value = "[]";
                     _Lista.ShowMessage(__mensaje, __pagina, "No hay Cargos registrados.", "");
                 }
                 else
                 {
+                    // Convert DataTable to JSON-like structure
+                    System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                    sb.Append("[");
+
                     for (int i = 0; i < dt.Rows.Count; i++)
                     {
-                        tRow = new TableRow();
-                        for (int j = 0; j < 3; j++)//Cabecera de la tabla
-                        {
-                            TableCell tCell = new TableCell();
-                            switch (j)
-                            {
-                                case 0:
-                                    tCell.Text = dt.Rows[i]["CODIGO"].ToString().Trim();
-                                    tCell.Visible = false;
-                                    tRow.Cells.Add(tCell);
-                                    break;
-                                case 1:
-                                    tCell.Text = dt.Rows[i]["NOMBRE"].ToString().Trim();
-                                    tCell.Visible = true;
-                                    tRow.Cells.Add(tCell);
-                                    break;
-                                case 2:
-                                    //verificar permiso para enviar datos.
-                                    string[] Datos = (string[])Session["__JSAR__"];
-                                    bool rpta = this.VERIFICAR_PERMISOS_DERECHOS_ACCESO_PAGINA_WEB(Convert.ToInt32(Datos[0]),
-                                    "Cargo.aspx", "SELECCIONAR");
-
-                                    if (rpta == true)
-                                    {
-                                        System.Web.UI.WebControls.Button b = new System.Web.UI.WebControls.Button();
-                                        b.Text = "Cargo";
-                                        b.ToolTip = "Seleccione Cargo";
-                                        b.BorderStyle = BorderStyle.None;
-                                        b.CausesValidation = false;
-                                        b.UseSubmitBehavior = true;
-                                        b.CssClass = "btn btn-dark";
-                                        b.CommandArgument = dt.Rows[i]["CODIGO"].ToString().Trim() + "," +
-                                                            dt.Rows[i]["NOMBRE"].ToString().Trim();
-                                        b.Click += new System.EventHandler(visualiza_datos_tipos_elemento_configuracion);
-                                        tCell.HorizontalAlign = HorizontalAlign.Center;
-                                        tCell.Controls.Add(b);
-                                        tRow.Cells.Add(tCell);
-                                    }                     
-                                    else {
-                                        tCell.Text = "SIN PERMISO PARA ESTA OPCION";
-                                        tCell.ForeColor = System.Drawing.Color.Red;
-                                        tCell.Font.Bold = true;
-                                        tCell.Visible = true;
-                                        tRow.Cells.Add(tCell);
-                                    }
-                            break;
-
-
-                            }
-                        }
-
-                        this.Table_.Rows.Add(tRow);
+                        if (i > 0) sb.Append(",");
+                        DataRow row = dt.Rows[i];
+                        sb.Append("{");
+                        sb.Append("\"ID_CARGO\":\"" + JsonEncode(row["CODIGO"].ToString()) + "\",");
+                        sb.Append("\"NOMBRE_CARGO\":\"" + JsonEncode(row["NOMBRE"].ToString()) + "\"");
+                        sb.Append("}");
                     }
 
-                    servidor.cerrarconexion();
-
+                    sb.Append("]");
+                    datosJson.Value = sb.ToString();
                 }
-
             }
             else
             {
                 servidor.cerrarconexion();
-
+                datosJson.Value = "[]";
                 this.__mensaje.Value = servidor.getMensageError();
-
                 this.__pagina.Value = "CerrarSession.aspx";
             }
-
         }
         catch (Exception)
         {
-
+            datosJson.Value = "[]";
             this.__mensaje.Value = "Error inesperado al intentar conectarnos con el servidor.";
-
             this.__pagina.Value = "CerrarSession.aspx";
         }
+    }
+
+    private string JsonEncode(string str)
+    {
+        if (string.IsNullOrEmpty(str)) return "";
+        return str.Replace("\\", "\\\\")
+                   .Replace("\"", "\\\"")
+                   .Replace("\n", "\\n")
+                   .Replace("\r", "\\r")
+                   .Replace("\t", "\\t")
+                   .Replace("<", "\\u003c")
+                   .Replace(">", "\\u003e");
     }
 
     protected void visualiza_datos_tipos_elemento_configuracion(object sender, EventArgs e)
@@ -171,7 +131,6 @@ public partial class TiposElementoConfiguracion : System.Web.UI.Page
         this.btnRegistrar.Visible = false;
         this.btnCancelar.Visible = true;
         oculta(true);
-
     }
 
     private void Matenimiento_Cargo(int _ID_CARGO,
@@ -214,8 +173,6 @@ public partial class TiposElementoConfiguracion : System.Web.UI.Page
             ShowMessage("Error inesperado al intentar conectarnos con el servidor.", "CerrarSession.aspx");
         }
     }
-
-
 
     private void oculta(bool ok)
     {
@@ -307,8 +264,6 @@ public partial class TiposElementoConfiguracion : System.Web.UI.Page
              "E");
     }
 
-
-
     protected void btnCancelar_Click(object sender, EventArgs e)
     {
         //verificar permiso para eliminar datos.
@@ -341,14 +296,12 @@ public partial class TiposElementoConfiguracion : System.Web.UI.Page
                     dt = null;
                     ok = false;
                     servidor.cerrarconexion();
-
                 }
                 else
                 {
                     ok = Convert.ToBoolean(dt.Rows[0].ItemArray[0].ToString());
                     servidor.cerrarconexion();
                 }
-
             }
             else
             {
@@ -383,14 +336,12 @@ public partial class TiposElementoConfiguracion : System.Web.UI.Page
                     dt = null;
                     ok = false;
                     servidor.cerrarconexion();
-
                 }
                 else
                 {
                     ok = Convert.ToBoolean(dt.Rows[0].ItemArray[0].ToString());
                     servidor.cerrarconexion();
                 }
-
             }
             else
             {

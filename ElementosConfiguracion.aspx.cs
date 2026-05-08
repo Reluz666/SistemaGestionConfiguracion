@@ -90,6 +90,8 @@ public partial class ElementosConfiguracion : System.Web.UI.Page
                    .Replace("\"", "\\\"")
                    .Replace("\n", "\\n")
                    .Replace("\r", "\\r")
-                   .Replace("\t", "\\t");
+                   .Replace("\t", "\\t")
+                   .Replace("<", "\\u003c")
+                   .Replace(">", "\\u003e");
     }
 }

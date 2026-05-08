@@ -10,20 +10,57 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Marca</title>
 
-    <!-- Bootstrap 5.3 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
-    <!-- Global Styles -->
     <link href="CssJs/global-styles.css" rel="stylesheet" />
 
     <style>
-        /* ===== PAGINACION MANUAL (Bootstrap-only, sin DataTables) ===== */
-        .pagination-wrapper {
-            display: flex;
-            justify-content: center;
+        .table-wrapper {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.08);
+            padding: 1.5rem;
+            border: 1px solid rgba(0,0,0,0.05);
             margin-top: 1.5rem;
         }
+        .table-modern thead th {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 0.75rem 0.5rem !important;
+            border: none !important;
+            white-space: nowrap;
+        }
+        .table-modern tbody td {
+            padding: 0.6rem 0.5rem !important;
+            border-bottom: 1px solid #f1f1f1;
+            vertical-align: middle;
+            font-size: 0.85rem;
+            color: #2d3436;
+        }
+        .table-modern tbody tr:hover td { background: rgba(233,69,96,0.04); }
+        .table-modern tbody tr:last-child td { border-bottom: none; }
+        .btn-accion { padding: 0.25rem 0.5rem; font-size: 0.75rem; border-radius: 6px; text-decoration: none; }
+        .search-input {
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 0.6rem 1rem;
+            font-size: 0.95rem;
+        }
+        .search-input:focus {
+            border-color: #e94560;
+            box-shadow: 0 0 0 4px rgba(233,69,96,0.1);
+            outline: none;
+        }
+        .top-spacer { height: 100px; }
+        .pagination-wrapper { display: flex; justify-content: center; margin-top: 1.5rem; }
+        .page-info { text-align: center; margin-top: 1rem; color: #6c757d; font-size: 0.9rem; }
+        .pagination-wrapper .page-item.active .page-link { background: #e94560; border-color: #e94560; }
+        .pagination-wrapper .page-link { border-radius: 8px; margin: 0 2px; color: #2d3436; }
+        .pagination-wrapper .page-link:hover { background: rgba(233, 69, 96, 0.1); color: #e94560; }
     </style>
 
     <script lang="javascript" type="text/javascript">
@@ -33,36 +70,13 @@
                 alert(mensaje);
                 if (document.getElementById("__pagina").value != "")
                     location.href = document.getElementById("__pagina").value;
-
             }
-
         }
-
-        function window_load() {
-            MostrarMensaje()
-        }
-
-        function Confirmar(men) {
-            if (!confirm(men))
-                return false;
-
-        }
-
-        function SoloNumeros() {
-            if ((event.keyCode < 48) || (event.keyCode > 57)) {
-                event.returnValue = false;
-         }
-        }
-
+        function Confirmar(men) { if (!confirm(men)) return false; }
         function SoloLetrasMinusculas() {
-            if (!((event.keyCode >= 97 && event.keyCode <= 122) || event.keyCode == 32 || event.keyCode == 193 || event.keyCode == 201 || event.keyCode == 205 || event.keyCode == 209 || event.keyCode == 211 || event.keyCode == 218 || event.keyCode == 220 || event.keyCode == 241)) {
-                event.returnValue = false;
-            }
+            if (!((event.keyCode >= 97 && event.keyCode <= 122) || event.keyCode == 32 || event.keyCode == 193 || event.keyCode == 201 || event.keyCode == 205 || event.keyCode == 209 || event.keyCode == 211 || event.keyCode == 218 || event.keyCode == 220 || event.keyCode == 241)) event.returnValue = false;
         }
-
-        function CambiaLetraMayuscula(Caja) {
-            document.getElementById(Caja).value = document.getElementById(Caja).value.toUpperCase();
-        }
+        function CambiaLetraMayuscula(Caja) { document.getElementById(Caja).value = document.getElementById(Caja).value.toUpperCase(); }
     </script>
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -71,128 +85,198 @@
 <body onload="MostrarMensaje()">
 
     <uc1:NavBar ID="NavBar1" runat="server" />
-
-    <!-- ========== CONTENT ========== -->
     <div class="top-spacer"></div>
 
     <form id="form1" runat="server">
+        <div class="container">
 
-    <div class ="container">
-         <div class="table-responsive" >
-             <table class="table text-center" >
-                <thead>
-                  <tr>
-                    <td style="text-align: center; color: #FFFFFF; background-color: #000000;" colspan="3"> INGRESE DATOS MARCAELEMENTO CONFIGURACION</td>
+            <div class="form-card">
+                <div class="card-header">
+                    <i class="bi bi-list-ul me-2"></i>Ingrese Datos Marca Elemento Configuracion
+                </div>
+                <div class="card-body p-3">
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-12 col-sm-12">
+                            <label class="form-label-modern">Nombre Marca</label>
+                            <asp:TextBox ID="NOMBRE" runat="server" CssClass="form-control form-control-modern"
+                                         MaxLength="25" Autocomplete="off" placeholder="Ingrese Nombre Marca Elemento Configuracion"
+                                         onchange="CambiaLetraMayuscula('NOMBRE')"
+                                         onkeypress="SoloLetrasMinusculas()" />
+                            <asp:RequiredFieldValidator ID="rfvNOMBRE" runat="server" ControlToValidate="NOMBRE"
+                                                       ErrorMessage="*" CssClass="validator-error" ForeColor="Red" SetFocusOnError="True" />
+                        </div>
+                    </div>
+                    <div class="d-flex flex-wrap gap-2 justify-content-center">
+                        <asp:Button ID="btnRegistrar" runat="server" Text="Registrar" CssClass="btn btn-success btn-modern"
+                                    OnClientClick="return Confirmar('¿Desea registrar marca?');"
+                                    OnClick="btnRegistrar_Click" />
+                        <asp:Button ID="btnModificar" runat="server" Text="Modificar" CssClass="btn btn-warning btn-modern"
+                                    OnClientClick="return Confirmar('¿Desea modificar marca?');"
+                                    OnClick="btnModificar_Click" />
+                        <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CssClass="btn btn-danger btn-modern"
+                                    OnClientClick="return Confirmar('¿Desea eliminar marca?');"
+                                    OnClick="btnEliminar_Click" />
+                        <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CssClass="btn btn-secondary btn-modern"
+                                    CausesValidation="False" OnClick="btnCancelar_Click" />
+                    </div>
+                </div>
+            </div>
 
-                  </tr>
-                  <tr>
-                        <td style="text-align: left; color: #FFFFFF; background-color: #000000;"
-                            class="style2" colspan="3"> Nombre Marca</td>
+            <div class="table-wrapper">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h4 class="mb-0"><i class="bi bi-list-ul me-2"></i>Listado de Marcas</h4>
+                </div>
 
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <span class="input-group-text bg-white border-end-0">
+                                <i class="bi bi-search text-muted"></i>
+                            </span>
+                            <input type="text" id="txtBusqueda" class="form-control border-start-0 search-input"
+                                placeholder="Buscar en todos los campos..." onkeyup="filtrarTabla(this.value)" />
+                        </div>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <span id="lblTotal" class="text-muted small"></span>
+                    </div>
+                </div>
 
+                <div class="table-responsive">
+                    <table id="tblMarcas" class="table table-modern table-hover">
+                        <thead>
+                            <tr>
+                                <th>NOMBRE MARCA</th>
+                                <th>ACCIONES</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbodyMarcas">
+                        </tbody>
+                    </table>
+                </div>
 
-                  </tr>
-                  <tr>
-                        <td style="text-align: left;"
-                            class="style2" colspan="3">
-                             <asp:TextBox ID="NOMBRE" runat="server" CssClass="form-control input-sm" MaxLength="25" Autocomplete = "off" placeholder="Ingrese Nombre Marca Elemento Configuracion" onchange="CambiaLetraMayuscula('NOMBRE')"
-                        onkeypress="SoloLetrasMinusculas()"></asp:TextBox>
-                             <asp:RequiredFieldValidator ID="rfvNOMBRE" runat="server" ControlToValidate="NOMBRE" ErrorMessage="*" ForeColor="Red" SetFocusOnError="True"></asp:RequiredFieldValidator>
-                        </td>
+                <div class="pagination-wrapper" id="pagination"></div>
+                <div class="page-info" id="pageInfo"></div>
+            </div>
 
+            <asp:HiddenField ID="__mensaje" runat="server" />
+            <asp:HiddenField ID="__pagina" runat="server" />
+            <asp:HiddenField ID="ID_MAR" runat="server" Value="0" EnableViewState="False" />
+            <asp:HiddenField ID="datosJson" runat="server" Value="" />
 
-                   </tr>
-                  <tr>
-                        <td style="text-align: left"
-                            class="style2">
-                             &nbsp;</td>
-                         <td style="text-align: left"
-                            class="style2">
-                             &nbsp;</td>
-
-
-                         <td style="text-align: left"
-                            class="style2"> &nbsp;</td>
-
-
-
-                   </tr>
-                  <tr>
-                <td colspan="3" style="text-align: center">
-                   <asp:Button ID="btnRegistrar" runat="server"
-                       style="font-family: Calibri; color: #000000; font-size: medium"
-                        Text="Registrar"
-                        onclientclick="return Confirmar('¿Desea registrar marca?');"
-                        CssClass="btn btn-success" Visible="False" OnClick="btnRegistrar_Click" />
-                    &nbsp;
-                    <asp:Button ID="btnModificar" runat="server"
-                        style="font-family: Calibri; color: #000000; font-size: medium"
-                        Text="Modificar"  onclientclick="return Confirmar('¿Desea modificar marca?');" CssClass="btn btn-warning" Visible="False" OnClick="btnModificar_Click" />
-                    &nbsp;
-                    <asp:Button ID="btnEliminar" runat="server"
-                        style="font-family: Calibri; color: #000000; font-size: medium"
-                        Text="Eliminar"  onclientclick="return Confirmar('¿Desea eliminar marca?');" class="btn btn-danger" Visible="False" OnClick="btnEliminar_Click" />
-                    &nbsp;
-                    <asp:Button ID="btnCancelar" runat="server" class="btn btn-primary"
-                        style="font-family: Calibri;  font-size: medium" Text="Cancelar" CausesValidation="False" Visible="False" OnClick="btnCancelar_Click"
-                         />
-                    </td>
-            </tr>
-                 </thead>
-             </table>
-    </div> </div>
-
-    <div class ="container">
-         <div class="table-responsive" >
-             <table class="table text-center">
-        <tr>
-            <td>
-                &nbsp;</td>
-            <td>
-                &nbsp;</td>
-            <td>
-                &nbsp;</td>
-            <td>
-                &nbsp;</td>
-        </tr>
-        <tr>
-            <td colspan="4">
-
-                        <asp:Table ID="Table_" runat="server" CssClass="form-control input"
-                            class="table table-hover table-condensed" BackColor="White" BorderColor="White"
-                            CellPadding="6" CellSpacing="2" Font-Size="Small" GridLines="Both" Width="100%"
-                            style="text-align: left">
-                            <asp:TableRow ID="TableRow1" runat="server">
-                                <asp:TableCell ID="tcID"  runat="server" BackColor="Black" BorderColor="Black"
-                                    ForeColor="White" Width="7%" Visible="false">ID</asp:TableCell>
-
-                                 <asp:TableCell ID="tcNOMBRE"  runat="server" BackColor="Black" BorderColor="Black"
-                                    ForeColor="White"  Width="15%">NOMBRE</asp:TableCell>
-
-                                <asp:TableCell ID="SELECCIONAR_MODELO" runat="server" BackColor="Black" BorderColor="Black"
-                                    ForeColor="White" Width="7%" HorizontalAlign="Center">SELECCIONAR</asp:TableCell>
-
-                            </asp:TableRow>
-                        </asp:Table>
-
-                    </td>
-
-        </tr>
-
-        <tr>
-            <td colspan="3">
-                    <asp:HiddenField ID="__mensaje" runat="server" />
-                    <asp:HiddenField ID="__pagina" runat="server" />
-                    <asp:HiddenField ID="ID_MAR" runat="server" Value="0"
-                        EnableViewState="False" />
-                    </td>
-            <td>
-                    &nbsp;</td>
-        </tr>
-    </table>
-    </div> </div>
-
+        </div>
     </form>
+
+    <script lang="javascript" type="text/javascript">
+        var datosCompletos = [];
+        var paginaActual = 1;
+        var tamanioPagina = 10;
+
+        function filtrarTabla(texto) {
+            texto = texto.toUpperCase();
+            var datosFiltrados = [];
+            for (var i = 0; i < datosCompletos.length; i++) {
+                var row = datosCompletos[i];
+                var textoFila = row.NOMBRE || '';
+                if (textoFila.toUpperCase().indexOf(texto) > -1) {
+                    datosFiltrados.push(row);
+                }
+            }
+            paginaActual = 1;
+            renderizarTabla(datosFiltrados);
+            var totalPaginas = Math.ceil(datosFiltrados.length / tamanioPagina);
+            generarPaginacion(totalPaginas, paginaActual);
+            document.getElementById('lblTotal').textContent = 'Total: ' + datosFiltrados.length + ' elementos';
+        }
+
+        function Paginar(pagina) {
+            paginaActual = pagina;
+            var inicio = (pagina - 1) * tamanioPagina;
+            var fin = inicio + tamanioPagina;
+            var datosPagina = datosCompletos.slice(inicio, fin);
+            renderizarTabla(datosPagina);
+            var totalPaginas = Math.ceil(datosCompletos.length / tamanioPagina);
+            generarPaginacion(totalPaginas, pagina);
+            document.getElementById('pageInfo').textContent = 'Pagina ' + pagina + ' de ' + totalPaginas + ' (Total: ' + datosCompletos.length + ' registros)';
+            document.querySelector('.table-wrapper').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function renderizarTabla(datos) {
+            var tbody = document.getElementById('tbodyMarcas');
+            var sb = '';
+            if (datos.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="2" class="text-center text-muted py-4">No se encontraron elementos</td></tr>';
+                return;
+            }
+            for (var i = 0; i < datos.length; i++) {
+                var row = datos[i];
+                sb += '<tr>';
+                sb += '<td>' + htmlEncode(row.NOMBRE) + '</td>';
+                sb += '<td class="text-center">';
+                sb += '<a href="Marca.aspx?Operacion=M&IDMarca=' + htmlEncode(row.ID) + '" class="btn btn-primary btn-sm btn-accion me-1">Editar</a>';
+                sb += '<a href="Marca.aspx?Operacion=E&IDMarca=' + htmlEncode(row.ID) + '" class="btn btn-danger btn-sm btn-accion" onclick="return confirm(\'¿Esta seguro de eliminar esta marca?\');">Eliminar</a>';
+                sb += '</td>';
+                sb += '</tr>';
+            }
+            tbody.innerHTML = sb;
+        }
+
+        function htmlEncode(str) {
+            if (!str) return '';
+            return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+        function generarPaginacion(totalPaginas, pagina) {
+            var pagination = document.getElementById('pagination');
+            if (!pagination) return;
+            if (totalPaginas <= 1) { pagination.innerHTML = ''; return; }
+            var sb = '<nav><ul class="pagination mb-0">';
+            if (pagina > 1) {
+                sb += '<li class="page-item"><a class="page-link" href="javascript:Paginar(' + (pagina - 1) + ')">Anterior</a></li>';
+            } else {
+                sb += '<li class="page-item disabled"><span class="page-link">Anterior</span></li>';
+            }
+            var inicio = Math.max(1, pagina - 2);
+            var fin = Math.min(totalPaginas, pagina + 2);
+            if (inicio > 1) {
+                sb += '<li class="page-item"><a class="page-link" href="javascript:Paginar(1)">1</a></li>';
+                if (inicio > 2) sb += '<li class="page-item disabled"><span class="page-link">...</span></li>';
+            }
+            for (var i = inicio; i <= fin; i++) {
+                if (i === pagina) {
+                    sb += '<li class="page-item active"><span class="page-link">' + i + '</span></li>';
+                } else {
+                    sb += '<li class="page-item"><a class="page-link" href="javascript:Paginar(' + i + ')">' + i + '</a></li>';
+                }
+            }
+            if (fin < totalPaginas) {
+                if (fin < totalPaginas - 1) sb += '<li class="page-item disabled"><span class="page-link">...</span></li>';
+                sb += '<li class="page-item"><a class="page-link" href="javascript:Paginar(' + totalPaginas + ')">' + totalPaginas + '</a></li>';
+            }
+            if (pagina < totalPaginas) {
+                sb += '<li class="page-item"><a class="page-link" href="javascript:Paginar(' + (pagina + 1) + ')">Siguiente</a></li>';
+            } else {
+                sb += '<li class="page-item disabled"><span class="page-link">Siguiente</span></li>';
+            }
+            sb += '</ul></nav>';
+            pagination.innerHTML = sb;
+        }
+
+        function inicializarDatos() {
+            var datosJsonField = document.getElementById('datosJson');
+            if (datosJsonField && datosJsonField.value) {
+                try {
+                    datosCompletos = JSON.parse(datosJsonField.value);
+                    Paginar(1);
+                } catch (e) { console.error('Error parsing JSON:', e); }
+            }
+        }
+        if (window.addEventListener) {
+            window.addEventListener('load', inicializarDatos, false);
+        } else if (window.attachEvent) {
+            window.attachEvent('onload', inicializarDatos);
+        }
+    </script>
 
 </body>
 </html>

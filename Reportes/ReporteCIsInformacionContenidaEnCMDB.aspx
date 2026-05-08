@@ -302,7 +302,7 @@
                         <tr>
                         <td colspan="5">
                             <asp:Table ID="Table_" runat="server" BackColor="White"
-                                class="table table-condensed"
+                                CssClass="table table-modern table-hover table-condensed"
                             BorderColor="White" CellPadding="2" CellSpacing="0" Font-Size="X-Small"
                             GridLines="Both" style="text-align: left">
                             <asp:TableRow ID="CABECERA" runat="server">
@@ -374,7 +374,7 @@
                         <tr>
                         <td colspan="5">
                             <asp:Table ID="Table_1" runat="server" BackColor="White"
-                                class="table table-condensed"
+                                CssClass="table table-modern table-hover table-condensed"
                             BorderColor="White" CellPadding="2" CellSpacing="0" Font-Size="X-Small"
                             GridLines="Both" style="text-align: left">
                             <asp:TableRow ID="CABECERA0" runat="server">
