@@ -51,7 +51,7 @@
             display: grid;
             grid-template-columns: minmax(0, 1.1fr) minmax(360px, 480px);
             background:
-                linear-gradient(90deg, rgba(15, 22, 32, 0.78), rgba(15, 22, 32, 0.44) 44%, rgba(244, 241, 236, 0.96) 44%),
+                linear-gradient(90deg, rgba(15, 22, 32, 0.78), rgba(15, 22, 32, 0.48)),
                 url("Imagenes/fondo1.jpg") center / cover no-repeat;
         }
 
@@ -110,8 +110,7 @@
             align-items: center;
             justify-content: center;
             padding: 32px;
-            background: rgba(244, 241, 236, 0.86);
-            backdrop-filter: blur(6px);
+            background: transparent;
         }
 
         .login-card {
@@ -345,7 +344,7 @@
             .login-page {
                 grid-template-columns: 1fr;
                 background:
-                    linear-gradient(180deg, rgba(15, 22, 32, 0.74), rgba(244, 241, 236, 0.96) 48%),
+                    linear-gradient(180deg, rgba(15, 22, 32, 0.78), rgba(15, 22, 32, 0.5)),
                     url("Imagenes/fondo1.jpg") center top / cover no-repeat;
             }
 
@@ -372,7 +371,6 @@
                 align-items: flex-start;
                 padding: 18px 18px 28px;
                 background: transparent;
-                backdrop-filter: none;
             }
         }
 
