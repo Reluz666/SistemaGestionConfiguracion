@@ -443,26 +443,20 @@
                         <div class="col-md-3 col-sm-6">
                             <label class="form-label-modern">Local</label>
                             <asp:DropDownList ID="ddlLocal" runat="server" CssClass="form-control form-control-modern"
-                                             AutoPostBack="True" OnSelectedIndexChanged="ddlLocal_SelectedIndexChanged">
+                                             AppendDataBoundItems="True">
+                                <asp:ListItem Value="-1">Seleccione una opción</asp:ListItem>
                             </asp:DropDownList>
                             <asp:RequiredFieldValidator ID="rfvLocal" runat="server" ControlToValidate="ddlLocal"
                                                        ErrorMessage="*" CssClass="validator-error" InitialValue="-1" />
-                            <asp:RegularExpressionValidator ID="revLocal" runat="server" ControlToValidate="ddlLocal"
-                                                             Display="Dynamic" ErrorMessage="*"
-                                                             CssClass="validator-error"
-                                                             ValidationExpression="\d{1,999}" />
                         </div>
                         <div class="col-md-3 col-sm-6">
                             <label class="form-label-modern">&Aacute;rea</label>
                             <asp:DropDownList ID="ddlArea" runat="server" CssClass="form-control form-control-modern"
-                                             AutoPostBack="True" OnSelectedIndexChanged="ddlArea_SelectedIndexChanged">
+                                             AppendDataBoundItems="True">
+                                <asp:ListItem Value="-1">Seleccione una opción</asp:ListItem>
                             </asp:DropDownList>
                             <asp:RequiredFieldValidator ID="rfvArea" runat="server" ControlToValidate="ddlArea"
                                                        ErrorMessage="*" CssClass="validator-error" InitialValue="-1" />
-                            <asp:RegularExpressionValidator ID="revArea" runat="server" ControlToValidate="ddlArea"
-                                                             Display="Dynamic" ErrorMessage="*"
-                                                             CssClass="validator-error"
-                                                             ValidationExpression="\d{1,999}" />
                         </div>
                     </div>
 

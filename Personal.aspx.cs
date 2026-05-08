@@ -102,76 +102,9 @@ public partial class Personal : System.Web.UI.Page
         if (this.__mensaje.Value.ToString().Trim() != "") { return; }
         Cargar_Datos(this.Cargo, "[dbo].[pr_Obtener_Cargos]", "");
         if (this.__mensaje.Value.ToString().Trim() != "") { return; }
-        // Cargar Locales y Areas sin filtro para que esten disponibles en el formulario
         Cargar_Datos(this.ddlLocal, "[dbo].[pr_Obtener_Locales]", "");
         Cargar_Datos(this.ddlArea, "[dbo].[pr_Obtener_Areas]", "");
         Cargar_Lista_Personal();
-    }
-
-    protected void Page_Load(object sender, EventArgs e)
-    {
-        if (Convert.ToInt32(this.ID_PERSONAL.Value.Trim()) == 0)
-        {
-            this.btnRegistrar.Visible = true;
-            this.btnCancelar.Visible = true;
-            oculta(false);
-        }
-    }
-
-    protected void Sede_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        this.__mensaje.Value = "";
-        this.__pagina.Value = "";
-        this.ddlLocal.Items.Clear();
-        this.ddlLocal.Items.Insert(0, "Seleccione una opción");
-        this.ddlLocal.Items[0].Value = "-1";
-        this.ddlArea.Items.Clear();
-        this.ddlArea.Items.Insert(0, "Seleccione una opción");
-        this.ddlArea.Items[0].Value = "-1";
-        int Codigo_Sede = Convert.ToInt32(Sede.SelectedValue);
-        if (Codigo_Sede == -1)
-        {
-            this.__mensaje.Value = "Seleccione Sede Judicial para ver Locales Judiciales";
-            this.__pagina.Value = "";
-            return;
-        }
-        Cargar_Datos(this.ddlLocal, "[dbo].[pr_Obtener_Locales]", "Error, al intentar recuperar Locales Judiciales.", new Object[] { Codigo_Sede });
-        if (this.__mensaje.Value.ToString().Trim() != "")
-        {
-            return;
-        }
-    }
-
-    protected void ddlLocal_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        this.__mensaje.Value = "";
-        this.__pagina.Value = "";
-        this.ddlArea.Items.Clear();
-        this.ddlArea.Items.Insert(0, "Seleccione una opción");
-        this.ddlArea.Items[0].Value = "-1";
-        int Codigo_Local = Convert.ToInt32(ddlLocal.SelectedValue);
-        if (Codigo_Local == -1)
-        {
-            this.__mensaje.Value = "Seleccione Local Judicial para ver Areas Judiciales";
-            this.__pagina.Value = "";
-            return;
-        }
-        Cargar_Datos(this.ddlArea, "[dbo].[pr_Obtener_Areas]", "Error, al intentar recuperar Areas Judiciales.", new Object[] { Codigo_Local });
-        if (this.__mensaje.Value.ToString().Trim() != "")
-        {
-            return;
-        }
-    }
-
-    protected void ddlArea_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        this.__mensaje.Value = "";
-        this.__pagina.Value = "";
-        int Codigo_Area = Convert.ToInt32(ddlArea.SelectedValue);
-        if (Codigo_Area == -1)
-        {
-            return;
-        }
     }
 
     private void Cargar_Lista_Personal()

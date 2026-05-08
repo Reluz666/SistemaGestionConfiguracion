@@ -263,7 +263,7 @@ public partial class TiposElementoConfiguracion : System.Web.UI.Page
 
 
 
-    protected void ibtnBUSCAR_ELEMENTOL_JCONFIGURACION_Click(object sender, ImageClickEventArgs e)
+    protected void ibtnBUSCAR_ELEMENTOL_JCONFIGURACION_Click(object sender, EventArgs e)
     {
         
     }
