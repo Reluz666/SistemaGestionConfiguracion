@@ -176,7 +176,7 @@
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <div class="form-check">
-                            <input type="checkbox" id="cbs" class="form-check-input" onclick="Activa(2)" />
+                            <asp:CheckBox ID="cbs" runat="server" CssClass="form-check-input" onclick="Activa(2)" />
                             <label class="form-check-label" for="cbs">Filtrar por Sede</label>
                         </div>
                     </div>
