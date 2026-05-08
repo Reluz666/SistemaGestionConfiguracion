@@ -41,12 +41,57 @@ public partial class Usuario : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Convert.ToInt32(this.Id_prof_ocup.Value.Trim()) == 0)
+        if (!IsPostBack)
         {
-            this.btnRegistrar.Visible = true;
-            this.btnCancelar.Visible = true;
-            oculta(false);
+            string operacion = Request.QueryString["Operacion"];
+            string idProf = Request.QueryString["IdProfOcup"];
+
+            if (!string.IsNullOrEmpty(operacion) && !string.IsNullOrEmpty(idProf))
+            {
+                this.Id_prof_ocup.Value = idProf;
+                string[] datos = GetProfesionOcupacionData(Convert.ToInt32(idProf));
+                this.Prof_Ocup.Text = datos[0];
+                this.Descripcion_prof_ocup.Text = datos[1];
+                this.btnRegistrar.Visible = false;
+                this.btnModificar.Visible = true;
+                this.btnEliminar.Visible = true;
+                this.btnCancelar.Visible = true;
+            }
+            else
+            {
+                this.btnRegistrar.Visible = true;
+                this.btnModificar.Visible = false;
+                this.btnEliminar.Visible = false;
+                this.btnCancelar.Visible = true;
+                oculta(false);
+            }
         }
+    }
+
+    private string[] GetProfesionOcupacionData(int idProf)
+    {
+        string[] data = { "", "" };
+        try
+        {
+            policia.clsaccesodatos servidor = new policia.clsaccesodatos();
+            servidor.cadenaconexion = Ruta;
+            if (servidor.abrirconexion() == true)
+            {
+                DataTable dt = servidor.consultar("[dbo].[pr_Lista_Profesiones_Ocupaciones]").Tables[0];
+                servidor.cerrarconexion();
+                foreach (DataRow row in dt.Rows)
+                {
+                    if (row["ID"].ToString() == idProf.ToString())
+                    {
+                        data[0] = row["NOMBRE"].ToString();
+                        data[1] = row["DESCRIPCION"].ToString();
+                        break;
+                    }
+                }
+            }
+        }
+        catch { }
+        return data;
     }
 
     private void Matenimiento_Profesion_Ocupacion(int _Id_prof_ocup, string _Prof_Ocup, string _Descripcion_prof_ocup, string operacion)

@@ -161,7 +161,6 @@
         }
 
         function filtrarTablaPersonal() {
-            alert('filtrarTablaPersonal called. datosPersonalJson.length=' + datosPersonalJson.length);
             var searchText = document.getElementById('txtBuscarPersonal').value.toLowerCase().trim();
             if (searchText === '') {
                 listaFilteredData = datosPersonalJson.slice();
@@ -235,8 +234,6 @@
                     '<td class="text-center"><button type="button" class="btn btn-primary btn-sm btn-accion" onclick="seleccionarPersonal(\'' + item.ID_PERSONAL + '\');"><i class="bi bi-pencil-square"></i></button></td>';
                 tbody.appendChild(tr);
             }
-
-            alert('Rendered ' + (end - start) + ' rows. Total filtered: ' + totalRows);
 
             document.getElementById('pageInfoPersonal').textContent = 'Pagina ' + listaCurrentPage + ' de ' + totalPages + ' (Total: ' + totalRows + ' registros)';
         }
@@ -329,7 +326,7 @@
                     document.getElementById('btnModificar').style.display = '';
                     document.getElementById('btnEliminar').style.display = '';
                     // Scroll to form
-                    document.querySelector('.form-card').scrollIntoView({ behavior: 'smooth' });
+                    document.getElementById('formCardDatos').scrollIntoView({ behavior: 'smooth' });
                     return;
                 }
             }
@@ -415,7 +412,7 @@
             </div>
 
             <!-- Card Formulario -->
-            <div class="form-card">
+            <div class="form-card" id="formCardDatos">
                 <div class="card-header">
                     <i class="bi bi-person-plus-fill me-2"></i>Ingrese Datos del Personal
                 </div>

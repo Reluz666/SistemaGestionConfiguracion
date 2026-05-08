@@ -14,12 +14,57 @@ public partial class TiposElementoConfiguracion : System.Web.UI.Page
     System.Data.DataTable dt;
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Convert.ToInt32(this.Id_Sede.Value.Trim()) == 0)
+        if (!IsPostBack)
         {
-            this.btnRegistrar.Visible = true;
-            this.btnCancelar.Visible = true;
-            oculta(false);
+            string operacion = Request.QueryString["Operacion"];
+            string idSede = Request.QueryString["IdSede"];
+
+            if (!string.IsNullOrEmpty(operacion) && !string.IsNullOrEmpty(idSede))
+            {
+                this.Id_Sede.Value = idSede;
+                string[] datos = GetSedeData(Convert.ToInt32(idSede));
+                this.CodIgo_Sede.Text = datos[0];
+                this.Descripcion_Sede.Text = datos[1];
+                this.btnRegistrar.Visible = false;
+                this.btnModificar.Visible = true;
+                this.btnEliminar.Visible = true;
+                this.btnCancelar.Visible = true;
+            }
+            else
+            {
+                this.btnRegistrar.Visible = true;
+                this.btnModificar.Visible = false;
+                this.btnEliminar.Visible = false;
+                this.btnCancelar.Visible = true;
+                oculta(false);
+            }
         }
+    }
+
+    private string[] GetSedeData(int idSede)
+    {
+        string[] data = { "", "" };
+        try
+        {
+            policia.clsaccesodatos servidor = new policia.clsaccesodatos();
+            servidor.cadenaconexion = Ruta;
+            if (servidor.abrirconexion() == true)
+            {
+                DataTable dt = servidor.consultar("[dbo].[pr_Lista_Sedes]").Tables[0];
+                servidor.cerrarconexion();
+                foreach (DataRow row in dt.Rows)
+                {
+                    if (row["ID"].ToString() == idSede.ToString())
+                    {
+                        data[0] = row["CODIGO"].ToString();
+                        data[1] = row["SEDE"].ToString();
+                        break;
+                    }
+                }
+            }
+        }
+        catch { }
+        return data;
     }
 
     protected void Page_Init(object sender, EventArgs e)

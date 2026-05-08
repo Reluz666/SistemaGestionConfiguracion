@@ -14,12 +14,54 @@ public partial class TipoRelacionElementoConfiguracion : System.Web.UI.Page
     System.Data.DataTable dt;
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Convert.ToInt32(this.COD_TIPO_RELA.Value.Trim()) == 0)
+        if (!IsPostBack)
         {
-            this.btnRegistrar.Visible = true;
-            this.btnCancelar.Visible = true;
-            oculta(false);
+            string operacion = Request.QueryString["Operacion"];
+            string idTipoRel = Request.QueryString["IdTipoRel"];
+
+            if (!string.IsNullOrEmpty(operacion) && !string.IsNullOrEmpty(idTipoRel))
+            {
+                this.COD_TIPO_RELA.Value = idTipoRel;
+                this.NOMBRE_TIPO_RELA.Text = GetTipoRelacionNombre(Convert.ToInt32(idTipoRel));
+                this.btnRegistrar.Visible = false;
+                this.btnModificar.Visible = true;
+                this.btnEliminar.Visible = true;
+                this.btnCancelar.Visible = true;
+            }
+            else
+            {
+                this.btnRegistrar.Visible = true;
+                this.btnModificar.Visible = false;
+                this.btnEliminar.Visible = false;
+                this.btnCancelar.Visible = true;
+                oculta(false);
+            }
         }
+    }
+
+    private string GetTipoRelacionNombre(int idTipoRel)
+    {
+        string nombre = "";
+        try
+        {
+            policia.clsaccesodatos servidor = new policia.clsaccesodatos();
+            servidor.cadenaconexion = Ruta;
+            if (servidor.abrirconexion() == true)
+            {
+                DataTable dt = servidor.consultar("[dbo].[pr_Lista_Tipos_Relacion_Elementos_Configuracion]").Tables[0];
+                servidor.cerrarconexion();
+                foreach (DataRow row in dt.Rows)
+                {
+                    if (row["CODIGO"].ToString() == idTipoRel.ToString())
+                    {
+                        nombre = row["NOMBRE"].ToString();
+                        break;
+                    }
+                }
+            }
+        }
+        catch { }
+        return nombre;
     }
 
     protected void Page_Init(object sender, EventArgs e)

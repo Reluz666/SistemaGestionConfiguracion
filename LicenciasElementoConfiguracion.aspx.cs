@@ -52,14 +52,14 @@ public partial class LicenciasElementoConfiguracion : System.Web.UI.Page
                     lista.Add(new
                     {
                         LICENCIA = row["LICENCIA"].ToString(),
-                        TIPO_LICENCIA = row["TIPO LICENCIA"].ToString(),
+                        "TIPO LICENCIA" = row["TIPO LICENCIA"].ToString(),
                         NOMBRE = row["NOMBRE"].ToString(),
                         VERSION = row["VERSION"].ToString(),
                         SUSCRIPCION = row["SUSCRIPCION"].ToString(),
-                        FEC_INI = row["FEC. INI."].ToString(),
-                        FEC_FIN = row["FEC. FIN"].ToString(),
+                        "FEC. INI." = row["FEC. INI."].ToString(),
+                        "FEC. FIN" = row["FEC. FIN"].ToString(),
                         PERPETUA = row["PERPETUA"].ToString(),
-                        VENCE_LICENCIA = row["VENCE LICENCIA"].ToString()
+                        "VENCE LICENCIA" = row["VENCE LICENCIA"].ToString()
                     });
                 }
                 JavaScriptSerializer serializer = new JavaScriptSerializer();

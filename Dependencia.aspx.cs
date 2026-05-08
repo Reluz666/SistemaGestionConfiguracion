@@ -14,12 +14,57 @@ public partial class TiposElementoConfiguracion : System.Web.UI.Page
     System.Data.DataTable dt;
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Convert.ToInt32(this.Id_Dependencia.Value.Trim()) == 0)
+        if (!IsPostBack)
         {
-            this.btnRegistrar.Visible = true;
-            this.btnCancelar.Visible = true;
-            oculta(false);
+            string operacion = Request.QueryString["Operacion"];
+            string idDep = Request.QueryString["IdDependencia"];
+
+            if (!string.IsNullOrEmpty(operacion) && !string.IsNullOrEmpty(idDep))
+            {
+                this.Id_Dependencia.Value = idDep;
+                string[] datos = GetDependenciaData(Convert.ToInt32(idDep));
+                this.Codigo_Depemdencia.Text = datos[0];
+                this.Nombre_Dependencia.Text = datos[1];
+                this.btnRegistrar.Visible = false;
+                this.btnModificar.Visible = true;
+                this.btnEliminar.Visible = true;
+                this.btnCancelar.Visible = true;
+            }
+            else
+            {
+                this.btnRegistrar.Visible = true;
+                this.btnModificar.Visible = false;
+                this.btnEliminar.Visible = false;
+                this.btnCancelar.Visible = true;
+                oculta(false);
+            }
         }
+    }
+
+    private string[] GetDependenciaData(int idDep)
+    {
+        string[] data = { "", "" };
+        try
+        {
+            policia.clsaccesodatos servidor = new policia.clsaccesodatos();
+            servidor.cadenaconexion = Ruta;
+            if (servidor.abrirconexion() == true)
+            {
+                DataTable dt = servidor.consultar("[dbo].[pr_Lista_Dependencias]").Tables[0];
+                servidor.cerrarconexion();
+                foreach (DataRow row in dt.Rows)
+                {
+                    if (row["ID"].ToString() == idDep.ToString())
+                    {
+                        data[0] = row["CODIGO"].ToString();
+                        data[1] = row["NOMBRE"].ToString();
+                        break;
+                    }
+                }
+            }
+        }
+        catch { }
+        return data;
     }
 
     protected void Page_Init(object sender, EventArgs e)

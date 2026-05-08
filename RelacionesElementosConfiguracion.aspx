@@ -158,6 +158,10 @@
                                 <th>Sede</th>
                                 <th>Local</th>
                                 <th>&Aacute;rea</th>
+                                <th>Tipo Relaci&oacute;n</th>
+                                <th>Hijo CI</th>
+                                <th>Hijo Tipo</th>
+                                <th>Hijo Estado</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -223,7 +227,7 @@
             var sb = '';
 
             if (datos.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="9" class="text-center text-muted py-4">No se encontraron relaciones</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="13" class="text-center text-muted py-4">No se encontraron relaciones</td></tr>';
                 return;
             }
 
@@ -239,6 +243,10 @@
                 sb += '<td>' + htmlEncode(row.SEDE) + '</td>';
                 sb += '<td>' + htmlEncode(row.LOCAL) + '</td>';
                 sb += '<td>' + htmlEncode(row.AREA) + '</td>';
+                sb += '<td>' + htmlEncode(row.TIPO_RELACION) + '</td>';
+                sb += '<td>' + htmlEncode(row.HIJO_NOMBRE_CI) + '</td>';
+                sb += '<td>' + htmlEncode(row.HIJO_TIPO_CI) + '</td>';
+                sb += '<td>' + htmlEncode(row.HIJO_ESTADO_CI) + '</td>';
                 sb += '<td class="text-center">';
                 sb += '<a href="RelacionElementosConfiguracion.aspx?Operacion=M&IDR=' + row.ID_RELACION + '" class="btn btn-primary btn-sm btn-accion me-1">Editar</a>';
                 sb += '<a href="RelacionElementosConfiguracion.aspx?Operacion=E&IDR=' + row.ID_RELACION + '" class="btn btn-danger btn-sm btn-accion" onclick="return confirm(\'¿Esta seguro de eliminar esta relacion?\');">Eliminar</a>';

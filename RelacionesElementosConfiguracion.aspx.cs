@@ -67,6 +67,14 @@ public partial class RelacionesElementosConfiguracion : System.Web.UI.Page
                         row["LOCAL"] = dt.Rows[i]["PADRE LOCAL"].ToString();
                         row["AREA"] = dt.Rows[i]["PADRE AREA"].ToString();
                         row["TIPO_RELACION"] = dt.Rows[i]["TIPO RELACION"].ToString();
+                        // HIJO CI fields
+                        row["HIJO_NOMBRE_CI"] = dt.Rows[i]["HIJO CI"].ToString();
+                        row["HIJO_TIPO_CI"] = dt.Rows[i]["HIJO TIPO CI"].ToString();
+                        row["HIJO_ESTADO_CI"] = dt.Rows[i]["HIJO ESTADO CI"].ToString();
+                        row["HIJO_PROPIETARIO_CI"] = dt.Rows[i]["HIJO PROPIETARIO CI"].ToString();
+                        row["HIJO_SEDE"] = dt.Rows[i]["HIJO SEDE"].ToString();
+                        row["HIJO_LOCAL"] = dt.Rows[i]["HIJO LOCAL"].ToString();
+                        row["HIJO_AREA"] = dt.Rows[i]["HIJO AREA"].ToString();
                         jsonList.Add(row);
                     }
 

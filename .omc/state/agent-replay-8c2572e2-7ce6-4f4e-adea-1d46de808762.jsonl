@@ -48,3 +48,7 @@
 {"t":0,"agent":"a73f730","agent_type":"unknown","event":"agent_stop","success":true}
 {"t":0,"agent":"a065316","agent_type":"unknown","event":"agent_stop","success":true}
 {"t":0,"agent":"ae8b7c4","agent_type":"unknown","event":"agent_stop","success":true}
+{"t":0,"agent":"system","event":"skill_invoked","skill_name":"oh-my-claudecode:team"}
+{"t":0,"agent":"a7bd6d7","agent_type":"executor","event":"agent_start","parent_mode":"none"}
+{"t":0,"agent":"system","event":"skill_invoked","skill_name":"oh-my-claudecode:team"}
+{"t":0,"agent":"a7bd6d7","agent_type":"executor","event":"agent_stop","success":true,"duration_ms":617399}

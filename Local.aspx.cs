@@ -13,13 +13,82 @@ public partial class Local : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Convert.ToInt32(this.Id_Local.Value.Trim()) == 0)
+        if (!IsPostBack)
         {
-            this.btnRegistrar.Visible = true;
-            this.btnCancelar.Visible = true;
-            oculta(false);
+            string operacion = Request.QueryString["Operacion"];
+            string idLocal = Request.QueryString["IdLocal"];
+
+            if (!string.IsNullOrEmpty(operacion) && !string.IsNullOrEmpty(idLocal))
+            {
+                this.Id_Local.Value = idLocal;
+                string[] datos = GetLocalData(Convert.ToInt32(idLocal));
+                this.Codigo_Local.Text = datos[0];
+                this.Nombre_Local.Text = datos[1];
+                this.Direccion_Local.Text = datos[2];
+                // Set sede dropdown
+                for (int i = 0; i < this.Sede.Items.Count; i++)
+                {
+                    if (this.Sede.Items[i].Text.Trim() == datos[3].Trim())
+                    {
+                        this.Sede.SelectedIndex = i;
+                        break;
+                    }
+                }
+                this.hfCodigo_Ubicacion_Geografica.Value = datos[4];
+                this.Ubicacion_Geografica.Text = datos[5];
+                this.Telefono_local.Text = datos[6];
+                this.Pagnia_Web_Local.Text = datos[7];
+                this.Email_Local.Text = datos[8];
+                this.Total_CIS_Local.Text = datos[9];
+                this.btnRegistrar.Visible = false;
+                this.btnModificar.Visible = true;
+                this.btnEliminar.Visible = true;
+                this.btnCancelar.Visible = true;
+            }
+            else
+            {
+                this.btnRegistrar.Visible = true;
+                this.btnModificar.Visible = false;
+                this.btnEliminar.Visible = false;
+                this.btnCancelar.Visible = true;
+                oculta(false);
+            }
         }
         CargarDatosJson();
+    }
+
+    private string[] GetLocalData(int idLocal)
+    {
+        string[] data = { "", "", "", "", "", "", "", "", "", "" };
+        try
+        {
+            policia.clsaccesodatos servidor = new policia.clsaccesodatos();
+            servidor.cadenaconexion = Ruta;
+            if (servidor.abrirconexion() == true)
+            {
+                DataTable dt = servidor.consultar("[dbo].[pr_Lista_Locales]", "", "").Tables[0];
+                servidor.cerrarconexion();
+                foreach (DataRow row in dt.Rows)
+                {
+                    if (row["ID LOCAL"].ToString().Trim() == idLocal.ToString())
+                    {
+                        data[0] = row["LOCAL CODIGO"].ToString().Trim();
+                        data[1] = row["LOCAL NOMBRE"].ToString().Trim();
+                        data[2] = row["LOCAL DIRECCION"].ToString().Trim();
+                        data[3] = row["SEDE"].ToString().Trim();
+                        data[4] = row["ID UBI"].ToString().Trim();
+                        data[5] = row["UBICACION GEOGRAFICA"].ToString().Trim();
+                        data[6] = row["TELEFONO"].ToString().Trim();
+                        data[7] = row["PAGINA WEB"].ToString().Trim();
+                        data[8] = row["EMAIL"].ToString().Trim();
+                        data[9] = row["TOTAL CIS"].ToString().Trim();
+                        break;
+                    }
+                }
+            }
+        }
+        catch { }
+        return data;
     }
 
     protected void Page_Init(object sender, EventArgs e)
