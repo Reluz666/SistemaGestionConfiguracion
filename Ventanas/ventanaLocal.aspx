@@ -173,6 +173,19 @@
                     </div>
                 </div>
 
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="form-check">
+                            <input type="checkbox" id="cbs" class="form-check-input" onclick="Activa(2)" />
+                            <label class="form-check-label" for="cbs">Filtrar por Sede</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <asp:DropDownList ID="ddls" runat="server" CssClass="form-select" disabled="disabled">
+                        </asp:DropDownList>
+                    </div>
+                </div>
+
                 <div class="table-responsive">
                     <table id="tblDatos" class="table table-modern table-hover">
                         <thead>
