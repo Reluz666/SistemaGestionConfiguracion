@@ -262,13 +262,9 @@ public partial class Personal : System.Web.UI.Page
         ok = ok && rfvEmail.IsValid;
         ok = ok && revEmail.IsValid;
         ok = ok && rfvSede.IsValid;
-        ok = ok && revSede.IsValid;
         ok = ok && rfvLocal.IsValid;
-        ok = ok && revLocal.IsValid;
         ok = ok && rfvArea.IsValid;
-        ok = ok && revArea.IsValid;
         ok = ok && rfvDependencia.IsValid;
-        ok = ok && revDependencia.IsValid;
         if (ok == false)
         {
             return;
@@ -318,13 +314,9 @@ public partial class Personal : System.Web.UI.Page
         ok = ok && rfvEmail.IsValid;
         ok = ok && revEmail.IsValid;
         ok = ok && rfvSede.IsValid;
-        ok = ok && revSede.IsValid;
         ok = ok && rfvLocal.IsValid;
-        ok = ok && revLocal.IsValid;
         ok = ok && rfvArea.IsValid;
-        ok = ok && revArea.IsValid;
         ok = ok && rfvDependencia.IsValid;
-        ok = ok && revDependencia.IsValid;
         if (ok == false)
         {
             return;
@@ -374,13 +366,9 @@ public partial class Personal : System.Web.UI.Page
         ok = ok && rfvEmail.IsValid;
         ok = ok && revEmail.IsValid;
         ok = ok && rfvSede.IsValid;
-        ok = ok && revSede.IsValid;
         ok = ok && rfvLocal.IsValid;
-        ok = ok && revLocal.IsValid;
         ok = ok && rfvArea.IsValid;
-        ok = ok && revArea.IsValid;
         ok = ok && rfvDependencia.IsValid;
-        ok = ok && revDependencia.IsValid;
         if (ok == false)
         {
             return;
@@ -433,7 +421,6 @@ public partial class Personal : System.Web.UI.Page
                 this.Sede.SelectedIndex = i;
             }
         }
-        Sede_SelectedIndexChanged(sender, e);
 
         for (int i = 0; i < this.ddlLocal.Items.Count; i++)
         {
@@ -442,7 +429,6 @@ public partial class Personal : System.Web.UI.Page
                 this.ddlLocal.SelectedIndex = i;
             }
         }
-        ddlLocal_SelectedIndexChanged(sender, e);
 
         for (int i = 0; i < this.ddlArea.Items.Count; i++)
         {
