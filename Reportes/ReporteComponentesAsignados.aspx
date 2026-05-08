@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ReporteComponentesAsignados.aspx.cs" Inherits="ElementosConfiguracion"  UnobtrusiveValidationMode="None" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ReporteComponentesAsignados.aspx.cs" Inherits="ReporteComponentesAsignados"  UnobtrusiveValidationMode="None" %>
 
 <!DOCTYPE html>
 

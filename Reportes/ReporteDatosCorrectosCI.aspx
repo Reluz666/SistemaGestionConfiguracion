@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ReporteDatosCorrectosCI.aspx.cs" Inherits="ElementosConfiguracion"  UnobtrusiveValidationMode="None" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ReporteDatosCorrectosCI.aspx.cs" Inherits="ReporteDatosCorrectosCI"  UnobtrusiveValidationMode="None" %>
 
 <!DOCTYPE html>
 

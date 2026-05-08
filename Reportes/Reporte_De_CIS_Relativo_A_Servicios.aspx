@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Reporte_De_CIS_Relativo_A_Servicios.aspx.cs" Inherits="RelacionesElementosConfiguracion" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Reporte_De_CIS_Relativo_A_Servicios.aspx.cs" Inherits="Reporte_De_CIS_Relativo_A_Servicios" %>
 
 <!DOCTYPE html>
 

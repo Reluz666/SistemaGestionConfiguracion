@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ReporteCIsSeguidos.aspx.cs" Inherits="ElementosConfiguracion"  UnobtrusiveValidationMode="None" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ReporteCIsSeguidos.aspx.cs" Inherits="ReporteCIsSeguidos"  UnobtrusiveValidationMode="None" %>
 
 <!DOCTYPE html>
 
