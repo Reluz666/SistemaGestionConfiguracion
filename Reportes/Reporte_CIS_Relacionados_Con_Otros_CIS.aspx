@@ -266,11 +266,9 @@
     </script>
 </head>
 <body onload="MostrarMensaje()">
-    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse"
-                data-target=".navbar-ex1-collapse">
-                <span class="sr-only">Desplegar navegación</span>
+    <uc1:NavBar ID="NavBar1" runat="server" />
+
+    <form id="form1" runat="server">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -375,12 +373,7 @@
             <div class="row main-low-margin">
                 <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1">
                     <h3>-</h3>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <form id="form1" runat="server">
         <div class="container">
             <!-- Report Card -->
             <div class="form-card">

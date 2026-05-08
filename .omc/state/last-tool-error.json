@@ -1,7 +1,7 @@
 {
-  "tool_name": "mcp__plugin_oh-my-claudecode_t__lsp_diagnostics",
-  "tool_input_preview": "{\"file\":\"/Users/hmr0/Documents/SistemaGestionConfiguracion/Reportes/ReporteSeguimientosElementoConfiguracion.aspx.cs\"}",
-  "error": "Language server 'omnisharp' not found.\nInstall with: dotnet tool install -g omnisharp",
-  "timestamp": "2026-05-08T17:53:43.249Z",
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"sed -n '333,336p' /Users/hmr0/Documents/SistemaGestionConfiguracion/Reportes/ReporteComponentesAsignados.aspx | cat -A\",\"description\":\"Show exact bytes around body tag\"}",
+  "error": "Exit code 1\ncat: illegal option -- A\nusage: cat [-belnstuv] [file ...]",
+  "timestamp": "2026-05-08T19:01:41.885Z",
   "retry_count": 1
 }
