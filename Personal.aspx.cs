@@ -60,11 +60,6 @@ public partial class Personal : System.Web.UI.Page
                 this.__mensaje.Value = Mensaje;
                 this.__pagina.Value = "";
             }
-            else
-            {
-                this.__mensaje.Value = "Error al cargar datos.";
-                this.__pagina.Value = "";
-            }
         }
     }
 
@@ -107,6 +102,9 @@ public partial class Personal : System.Web.UI.Page
         if (this.__mensaje.Value.ToString().Trim() != "") { return; }
         Cargar_Datos(this.Cargo, "[dbo].[pr_Obtener_Cargos]", "");
         if (this.__mensaje.Value.ToString().Trim() != "") { return; }
+        // Cargar Locales y Areas sin filtro para que esten disponibles en el formulario
+        Cargar_Datos(this.Local, "[dbo].[pr_Obtener_Locales]", "", 0);
+        Cargar_Datos(this.Area, "[dbo].[pr_Obtener_Areas]", "", 0);
         Cargar_Lista_Personal();
     }
 
