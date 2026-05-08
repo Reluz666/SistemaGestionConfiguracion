@@ -17,6 +17,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
     <!-- Global Styles -->
     <link href="../CssJs/global-styles.css" rel="stylesheet" />
+    <!-- Local Bootstrap for navbar-custom -->
+    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 
     <style>
         #tblReporte_wrapper {
