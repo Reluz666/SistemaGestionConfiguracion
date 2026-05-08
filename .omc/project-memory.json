@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastScanned": 1777580976951,
+  "lastScanned": 1778208464885,
   "projectRoot": "C:\\Users\\LOCALADMINPJ\\Documents\\SistemaGestionConfiguracion",
   "techStack": {
     "languages": [],
@@ -38,7 +38,7 @@
       "path": "App_Code",
       "purpose": null,
       "fileCount": 21,
-      "lastAccessed": 1777580976934,
+      "lastAccessed": 1778208464869,
       "keyFiles": [
         "DS_ReporteCIsSeguidos.xsd",
         "DS_ReporteCIsSeguidos.xss",
@@ -51,21 +51,21 @@
       "path": "aspnet_client",
       "purpose": null,
       "fileCount": 0,
-      "lastAccessed": 1777580976934,
+      "lastAccessed": 1778208464870,
       "keyFiles": []
     },
     "bootstrap": {
       "path": "bootstrap",
       "purpose": null,
       "fileCount": 0,
-      "lastAccessed": 1777580976935,
+      "lastAccessed": 1778208464870,
       "keyFiles": []
     },
     "Configuracion": {
       "path": "Configuracion",
       "purpose": null,
       "fileCount": 4,
-      "lastAccessed": 1777580976935,
+      "lastAccessed": 1778208464870,
       "keyFiles": [
         "Seguridad.aspx",
         "Seguridad.aspx.cs",
@@ -76,9 +76,10 @@
     "CssJs": {
       "path": "CssJs",
       "purpose": null,
-      "fileCount": 1,
-      "lastAccessed": 1777580976935,
+      "fileCount": 2,
+      "lastAccessed": 1778208464871,
       "keyFiles": [
+        "global-styles.css",
         "Menu.css"
       ]
     },
@@ -86,7 +87,7 @@
       "path": "Imagenes",
       "purpose": null,
       "fileCount": 4,
-      "lastAccessed": 1777580976936,
+      "lastAccessed": 1778208464871,
       "keyFiles": [
         "buscar.ico",
         "CabeceraElementosConfiguracion1.png",
@@ -98,7 +99,7 @@
       "path": "Otros_css_js",
       "purpose": null,
       "fileCount": 12,
-      "lastAccessed": 1777580976936,
+      "lastAccessed": 1778208464871,
       "keyFiles": [
         "chosen.css",
         "chosen.jquery.js",
@@ -111,7 +112,7 @@
       "path": "Reportes",
       "purpose": null,
       "fileCount": 38,
-      "lastAccessed": 1777580976936,
+      "lastAccessed": 1778208464872,
       "keyFiles": [
         "CR_ReporteCIsSeguidos.rpt",
         "CR_ReporteDatosCorrectosCI.rpt",
@@ -124,14 +125,14 @@
       "path": "src",
       "purpose": "Source code",
       "fileCount": 0,
-      "lastAccessed": 1777580976937,
+      "lastAccessed": 1778208464872,
       "keyFiles": []
     },
     "Ventanas": {
       "path": "Ventanas",
       "purpose": null,
       "fileCount": 18,
-      "lastAccessed": 1777580976937,
+      "lastAccessed": 1778208464872,
       "keyFiles": [
         "ventanaElementosConfiguracionParaSeguimiento.aspx",
         "ventanaElementosConfiguracionParaSeguimiento.aspx.cs",

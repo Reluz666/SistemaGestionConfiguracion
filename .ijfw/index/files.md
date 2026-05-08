@@ -1,14 +1,17 @@
 <!-- ijfw schema:1 codebase-index -->
 # Codebase index
 
-Generated: 2026-05-01T19:43:03Z
+Generated: 2026-05-08T02:47:56Z
 Root: .
 
-Files: 442
+Files: 445
 
 ## By file
 
+- `./.sisyphus/drafts/propagar-estilo-tablas.md` (80 lines, .md) -- - [Propagate changes]: Apply the modern table style from ElementosConfiguracion.aspx to all views still using old patter
+- `./.sisyphus/plans/propagar-estilo-tablas.md` (202 lines, .md) -- > **Quick Summary**: Migrate 10 legacy entity views, 9 Ventanas popups, and 11 Reportes from old `asp:Table` pattern to 
 - `./CLAUDE.md` (18 lines, .md) -- Stack: unknown
+- `./GUIA_ESTILO_TABLAS.md` (401 lines, .md) -- Este documento describe los estilos y funcionalidad JavaScript que deben replicarse en todas las vistas para mantener co
 - `./Otros_css_js/chosen.jquery.js` (1090 lines, .js) -- (function() {
 - `./Otros_css_js/jquery-1.8.1.min.js` (1 lines, .js) -- (function(a,b){function G(a){var b=F[a]={};return p.each(a.split(s),function(a,c){b[c]=!0}),b}function J(a,c,d){if(d===b
 - `./Otros_css_js/jquery-2.1.1.min.js` (4 lines, .js) -- !function(a,b){\"object\"==typeof module&&\"object\"==typeof module.exports?module.exports=a.document?b(a,!0):function(a
@@ -453,4 +456,4 @@ Files: 442
 
 ## By language
 - .js: 441
-- .md: 1
+- .md: 4
