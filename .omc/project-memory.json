@@ -145,8 +145,8 @@
   "hotPaths": [
     {
       "path": "Personal.aspx",
-      "accessCount": 87,
-      "lastAccessed": 1778215973738,
+      "accessCount": 92,
+      "lastAccessed": 1778248078653,
       "type": "file"
     },
     {
@@ -240,6 +240,12 @@
       "type": "file"
     },
     {
+      "path": "Personal.aspx.cs",
+      "accessCount": 8,
+      "lastAccessed": 1778247837201,
+      "type": "file"
+    },
+    {
       "path": "Area.aspx",
       "accessCount": 7,
       "lastAccessed": 1777587611977,
@@ -258,9 +264,9 @@
       "type": "file"
     },
     {
-      "path": "Personal.aspx.cs",
+      "path": "LicenciasElementoConfiguracion.aspx",
       "accessCount": 7,
-      "lastAccessed": 1778215627436,
+      "lastAccessed": 1778247837147,
       "type": "file"
     },
     {
@@ -285,12 +291,6 @@
       "path": "SeguimientosElementoConfiguracion.aspx",
       "accessCount": 6,
       "lastAccessed": 1777587201269,
-      "type": "file"
-    },
-    {
-      "path": "LicenciasElementoConfiguracion.aspx",
-      "accessCount": 6,
-      "lastAccessed": 1777587201290,
       "type": "file"
     },
     {
@@ -372,15 +372,15 @@
       "type": "file"
     },
     {
-      "path": "Reportes\\ReporteDatosCorrectosCI.aspx",
-      "accessCount": 4,
-      "lastAccessed": 1777586909406,
+      "path": "RelacionesElementosConfiguracion.aspx",
+      "accessCount": 5,
+      "lastAccessed": 1778247837260,
       "type": "file"
     },
     {
-      "path": "RelacionesElementosConfiguracion.aspx",
+      "path": "Reportes\\ReporteDatosCorrectosCI.aspx",
       "accessCount": 4,
-      "lastAccessed": 1777586926046,
+      "lastAccessed": 1777586909406,
       "type": "file"
     },
     {

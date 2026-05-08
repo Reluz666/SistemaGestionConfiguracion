@@ -221,7 +221,7 @@
                     '<td>' + htmlEncode(item.DEPENDENCIA) + '</td>' +
                     '<td>' + htmlEncode(item.CARGO) + '</td>' +
                     '<td class="' + estadoClass + '">' + htmlEncode(item.ESTADO) + '</td>' +
-                    '<td class="text-center"><button type="button" class="btn btn-primary btn-sm btn-accion" onclick="seleccionarPersonal(\'' + item.ID_PERSONAL + '\')"><i class="bi bi-pencil-square"></i></button></td>';
+                    '<td class="text-center"><button type="button" class="btn btn-primary btn-sm btn-accion" onclick="seleccionarPersonal('" + item.ID_PERSONAL + "');"><i class="bi bi-pencil-square"></i></button></td>';
                 tbody.appendChild(tr);
             }
 
@@ -292,12 +292,47 @@
         }
 
         function seleccionarPersonal(idPersonal) {
-            var linkButtons = document.querySelectorAll('#tblListaPersonal tbody tr td a');
-            for (var i = 0; i < linkButtons.length; i++) {
-                var arg = linkButtons[i].getAttribute('commandargument') || linkButtons[i].href;
-                if (arg && arg.indexOf(idPersonal + ',') === 0) {
-                    linkButtons[i].click();
+            // Find the row with matching ID_PERSONAL
+            for (var i = 0; i < datosPersonalJson.length; i++) {
+                if (datosPersonalJson[i].ID_PERSONAL === idPersonal) {
+                    var item = datosPersonalJson[i];
+                    // Populate form fields
+                    document.getElementById('ID_PERSONAL').value = item.ID_PERSONAL;
+                    document.getElementById('Codigo').value = item.CODIGO;
+                    document.getElementById('Nombre').value = item.NOMBRE;
+                    document.getElementById('ApellidoPat').value = item.APELLIDO_PATERNO;
+                    document.getElementById('ApellidoMat').value = item.APELLIDO_MATERNO;
+                    document.getElementById('NroDocIdent').value = item.NRO_DOC_IDENT;
+                    document.getElementById('Telefono').value = item.TELEFONO;
+                    document.getElementById('Email').value = item.EMAIL;
+                    // SetEstado checkbox
+                    var estadoCheck = document.getElementById('Estado');
+                    estadoCheck.checked = item.ESTADO === 'ACTIVO';
+                    // Select dropdown options
+                    setDropdownByText('TipoDocIdent', item.TIPO_DOC_IDENT);
+                    setDropdownByText('Profesion', item.PROFESION);
+                    setDropdownByText('Sede', item.SEDE);
+                    setDropdownByText('Local', item.LOCAL);
+                    setDropdownByText('Area', item.AREA);
+                    setDropdownByText('Dependencia', item.DEPENDENCIA);
+                    setDropdownByText('Cargo', item.CARGO);
+                    // Show buttons
+                    document.getElementById('btnRegistrar').style.display = 'none';
+                    document.getElementById('btnModificar').style.display = '';
+                    document.getElementById('btnEliminar').style.display = '';
+                    // Scroll to form
                     document.querySelector('.form-card').scrollIntoView({ behavior: 'smooth' });
+                    return;
+                }
+            }
+        }
+
+        function setDropdownByText(dropdownId, text) {
+            var dropdown = document.getElementById(dropdownId);
+            if (!dropdown) return;
+            for (var i = 0; i < dropdown.options.length; i++) {
+                if (dropdown.options[i].text === text) {
+                    dropdown.selectedIndex = i;
                     return;
                 }
             }
