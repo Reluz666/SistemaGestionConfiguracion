@@ -117,8 +117,6 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
-    <script type="text/javascript" src="src/js/utils.js"></script>
-
     <script lang="javascript" type="text/javascript">
         function cerrar_ventana() {
             window.close();
@@ -147,19 +145,19 @@
                         </tr>
                         <tr>
                             <td style="text-align: left" >
-                                <asp:CheckBox ID="cbnci" runat="server" CssClass="form-check-input position-static&quot" Font-Size="X-Small" Text="Nombre CI" AutoPostBack="True" OnCheckedChanged="cbnci_CheckedChanged"/>
+                                <asp:CheckBox ID="cbnci" runat="server" CssClass="form-check-input position-static" Font-Size="X-Small" Text="Nombre CI" AutoPostBack="True" OnCheckedChanged="cbnci_CheckedChanged"/>
                             </td>
                             <td style="text-align: left" >
-                                <asp:CheckBox ID="cbtci" runat="server" CssClass="form-check-input position-static&quot" Font-Size="X-Small" Text="Tipo CI" AutoPostBack="True" OnCheckedChanged="cbtci_CheckedChanged"/>
+                                <asp:CheckBox ID="cbtci" runat="server" CssClass="form-check-input position-static" Font-Size="X-Small" Text="Tipo CI" AutoPostBack="True" OnCheckedChanged="cbtci_CheckedChanged"/>
                             </td>
                             <td style="text-align: left" >
-                                <asp:CheckBox ID="cbeci" runat="server" CssClass="form-check-input position-static&quot" Font-Size="X-Small" Text="Estado CI" AutoPostBack="True" OnCheckedChanged="cbeci_CheckedChanged"/>
+                                <asp:CheckBox ID="cbeci" runat="server" CssClass="form-check-input position-static" Font-Size="X-Small" Text="Estado CI" AutoPostBack="True" OnCheckedChanged="cbeci_CheckedChanged"/>
                             </td>
                             <td style="text-align: left" class="auto-style1" >
-                                <asp:CheckBox ID="cbns" runat="server" CssClass="form-check-input position-static&quot" Font-Size="X-Small" Text="Nro. Serie" AutoPostBack="True" OnCheckedChanged="cbns_CheckedChanged"/>
+                                <asp:CheckBox ID="cbns" runat="server" CssClass="form-check-input position-static" Font-Size="X-Small" Text="Nro. Serie" AutoPostBack="True" OnCheckedChanged="cbns_CheckedChanged"/>
                             </td>
                             <td style="text-align: left" class="auto-style1" >
-                                <asp:CheckBox ID="cbdci" runat="server" CssClass="form-check-input position-static&quot" Font-Size="X-Small" Text="Descripcion CI" AutoPostBack="True" OnCheckedChanged="cbdci_CheckedChanged"/>
+                                <asp:CheckBox ID="cbdci" runat="server" CssClass="form-check-input position-static" Font-Size="X-Small" Text="Descripcion CI" AutoPostBack="True" OnCheckedChanged="cbdci_CheckedChanged"/>
                             </td>
                         </tr>
                         <tr>
@@ -195,16 +193,16 @@
                         </tr>
                         <tr>
                             <td style="text-align: left" >
-                                <asp:CheckBox ID="cbm" runat="server" CssClass="form-check-input position-static&quot" Font-Size="X-Small" Text="Marca" AutoPostBack="True" OnCheckedChanged="cbm_CheckedChanged"/>
+                                <asp:CheckBox ID="cbm" runat="server" CssClass="form-check-input position-static" Font-Size="X-Small" Text="Marca" AutoPostBack="True" OnCheckedChanged="cbm_CheckedChanged"/>
                             </td>
                             <td style="text-align: left" >
-                                <asp:CheckBox ID="cbs" runat="server" CssClass="form-check-input position-static&quot" Font-Size="X-Small" Text="Sede" AutoPostBack="True" OnCheckedChanged="cbs_CheckedChanged"/>
+                                <asp:CheckBox ID="cbs" runat="server" CssClass="form-check-input position-static" Font-Size="X-Small" Text="Sede" AutoPostBack="True" OnCheckedChanged="cbs_CheckedChanged"/>
                             </td>
                             <td style="text-align: left" >
-                                <asp:CheckBox ID="cbl" runat="server" CssClass="form-check-input position-static&quot" Font-Size="X-Small" Text="Local" AutoPostBack="True" OnCheckedChanged="cbl_CheckedChanged"/>
+                                <asp:CheckBox ID="cbl" runat="server" CssClass="form-check-input position-static" Font-Size="X-Small" Text="Local" AutoPostBack="True" OnCheckedChanged="cbl_CheckedChanged"/>
                             </td>
                             <td style="text-align: left" >
-                                <asp:CheckBox ID="cba" runat="server" CssClass="form-check-input position-static&quot" Font-Size="X-Small" Text="Area" AutoPostBack="True" OnCheckedChanged="cba_CheckedChanged"/>
+                                <asp:CheckBox ID="cba" runat="server" CssClass="form-check-input position-static" Font-Size="X-Small" Text="Area" AutoPostBack="True" OnCheckedChanged="cba_CheckedChanged"/>
                             </td>
                             <td class="auto-style1">
                                 &nbsp;</td>
@@ -491,6 +489,8 @@
             });
         }
     </script>
+
+<script type="text/javascript" src="src/js/utils.js"></script>
 
 </body>
 </html>

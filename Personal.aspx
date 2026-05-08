@@ -77,6 +77,7 @@
         .pagination-wrapper .page-link:hover {
             background: rgba(233, 69, 96, 0.1);
             color: #e94560;
+        }
         .table-modern thead th {
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             color: #fff;

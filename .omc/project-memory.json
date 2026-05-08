@@ -145,26 +145,26 @@
   "hotPaths": [
     {
       "path": "Personal.aspx",
-      "accessCount": 83,
-      "lastAccessed": 1778215509329,
+      "accessCount": 87,
+      "lastAccessed": 1778215973738,
+      "type": "file"
+    },
+    {
+      "path": "CIsComponentesAsignados.aspx",
+      "accessCount": 26,
+      "lastAccessed": 1778215995157,
       "type": "file"
     },
     {
       "path": "acceso.aspx",
-      "accessCount": 24,
-      "lastAccessed": 1778215479728,
+      "accessCount": 25,
+      "lastAccessed": 1778215644545,
       "type": "file"
     },
     {
       "path": "Cargo.aspx",
       "accessCount": 20,
       "lastAccessed": 1778215385570,
-      "type": "file"
-    },
-    {
-      "path": "CIsComponentesAsignados.aspx",
-      "accessCount": 17,
-      "lastAccessed": 1778214857950,
       "type": "file"
     },
     {
@@ -187,8 +187,8 @@
     },
     {
       "path": "Dashboard.aspx",
-      "accessCount": 10,
-      "lastAccessed": 1778215442356,
+      "accessCount": 11,
+      "lastAccessed": 1778215627487,
       "type": "file"
     },
     {
@@ -259,8 +259,8 @@
     },
     {
       "path": "Personal.aspx.cs",
-      "accessCount": 6,
-      "lastAccessed": 1777585595728,
+      "accessCount": 7,
+      "lastAccessed": 1778215627436,
       "type": "file"
     },
     {
@@ -318,6 +318,12 @@
       "type": "file"
     },
     {
+      "path": "acceso.aspx.cs",
+      "accessCount": 6,
+      "lastAccessed": 1778215957969,
+      "type": "file"
+    },
+    {
       "path": "TipoComponeneteCI.aspx",
       "accessCount": 5,
       "lastAccessed": 1778210571485,
@@ -354,15 +360,21 @@
       "type": "file"
     },
     {
-      "path": "Reportes\\ReporteDatosCorrectosCI.aspx",
-      "accessCount": 4,
-      "lastAccessed": 1777586909406,
+      "path": "Menu.aspx",
+      "accessCount": 5,
+      "lastAccessed": 1778215627462,
       "type": "file"
     },
     {
       "path": "CIsAsignarComponenetes.aspx",
+      "accessCount": 5,
+      "lastAccessed": 1778215653185,
+      "type": "file"
+    },
+    {
+      "path": "Reportes\\ReporteDatosCorrectosCI.aspx",
       "accessCount": 4,
-      "lastAccessed": 1777586926025,
+      "lastAccessed": 1777586909406,
       "type": "file"
     },
     {
@@ -387,18 +399,6 @@
       "path": "Reportes\\ReporteCIsInformacionContenidaEnCMDB.aspx",
       "accessCount": 4,
       "lastAccessed": 1777586937796,
-      "type": "file"
-    },
-    {
-      "path": "acceso.aspx.cs",
-      "accessCount": 4,
-      "lastAccessed": 1777667423014,
-      "type": "file"
-    },
-    {
-      "path": "Menu.aspx",
-      "accessCount": 4,
-      "lastAccessed": 1778215084439,
       "type": "file"
     },
     {
