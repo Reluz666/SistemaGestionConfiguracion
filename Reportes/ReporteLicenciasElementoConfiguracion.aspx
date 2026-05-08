@@ -1,5 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ReporteLicenciasElementoConfiguracion.aspx.cs" Inherits="LicenciasElementoConfiguracion" UnobtrusiveValidationMode="None" %>
-
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ReporteLicenciasElementoConfiguracion.aspx.cs" Inherits="ReporteLicenciasElementoConfiguracion" UnobtrusiveValidationMode="None" %>
 <%@ Register src="../NavBar.ascx" tagname="NavBar" tagprefix="uc1" %>
 
 <!DOCTYPE html>
@@ -9,145 +8,22 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Licencia Elemento Configuracion</title>
+    <title>Reporte Licencias de Elementos de Configuracion</title>
 
-    <!-- Bootstrap 5.3 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+    <link href="../CssJs/global-styles.css" rel="stylesheet" />
 
     <style>
-        /* ===== NAVBAR ===== */
-        .navbar-modern {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            border: none;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.15);
-            padding: 0.8rem 1rem;
-        }
-
-        .navbar-modern .navbar-brand {
-            color: #fff !important;
-            font-weight: 600;
-            font-size: 1.2rem;
-        }
-
-        .navbar-modern .navbar-brand:hover {
-            color: #e94560 !important;
-        }
-
-        .navbar-modern .nav-link {
-            color: rgba(255, 255, 255, 0.85) !important;
-            font-weight: 500;
-            padding: 0.6rem 1rem !important;
-            border-radius: 8px;
-            transition: color 0.2s, background 0.2s;
-        }
-
-        .navbar-modern .nav-link:hover {
-            color: #fff !important;
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .navbar-modern .dropdown-menu {
-            background: #1a1a2e;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            padding: 0.5rem;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        .navbar-modern .dropdown-item {
-            color: rgba(255, 255, 255, 0.8);
-            border-radius: 8px;
-            padding: 0.5rem 1rem;
-            transition: all 0.2s;
-        }
-
-        .navbar-modern .dropdown-item:hover {
-            background: rgba(233, 69, 96, 0.2);
-            color: #fff;
-        }
-
-        .navbar-modern .dropdown-submenu {
-            position: relative;
-        }
-
-        .navbar-modern .dropdown-submenu > .dropdown-toggle::after {
-            border-left: 0.3em solid;
-            border-top: 0.3em solid transparent;
-            border-bottom: 0.3em solid transparent;
-            margin-left: auto;
-        }
-
-        .navbar-modern .dropdown-submenu > .dropdown-menu {
-            top: 0;
-            left: 100%;
-            margin-top: -6px;
-            margin-left: 2px;
-            border-radius: 12px;
-        }
-
-        .navbar-modern .dropdown-submenu:hover > .dropdown-menu {
-            display: block;
-        }
-
-        /* ===== FORMULARIO ===== */
-        .form-card {
-            background: #fff;
-            border-radius: 16px;
-            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
-            padding: 2rem;
-            margin-bottom: 2rem;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-        }
-
-        .form-label-modern {
-            font-weight: 500;
-            color: #2d3436;
-            margin-bottom: 0.4rem;
-            font-size: 0.9rem;
-        }
-
-        .form-control-modern {
-            border: 2px solid #e9ecef;
-            border-radius: 10px;
-            padding: 0.6rem 1rem;
-            transition: border-color 0.3s, box-shadow 0.3s;
-            font-size: 0.95rem;
-        }
-
-        .form-control-modern:focus {
-            border-color: #e94560;
-            box-shadow: 0 0 0 4px rgba(233, 69, 96, 0.1);
-            outline: none;
-        }
-
-        .form-control-modern::placeholder {
-            color: #adb5bd;
-        }
-
-        select.form-control-modern {
-            cursor: pointer;
-        }
-
-        /* ===== TABLA ===== */
+        .top-spacer { height: 100px; }
         .table-wrapper {
             background: #fff;
             border-radius: 16px;
-            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
-            padding: 1rem;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            overflow-x: auto;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.08);
+            padding: 1.5rem;
+            border: 1px solid rgba(0,0,0,0.05);
         }
-
-        .table-modern-grid {
-            border-collapse: separate !important;
-            border-spacing: 0;
-            width: 100%;
-            min-width: 900px;
-        }
-
-        .table-modern-grid thead tr th {
+        .table-modern thead th {
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             color: #fff;
             font-weight: 600;
@@ -158,114 +34,93 @@
             border: none !important;
             white-space: nowrap;
         }
-
-        .table-modern-grid thead tr th:first-child {
-            border-radius: 10px 0 0 10px;
-        }
-
-        .table-modern-grid thead tr th:last-child {
-            border-radius: 0 10px 10px 0;
-        }
-
-        .table-modern-grid tbody tr td {
+        .table-modern tbody td {
             padding: 0.5rem 0.45rem !important;
             border: none;
             border-bottom: 1px solid #f1f1f1;
             vertical-align: middle;
             font-size: 0.8rem;
             color: #2d3436;
-            background: #fff;
         }
-
-        .table-modern-grid tbody tr:hover td {
-            background: rgba(233, 69, 96, 0.04);
+        .table-modern tbody tr:hover td {
+            background: rgba(233,69,96,0.04);
         }
-
-        .table-modern-grid tbody tr:last-child td {
+        .table-modern tbody tr:last-child td {
             border-bottom: none;
         }
-
-        /* ===== BOTONES ===== */
-        .btn-modern {
-            padding: 0.6rem 1.5rem;
+        .search-input {
+            border: 2px solid #e9ecef;
             border-radius: 10px;
-            font-weight: 600;
+            padding: 0.6rem 1rem;
             font-size: 0.95rem;
-            transition: all 0.3s ease;
-            border: none;
         }
-
-        .btn-modern:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        .search-input:focus {
+            border-color: #e94560;
+            box-shadow: 0 0 0 4px rgba(233,69,96,0.1);
+            outline: none;
         }
-
-        /* ===== VALIDATORS ===== */
-        .validator-error {
+        .pagination-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+            gap: 0.25rem;
+        }
+        .pagination-wrapper .page-item.active .page-link {
+            background: #e94560;
+            border-color: #e94560;
+        }
+        .pagination-wrapper .page-link {
+            border-radius: 8px;
+            margin: 0 2px;
+            color: #2d3436;
+        }
+        .pagination-wrapper .page-link:hover {
+            background: rgba(233, 69, 96, 0.1);
             color: #e94560;
-            font-size: 0.8rem;
-            font-weight: 500;
         }
-
-        /* ===== SPACER ===== */
-        .top-spacer { height: 100px; }
-
-        /* ===== RESPONSIVE ===== */
+        .page-info {
+            text-align: center;
+            margin-top: 1rem;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        .btn-accion {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            border-radius: 6px;
+        }
+        .color-blue { color: #0066cc; font-weight: 600; }
+        .color-red { color: #cc0000; font-weight: 600; }
+        .color-green { color: #198754; font-weight: 600; }
+        .btn-info { background: #0dcaf0; color: #fff; }
+        .detail-row td {
+            background: #f8f9fa !important;
+        }
+        .detail-table {
+            margin: 0;
+            font-size: 0.75rem;
+        }
+        .detail-table th {
+            background: #6c757d !important;
+            color: #fff;
+            padding: 0.3rem 0.4rem !important;
+            font-weight: 600;
+        }
+        .detail-table td {
+            padding: 0.3rem 0.4rem !important;
+            border-bottom: 1px solid #dee2e6;
+        }
         @media (max-width: 991px) {
-            .navbar-modern .dropdown-submenu > .dropdown-menu {
-                position: static;
-                margin-top: 0;
-                margin-left: 1rem;
-                box-shadow: none;
-            }
-            .form-card { padding: 1.5rem; }
             .table-wrapper { padding: 1rem; }
         }
-
-        @media (max-width: 576px) {
-            .btn-modern { width: 100%; margin-bottom: 0.5rem; }
-        }
-
-        .auto-style1 { width: 309px; }
     </style>
 
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="../src/js/utils.js"></script>
+
     <script lang="javascript" type="text/javascript">
-        function abrir_ventana_imprimir_reporte(Opcion) {
-            if (Verificar_Datos_tabla(Opcion)) {
-                window.name = "Lista de Personal";
-                var options = 'channelmode=1,directories=0,fullscreen=0,location=0,menubar=0,resizable=no,titlebar=0,toolbar=0,edge=Raised,status=no,scrollbars=1,width=1000,height=500,top=70px, left=175px';
-                window.open('../Reportes/Reporte.aspx', '', options);
-            }
-        }
-
-        function Verificar_Datos_tabla(Opcion) {
-            var Pregunta = '';
-            var Mensaje = '';
-            if (Opcion == 1) {
-                Pregunta = "¿Desea exportar los datos a Microsoft Office Excel...?";
-                Mensaje = "No hay datos para exportar a Microsoft Office Excel.";
-            }
-            else if (Opcion == 2) {
-                Pregunta = "¿Desea imprimir el reporte?";
-                Mensaje = "No hay datos para imprimir el reporte.";
-            }
-            var tabla = document.getElementById("tblLicencias");
-            var tabla_longitud = (tabla.rows.length) - 1;
-            var Ok, Rpta;
-            Ok = true;
-            Rpta = confirm(Pregunta);
-            if (Rpta == 1) {
-                if (tabla_longitud == 0) {
-                    Ok = false;
-                    alert(Mensaje);
-                }
-            }
-            else {
-                Ok = false;
-            }
-            return Ok;
-        }
-
         function MostrarMensaje() {
             var mensaje = document.getElementById("__mensaje").value;
             if (mensaje != "") {
@@ -275,134 +130,254 @@
             }
         }
 
-        function window_load() {
-            MostrarMensaje()
-        }
-
-        function Confirmar(men) {
-            if (!confirm(men))
-                return false;
-        }
-
         function toggleRow(rowId) {
             var row = document.getElementById(rowId);
-            if (row.style.display === "none" || row.style.display === "") {
-                row.style.display = "table-row";
-            } else {
-                row.style.display = "none";
+            if (row) {
+                if (row.style.display === "none" || row.style.display === "") {
+                    row.style.display = "table-row";
+                } else {
+                    row.style.display = "none";
+                }
             }
         }
+
+        var allData = [];
+        var currentPage = 1;
+        var pageSize = 10;
+        var filteredData = [];
+
+        function filtrarTabla(texto) {
+            texto = texto.toUpperCase();
+            var datosFiltrados = [];
+
+            for (var i = 0; i < allData.length; i++) {
+                var row = allData[i];
+                var textoFila = (row.LICENCIA || '') + ' ' + (row.TIPO_LICENCIA || '') + ' ' +
+                    (row.NOMBRE || '') + ' ' + (row.VERSION || '') + ' ' +
+                    (row.SUSCRIPCION || '');
+                if (textoFila.toUpperCase().indexOf(texto) > -1) {
+                    datosFiltrados.push(row);
+                }
+            }
+
+            filteredData = datosFiltrados;
+            currentPage = 1;
+            Paginar(1);
+        }
+
+        function Paginar(pagina) {
+            currentPage = pagina;
+            var tbody = document.getElementById("tbodyLicencias");
+            if (!tbody) return;
+
+            var totalPaginas = Math.ceil(filteredData.length / pageSize);
+            var inicio = (pagina - 1) * pageSize;
+            var fin = inicio + pageSize;
+            var datosPagina = filteredData.slice(inicio, fin);
+
+            var lblTotal = document.getElementById("lblTotalRegistros");
+            if (lblTotal) lblTotal.textContent = 'Total: ' + filteredData.length + ' elementos';
+
+            tbody.innerHTML = "";
+
+            if (datosPagina.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="10" class="text-center text-muted py-4">No se encontraron licencias</td></tr>';
+                document.getElementById("pageInfoLicencia").textContent = '';
+                return;
+            }
+
+            for (var i = 0; i < datosPagina.length; i++) {
+                var item = datosPagina[i];
+                var perpColor = item.PERPETUA === "SI" ? "color-blue" : "color-red";
+                var venceColor = "color-blue";
+                if (item.VENCE_LICENCIA === "LICENCIA VENCIDA") {
+                    venceColor = "color-red";
+                } else if (item.VENCE_LICENCIA === "LICENCIA NO VENCE") {
+                    venceColor = "color-green";
+                }
+
+                var tr = document.createElement("tr");
+                tr.innerHTML =
+                    '<td>' + htmlEncode(item.LICENCIA) + '</td>' +
+                    '<td>' + htmlEncode(item.TIPO_LICENCIA) + '</td>' +
+                    '<td>' + htmlEncode(item.NOMBRE) + '</td>' +
+                    '<td>' + htmlEncode(item.VERSION) + '</td>' +
+                    '<td>' + htmlEncode(item.SUSCRIPCION) + '</td>' +
+                    '<td>' + htmlEncode(item.FEC_INI) + '</td>' +
+                    '<td>' + htmlEncode(item.FEC_FIN) + '</td>' +
+                    '<td class="' + perpColor + '">' + htmlEncode(item.PERPETUA) + '</td>' +
+                    '<td class="' + venceColor + '">' + htmlEncode(item.VENCE_LICENCIA) + '</td>' +
+                    '<td class="text-center"><button type="button" class="btn btn-info btn-sm btn-accion" onclick="toggleRow(\'details-' + item.ID_LI + '\');"><i class="bi bi-plus-circle"></i> Ver Detalles</button></td>';
+                tbody.appendChild(tr);
+
+                // Detail row
+                var detailTr = document.createElement("tr");
+                detailTr.id = "details-" + item.ID_LI;
+                detailTr.style.display = "none";
+                detailTr.className = "detail-row";
+
+                var detailCell = document.createElement("td");
+                detailCell.colSpan = 10;
+
+                if (item.detalles && item.detalles.length > 0) {
+                    var detailTableHtml = '<table class="table table-sm table-striped detail-table mb-0"><thead><tr>' +
+                        '<th>TIPO CI</th><th>NOMBRE CI</th><th>NRO SERIE</th><th>PROPIETARIO</th><th>DESCRIPCION CI</th>' +
+                        '<th>SEDE</th><th>LOCAL</th><th>AREA</th><th>NRO PISO</th><th>NRO AMBIENTE</th>' +
+                        '</tr></thead><tbody>';
+                    for (var j = 0; j < item.detalles.length; j++) {
+                        var d = item.detalles[j];
+                        detailTableHtml += '<tr>' +
+                            '<td>' + htmlEncode(d.TIPO_CI) + '</td>' +
+                            '<td>' + htmlEncode(d.NOMBRE_CI) + '</td>' +
+                            '<td>' + htmlEncode(d.NRO_SERIE) + '</td>' +
+                            '<td>' + htmlEncode(d.PROPIETARIO) + '</td>' +
+                            '<td>' + htmlEncode(d.DESCRIPCION_CI) + '</td>' +
+                            '<td>' + htmlEncode(d.SEDE) + '</td>' +
+                            '<td>' + htmlEncode(d.LOCAL) + '</td>' +
+                            '<td>' + htmlEncode(d.AREA) + '</td>' +
+                            '<td>' + htmlEncode(d.NRO_PISO) + '</td>' +
+                            '<td>' + htmlEncode(d.NRO_AMBIENTE) + '</td>' +
+                            '</tr>';
+                    }
+                    detailTableHtml += '</tbody></table>';
+                    detailCell.innerHTML = detailTableHtml;
+                } else {
+                    detailCell.innerHTML = '<div class="text-muted p-2">Cargando detalles...</div>';
+                }
+
+                detailTr.appendChild(detailCell);
+                tbody.appendChild(detailTr);
+            }
+
+            generarPaginacion(totalPaginas, pagina);
+            document.getElementById("pageInfoLicencia").textContent = 'Pagina ' + pagina + ' de ' + totalPaginas + ' (Total: ' + filteredData.length + ' registros)';
+        }
+
+        function generarPaginacion(totalPaginas, pagina) {
+            var ul = document.getElementById("paginationControls");
+            if (!ul) return;
+            ul.innerHTML = '';
+
+            if (totalPaginas <= 1) {
+                return;
+            }
+
+            var sb = '';
+
+            if (pagina > 1) {
+                sb += '<li class="page-item"><a class="page-link" href="javascript:Paginar(' + (pagina - 1) + ')">Anterior</a></li>';
+            } else {
+                sb += '<li class="page-item disabled"><span class="page-link">Anterior</span></li>';
+            }
+
+            var inicio = Math.max(1, pagina - 2);
+            var fin = Math.min(totalPaginas, pagina + 2);
+
+            if (inicio > 1) {
+                sb += '<li class="page-item"><a class="page-link" href="javascript:Paginar(1)">1</a></li>';
+                if (inicio > 2) sb += '<li class="page-item disabled"><span class="page-link">...</span></li>';
+            }
+
+            for (var i = inicio; i <= fin; i++) {
+                if (i === pagina) {
+                    sb += '<li class="page-item active"><span class="page-link">' + i + '</span></li>';
+                } else {
+                    sb += '<li class="page-item"><a class="page-link" href="javascript:Paginar(' + i + ')">' + i + '</a></li>';
+                }
+            }
+
+            if (fin < totalPaginas) {
+                if (fin < totalPaginas - 1) sb += '<li class="page-item disabled"><span class="page-link">...</span></li>';
+                sb += '<li class="page-item"><a class="page-link" href="javascript:Paginar(' + totalPaginas + ')">' + totalPaginas + '</a></li>';
+            }
+
+            if (pagina < totalPaginas) {
+                sb += '<li class="page-item"><a class="page-link" href="javascript:Paginar(' + (pagina + 1) + ')">Siguiente</a></li>';
+            } else {
+                sb += '<li class="page-item disabled"><span class="page-link">Siguiente</span></li>';
+            }
+
+            ul.innerHTML = sb;
+        }
+
+        window.addEventListener('load', function () {
+            var jsonField = document.getElementById("datosJson");
+            var jsonData = jsonField ? jsonField.value : '';
+            if (jsonData && jsonData.trim() !== "") {
+                try {
+                    allData = JSON.parse(jsonData);
+                    filteredData = allData;
+                    Paginar(1);
+                } catch (e) {
+                    console.error("Error al parsear JSON:", e);
+                }
+            }
+
+            $("#txtBuscarLicencia").on("keyup", function () {
+                filtrarTabla(this.value);
+            });
+        });
     </script>
 </head>
-<body onload="MostrarMensaje();">
-    <form id="form1" runat="server">
-        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+<body onload="MostrarMensaje()">
 
     <uc1:NavBar ID="NavBar1" runat="server" />
 
-        <div class="container">
-            <div class="form-card">
-                <div class="table-responsive">
-                    <div class="container-fluid">
-                <table class="table table text-center">
-                    <tr>
-                        <td style="text-align: left" colspan="7">
-                            &nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: left" >
-                            <asp:CheckBox ID="cbtl" runat="server" CssClass="form-check-input position-static" Font-Size="X-Small" Text="Tipo Licencia" AutoPostBack="True" OnCheckedChanged="cbtl_CheckedChanged"/>
-                        </td>
-                        <td style="text-align: left" >
-                            <asp:CheckBox ID="cbs" runat="server" CssClass="form-check-input position-static" Font-Size="X-Small" Text="Suscripcion" AutoPostBack="True" OnCheckedChanged="cbs_CheckedChanged"/>
-                        </td>
-                        <td style="text-align: left" >
-                            <asp:CheckBox ID="cbp" runat="server" CssClass="form-check-input position-static" Font-Size="X-Small" Text="Licencia Perpetua" AutoPostBack="True" OnCheckedChanged="cbp_CheckedChanged"/>
-                        </td>
-                        <td style="text-align: left" class="auto-style1" colspan="4" >
-                            <asp:CheckBox ID="cbf" runat="server" CssClass="form-check-input position-static" Font-Size="X-Small" Text="Fecha Vencimiento Suscripcion" AutoPostBack="True" OnCheckedChanged="cbf_CheckedChanged"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <asp:DropDownList ID="ddltl" runat="server" CssClass="form-control input-sm"
-                                        AppendDataBoundItems="True" Enabled="False" AutoPostBack="True" OnSelectedIndexChanged="ddltl_SelectedIndexChanged"
-                                       >
-                                        <asp:ListItem Value="-1">_____SELECCIONE TIPO LICENCIA_____</asp:ListItem>
-                                    </asp:DropDownList>
-                        </td>
-                        <td>
-                            <asp:DropDownList ID="ddls" runat="server" CssClass="form-control input-sm"
-                                        AppendDataBoundItems="True" Enabled="False"
-                                       >
-                                        <asp:ListItem Value="-1">_____SELECCIONE SUSCRIPCION LICENCIA_____</asp:ListItem>
-                                    </asp:DropDownList>
-                        </td>
-                        <td>
-                            <asp:DropDownList ID="ddlp" runat="server" CssClass="form-control input-sm"
-                                        AppendDataBoundItems="True" Enabled="False"
-                                       >
-                                        <asp:ListItem Value="-1">_____SELECCIONE OPCION_____</asp:ListItem>
-                                        <asp:ListItem Value="1">SI</asp:ListItem>
-                                        <asp:ListItem Value="0">NO</asp:ListItem>
-                                    </asp:DropDownList>
-                        </td>
-                        <td class="auto-style1">
-                            <strong>Fec. Ini:</strong></td>
-                        <td style="text-align: left" >
-                    <asp:TextBox ID="txtFechaInicioSuscripcion" runat="server"
-                        class="form-control" placeholder="Ingrese fec. inicio" Width="" onFocus='' onChange='' onBlur='' Enabled="False"></asp:TextBox>
+    <div class="top-spacer"></div>
 
-                    <input id="btnFechaInicioSuscripcion" type="button"
-                        value="..." style="height: 25px; width: 25px;"
-                        class="form-check" /></td>
-                        <td>
+    <form id="form1" runat="server">
+        <div class="container mt-4">
+            <div class="table-wrapper">
+                <h4 class="mb-4"><i class="bi bi-file-earmark-lock me-2"></i>Reporte de Licencias de Elementos de Configuracion</h4>
 
-                            <strong>Fec. Fin</strong>:</td>
-                       <td style="text-align: left" >
-
-                    <asp:TextBox ID="txtFechaFinSuscripcion" runat="server" class="form-control" placeholder="Ingrese fec. fin" onFocus='' onChange='' onBlur='' Enabled="False"></asp:TextBox>
-                    <input id="btnFechaFinSuscripcion" type="button"
-                        value="..." style="height: 25px; width: 25px;" class="form-check" /></td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: left" >
-                            &nbsp;</td>
-                        <td style="text-align: left" >
-                            &nbsp;</td>
-                        <td style="text-align: right" >
-                            <asp:LinkButton ID="lbtnBuscar" runat="server" CausesValidation="False" class="btn btn-info" Text="Buscar" UseSubmitBehavior="False" OnClick="lbtnBuscar_Click" />
-                            </td>
-                        <td style="text-align: left" colspan="2" >
-                            <asp:Button ID="btnActualizarInformacion" runat="server" class="btn btn-success" CssClass="btn btn-warning" Text="Actualizar Informacion" OnClick="btnActualizarInformacion_Click" />
-                            </td>
-                        <td style="text-align: left" colspan="2" >
-                            <asp:LinkButton ID="IMPRIMIR" runat="server" CausesValidation="False" class="btn btn-info" onclick="IMPRIMIR_Click" onclientclick="abrir_ventana_imprimir_reporte(2);" Width="120px">Imprimir reporte</asp:LinkButton>
-                        </td>
-                    </tr>
-                    </table>
-                   </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <span class="input-group-text bg-white border-end-0">
+                                <i class="bi bi-search text-muted"></i>
+                            </span>
+                            <input type="text" id="txtBuscarLicencia" class="form-control border-start-0 search-input"
+                                placeholder="Buscar por licencia, nombre, version o suscripcion..." />
+                        </div>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <span id="lblTotalRegistros" class="text-muted"></span>
+                    </div>
                 </div>
 
-                <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-                    <ContentTemplate>
-                        <asp:Table ID="tblLicencias" runat="server"
-                            CssClass="table table-modern table-hover table-condensed table-responsive" Font-Size="Small">
-                        </asp:Table>
-                    </ContentTemplate>
-                    <Triggers>
-                    </Triggers>
-                </asp:UpdatePanel>
-            </div>
-        </div>
+                <div class="table-responsive" style="max-height: 600px; overflow-y: auto;">
+                    <table class="table table-modern table-hover" id="tblListaLicencias">
+                        <thead>
+                            <tr>
+                                <th>LICENCIA</th>
+                                <th>TIPO LICENCIA</th>
+                                <th>NOMBRE</th>
+                                <th>VERSION</th>
+                                <th>SUSCRIPCION</th>
+                                <th>FEC. INI.</th>
+                                <th>FEC. FIN</th>
+                                <th>PERPETUA</th>
+                                <th>VENCE</th>
+                                <th>ACCION</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbodyLicencias">
+                        </tbody>
+                    </table>
+                </div>
 
-        <asp:HiddenField ID="__mensaje" runat="server" />
-        <asp:HiddenField ID="__pagina" runat="server" />
+                <div class="pagination-wrapper">
+                    <nav><ul class="pagination mb-0" id="paginationControls"></ul></nav>
+                </div>
+                <div class="page-info" id="pageInfoLicencia"></div>
+            </div>
+
+            <asp:HiddenField ID="__mensaje" runat="server" />
+            <asp:HiddenField ID="__pagina" runat="server" />
+            <asp:HiddenField ID="datosJson" runat="server" ClientIDMode="Static" />
+        </div>
     </form>
 
-    <!-- Scripts -->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
+    <script type="text/javascript" src="../Otros_css_js/resaltar.js"></script>
 </body>
 </html>

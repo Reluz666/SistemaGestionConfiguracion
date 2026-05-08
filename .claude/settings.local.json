@@ -21,7 +21,8 @@
       "Bash(dir D:\\\\PROYECTOS\\\\SistemaGestionConfiguracion\\\\ElementosConfiguracion*)",
       "Bash(git checkout *)",
       "mcp__plugin_oh-my-claudecode_t__lsp_rename",
-      "mcp__plugin_oh-my-claudecode_t__ast_grep_search"
+      "mcp__plugin_oh-my-claudecode_t__ast_grep_search",
+      "mcp__plugin_oh-my-claudecode_t__state_read"
     ]
   }
 }

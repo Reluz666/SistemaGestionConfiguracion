@@ -1,5 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ReporteSeguimientosElementoConfiguracion.aspx.cs" Inherits="ElementosConfiguracion"  UnobtrusiveValidationMode="None" %>
-
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ReporteSeguimientosElementoConfiguracion.aspx.cs" Inherits="ReporteSeguimientosElementoConfiguracion" UnobtrusiveValidationMode="None" %>
 <%@ Register src="../NavBar.ascx" tagname="NavBar" tagprefix="uc1" %>
 
 <!DOCTYPE html>
@@ -9,145 +8,22 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Reporte Seguimientos CIs</title>
+    <title>Reporte Seguimientos de Elementos de Configuracion</title>
 
-    <!-- Bootstrap 5.3 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+    <link href="../CssJs/global-styles.css" rel="stylesheet" />
 
     <style>
-        /* ===== NAVBAR ===== */
-        .navbar-modern {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            border: none;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.15);
-            padding: 0.8rem 1rem;
-        }
-
-        .navbar-modern .navbar-brand {
-            color: #fff !important;
-            font-weight: 600;
-            font-size: 1.2rem;
-        }
-
-        .navbar-modern .navbar-brand:hover {
-            color: #e94560 !important;
-        }
-
-        .navbar-modern .nav-link {
-            color: rgba(255, 255, 255, 0.85) !important;
-            font-weight: 500;
-            padding: 0.6rem 1rem !important;
-            border-radius: 8px;
-            transition: color 0.2s, background 0.2s;
-        }
-
-        .navbar-modern .nav-link:hover {
-            color: #fff !important;
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .navbar-modern .dropdown-menu {
-            background: #1a1a2e;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            padding: 0.5rem;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        .navbar-modern .dropdown-item {
-            color: rgba(255, 255, 255, 0.8);
-            border-radius: 8px;
-            padding: 0.5rem 1rem;
-            transition: all 0.2s;
-        }
-
-        .navbar-modern .dropdown-item:hover {
-            background: rgba(233, 69, 96, 0.2);
-            color: #fff;
-        }
-
-        .navbar-modern .dropdown-submenu {
-            position: relative;
-        }
-
-        .navbar-modern .dropdown-submenu > .dropdown-toggle::after {
-            border-left: 0.3em solid;
-            border-top: 0.3em solid transparent;
-            border-bottom: 0.3em solid transparent;
-            margin-left: auto;
-        }
-
-        .navbar-modern .dropdown-submenu > .dropdown-menu {
-            top: 0;
-            left: 100%;
-            margin-top: -6px;
-            margin-left: 2px;
-            border-radius: 12px;
-        }
-
-        .navbar-modern .dropdown-submenu:hover > .dropdown-menu {
-            display: block;
-        }
-
-        /* ===== FORMULARIO ===== */
-        .form-card {
-            background: #fff;
-            border-radius: 16px;
-            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
-            padding: 2rem;
-            margin-bottom: 2rem;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-        }
-
-        .form-label-modern {
-            font-weight: 500;
-            color: #2d3436;
-            margin-bottom: 0.4rem;
-            font-size: 0.9rem;
-        }
-
-        .form-control-modern {
-            border: 2px solid #e9ecef;
-            border-radius: 10px;
-            padding: 0.6rem 1rem;
-            transition: border-color 0.3s, box-shadow 0.3s;
-            font-size: 0.95rem;
-        }
-
-        .form-control-modern:focus {
-            border-color: #e94560;
-            box-shadow: 0 0 0 4px rgba(233, 69, 96, 0.1);
-            outline: none;
-        }
-
-        .form-control-modern::placeholder {
-            color: #adb5bd;
-        }
-
-        select.form-control-modern {
-            cursor: pointer;
-        }
-
-        /* ===== TABLA ===== */
+        .top-spacer { height: 100px; }
         .table-wrapper {
             background: #fff;
             border-radius: 16px;
-            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
-            padding: 1rem;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            overflow-x: auto;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.08);
+            padding: 1.5rem;
+            border: 1px solid rgba(0,0,0,0.05);
         }
-
-        .table-modern-grid {
-            border-collapse: separate !important;
-            border-spacing: 0;
-            width: 100%;
-            min-width: 900px;
-        }
-
-        .table-modern-grid thead tr th {
+        .table-modern thead th {
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             color: #fff;
             font-weight: 600;
@@ -158,119 +34,78 @@
             border: none !important;
             white-space: nowrap;
         }
-
-        .table-modern-grid thead tr th:first-child {
-            border-radius: 10px 0 0 10px;
-        }
-
-        .table-modern-grid thead tr th:last-child {
-            border-radius: 0 10px 10px 0;
-        }
-
-        .table-modern-grid tbody tr td {
+        .table-modern tbody td {
             padding: 0.5rem 0.45rem !important;
             border: none;
             border-bottom: 1px solid #f1f1f1;
             vertical-align: middle;
             font-size: 0.8rem;
             color: #2d3436;
-            background: #fff;
         }
-
-        .table-modern-grid tbody tr:hover td {
-            background: rgba(233, 69, 96, 0.04);
+        .table-modern tbody tr:hover td {
+            background: rgba(233,69,96,0.04);
         }
-
-        .table-modern-grid tbody tr:last-child td {
+        .table-modern tbody tr:last-child td {
             border-bottom: none;
         }
-
-        /* ===== BOTONES ===== */
-        .btn-modern {
-            padding: 0.6rem 1.5rem;
+        .search-input {
+            border: 2px solid #e9ecef;
             border-radius: 10px;
-            font-weight: 600;
+            padding: 0.6rem 1rem;
             font-size: 0.95rem;
-            transition: all 0.3s ease;
-            border: none;
         }
-
-        .btn-modern:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        .search-input:focus {
+            border-color: #e94560;
+            box-shadow: 0 0 0 4px rgba(233,69,96,0.1);
+            outline: none;
         }
-
-        /* ===== VALIDATORS ===== */
-        .validator-error {
+        .pagination-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+            gap: 0.25rem;
+        }
+        .pagination-wrapper .page-item.active .page-link {
+            background: #e94560;
+            border-color: #e94560;
+        }
+        .pagination-wrapper .page-link {
+            border-radius: 8px;
+            margin: 0 2px;
+            color: #2d3436;
+        }
+        .pagination-wrapper .page-link:hover {
+            background: rgba(233, 69, 96, 0.1);
             color: #e94560;
-            font-size: 0.8rem;
-            font-weight: 500;
         }
-
-        /* ===== SPACER ===== */
-        .top-spacer { height: 100px; }
-
-        /* ===== RESPONSIVE ===== */
+        .page-info {
+            text-align: center;
+            margin-top: 1rem;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        .btn-accion {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            border-radius: 6px;
+        }
+        .color-blue { color: #0066cc; }
+        .color-red { color: #cc0000; }
+        .color-green { color: #198754; font-weight: 600; }
+        .btn-success { background: #198754; color: #fff; }
+        .btn-primary { background: #0d6efd; color: #fff; }
         @media (max-width: 991px) {
-            .navbar-modern .dropdown-submenu > .dropdown-menu {
-                position: static;
-                margin-top: 0;
-                margin-left: 1rem;
-                box-shadow: none;
-            }
-            .form-card { padding: 1.5rem; }
             .table-wrapper { padding: 1rem; }
         }
-
-        @media (max-width: 576px) {
-            .btn-modern { width: 100%; margin-bottom: 0.5rem; }
-        }
-
-        .auto-style1 { width: 309px; }
-        .auto-style2 { font-size: x-small; }
     </style>
 
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="../src/js/utils.js"></script>
+    <script type="text/javascript" src="../src/js/grid-utils.js"></script>
+
     <script lang="javascript" type="text/javascript">
-        function abrir_ventana_imprimir_reporte(Opcion) {
-            if (Verificar_Datos_tabla(Opcion)) {
-                window.name = "Lista de Personal";
-                var options = 'channelmode=1,directories=0,fullscreen=0,location=0,menubar=0,resizable=no,titlebar=0,toolbar=0,edge=Raised,status=no,scrollbars=1,width=1000,height=500,top=70px, left=175px';
-                window.open('../Reportes/Reporte.aspx', '', options);
-            }
-        }
-
-        function Verificar_Datos_tabla(Opcion) {
-            var Pregunta = '';
-            var Mensaje = '';
-            if (Opcion == 1) {
-                Pregunta = "¿Desea exportar los datos a Microsoft Office Excel...?";
-                Mensaje = "No hay datos para exportar a Microsoft Office Excel.";
-            }
-            else if (Opcion == 2) {
-                Pregunta = "¿Desea imprimir el reporte?";
-                Mensaje = "No hay datos para imprimir el reporte.";
-            }
-            var tabla = document.getElementById("Table_");
-            var tabla_longitud = (tabla.rows.length) - 1;
-            var Ok, Rpta;
-            Ok = true;
-            Rpta = confirm(Pregunta);
-            if (Rpta == 1) {
-                if (tabla_longitud == 0) {
-                    Ok = false;
-                    alert(Mensaje);
-                }
-            }
-            else {
-                Ok = false;
-            }
-            return Ok;
-        }
-
-        function cerrar_ventana() {
-            window.close();
-        }
-
         function MostrarMensaje() {
             var mensaje = document.getElementById("__mensaje").value;
             if (mensaje != "") {
@@ -280,13 +115,99 @@
             }
         }
 
-        function window_load() {
-            MostrarMensaje()
+        // Grid configuration for Seguimientos Report
+        var seguimientosGridConfig = {
+            tableId: 'tblSeguimientos',
+            tbodyId: 'tbodySeguimientos',
+            searchInputId: 'txtBusqueda',
+            paginationWrapperId: 'paginationSeguimientos',
+            pageInfoId: 'pageInfoSeguimientos',
+            counterId: 'lblTotal',
+            dataFieldId: 'datosJson',
+            rowsPerPage: 10,
+            searchFields: ['NOMBRE_CI', 'TIPO_CI', 'NRO_SERIE', 'DESCRIPCION', 'SEDE', 'RESPONSABLE', 'ESTADO_ACTUAL'],
+            columnRenderer: function(item) {
+                var estadoColor = item.ESTADO === 'ACTIVO' ? 'color-blue' : 'color-red';
+                var relacionColor = item.RELACION_CIS === 'SI' ? 'color-blue' : 'color-red';
+                var cumpleColor = item.CUMPLE_POLITICA === 'SI' ? 'color-blue' : 'color-red';
+                var fechaSeguimiento = parseJsonDate(item.FECHA_SEGUIMIENTO);
+
+                return '<td>' + htmlEncode(item.NOMBRE_CI) + '</td>' +
+                    '<td>' + htmlEncode(item.TIPO_CI) + '</td>' +
+                    '<td>' + htmlEncode(item.NRO_SERIE) + '</td>' +
+                    '<td>' + htmlEncode(item.DESCRIPCION) + '</td>' +
+                    '<td><span class="color-red">' + htmlEncode(item.SEDE) + '</span> / <span class="color-blue">' + htmlEncode(item.LOCAL) + '</span></td>' +
+                    '<td><span class="color-red">' + htmlEncode(item.UBICACION) + '</span> / <span class="color-blue">' + htmlEncode(item.DIRECCION) + '</span></td>' +
+                    '<td><span class="color-red">' + htmlEncode(item.AREA) + '</span> / <span class="color-blue">' + htmlEncode(item.NRO_PISO) + '</span> / ' + htmlEncode(item.NRO_AMBIENTE) + '</td>' +
+                    '<td>' + htmlEncode(item.RESPONSABLE) + '</td>' +
+                    '<td class="color-green fw-bold">' + fechaSeguimiento + '</td>' +
+                    '<td>' + htmlEncode(item.CLASIFICACION_DATOS) + '</td>' +
+                    '<td>' + htmlEncode(item.ESTADO_ACTUAL).replace(/,/g, '<br>') + '</td>' +
+                    '<td class="' + relacionColor + '">' + htmlEncode(item.RELACION_CIS) + '</td>' +
+                    '<td class="' + cumpleColor + '">' + htmlEncode(item.CUMPLE_POLITICA) + '</td>' +
+                    '<td>' + htmlEncode(item.OBSERVACION) + '</td>' +
+                    '<td class="text-center"><button type="button" class="btn btn-success btn-sm btn-accion" onclick="editarSeguimiento(\'' + item.ID_CI + '\');"><i class="bi bi-pencil-square"></i> EDITAR</button></td>';
+            },
+            onRowClick: function(item) {
+                editarSeguimiento(item.ID_CI);
+            }
+        };
+
+        function parseJsonDate(jsonDate) {
+            if (!jsonDate) return '';
+            try {
+                var date = new Date(parseInt(jsonDate.replace(/\/Date\((\d+)\)\//gi, '$1')));
+                if (isNaN(date.getTime())) return jsonDate;
+                var day = ("0" + date.getDate()).slice(-2);
+                var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                var year = date.getFullYear();
+                return day + "/" + month + "/" + year;
+            } catch (e) {
+                return jsonDate;
+            }
         }
 
-        function Confirmar(men) {
-            if (!confirm(men))
-                return false;
+        function editarSeguimiento(idCI) {
+            var gridState = GridUtils.getState('tblSeguimientos');
+            var datosCompletos = gridState ? gridState.data : [];
+
+            for (var i = 0; i < datosCompletos.length; i++) {
+                if (datosCompletos[i].ID_CI === idCI) {
+                    var item = datosCompletos[i];
+                    var estadoActual = item.ESTADO_ACTUAL ? item.ESTADO_ACTUAL.replace(/,/g, '-') : '';
+
+                    Session["__SEGUIMIENTO_ELEMENTO_CONFIGURACION__"] = new Object[] {
+                        item.ID_CI,
+                        "Nombre: " + item.NOMBRE_CI + "   Tipo: " + item.TIPO_CI + "   Nro. Serie: " + item.NRO_SERIE,
+                        "Fabricante: " + item.FABRICANTE + "   Marca: " + item.MARCA + "   Modelo: " + item.MODELO,
+                        "Estado: " + item.ESTADO + "   Descripcion: " + item.DESCRIPCION + "   Sede: " + item.SEDE,
+                        "Local: " + item.LOCAL + "   Ubicacion: " + item.UBICACION + "   Direccion: " + item.DIRECCION,
+                        "Area: " + item.AREA + "   Nro. Piso: " + item.NRO_PISO + "   Nro. Ambiente: " + item.NRO_AMBIENTE,
+                        item.ID_SEGUIMIENTO,
+                        item.ID_RESPONSABLE,
+                        item.RESPONSABLE,
+                        item.FECHA_SEGUIMIENTO,
+                        item.CLASIFICACION_DATOS,
+                        estadoActual,
+                        item.RELACION_CIS,
+                        item.CUMPLE_POLITICA,
+                        item.OBSERVACION
+                    };
+
+                    location.href = "SeguimientoElementoConfiguracion.aspx";
+                    return;
+                }
+            }
+        }
+
+        function initSeguimientosGrid() {
+            GridUtils.createGrid(seguimientosGridConfig);
+        }
+
+        if (window.addEventListener) {
+            window.addEventListener('load', initSeguimientosGrid, false);
+        } else if (window.attachEvent) {
+            window.attachEvent('onload', initSeguimientosGrid);
         }
     </script>
 </head>
@@ -294,249 +215,68 @@
 
     <uc1:NavBar ID="NavBar1" runat="server" />
 
+    <div class="top-spacer"></div>
+
     <form id="form1" runat="server">
-        <div class="table-responsive">
-           <div class="container-fluid">
-                <table class="table table text-center">
+        <div class="container">
+            <div class="table-wrapper">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h4 class="mb-0"><i class="bi bi-clipboard-check me-2"></i>Reporte de Seguimientos de Elementos de Configuracion</h4>
+                </div>
 
-                    <tr>
-                        <td style="text-align: left" colspan="5" >
-                            &nbsp;</td>
-                    </tr>
+                <div class="row mb-3">
+                    <div class="col-md-8">
+                        <div class="input-group">
+                            <span class="input-group-text bg-white border-end-0">
+                                <i class="bi bi-search text-muted"></i>
+                            </span>
+                            <input type="text" id="txtBusqueda" class="form-control border-start-0 search-input"
+                                placeholder="Buscar por Nombre CI, Tipo, Nro. Serie, Descripcion, Sede, Responsable..." />
+                            <button class="btn btn-outline-secondary" type="button" onclick="document.getElementById('txtBusqueda').value=''; filtrarTabla();">
+                                <i class="bi bi-x-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-end">
+                        <span id="lblTotal" class="form-text text-muted"></span>
+                    </div>
+                </div>
 
-                    <tr>
-                        <td style="text-align: left" >
-                            <asp:CheckBox ID="cbnci" runat="server" CssClass="form-check-input position-static" Font-Size="X-Small" Text="Nombre CI" AutoPostBack="True" OnCheckedChanged="cbnci_CheckedChanged"/>
-                        </td>
-                        <td style="text-align: left" >
-                            <asp:CheckBox ID="cbtci" runat="server" CssClass="form-check-input position-static" Font-Size="X-Small" Text="Tipo CI" AutoPostBack="True" OnCheckedChanged="cbtci_CheckedChanged"/>
-                        </td>
-                        <td style="text-align: left" >
-                            <asp:CheckBox ID="cbans" runat="server" CssClass="form-check-input position-static" Font-Size="X-Small" Text="Nro. Serie" AutoPostBack="True" OnCheckedChanged="cbans_CheckedChanged"/>
-                        </td>
-                        <td style="text-align: left" class="auto-style1" >
-                            <asp:CheckBox ID="cbdci" runat="server" CssClass="form-check-input position-static" Font-Size="X-Small" Text="Descripcion CI" AutoPostBack="True" OnCheckedChanged="cbdci_CheckedChanged"/>
-                        </td>
-                        <td style="text-align: left" class="auto-style1" >
-                            <asp:CheckBox ID="cbs" runat="server" CssClass="form-check-input position-static" Font-Size="X-Small" Text="Sede" AutoPostBack="True" OnCheckedChanged="cbs_CheckedChanged"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                             <asp:TextBox ID="txtnci" runat="server" CssClass="form-control input-sm" MaxLength="25" Autocomplete="off" placeholder="Ingresar Nombre" onchange=""
-                        onkeypress="" Enabled="False"></asp:TextBox>
-                        </td>
-                        <td>
-                            <asp:DropDownList ID="ddltci" runat="server" CssClass="form-control input-sm"
-                                        AppendDataBoundItems="True" Enabled="False"
-                                       >
-                                        <asp:ListItem Value="-1">_____SELECCIONE TIPO CI_____</asp:ListItem>
-                                    </asp:DropDownList>
-                        </td>
-                        <td>
-                             <asp:TextBox ID="tbns" runat="server" CssClass="form-control input-sm" MaxLength="25" Autocomplete="off" placeholder="Ingresar Nro. Serie CI" onchange=""
-                        onkeypress="" Enabled="False"></asp:TextBox>
-                        </td>
-                        <td class="auto-style1">
-                            <asp:DropDownList ID="ddldci" runat="server" CssClass="form-control input-sm"
-                                        AppendDataBoundItems="True" Enabled="False"
-                                       >
-                                        <asp:ListItem Value="-1">_____SELECCIONE DESCRIPCION CI_____</asp:ListItem>
-                                    </asp:DropDownList>
-                        </td>
-                        <td class="auto-style1">
-                            <asp:DropDownList ID="ddls" runat="server" CssClass="form-control input-sm"
-                                        AppendDataBoundItems="True" Enabled="False" OnSelectedIndexChanged="ddls_SelectedIndexChanged"
-                                       >
-                                        <asp:ListItem Value="-1">_____SELECCIONE SEDE_____</asp:ListItem>
-                                    </asp:DropDownList>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: left" >
-                            <asp:CheckBox ID="cbl" runat="server" CssClass="form-check-input position-static" Font-Size="X-Small" Text="Local" AutoPostBack="True" OnCheckedChanged="cbl_CheckedChanged"/>
-                        </td>
-                        <td style="text-align: left" >
-                            <asp:CheckBox ID="cba" runat="server" CssClass="form-check-input position-static" Font-Size="X-Small" Text="Area" AutoPostBack="True" OnCheckedChanged="cba_CheckedChanged"/>
-                        </td>
-                        <td style="text-align: left" >
-                            <asp:CheckBox ID="cbrs" runat="server" CssClass="form-check-input position-static" Font-Size="X-Small" Text="Responsable" AutoPostBack="True" OnCheckedChanged="cbrs_CheckedChanged"/>
-                        </td>
-                        <td style="text-align: left" >
-                            <asp:CheckBox ID="cbcd" runat="server" CssClass="form-check-input position-static" Font-Size="X-Small" Text="Clasificacion Datos" AutoPostBack="True" OnCheckedChanged="cbcd_CheckedChanged"/>
-                        </td>
-                        <td style="text-align: left" >
-                            <asp:CheckBox ID="cbrocis" runat="server" CssClass="form-check-input position-static" Font-Size="X-Small" Text="Relacion otros CIs" AutoPostBack="True" OnCheckedChanged="cbrocis_CheckedChanged"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: left" >
-                            <asp:DropDownList ID="ddll" runat="server" CssClass="form-control input-sm"
-                                        AppendDataBoundItems="True" AutoPostBack="True" Enabled="False" OnSelectedIndexChanged="ddll_SelectedIndexChanged"
-                                       >
-                                        <asp:ListItem Value="-1">_____SELECCIONE LOCAL_____</asp:ListItem>
-                                    </asp:DropDownList>
-                        </td>
-                        <td>
-                            <asp:DropDownList ID="ddla" runat="server" CssClass="form-control input-sm"
-                                        AppendDataBoundItems="True" Enabled="False"
-                                       >
-                                        <asp:ListItem Value="-1">_____SELECCIONE AREA_____</asp:ListItem>
-                                    </asp:DropDownList>
-                        </td>
-                        <td>
-                            <asp:DropDownList ID="ddlrs" runat="server" CssClass="form-control input-sm"
-                                        AppendDataBoundItems="True" Enabled="False"
-                                       >
-                                        <asp:ListItem Value="-1">_____SELECCIONE RESPONSABLE_____</asp:ListItem>
-                                    </asp:DropDownList>
-                        </td>
-                        <td class="auto-style1">
-                            <asp:DropDownList ID="ddlcd" runat="server" CssClass="form-control input-sm"
-                                        AppendDataBoundItems="True" Enabled="False"
-                                       >
-                                        <asp:ListItem Value="-1">_____SELECCIONE CLASIFICACION DATOS_____</asp:ListItem>
-                                    </asp:DropDownList>
-                        </td>
-                        <td style="text-align: left" >
-                            <asp:DropDownList ID="ddlrocis" runat="server" CssClass="form-control input-sm"
-                                        AppendDataBoundItems="True" Enabled="False"
-                                       >
-                                        <asp:ListItem Value="-1">_____SELECCIONE RELACION OTROS CIS_____</asp:ListItem>
-                                        <asp:ListItem>SI</asp:ListItem>
-                                        <asp:ListItem>NO</asp:ListItem>
-                                    </asp:DropDownList>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: left" >
-                            <asp:CheckBox ID="cbfs" runat="server" CssClass="form-check-input position-static" Font-Size="X-Small" Text="Fecha Seguimiento" AutoPostBack="True" OnCheckedChanged="cbfs_CheckedChanged"/>
-                        </td>
-                        <td style="text-align: left" >
-                            &nbsp;</td>
-                        <td style="text-align: left" >
-                            <asp:CheckBox ID="cbeacis" runat="server" CssClass="form-check-input position-static" Font-Size="X-Small" Text="Estado Actual CIs" AutoPostBack="True" OnCheckedChanged="cbeacis_CheckedChanged"/>
-                        </td>
-                        <td class="auto-style1">
-                            &nbsp;</td>
-                        <td class="auto-style1">
-                            &nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: left" class="auto-style2" >
-                             <strong>Fecha Inicio:</strong><asp:TextBox ID="txtFechaInicioSeguimiento" runat="server"
-                        class="form-control" placeholder="Ingrese fec. inicio" Width="" onFocus='' onChange='' onBlur='' Enabled="False"></asp:TextBox>
+                <div class="table-responsive" style="max-height: 600px; overflow-y: auto;">
+                    <table id="tblSeguimientos" class="table table-modern table-hover">
+                        <thead>
+                            <tr>
+                                <th>NOMBRE CI</th>
+                                <th>TIPO CI</th>
+                                <th>NRO. SERIE</th>
+                                <th>DESCRIPCION</th>
+                                <th>SEDE / LOCAL</th>
+                                <th>UBICACION / DIRECCION</th>
+                                <th>AREA / NRO PISO / NRO AMBIENTE</th>
+                                <th>RESPONSABLE</th>
+                                <th>FECHA SEGUIMIENTO</th>
+                                <th>CLASIFICACION DATOS</th>
+                                <th>ESTADO ACTUAL</th>
+                                <th>RELACION CIS</th>
+                                <th>CUMPLE POLITICA</th>
+                                <th>OBSERVACION</th>
+                                <th>ACCION</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbodySeguimientos">
+                        </tbody>
+                    </table>
+                </div>
 
-                    <input id="btnFechaInicioSeguimiento" type="button"
-                        value="..." style="height: 25px; width: 25px;"
-                        class="form-check" /></td>
-                        <td style="text-align: left" class="auto-style2">
-                            <strong>Fecha Fin</strong>:<asp:TextBox ID="txtFechaFinSeguimiento" runat="server" class="form-control" placeholder="Ingrese fec. fin" onFocus='' onChange='' onBlur='' Enabled="False"></asp:TextBox>
-                    <input id="btnFechaFinSeguimineto" type="button"
-                        value="..." style="height: 25px; width: 25px;" class="form-check" /></td>
-                        <td style="text-align: left" class="auto-style2" >
-                            <asp:DropDownList ID="ddleacis" runat="server" CssClass="form-control input-sm"
-                                        AppendDataBoundItems="True" Enabled="False"
-                                       >
-                                        <asp:ListItem Value="-1">_____SELECCIONE ESTADO ACTUAL_____</asp:ListItem>
-                                    </asp:DropDownList>
-                        </td>
-                        <td style="text-align: right" class="auto-style1">
+                <div class="pagination-wrapper" id="paginationSeguimientos"></div>
+                <div class="page-info" id="pageInfoSeguimientos"></div>
+            </div>
 
-                            <asp:LinkButton ID="lbtnBuscar" runat="server" CausesValidation="False" class="btn btn-info" Text="Buscar" UseSubmitBehavior="False" OnClick="lbtnBuscar_Click" />
-                            <asp:Button ID="btnActualizarInformacion" runat="server" class="btn btn-success" CssClass="btn btn-warning" Text="Actualizar Informacion" OnClick="btnActualizarInformacion_Click" />
-                            </td>
-                         <td style="text-align: left" >
-                            <asp:HyperLink ID="IMPRIMIR" runat="server" BorderStyle="None" class="btn btn-info" NavigateUrl="" onClick="abrir_ventana_imprimir_reporte(2);">Imprimir reporte</asp:HyperLink>
-                        </td>
-                    </tr>
-                    <tr>
-                    <td colspan="5">
-                        <asp:Table ID="Table_" runat="server" BackColor="White"
-                            CssClass="table table-modern table-hover table-condensed"
-                        BorderColor="White" CellPadding="2" CellSpacing="0" Font-Size="X-Small"
-                        GridLines="Both" style="text-align: left" Width="100%">
-                        <asp:TableRow ID="CABECERA" runat="server">
-                            <asp:TableCell ID="_ID_CI" runat="server" BackColor="#FFFFC0" BorderColor="#FFFFC0"
-                                     ForeColor="Green" Visible="False">ID CI</asp:TableCell>
-
-                            <asp:TableCell ID="_NOMBRE_CI" runat="server" BackColor="Black" BorderColor="Black"
-                                ForeColor="White" Width="100px">NOMBRE CI</asp:TableCell>
-
-                            <asp:TableCell ID="_NOMBRE_TIPO_CI" runat="server" BackColor="Black" BorderColor="Black"
-                                ForeColor="White" >TIPO CI</asp:TableCell>
-
-                            <asp:TableCell ID="_NRO_SERIE" runat="server" BackColor="Black" BorderColor="Black"
-                                ForeColor="White" >NRO. SERIE</asp:TableCell>
-
-                            <asp:TableCell ID="_FABRICANTE_O_PROVEEDOR" runat="server" BackColor="Black" BorderColor="Black"
-                                ForeColor="White" Visible="false">FEBRICANTE / PROVEEDOR</asp:TableCell>
-
-                            <asp:TableCell ID="_MARCA" runat="server" BackColor="Black" BorderColor="Black"
-                                ForeColor="White" Visible="false">MARCA</asp:TableCell>
-
-                            <asp:TableCell ID="_MODELO" runat="server" BackColor="Black" BorderColor="Black"
-                                ForeColor="White" Visible="false">MODELO</asp:TableCell>
-
-                            <asp:TableCell ID="_ESTADO_CI" runat="server" BackColor="Black" BorderColor="Black"
-                                ForeColor="White" Visible="false">ESTADO CI</asp:TableCell>
-
-                            <asp:TableCell ID="_DESCRIPCION_CI" runat="server" BackColor="Black" BorderColor="Black"
-                                ForeColor="White" >DESCRIPCION CI</asp:TableCell>
-
-                            <asp:TableCell ID="_SEDE" runat="server" BackColor="Black" BorderColor="Black"
-                                ForeColor="White" >SEDE / LOCAL</asp:TableCell>
-
-                            <asp:TableCell ID="_UBICACION_LOCAL" runat="server" BackColor="Black" BorderColor="Black"
-                                ForeColor="White" >UBICACION / DIRECCION LOCAL</asp:TableCell>
-
-                            <asp:TableCell ID="_AREA" runat="server" BackColor="Black" BorderColor="Black"
-                                ForeColor="White" >AREA / NRO PISO / NRO AMBIENTE</asp:TableCell>
-
-                            <asp:TableCell ID="_RESPONSABLE_SEGUIMIENTO" runat="server" BackColor="Black" BorderColor="Black"
-                                ForeColor="White" >RESPONSABLE SEGUIMIENTO</asp:TableCell>
-
-                            <asp:TableCell ID="_FECHA_SEGUIMIENTO" runat="server" BackColor="Black" BorderColor="Black"
-                                ForeColor="White" >FECHA SEGUIMIENTO</asp:TableCell>
-
-                            <asp:TableCell ID="_CLASIFICACION_DATOS" runat="server" BackColor="Black" BorderColor="Black"
-                                ForeColor="White" >CLASIFICACION DATOS</asp:TableCell>
-
-                            <asp:TableCell ID="_ESTADO_ACTUAL" runat="server" BackColor="Black" BorderColor="Black"
-                                ForeColor="White" Width="120px">ESTADO ACTUAL</asp:TableCell>
-
-                            <asp:TableCell ID="_RELACION_CIS" runat="server" BackColor="Black" BorderColor="Black"
-                                ForeColor="White" >RELACION OTROS CIs</asp:TableCell>
-
-                            <asp:TableCell ID="_CUMPLE_POLITICA_GESTION_CONIGURACION_ORGANIZACION" runat="server" BackColor="Black" BorderColor="Black"
-                                ForeColor="White" >CUMPLE POLITICA GESTION CONIGURACION ORGANIZACION</asp:TableCell>
-
-                            <asp:TableCell ID="_OBSERVACION" runat="server" BackColor="Black" BorderColor="Black"
-                                ForeColor="White" >OBSERVACION</asp:TableCell>
-
-                            <asp:TableCell ID="SEGUIMINETO" runat="server" BackColor="Black" BorderColor="Black"
-                                ForeColor="White" Width="3%" HorizontalAlign="Center">SEGUIMIENTO</asp:TableCell>
-                        </asp:TableRow>
-                    </asp:Table>
-                    </td>
-
-                </tr>
-                <tr>
-                    <td colspan="5" >
-                        <asp:HiddenField ID="__pagina" runat="server" />
-                        <asp:HiddenField ID="__mensaje" runat="server" />
-                    </td>
-                    <td >
-                        &nbsp;</td>
-                </tr>
-                </table>
-           </div>
+            <asp:HiddenField ID="__mensaje" runat="server" />
+            <asp:HiddenField ID="__pagina" runat="server" />
+            <asp:HiddenField ID="datosJson" runat="server" ClientIDMode="Static" />
         </div>
     </form>
-
-    <!-- Scripts -->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

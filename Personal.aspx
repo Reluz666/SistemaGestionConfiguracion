@@ -138,87 +138,27 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script type="text/javascript" src="src/js/utils.js"></script>
+    <script type="text/javascript" src="src/js/grid-utils.js"></script>
 
     <script lang="javascript" type="text/javascript">
         // ===== VARIABLES GLOBALES PARA LISTA DE PERSONAL =====
-        var datosPersonalJson = [];
         var listaCurrentPage = 1;
         var listaRowsPerPage = 10;
-        var listaFilteredData = [];
 
-        // ===== FUNCIONES PARA LISTA DE PERSONAL CON BUSQUEDA Y PAGINACION =====
-        function cargarDatosPersonal() {
-            var datosJsonField = document.getElementById('datosJson');
-            if (datosJsonField && datosJsonField.value && datosJsonField.value !== '[]') {
-                try {
-                    datosPersonalJson = JSON.parse(datosJsonField.value);
-                    listaFilteredData = datosPersonalJson.slice();
-                    filtrarTablaPersonal();
-                } catch (e) {
-                    alert('Error parsing JSON: ' + e.message);
-                }
-            }
-        }
-
-        function filtrarTablaPersonal() {
-            var searchText = document.getElementById('txtBuscarPersonal').value.toLowerCase().trim();
-            if (searchText === '') {
-                listaFilteredData = datosPersonalJson.slice();
-            } else {
-                listaFilteredData = datosPersonalJson.filter(function(item) {
-                    var codigo = item.CODIGO || '';
-                    var nombre = item.NOMBRE || '';
-                    var apePat = item.APELLIDO_PATERNO || '';
-                    var apeMat = item.APELLIDO_MATERNO || '';
-                    var nroDoc = item.NRO_DOC_IDENT || '';
-                    var area = item.AREA || '';
-                    var dep = item.DEPENDENCIA || '';
-                    var cargo = item.CARGO || '';
-                    var sede = item.SEDE || '';
-                    var local = item.LOCAL || '';
-                    return codigo.toLowerCase().includes(searchText) ||
-                           nombre.toLowerCase().includes(searchText) ||
-                           apePat.toLowerCase().includes(searchText) ||
-                           apeMat.toLowerCase().includes(searchText) ||
-                           nroDoc.toLowerCase().includes(searchText) ||
-                           area.toLowerCase().includes(searchText) ||
-                           dep.toLowerCase().includes(searchText) ||
-                           cargo.toLowerCase().includes(searchText) ||
-                           sede.toLowerCase().includes(searchText) ||
-                           local.toLowerCase().includes(searchText);
-                });
-            }
-            listaCurrentPage = 1;
-            renderizarTablaPersonal();
-            generarPaginacionPersonal(Math.ceil(listaFilteredData.length / listaRowsPerPage));
-            document.getElementById('lblContadorPersonal').textContent = 'Total: ' + listaFilteredData.length + ' elementos';
-        }
-
-        function renderizarTablaPersonal() {
-            var tbody = document.getElementById('tbodyListaPersonal');
-            if (!tbody) return;
-
-            var totalRows = listaFilteredData.length;
-            var totalPages = Math.ceil(totalRows / listaRowsPerPage);
-            var start = (listaCurrentPage - 1) * listaRowsPerPage;
-            var end = start + listaRowsPerPage;
-
-            tbody.innerHTML = '';
-
-            if (totalRows === 0) {
-                var tr = document.createElement('tr');
-                tr.innerHTML = '<td colspan="14" class="text-center text-muted py-4">No hay datos disponibles</td>';
-                tbody.appendChild(tr);
-                document.getElementById('pageInfoPersonal').textContent = '';
-                return;
-            }
-
-            for (var i = start; i < end && i < totalRows; i++) {
-                var item = listaFilteredData[i];
-                var tr = document.createElement('tr');
+        // Grid configuration for Personal list
+        var personalGridConfig = {
+            tableId: 'tblListaPersonal',
+            tbodyId: 'tbodyListaPersonal',
+            searchInputId: 'txtBuscarPersonal',
+            paginationWrapperId: 'paginationListaPersonal',
+            pageInfoId: 'pageInfoPersonal',
+            counterId: 'lblContadorPersonal',
+            dataFieldId: 'datosJson',
+            rowsPerPage: 10,
+            searchFields: ['CODIGO', 'NOMBRE', 'APELLIDO_PATERNO', 'APELLIDO_MATERNO', 'NRO_DOC_IDENT', 'AREA', 'DEPENDENCIA', 'CARGO', 'SEDE', 'LOCAL'],
+            columnRenderer: function(item) {
                 var estadoClass = item.ESTADO === 'ACTIVO' ? 'estado-activo' : 'estado-inactivo';
-                tr.innerHTML =
-                    '<td>' + htmlEncode(item.CODIGO) + '</td>' +
+                return '<td>' + htmlEncode(item.CODIGO) + '</td>' +
                     '<td>' + htmlEncode(item.NOMBRE) + ' ' + htmlEncode(item.APELLIDO_PATERNO) + ' ' + htmlEncode(item.APELLIDO_MATERNO) + '</td>' +
                     '<td>' + htmlEncode(item.TIPO_DOC_IDENT) + '</td>' +
                     '<td>' + htmlEncode(item.NRO_DOC_IDENT) + '</td>' +
@@ -232,71 +172,23 @@
                     '<td>' + htmlEncode(item.CARGO) + '</td>' +
                     '<td class="' + estadoClass + '">' + htmlEncode(item.ESTADO) + '</td>' +
                     '<td class="text-center"><button type="button" class="btn btn-primary btn-sm btn-accion" onclick="seleccionarPersonal(\'' + item.ID_PERSONAL + '\');"><i class="bi bi-pencil-square"></i></button></td>';
-                tbody.appendChild(tr);
+            },
+            onRowClick: function(item) {
+                seleccionarPersonal(item.ID_PERSONAL);
             }
+        };
 
-            document.getElementById('pageInfoPersonal').textContent = 'Pagina ' + listaCurrentPage + ' de ' + totalPages + ' (Total: ' + totalRows + ' registros)';
+        // Initialize the grid when page loads
+        function initPersonalGrid() {
+            GridUtils.createGrid(personalGridConfig);
         }
 
-        function generarPaginacionPersonal(totalPages) {
-            var wrapper = document.getElementById('paginationListaPersonal');
-            if (!wrapper) return;
-
-            wrapper.innerHTML = '';
-
-            if (totalPages <= 1) {
-                return;
-            }
-
-            var sb = '<nav><ul class="pagination mb-0">';
-
-            if (listaCurrentPage > 1) {
-                sb += '<li class="page-item"><a class="page-link" href="javascript:PaginarPersonal(' + (listaCurrentPage - 1) + ')">Anterior</a></li>';
-            } else {
-                sb += '<li class="page-item disabled"><span class="page-link">Anterior</span></li>';
-            }
-
-            var inicio = Math.max(1, listaCurrentPage - 2);
-            var fin = Math.min(totalPages, listaCurrentPage + 2);
-
-            if (inicio > 1) {
-                sb += '<li class="page-item"><a class="page-link" href="javascript:PaginarPersonal(1)">1</a></li>';
-                if (inicio > 2) sb += '<li class="page-item disabled"><span class="page-link">...</span></li>';
-            }
-
-            for (var i = inicio; i <= fin; i++) {
-                if (i === listaCurrentPage) {
-                    sb += '<li class="page-item active"><span class="page-link">' + i + '</span></li>';
-                } else {
-                    sb += '<li class="page-item"><a class="page-link" href="javascript:PaginarPersonal(' + i + ')">' + i + '</a></li>';
-                }
-            }
-
-            if (fin < totalPages) {
-                if (fin < totalPages - 1) sb += '<li class="page-item disabled"><span class="page-link">...</span></li>';
-                sb += '<li class="page-item"><a class="page-link" href="javascript:PaginarPersonal(' + totalPages + ')">' + totalPages + '</a></li>';
-            }
-
-            if (listaCurrentPage < totalPages) {
-                sb += '<li class="page-item"><a class="page-link" href="javascript:PaginarPersonal(' + (listaCurrentPage + 1) + ')">Siguiente</a></li>';
-            } else {
-                sb += '<li class="page-item disabled"><span class="page-link">Siguiente</span></li>';
-            }
-
-            sb += '</ul></nav>';
-            wrapper.innerHTML = sb;
-        }
-
-        function PaginarPersonal(pagina) {
-            var totalPages = Math.ceil(listaFilteredData.length / listaRowsPerPage);
-            if (pagina < 1 || pagina > totalPages) return;
-            listaCurrentPage = pagina;
-            renderizarTablaPersonal();
-            generarPaginacionPersonal(totalPages);
-            document.querySelector('.table-wrapper').scrollIntoView({ behavior: 'smooth' });
-        }
+        // ===== FUNCIONES PARA LISTA DE PERSONAL CON BUSQUEDA Y PAGINACION =====
 
         function seleccionarPersonal(idPersonal) {
+            // Get data from grid state
+            var gridState = GridUtils.getState('tblListaPersonal');
+            var datosPersonalJson = gridState ? gridState.data : [];
             // Find the row with matching ID_PERSONAL
             for (var i = 0; i < datosPersonalJson.length; i++) {
                 if (datosPersonalJson[i].ID_PERSONAL === idPersonal) {
@@ -641,11 +533,11 @@
     <script type="text/javascript">
         if (window.addEventListener) {
             window.addEventListener('load', function() {
-                cargarDatosPersonal();
+                initPersonalGrid();
             }, false);
         } else if (window.attachEvent) {
             window.attachEvent('onload', function() {
-                cargarDatosPersonal();
+                initPersonalGrid();
             });
         }
     </script>

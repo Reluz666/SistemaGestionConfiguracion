@@ -1,20 +1,18 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.Script.Serialization;
 
 public partial class RelacionesElementosConfiguracion : System.Web.UI.Page
 {
     //private String Ruta = "SERVER=JOSE-PC;DATABASE=GCS;Encrypt=False;INTEGRATED SECURITY=True;packet size=4096;";
     private String Ruta = System.Configuration.ConfigurationManager.ConnectionStrings["CadenaConeccion"].ToString();
 
-    System.Web.UI.WebControls.TableRow tRow;
-
     Lista _Lista = new Lista();
-
 
     private int Obtener_Nro_Total_CIs_registrados_relativos_a_servicios_TI_CMDB()
     {
@@ -54,6 +52,7 @@ public partial class RelacionesElementosConfiguracion : System.Web.UI.Page
         }
         return Cantidad;
     }
+
     private void Listar_Relacion_Elementos_Configuracion(string PADRE_CI,
     string PADRE_TIPO_CI,
     string PADRE_ESTADO_CI,
@@ -66,20 +65,14 @@ public partial class RelacionesElementosConfiguracion : System.Web.UI.Page
     {
         _Lista.ShowMessage(__mensaje, __pagina, "", "");
 
-        for (int i = 1; i < this.Table_.Rows.Count; i++)
-        {
-            this.Table_.Rows[i].Cells.Clear();
-        }
-
         try
         {
             policia.clsaccesodatos servidor = new policia.clsaccesodatos();
-
             servidor.cadenaconexion = Ruta;
 
             if (servidor.abrirconexion() == true)
             {
-                DataTable dt = servidor.consultar("[dbo].[pr_Reporte_De_CIS_Relativo_A_Servicios]", 
+                DataTable dt = servidor.consultar("[dbo].[pr_Reporte_De_CIS_Relativo_A_Servicios]",
                 PADRE_CI,
                 PADRE_TIPO_CI,
                 PADRE_ESTADO_CI,
@@ -92,12 +85,11 @@ public partial class RelacionesElementosConfiguracion : System.Web.UI.Page
                 if (dt.Rows.Count == 0)
                 {
                     servidor.cerrarconexion();
-
                     _Lista.ShowMessage(__mensaje, __pagina, MENSAJE, "");
+                    datosJson.Value = "[]";
                 }
                 else
                 {
-
                     int T = Obtener_Nro_Total_CIs_registrados_relativos_a_servicios_TI_CMDB();
                     int A = dt.Rows.Count;
                     int X = (A * 100) / T;
@@ -106,6 +98,7 @@ public partial class RelacionesElementosConfiguracion : System.Web.UI.Page
                     this.A.Text = "Nro. de CIs relativos a uno o más servicios de TI: " + A.ToString();
                     this.X.Text = "% de CIs relativo a servicios: " + X.ToString();
 
+                    // Apply dedup logic and build JSON data
                     for (int i = 0; i < dt.Rows.Count; i++)
                     {
                         string ant = dt.Rows[i]["PADRE DESCRIPCION CI"].ToString();
@@ -125,177 +118,107 @@ public partial class RelacionesElementosConfiguracion : System.Web.UI.Page
                         }
                     }
 
-                    IMPRIMIR.Page.Session.Add("Imprimir", new Object[] { "REPORTE_DE_CIS_RELATIVO_A_SERVICIOS", dt, "REPORTE DE ELEMENTOS DE CONFIGURACION RELATIVO A SERVICIOS", T, A, X });
-
-                   
-                    //DataRow FilaTabla = dt.Rows[1];
-                    //FilaTabla.BeginEdit();
-                    //FilaTabla["PADRE CI"] = "";
-                    //FilaTabla["PADRE TIPO CI"] = "";
-                    //FilaTabla.EndEdit();
-                    //dt.AcceptChanges();
-
-
-
-
-
-
+                    // Build JSON for client-side rendering
+                    var jsonData = new List<Dictionary<string, string>>();
                     for (int i = 0; i < dt.Rows.Count; i++)
                     {
-                        tRow = new TableRow();
+                        var row = new Dictionary<string, string>();
 
-                        for (int j = 0; j < Table_.Rows[i].Cells.Count; j++)//Cabecera de la tabla
+                        // Build PADRE CI HTML
+                        if (dt.Rows[i]["PADRE CI"].ToString().Trim() == "")
                         {
-                            TableCell tCell = new TableCell();
-                            tRow.BorderColor = System.Drawing.Color.Black;
-
-                            switch (j)
-                            {
-
-                                case 0:
-
-                                    tCell.Text = dt.Rows[i]["ID_RELACION"].ToString();
-
-                                    tCell.Visible = false;
-
-                                    tRow.Cells.Add(tCell);
-
-                                    break;
-
-                                case 1:
-
-                                    tCell.Text = dt.Rows[i]["PADRE ID"].ToString();
-
-                                    tCell.HorizontalAlign = HorizontalAlign.Left;
-
-                                    //tCell.BackColor = System.Drawing.Color.LemonChiffon;
-
-                                    tCell.Visible = false;
-
-                                    tRow.Cells.Add(tCell);
-
-                                    break;
-
-                                case 2:
-
-                                    if (dt.Rows[i]["PADRE CI"].ToString().Trim() == "")
-                                    {
-                                        tCell.Text = "";
-                      
-                                    }
-                                    else
-                                    {
-
-                                        tCell.Text = "<font color=blue><b>Nombre: </b>" + dt.Rows[i]["PADRE CI"].ToString() + "</font> &nbsp;&nbsp; <b>Tipo:</b> " + dt.Rows[i]["PADRE TIPO CI"].ToString() + "&nbsp;&nbsp; <b>Nro Serie: </b>" + dt.Rows[i]["PADRE NRO SERIE"].ToString() + "&nbsp;&nbsp; <b>Direccion IP: </b>" + dt.Rows[i]["PADRE IP"].ToString() + "&nbsp;&nbsp; <b>Direccion Gateway: </b>" + dt.Rows[i]["PADRE GATEWAY"].ToString() + "&nbsp;&nbsp; <b>Grupo de Trabajo: </b>" + dt.Rows[i]["PADRE GRUPO TRABAJO"].ToString() + "&nbsp;&nbsp; <b>Fabricante / Proveedor: </b>" + dt.Rows[i]["PADRE FABICANTE / PROVEEDOR"].ToString() + "&nbsp;&nbsp; <b>Estado:</b> " + dt.Rows[i]["PADRE ESTADO CI"].ToString() + "&nbsp;&nbsp; <b>Propietario:</b> " + dt.Rows[i]["PADRE PROPIETARIO CI"].ToString() + "<BR>";
-                                        tCell.Text += "<b>Descripcion: </b>" + dt.Rows[i]["PADRE DESCRIPCION CI"].ToString() + "&nbsp;&nbsp;<b>Prioridad: </b>" + dt.Rows[i]["PADRE NIVEL PRIORIDAD"].ToString() + "&nbsp;&nbsp;<b>Sede: </b>" + dt.Rows[i]["PADRE SEDE"].ToString() + "&nbsp;&nbsp;<b>Local: </b>" + dt.Rows[i]["PADRE LOCAL"].ToString() + "<BR>";
-                                        tCell.Text += "<font color=red><b>Area: </b>" + dt.Rows[i]["PADRE AREA"].ToString() + "&nbsp;&nbsp;<b>Nro. Piso: </b>" + dt.Rows[i]["PADRE NRO PISO"].ToString() + "&nbsp;&nbsp;<b>Nro. Ambiente: </b>" + dt.Rows[i]["PADRE NRO AMBIENTE"].ToString() + "&nbsp;&nbsp;<b>Ubicacion: </b>" + dt.Rows[i]["PADRE UBICACION"].ToString() + "</font><BR>";
-                                        tCell.Text += "<font color=red><b>Direccion: </b>" + dt.Rows[i]["PADRE DIRECCION LOCAL"].ToString() + "</font>";
-                                        tCell.HorizontalAlign = HorizontalAlign.Left;
-                                    }
-
-                                //tCell.BackColor = System.Drawing.Color.LemonChiffon;
-
-                                    tCell.Visible = true;
-
-                                    tRow.Cells.Add(tCell);
-
-                                    break;
-
-                                case 3:
-
-                                    tCell.Text = dt.Rows[i]["HIJO ID"].ToString();
-
-                                    tCell.HorizontalAlign = HorizontalAlign.Left;
-
-                                    //tCell.BackColor = System.Drawing.Color.LemonChiffon;
-
-                                    tCell.Visible = false;
-
-                                    tRow.Cells.Add(tCell);
-
-                                    break;                                
-
-                                case 4:
-
-                                     tCell.Text = "<font color=blue><b>Nombre: </b>" + dt.Rows[i]["HIJO CI"].ToString() + "</font>&nbsp;&nbsp; <b>Tipo:</b> " + dt.Rows[i]["HIJO TIPO CI"].ToString() + "&nbsp;&nbsp; <b>Nro Serie: </b>" + dt.Rows[i]["HIJO NRO SERIE"].ToString() + "&nbsp;&nbsp; <b>Direccion IP: </b>" + dt.Rows[i]["HIJO IP"].ToString() + "&nbsp;&nbsp; <b>Direccion Gateway: </b>" + dt.Rows[i]["HIJO GATEWAY"].ToString() + "&nbsp;&nbsp; <b>Grupo de Trabajo: </b>" + dt.Rows[i]["HIJO GRUPO TRABAJO"].ToString() + "&nbsp;&nbsp; <b>Fabricante / Proveedor: </b>" + dt.Rows[i]["HIJO FABRICANTE / PROVEEDOR"].ToString() + "&nbsp;&nbsp; <b>Estado:</b> " + dt.Rows[i]["HIJO ESTADO CI"].ToString() + "&nbsp;&nbsp; <b>Propietario:</b> " + dt.Rows[i]["HIJO PROPIETARIO CI"].ToString() +"<BR>";
-                                     tCell.Text += "<b>Descripcion: </b>" + dt.Rows[i]["HIJO DESCRIPCION CI"].ToString() + "&nbsp;&nbsp;<b>Prioridad: </b>" + dt.Rows[i]["HIJO NIVEL PRIORIDAD"].ToString() + "&nbsp;&nbsp;<b>Sede: </b>" + dt.Rows[i]["HIJO SEDE"].ToString() + "&nbsp;&nbsp;<b>Local: </b>" + dt.Rows[i]["HIJO LOCAL"].ToString() + "<BR>";
-                                     tCell.Text += "<font color=red><b>Area: </b>" + dt.Rows[i]["HIJO AREA"].ToString() + "&nbsp;&nbsp;<b>Nro. Piso: </b>" + dt.Rows[i]["HIJO NRO PISO"].ToString() + "&nbsp;&nbsp;<b>Nro. Ambiente: </b>" + dt.Rows[i]["HIJO NRO AMBIENTE"].ToString() + "&nbsp;&nbsp;<b>Ubicacion: </b>" + dt.Rows[i]["HIJO UBICACION"].ToString() + "</font> <BR>";
-                                     tCell.Text += "<font color=red><b>Direccion: </b>" + dt.Rows[i]["HIJO DIRECCION LOCAL"].ToString() + "</font>" ;
-                                     tCell.HorizontalAlign = HorizontalAlign.Left;
-
-                                    //tCell.BackColor = System.Drawing.Color.LemonChiffon;
-
-                                    tCell.Visible = true;
-
-                                    tRow.Cells.Add(tCell);
-
-                                    break;
-
-                                case 5:
-
-                                    tCell.Text = dt.Rows[i]["TIPO RELACION"].ToString();
-
-                                    tCell.HorizontalAlign = HorizontalAlign.Left;
-
-                                    //tCell.BackColor = System.Drawing.Color.LemonChiffon;
-
-                                    tCell.Visible = true;
-
-                                    tRow.Cells.Add(tCell);
-
-                                    break;
-
-                               
-
-                            }
+                            row["PADRE CI"] = "";
+                            row["PADRE_CI_HTML"] = "";
+                        }
+                        else
+                        {
+                            row["PADRE CI"] = dt.Rows[i]["PADRE CI"].ToString();
+                            row["PADRE_CI_HTML"] = "<span class='color-blue'><b>Nombre: </b>" + dt.Rows[i]["PADRE CI"].ToString() + "</span> " +
+                                "<b>Tipo:</b> " + dt.Rows[i]["PADRE TIPO CI"].ToString() + " " +
+                                "<b>Nro Serie: </b>" + dt.Rows[i]["PADRE NRO SERIE"].ToString() + " " +
+                                "<b>Direccion IP: </b>" + dt.Rows[i]["PADRE IP"].ToString() + " " +
+                                "<b>Direccion Gateway: </b>" + dt.Rows[i]["PADRE GATEWAY"].ToString() + " " +
+                                "<b>Grupo de Trabajo: </b>" + dt.Rows[i]["PADRE GRUPO TRABAJO"].ToString() + " " +
+                                "<b>Fabricante / Proveedor: </b>" + dt.Rows[i]["PADRE FABICANTE / PROVEEDOR"].ToString() + " " +
+                                "<b>Estado:</b> " + dt.Rows[i]["PADRE ESTADO CI"].ToString() + " " +
+                                "<b>Propietario:</b> " + dt.Rows[i]["PADRE PROPIETARIO CI"].ToString() + "<br/>" +
+                                "<b>Descripcion: </b>" + dt.Rows[i]["PADRE DESCRIPCION CI"].ToString() + " " +
+                                "<b>Prioridad: </b>" + dt.Rows[i]["PADRE NIVEL PRIORIDAD"].ToString() + " " +
+                                "<b>Sede: </b>" + dt.Rows[i]["PADRE SEDE"].ToString() + " " +
+                                "<b>Local: </b>" + dt.Rows[i]["PADRE LOCAL"].ToString() + "<br/>" +
+                                "<span class='color-red'><b>Area: </b>" + dt.Rows[i]["PADRE AREA"].ToString() + " " +
+                                "<b>Nro. Piso: </b>" + dt.Rows[i]["PADRE NRO PISO"].ToString() + " " +
+                                "<b>Nro. Ambiente: </b>" + dt.Rows[i]["PADRE NRO AMBIENTE"].ToString() + " " +
+                                "<b>Ubicacion: </b>" + dt.Rows[i]["PADRE UBICACION"].ToString() + "</span><br/>" +
+                                "<span class='color-red'><b>Direccion: </b>" + dt.Rows[i]["PADRE DIRECCION LOCAL"].ToString() + "</span>";
                         }
 
-                        this.Table_.Rows.Add(tRow);
+                        // Build HIJO CI HTML
+                        row["HIJO CI"] = dt.Rows[i]["HIJO CI"].ToString();
+                        row["HIJO_CI_HTML"] = "<span class='color-blue'><b>Nombre: </b>" + dt.Rows[i]["HIJO CI"].ToString() + "</span> " +
+                            "<b>Tipo:</b> " + dt.Rows[i]["HIJO TIPO CI"].ToString() + " " +
+                            "<b>Nro Serie: </b>" + dt.Rows[i]["HIJO NRO SERIE"].ToString() + " " +
+                            "<b>Direccion IP: </b>" + dt.Rows[i]["HIJO IP"].ToString() + " " +
+                            "<b>Direccion Gateway: </b>" + dt.Rows[i]["HIJO GATEWAY"].ToString() + " " +
+                            "<b>Grupo de Trabajo: </b>" + dt.Rows[i]["HIJO GRUPO TRABAJO"].ToString() + " " +
+                            "<b>Fabricante / Proveedor: </b>" + dt.Rows[i]["HIJO FABRICANTE / PROVEEDOR"].ToString() + " " +
+                            "<b>Estado:</b> " + dt.Rows[i]["HIJO ESTADO CI"].ToString() + " " +
+                            "<b>Propietario:</b> " + dt.Rows[i]["HIJO PROPIETARIO CI"].ToString() + "<br/>" +
+                            "<b>Descripcion: </b>" + dt.Rows[i]["HIJO DESCRIPCION CI"].ToString() + " " +
+                            "<b>Prioridad: </b>" + dt.Rows[i]["HIJO NIVEL PRIORIDAD"].ToString() + " " +
+                            "<b>Sede: </b>" + dt.Rows[i]["HIJO SEDE"].ToString() + " " +
+                            "<b>Local: </b>" + dt.Rows[i]["HIJO LOCAL"].ToString() + "<br/>" +
+                            "<span class='color-red'><b>Area: </b>" + dt.Rows[i]["HIJO AREA"].ToString() + " " +
+                            "<b>Nro. Piso: </b>" + dt.Rows[i]["HIJO NRO PISO"].ToString() + " " +
+                            "<b>Nro. Ambiente: </b>" + dt.Rows[i]["HIJO NRO AMBIENTE"].ToString() + " " +
+                            "<b>Ubicacion: </b>" + dt.Rows[i]["HIJO UBICACION"].ToString() + "</span><br/>" +
+                            "<span class='color-red'><b>Direccion: </b>" + dt.Rows[i]["HIJO DIRECCION LOCAL"].ToString() + "</span>";
 
-                        
+                        row["TIPO RELACION"] = dt.Rows[i]["TIPO RELACION"].ToString();
+
+                        // Add PADRE AREA for search
+                        row["PADRE AREA"] = dt.Rows[i]["PADRE AREA"].ToString();
+                        row["HIJO AREA"] = dt.Rows[i]["HIJO AREA"].ToString();
+
+                        jsonData.Add(row);
                     }
 
-                   
+                    var serializer = new JavaScriptSerializer();
+                    datosJson.Value = serializer.Serialize(jsonData);
 
-
+                    // Store for printing
+                    IMPRIMIR.Page.Session.Add("Imprimir", new Object[] { "REPORTE_DE_CIS_RELATIVO_A_SERVICIOS", dt, "REPORTE DE ELEMENTOS DE CONFIGURACION RELATIVO A SERVICIOS", T, A, X });
 
                     servidor.cerrarconexion();
-
                 }
-
             }
             else
             {
                 servidor.cerrarconexion();
-
                 _Lista.ShowMessage(__mensaje, __pagina, servidor.getMensageError(), "../CerrarSession.aspx");
             }
-
         }
         catch (Exception)
         {
             _Lista.ShowMessage(__mensaje, __pagina, "Error inesperado al intentar conectarnos con el servidor.", "../CerrarSession.aspx");
         }
     }
+
     protected void Page_Load(object sender, EventArgs e)
     {
-
     }
 
-    protected void Page_init(object sender, EventArgs e) {
+    protected void Page_init(object sender, EventArgs e)
+    {
         _Lista.ShowMessage(__mensaje, __pagina, "", "");
 
         string[] Datos = (string[])Session["__JSAR__"];
 
         if (Datos == null)
         {
-
             this.__mensaje.Value = "Ud. no esta autorizado para ingresar a esta página, inicie sesion por favor.";
-
             this.__pagina.Value = "../CerrarSession.aspx";
-
             return;
-
         }
 
         Cargar_Datos(this.ddltci, "[dbo].[pr_Obtener_Tipos_Elemento_Configuracion_2]", "Error, al intentar recuperar Estado Elemento Configuracion.");
@@ -322,7 +245,7 @@ public partial class RelacionesElementosConfiguracion : System.Web.UI.Page
         if (Session["OpcionBusqueda"] == null)
         {
             this.Listar_Relacion_Elementos_Configuracion("",
-            "", 
+            "",
             "",
             "",
             "",
@@ -330,14 +253,16 @@ public partial class RelacionesElementosConfiguracion : System.Web.UI.Page
             "",
             "",
             "No hay relacion de elementos de configuracion");
-        }else {
+        }
+        else
+        {
             Object[] ob = (Object[])Session["OpcionBusqueda"];
             this.cbnci.Checked = (bool)ob[1];
             this.txtnci.Enabled = (bool)ob[1];
             this.txtnci.Text = (string)ob[0];
 
             this.cbtci.Checked = (bool)ob[3];
-            ddltci.Enabled= (bool)ob[3];
+            ddltci.Enabled = (bool)ob[3];
             for (int i = 0; i < this.ddltci.Items.Count; i++)
             {
                 if (this.ddltci.Items[i].Text == ob[2].ToString().Trim())
@@ -345,7 +270,7 @@ public partial class RelacionesElementosConfiguracion : System.Web.UI.Page
             }
 
             this.cbeci.Checked = (bool)ob[5];
-            ddleci.Enabled= (bool)ob[5];
+            ddleci.Enabled = (bool)ob[5];
             for (int i = 0; i < this.ddleci.Items.Count; i++)
             {
                 if (this.ddleci.Items[i].Text == ob[4].ToString().Trim())
@@ -357,14 +282,12 @@ public partial class RelacionesElementosConfiguracion : System.Web.UI.Page
             this.txtpci.Text = (string)ob[6];
 
             this.cbdci.Checked = (bool)ob[9];
-            ddldci.Enabled= (bool)ob[9];
+            ddldci.Enabled = (bool)ob[9];
             for (int i = 0; i < this.ddldci.Items.Count; i++)
             {
                 if (this.ddldci.Items[i].Text == ob[8].ToString().Trim())
                     this.ddldci.SelectedIndex = i;
             }
-
-            
 
             this.cbs.Checked = (bool)ob[11];
             ddls.Enabled = (bool)ob[11];
@@ -394,7 +317,6 @@ public partial class RelacionesElementosConfiguracion : System.Web.UI.Page
                     this.ddla.SelectedIndex = i;
             }
 
-
             this.Listar_Relacion_Elementos_Configuracion(ob[0].ToString().Trim(),
             ob[2].ToString().Trim(),
             ob[4].ToString().Trim(),
@@ -405,14 +327,10 @@ public partial class RelacionesElementosConfiguracion : System.Web.UI.Page
             ob[14].ToString().Trim(),
             "No hay relacion de elementos de configuracion, con los criterios seleccionados");
         }
-         //this.Table_.Rows[2].Cells[2].Text = "";
-
     }
 
     private void Cargar_Datos(System.Web.UI.WebControls.DropDownList ddl, String Procedimeinto_Almacenado, String Mensaje, params Object[] p)
     {
-
-
         try
         {
             policia.clsaccesodatos servidor = new policia.clsaccesodatos();
@@ -457,20 +375,6 @@ public partial class RelacionesElementosConfiguracion : System.Web.UI.Page
         }
     }
 
-
-
-    
-
-   
-
-   
-
-   
-
-    
-
-    
-
     protected void cbl_CheckedChanged(object sender, EventArgs e)
     {
         _Lista.ShowMessage(__mensaje, __pagina, "", "");
@@ -478,10 +382,6 @@ public partial class RelacionesElementosConfiguracion : System.Web.UI.Page
         this.ddll.SelectedIndex = -1;
         this.ddll.Focus();
     }
-
-    
-
-   
 
     protected void lbtnBuscar_Click(object sender, EventArgs e)
     {
@@ -491,13 +391,12 @@ public partial class RelacionesElementosConfiguracion : System.Web.UI.Page
         String _PROPIETARIO_CI = "";
 
         Object[] ob;
-       
+
         bool ok = (cbnci.Checked == true ||
         cbtci.Checked == true ||
         cbeci.Checked == true ||
         cbpci.Checked == true ||
         cbdci.Checked == true ||
-
         cbs.Checked == true ||
         cbl.Checked == true ||
         cba.Checked == true);
@@ -516,7 +415,6 @@ public partial class RelacionesElementosConfiguracion : System.Web.UI.Page
                 txtnci.Focus();
                 return;
             }
-
         }
         else if (cbtci.Checked == true)
         {
@@ -591,16 +489,13 @@ public partial class RelacionesElementosConfiguracion : System.Web.UI.Page
              Convert.ToInt32(ddldci.SelectedValue)==-1?"": ddldci.SelectedItem.Text, this.cbdci.Checked,
              Convert.ToInt32(ddls.SelectedValue)==-1?"": ddls.SelectedItem.Text, this.cbs.Checked,
              Convert.ToInt32(ddll.SelectedValue)==-1?"": ddll.SelectedItem.Text, this.cbl.Checked,
-             Convert.ToInt32(ddla.SelectedValue)==-1?"": ddla.SelectedItem.Text, this.cba.Checked             
+             Convert.ToInt32(ddla.SelectedValue)==-1?"": ddla.SelectedItem.Text, this.cba.Checked
         };
         Session["OpcionBusqueda"] = ob;
 
         Response.Clear();
-        Response.Redirect("RelacionesElementosConfiguracion.aspx");
+        Response.Redirect("Reporte_De_CIS_Relativo_A_Servicios.aspx");
         Response.Flush();
-
-        _Lista.ShowMessage(__mensaje, __pagina, "", "");
-
     }
 
     protected void ddls_SelectedIndexChanged(object sender, EventArgs e)
@@ -621,10 +516,6 @@ public partial class RelacionesElementosConfiguracion : System.Web.UI.Page
             return;
         }
         Cargar_Datos(this.ddll, "[dbo].[pr_Obtener_Locales]", "Error, al intentar recuperar Locales Judiciales.", new Object[] { Codigo_Sede });
-        if (this.__mensaje.Value.ToString().Trim() != "")
-        {
-            return;
-        }
     }
 
     protected void ddll_SelectedIndexChanged(object sender, EventArgs e)
@@ -642,10 +533,6 @@ public partial class RelacionesElementosConfiguracion : System.Web.UI.Page
             return;
         }
         Cargar_Datos(this.ddla, "[dbo].[pr_Obtener_Areas]", "Error, al intentar recuperar Areas Judiciales.", new Object[] { Codigo_Local });
-        if (this.__mensaje.Value.ToString().Trim() != "")
-        {
-            return;
-        }
     }
 
     protected void btnActualizarInformacion_Click(object sender, EventArgs e)
@@ -653,9 +540,8 @@ public partial class RelacionesElementosConfiguracion : System.Web.UI.Page
         _Lista.ShowMessage(__mensaje, __pagina, "", "");
         Session["OpcionBusqueda"] = null;
         Response.Clear();
-        Response.Redirect("RelacionesElementosConfiguracion.aspx");
+        Response.Redirect("Reporte_De_CIS_Relativo_A_Servicios.aspx");
         Response.Flush();
-        _Lista.ShowMessage(__mensaje, __pagina, "", "");
     }
 
     protected void cbnci_CheckedChanged(object sender, EventArgs e)

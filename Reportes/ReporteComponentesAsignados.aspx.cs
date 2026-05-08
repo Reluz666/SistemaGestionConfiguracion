@@ -1,10 +1,11 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.Script.Serialization;
 
 public partial class ElementosConfiguracion : System.Web.UI.Page
 {
@@ -19,15 +20,9 @@ public partial class ElementosConfiguracion : System.Web.UI.Page
     {
         _Lista.ShowMessage(__mensaje, __pagina, "", "");
 
-        for (int i = 1; i < this.Table_.Rows.Count; i++)
-        {
-            this.Table_.Rows[i].Cells.Clear();
-        }
-
         try
         {
             policia.clsaccesodatos servidor = new policia.clsaccesodatos();
-
             servidor.cadenaconexion = Ruta;
 
             if (servidor.abrirconexion() == true)
@@ -37,320 +32,69 @@ public partial class ElementosConfiguracion : System.Web.UI.Page
                 if (dt.Rows.Count == 0)
                 {
                     servidor.cerrarconexion();
-
                     _Lista.ShowMessage(__mensaje, __pagina, Mensaje, "");
+                    datosJson.Value = "[]";
                 }
                 else
                 {
                     Session["CABECERA"] = dt;
+
+                    // Build JSON for client-side rendering with nested components
+                    var jsonData = new List<Dictionary<string, object>>();
                     for (int i = 0; i < dt.Rows.Count; i++)
                     {
-                        tRow = new TableRow();
+                        var row = new Dictionary<string, object>();
+                        row["ID CI"] = dt.Rows[i]["ID CI"].ToString();
+                        row["NOMBRE CI"] = dt.Rows[i]["NOMBRE CI"].ToString();
+                        row["NOMBRE TIPO CI"] = dt.Rows[i]["NOMBRE TIPO CI"].ToString();
+                        row["NRO SERIE"] = dt.Rows[i]["NRO SERIE"].ToString();
+                        row["FABRICANTE / PROVEEDOR"] = dt.Rows[i]["FABRICANTE / PROVEEDOR"].ToString();
+                        row["MARCA_MODELO_HTML"] = "<span class='color-red'>" + dt.Rows[i]["MARCA"].ToString() + "</span> / <span class='color-blue'>" + dt.Rows[i]["MODELO"].ToString() + "</span>";
+                        row["IP"] = dt.Rows[i]["IP"].ToString();
+                        row["GATEWAY"] = dt.Rows[i]["GATEWAY"].ToString();
+                        row["GRUPO TRABAJO"] = dt.Rows[i]["GRUPO TRABAJO"].ToString();
+                        row["ESTADO CI"] = dt.Rows[i]["ESTADO CI"].ToString();
+                        row["PROPIETARIO"] = dt.Rows[i]["PROPIETARIO"].ToString();
+                        row["DESCRIPCION CI"] = dt.Rows[i]["DESCRIPCION CI"].ToString();
+                        row["IMPACTO_PRIORIDAD_HTML"] = "<span class='color-blue'>" + dt.Rows[i]["IMPACTO CI"].ToString() + "</span> / <span class='color-red'>" + dt.Rows[i]["NIVEL PRIORIDAD"].ToString() + "</span>";
+                        row["SEDE_LOCAL_HTML"] = "<span class='color-blue'>" + dt.Rows[i]["SEDE"].ToString() + "</span> / <span class='color-red'>" + dt.Rows[i]["LOCAL"].ToString() + "</span>";
+                        row["AREA"] = dt.Rows[i]["AREA"].ToString();
+                        row["NRO PISO"] = dt.Rows[i]["NRO PISO"].ToString();
+                        row["NRO AMBIENTE"] = dt.Rows[i]["NRO AMBIENTE"].ToString();
 
-                        for (int j = 0; j < Table_.Rows[i].Cells.Count; j++)//Cabecera de la tabla
+                        // Get components for this CI
+                        int idCI = Convert.ToInt32(dt.Rows[i]["ID CI"].ToString());
+                        DataTable dtComponentes = getDetalleComponentesCI(idCI);
+
+                        var componentes = new List<Dictionary<string, string>>();
+                        for (int c = 0; c < dtComponentes.Rows.Count; c++)
                         {
-                            TableCell tCell = new TableCell();
-                            tRow.BorderColor = System.Drawing.Color.Black;
-
-                            switch (j)
-                            {
-
-                                case 0:
-
-                                    tCell.Text = dt.Rows[i]["ID CI"].ToString();
-
-                                    tCell.Visible = false;
-
-                                    tRow.Cells.Add(tCell);
-
-                                    break;
-
-                                case 1:
-
-                                    tCell.Text = dt.Rows[i]["NOMBRE CI"].ToString();
-
-                                    tCell.HorizontalAlign = HorizontalAlign.Left;
-
-                                    //tCell.BackColor = System.Drawing.Color.LemonChiffon;
-
-                                    tCell.Visible = true;
-
-                                    tRow.Cells.Add(tCell);
-
-                                    break;                               
-
-                                case 2:
-
-                                    tCell.Text = dt.Rows[i]["NOMBRE TIPO CI"].ToString();
-
-                                    tCell.HorizontalAlign = HorizontalAlign.Left;
-
-                                    //tCell.BackColor = System.Drawing.Color.LemonChiffon;
-
-                                    tCell.Visible = true;
-
-                                    tRow.Cells.Add(tCell);
-
-                                    break;
-
-                                case 3:
-
-                                    tCell.Text = dt.Rows[i]["NRO SERIE"].ToString();
-
-                                    tCell.HorizontalAlign = HorizontalAlign.Left;
-
-                                    //tCell.BackColor = System.Drawing.Color.LemonChiffon;
-
-                                    tCell.Visible = true;
-
-                                    tRow.Cells.Add(tCell);
-
-                                    break;
-
-                                case 4:
-
-                                    tCell.Text = dt.Rows[i]["FABRICANTE / PROVEEDOR"].ToString();
-
-                                    tCell.HorizontalAlign = HorizontalAlign.Left;
-
-                                    //tCell.BackColor = System.Drawing.Color.LemonChiffon;
-
-                                    tCell.Visible = true;
-
-                                    tRow.Cells.Add(tCell);
-
-                                    break;
-
-                                case 5:
-
-                                    tCell.Text = "<font color=red>" + dt.Rows[i]["MARCA"].ToString() + "</font> /<BR> <font color=blue>" + dt.Rows[i]["MODELO"].ToString() + "</font>";
-
-                                    tCell.HorizontalAlign = HorizontalAlign.Left;
-
-                                    //tCell.BackColor = System.Drawing.Color.LemonChiffon;
-
-                                    tCell.Visible = true;
-
-                                    tRow.Cells.Add(tCell);
-
-                                    break;
-
-                                case 6:
-
-                                    tCell.Text = dt.Rows[i]["IP"].ToString();
-
-                                    tCell.HorizontalAlign = HorizontalAlign.Left;
-
-                                    //tCell.BackColor = System.Drawing.Color.LemonChiffon;
-
-                                    tCell.Visible = true;
-
-                                    tRow.Cells.Add(tCell);
-
-                                    break;
-
-                                case 7:
-
-                                    tCell.Text = dt.Rows[i]["GATEWAY"].ToString();
-
-                                    tCell.HorizontalAlign = HorizontalAlign.Left;
-
-                                    //tCell.BackColor = System.Drawing.Color.LemonChiffon;
-
-                                    tCell.Visible = true;
-
-                                    tRow.Cells.Add(tCell);
-
-                                    break;
-
-                                case 8:
-
-                                    tCell.Text = dt.Rows[i]["GRUPO TRABAJO"].ToString();
-
-                                    tCell.HorizontalAlign = HorizontalAlign.Left;
-
-                                    //tCell.BackColor = System.Drawing.Color.LemonChiffon;
-
-                                    tCell.Visible = true;
-
-                                    tRow.Cells.Add(tCell);
-
-                                    break;
-
-                                case 9:
-
-                                    if (dt.Rows[i]["ESTADO CI"].ToString().Equals("ACTIVO"))
-                                    {
-                                        tCell.ForeColor = System.Drawing.Color.Blue;
-                                    }
-                                    else
-                                    {
-                                        tCell.ForeColor = System.Drawing.Color.Red;
-                                    }
-
-                                    tCell.Text = dt.Rows[i]["ESTADO CI"].ToString();
-
-                                    tCell.HorizontalAlign = HorizontalAlign.Left;
-
-                                    //tCell.BackColor = System.Drawing.Color.LemonChiffon;
-
-                                    tCell.Visible = true;
-
-                                    tRow.Cells.Add(tCell);
-
-                                    break;
-
-                                case 10:
-
-                                    tCell.Text = dt.Rows[i]["PROPIETARIO"].ToString();
-
-                                    tCell.HorizontalAlign = HorizontalAlign.Left;
-
-                                    //tCell.BackColor = System.Drawing.Color.LemonChiffon;
-
-                                    tCell.Visible = true;
-
-                                    tRow.Cells.Add(tCell);
-
-                                    break;
-
-
-                                case 11:
-
-                                    tCell.Text = dt.Rows[i]["DESCRIPCION CI"].ToString();
-
-                                    tCell.HorizontalAlign = HorizontalAlign.Left;
-
-                                    //tCell.BackColor = System.Drawing.Color.LemonChiffon;
-
-                                    tCell.Visible = true;
-
-                                    tRow.Cells.Add(tCell);
-
-                                    break;
-
-                                case 12:
-
-                                    tCell.Text = "<font color=blue>" + dt.Rows[i]["IMPACTO CI"].ToString() + "</font> / <font color=red>" + dt.Rows[i]["NIVEL PRIORIDAD"].ToString() + "</font>";
-
-                                    tCell.HorizontalAlign = HorizontalAlign.Left;
-
-                                    //tCell.BackColor = System.Drawing.Color.LemonChiffon;
-
-                                    tCell.Visible = true;
-
-                                    tRow.Cells.Add(tCell);
-
-                                    break;
-
-                                case 13:
-
-                                    tCell.Text = "<font color=blue>" + dt.Rows[i]["SEDE"].ToString() + "</font> /<br> <font color=red>" + dt.Rows[i]["LOCAL"].ToString() + "</font>";
-
-                                    tCell.HorizontalAlign = HorizontalAlign.Left;
-
-                                    //tCell.BackColor = System.Drawing.Color.LemonChiffon;
-
-                                    tCell.Visible = true;
-
-                                    tRow.Cells.Add(tCell);
-
-                                    break;    
-
-                                case 14:
-
-                                    tCell.Text = dt.Rows[i]["AREA"].ToString();
-
-                                    tCell.HorizontalAlign = HorizontalAlign.Left;
-
-                                    //tCell.BackColor = System.Drawing.Color.LemonChiffon;
-
-                                    tCell.Visible = true;
-
-                                    tRow.Cells.Add(tCell);
-
-                                    break;
-
-                                case 15:
-
-                                    tCell.Text = dt.Rows[i]["NRO PISO"].ToString();
-
-                                    tCell.HorizontalAlign = HorizontalAlign.Left;
-
-                                    //tCell.BackColor = System.Drawing.Color.LemonChiffon;
-
-                                    tCell.Visible = true;
-
-                                    tRow.Cells.Add(tCell);
-
-                                    break;
-
-                                case 16:
-
-                                    tCell.Text = dt.Rows[i]["NRO AMBIENTE"].ToString();
-
-                                    tCell.HorizontalAlign = HorizontalAlign.Left;
-
-                                    //tCell.BackColor = System.Drawing.Color.LemonChiffon;
-
-                                    tCell.Visible = true;
-
-                                    tRow.Cells.Add(tCell);
-
-                                    break;
-
-                                case 17:
-
-                                    System.Web.UI.WebControls.Button b = new System.Web.UI.WebControls.Button();
-
-                                    b.Height = 25;
-
-                                    b.Text = "DETALLE";
-                                    b.ToolTip = "Seleccione CI";
-
-                                    //b.BackColor = System.Drawing.Color.SpringGreen;
-
-                                    b.BorderStyle = BorderStyle.None;
-
-                                    b.CausesValidation = false;
-
-                                    b.UseSubmitBehavior = false;
-
-                                    //b.PostBackUrl = "~/#";
-
-
-
-                                    tCell.HorizontalAlign = HorizontalAlign.Center;
-
-                                    b.CssClass = "btn btn-success";
-                                    b.CommandArgument = dt.Rows[i]["ID CI"].ToString();
-
-                                    b.Click += new System.EventHandler(Consultar_Detalle_Componentes_CI);
-
-                                    tCell.Controls.Add(b);
-
-                                    tRow.Cells.Add(tCell);
-
-                                    break;
-
-                            }
+                            var comp = new Dictionary<string, string>();
+                            comp["TIPO COMPONENTE"] = dtComponentes.Rows[c]["TIPO COMPONENTE"].ToString();
+                            comp["DESCRIPCION"] = dtComponentes.Rows[c]["DESCRIPCION"].ToString();
+                            comp["FABRICANTE"] = dtComponentes.Rows[c]["FABRICANTE"].ToString();
+                            comp["NRO SERIE"] = dtComponentes.Rows[c]["NRO SERIE"].ToString();
+                            comp["MODELO"] = dtComponentes.Rows[c]["MODELO"].ToString();
+                            comp["MARCA"] = dtComponentes.Rows[c]["MARCA"].ToString();
+                            componentes.Add(comp);
                         }
+                        row["COMPONENTE_COUNT"] = componentes.Count;
+                        row["COMPONENTES"] = componentes;
 
-                        this.Table_.Rows.Add(tRow);
+                        jsonData.Add(row);
                     }
 
+                    var serializer = new JavaScriptSerializer();
+                    datosJson.Value = serializer.Serialize(jsonData);
+
                     servidor.cerrarconexion();
-
                 }
-
             }
             else
             {
                 servidor.cerrarconexion();
-
                 _Lista.ShowMessage(__mensaje, __pagina, servidor.getMensageError(), "../CerrarSession.aspx");
             }
-
         }
         catch (Exception)
         {
@@ -360,9 +104,7 @@ public partial class ElementosConfiguracion : System.Web.UI.Page
 
     private DataTable getDetalleComponentesCI(int ID)
     {
-        _Lista.ShowMessage(__mensaje, __pagina, "", "");
         DataTable dt = null;
-
         try
         {
             policia.clsaccesodatos servidor = new policia.clsaccesodatos();
@@ -370,6 +112,7 @@ public partial class ElementosConfiguracion : System.Web.UI.Page
             if (servidor.abrirconexion() == true)
             {
                 dt = servidor.consultar("[dbo].[pr_ConsultarDetalleComponentesCI]", ID).Tables[0];
+                servidor.cerrarconexion();
             }
             else
             {
@@ -386,173 +129,8 @@ public partial class ElementosConfiguracion : System.Web.UI.Page
         return dt;
     }
 
-    private void Consultar_Detalle_Componentes_CI(object sender, EventArgs e)
-    {
-        _Lista.ShowMessage(__mensaje, __pagina, "", "");
-
-        System.Web.UI.WebControls.Button b = (System.Web.UI.WebControls.Button)sender;
-        int ID = Convert.ToInt32(b.CommandArgument.Trim());
-        
-
-        for (int i = 1; i < this.Table_0.Rows.Count; i++)
-        {
-            this.Table_0.Rows[i].Cells.Clear();
-        }
-
-        try
-        {
-            policia.clsaccesodatos servidor = new policia.clsaccesodatos();
-
-            servidor.cadenaconexion = Ruta;
-
-            if (servidor.abrirconexion() == true)
-            {
-                DataTable dt = servidor.consultar("[dbo].[pr_ConsultarDetalleComponentesCI]", ID).Tables[0];
-
-                if (dt.Rows.Count == 0)
-                {
-                    servidor.cerrarconexion();
-
-                    _Lista.ShowMessage(__mensaje, __pagina, "Elemento Configuracion Seleccionado no Tiene Detalles.", "");
-                }
-                else
-                {
-                    for (int i = 0; i < dt.Rows.Count; i++)
-                    {
-                        tRow = new TableRow();
-
-                        for (int j = 0; j < Table_0.Rows[i].Cells.Count; j++)//Cabecera de la tabla
-                        {
-                            TableCell tCell = new TableCell();
-                            tRow.BorderColor = System.Drawing.Color.Black;
-
-                            switch (j)
-                            {
-
-                                case 0:
-
-                                    tCell.Text = dt.Rows[i]["ID COMPONENETE"].ToString();
-
-                                    tCell.Visible = false;
-
-                                    tRow.Cells.Add(tCell);
-
-                                    break;
-
-                                case 1:
-
-                                    tCell.Text = dt.Rows[i]["TIPO COMPONENTE"].ToString();
-
-                                    tCell.HorizontalAlign = HorizontalAlign.Left;
-
-                                    //tCell.BackColor = System.Drawing.Color.LemonChiffon;
-
-                                    tCell.Visible = true;
-
-                                    tRow.Cells.Add(tCell);
-
-                                    break;
-
-                                case 2:
-
-                                    tCell.Text = dt.Rows[i]["DESCRIPCION"].ToString();
-
-                                    tCell.HorizontalAlign = HorizontalAlign.Left;
-
-                                    //tCell.BackColor = System.Drawing.Color.LemonChiffon;
-
-                                    tCell.Visible = true;
-
-                                    tRow.Cells.Add(tCell);
-
-                                    break;
-
-                                case 3:
-
-                                    tCell.Text = dt.Rows[i]["FABRICANTE"].ToString();
-
-                                    tCell.HorizontalAlign = HorizontalAlign.Left;
-
-                                    //tCell.BackColor = System.Drawing.Color.LemonChiffon;
-
-                                    tCell.Visible = true;
-
-                                    tRow.Cells.Add(tCell);
-
-                                    break;
-
-                                case 4:
-
-                                    tCell.Text = dt.Rows[i]["NRO SERIE"].ToString();
-
-                                    tCell.HorizontalAlign = HorizontalAlign.Left;
-
-                                    //tCell.BackColor = System.Drawing.Color.LemonChiffon;
-
-                                    tCell.Visible = true;
-
-                                    tRow.Cells.Add(tCell);
-
-                                    break;                               
-
-
-                                case 5:
-
-                                    tCell.Text = dt.Rows[i]["MODELO"].ToString();
-
-                                    tCell.HorizontalAlign = HorizontalAlign.Left;
-
-                                    //tCell.BackColor = System.Drawing.Color.LemonChiffon;
-
-                                    tCell.Visible = true;
-
-                                    tRow.Cells.Add(tCell);
-
-                                    break;
-
-                                case 6:
-
-                                    tCell.Text = dt.Rows[i]["MARCA"].ToString();
-
-                                    tCell.HorizontalAlign = HorizontalAlign.Left;
-
-                                    //tCell.BackColor = System.Drawing.Color.LemonChiffon;
-
-                                    tCell.Visible = true;
-
-                                    tRow.Cells.Add(tCell);
-
-                                    break;
-
-                               
-
-                            }
-                        }
-
-                        this.Table_0.Rows.Add(tRow);
-                    }
-
-                    servidor.cerrarconexion();
-
-                }
-
-            }
-            else
-            {
-                servidor.cerrarconexion();
-
-                _Lista.ShowMessage(__mensaje, __pagina, servidor.getMensageError(), "../CerrarSession.aspx");
-            }
-
-        }
-        catch (Exception)
-        {
-            _Lista.ShowMessage(__mensaje, __pagina, "Error inesperado al intentar conectarnos con el servidor.", "../CerrarSession.aspx");
-        }
-    }
     protected void Page_Load(object sender, EventArgs e)
     {
-
     }
 
     protected void Page_init(object sender, EventArgs e)
@@ -563,13 +141,9 @@ public partial class ElementosConfiguracion : System.Web.UI.Page
 
         if (Datos == null)
         {
-
             this.__mensaje.Value = "Ud. no esta autorizado para ingresar a esta página, inicie sesion por favor.";
-
             this.__pagina.Value = "CerrarSession.aspx";
-
             return;
-
         }
 
         Cargar_Datos(this.ddltci, "[dbo].[pr_Obtener_Tipos_Elemento_Configuracion_2]", "Error, al intentar recuperar Estado Elemento Configuracion.");
@@ -600,7 +174,7 @@ public partial class ElementosConfiguracion : System.Web.UI.Page
 
         if (Session["OpcionBusqueda"] == null)
         {
-            this.Listar_Elementos_Configuracion("","","", "", "", "", "", "", "", "", "", "No hay Elementos Configuracion");
+            this.Listar_Elementos_Configuracion("", "", "", "", "", "", "", "", "", "", "", "No hay Elementos Configuracion");
         }
         else
         {
@@ -625,7 +199,6 @@ public partial class ElementosConfiguracion : System.Web.UI.Page
                     this.ddleci.SelectedIndex = i;
             }
 
-            
             this.cbdci.Checked = (bool)ob[9];
             ddldci.Enabled = (bool)ob[9];
             for (int i = 0; i < this.ddldci.Items.Count; i++)
@@ -633,8 +206,6 @@ public partial class ElementosConfiguracion : System.Web.UI.Page
                 if (this.ddldci.Items[i].Text == ob[8].ToString().Trim())
                     this.ddldci.SelectedIndex = i;
             }
-
-
 
             this.cbs.Checked = (bool)ob[11];
             ddls.Enabled = (bool)ob[11];
@@ -689,8 +260,6 @@ public partial class ElementosConfiguracion : System.Web.UI.Page
             ob[20].ToString().Trim(),
             "No hay Elementos Configuracion con los criterios seleccionados");
         }
-
-        //this.Listar_Elementos_Configuracion("","","", "","","","","","", "No hay Elementos Configuracion");
     }
 
     protected void cbnci_CheckedChanged(object sender, EventArgs e)
@@ -717,8 +286,6 @@ public partial class ElementosConfiguracion : System.Web.UI.Page
         this.ddleci.Focus();
     }
 
-    
-
     protected void cbdci_CheckedChanged(object sender, EventArgs e)
     {
         _Lista.ShowMessage(__mensaje, __pagina, "", "");
@@ -727,7 +294,6 @@ public partial class ElementosConfiguracion : System.Web.UI.Page
         this.ddldci.Focus();
     }
 
-   
     protected void cbs_CheckedChanged(object sender, EventArgs e)
     {
         _Lista.ShowMessage(__mensaje, __pagina, "", "");
@@ -752,13 +318,29 @@ public partial class ElementosConfiguracion : System.Web.UI.Page
         this.ddla.Focus();
     }
 
+    protected void cbns_CheckedChanged(object sender, EventArgs e)
+    {
+        _Lista.ShowMessage(__mensaje, __pagina, "", "");
+        this.txtns.Enabled = this.cbns.Checked;
+        this.txtns.Text = "";
+        this.txtns.Focus();
+    }
+
+    protected void cbm_CheckedChanged(object sender, EventArgs e)
+    {
+        _Lista.ShowMessage(__mensaje, __pagina, "", "");
+        ddlm.Enabled = cbm.Checked;
+        this.ddlm.SelectedIndex = -1;
+        this.ddlm.Focus();
+    }
+
     protected void lbtnBuscar_Click(object sender, EventArgs e)
     {
         _Lista.ShowMessage(__mensaje, __pagina, "", "");
 
         Object[] ob;
 
-        bool ok = (cbnci.Checked == true || 
+        bool ok = (cbnci.Checked == true ||
         cbtci.Checked == true ||
         cbeci.Checked == true ||
         cbdci.Checked == true ||
@@ -767,7 +349,8 @@ public partial class ElementosConfiguracion : System.Web.UI.Page
         cba.Checked == true ||
         cbns.Checked == true ||
         cbm.Checked == true);
-        if(ok==false) {
+        if (ok == false)
+        {
             _Lista.ShowMessage(__mensaje, __pagina, "Seleccione criterio(s) de busqueda.", "");
             return;
         }
@@ -777,12 +360,12 @@ public partial class ElementosConfiguracion : System.Web.UI.Page
         if (cbnci.Checked == true)
         {
             _NOMBRE_CI = txtnci.Text.Trim();
-            if(_NOMBRE_CI.Trim().Length==0) {
+            if (_NOMBRE_CI.Trim().Length == 0)
+            {
                 _Lista.ShowMessage(__mensaje, __pagina, "Ingrese nombre elemento de configuracion.", "");
                 txtnci.Focus();
-                 return;
+                return;
             }
-
         }
         else if (cbtci.Checked == true)
         {
@@ -801,7 +384,7 @@ public partial class ElementosConfiguracion : System.Web.UI.Page
                 ddleci.Focus();
                 return;
             }
-        }       
+        }
         else if (cbdci.Checked == true)
         {
             if (ddldci.SelectedValue == (-1).ToString())
@@ -837,25 +420,24 @@ public partial class ElementosConfiguracion : System.Web.UI.Page
                 ddla.Focus();
                 return;
             }
-        }else if (cbns.Checked == true)
+        }
+        else if (cbns.Checked == true)
         {
-           _NRO_SERIE = txtns.Text.Trim();
+            _NRO_SERIE = txtns.Text.Trim();
             if (_NRO_SERIE.Trim().Length == 0)
             {
                 _Lista.ShowMessage(__mensaje, __pagina, "Ingrese Nro Serie elemento de configuracion.", "");
                 txtns.Focus();
                 return;
             }
-
         }
-        //this.Listar_Elementos_Configuracion(_NOMBRE_CI, _TIPO_CI, _ESTADO_CI, _PROPIETARIO_CI, _DESCRIPCION_CI, _IMPACTO_CI, _SEDE, _LOCAL, _AREA, "No hay Elementos de Configuracion con el criterio o criterios seleccionados.");
 
         ob = new Object[] {
              txtnci.Text.Trim(), this.cbnci.Checked,
              Convert.ToInt32(ddltci.SelectedValue)==-1?"": ddltci.SelectedItem.Text, this.cbtci.Checked,
              Convert.ToInt32(ddleci.SelectedValue)==-1?"": ddleci.SelectedItem.Text, this.cbeci.Checked,
              "", false,
-             Convert.ToInt32(ddldci.SelectedValue)==-1?"": ddldci.SelectedItem.Text, this.cbdci.Checked,             
+             Convert.ToInt32(ddldci.SelectedValue)==-1?"": ddldci.SelectedItem.Text, this.cbdci.Checked,
              Convert.ToInt32(ddls.SelectedValue)==-1?"": ddls.SelectedItem.Text, this.cbs.Checked,
              Convert.ToInt32(ddll.SelectedValue)==-1?"": ddll.SelectedItem.Text, this.cbl.Checked,
              Convert.ToInt32(ddla.SelectedValue)==-1?"": ddla.SelectedItem.Text, this.cba.Checked,
@@ -866,17 +448,12 @@ public partial class ElementosConfiguracion : System.Web.UI.Page
         Session["OpcionBusqueda"] = ob;
 
         Response.Clear();
-        Response.Redirect("CIsComponentesAsignados.aspx");
+        Response.Redirect("ReporteComponentesAsignados.aspx");
         Response.Flush();
-
-        _Lista.ShowMessage(__mensaje, __pagina, "", "");
     }
-
 
     private void Cargar_Datos(System.Web.UI.WebControls.DropDownList ddl, String Procedimeinto_Almacenado, String Mensaje, params Object[] p)
     {
-
-
         try
         {
             policia.clsaccesodatos servidor = new policia.clsaccesodatos();
@@ -939,10 +516,6 @@ public partial class ElementosConfiguracion : System.Web.UI.Page
             return;
         }
         Cargar_Datos(this.ddll, "[dbo].[pr_Obtener_Locales]", "Error, al intentar recuperar Locales Judiciales.", new Object[] { Codigo_Sede });
-        if (this.__mensaje.Value.ToString().Trim() != "")
-        {
-            return;
-        }
     }
 
     protected void ddll_SelectedIndexChanged(object sender, EventArgs e)
@@ -960,10 +533,6 @@ public partial class ElementosConfiguracion : System.Web.UI.Page
             return;
         }
         Cargar_Datos(this.ddla, "[dbo].[pr_Obtener_Areas]", "Error, al intentar recuperar Areas Judiciales.", new Object[] { Codigo_Local });
-        if (this.__mensaje.Value.ToString().Trim() != "")
-        {
-            return;
-        }
     }
 
     protected void btnActualizarInformacion_Click(object sender, EventArgs e)
@@ -971,30 +540,12 @@ public partial class ElementosConfiguracion : System.Web.UI.Page
         _Lista.ShowMessage(__mensaje, __pagina, "", "");
         Session["OpcionBusqueda"] = null;
         Response.Clear();
-        Response.Redirect("CIsAsignarComponenetes.aspx");
+        Response.Redirect("ReporteComponentesAsignados.aspx");
         Response.Flush();
-        _Lista.ShowMessage(__mensaje, __pagina, "", "");
-    }
-
-    protected void cbns_CheckedChanged(object sender, EventArgs e)
-    {
-        _Lista.ShowMessage(__mensaje, __pagina, "", "");
-        this.txtns.Enabled = this.cbns.Checked;
-        this.txtns.Text = "";
-        this.txtns.Focus();
-    }
-
-    protected void cbm_CheckedChanged(object sender, EventArgs e)
-    {
-        _Lista.ShowMessage(__mensaje, __pagina, "", "");
-        ddlm.Enabled = cbm.Checked;
-        this.ddlm.SelectedIndex = -1;
-        this.ddlm.Focus();
     }
 
     protected void IMPRIMIR_Click(object sender, EventArgs e)
     {
-        
         DataTable dtCIs = new DataTable();
         dtCIs = (DataTable)Session["CABECERA"];
 
@@ -1010,20 +561,13 @@ public partial class ElementosConfiguracion : System.Web.UI.Page
 
         for (int i = 0; i < dtCIs.Rows.Count; i++)
         {
-           
             DataTable dt = getDetalleComponentesCI(Convert.ToInt32(dtCIs.Rows[i].ItemArray[0].ToString()));
-
             foreach (DataRow row in dt.Rows)
-            {           
-            
-                    dtCOMPONENTES.ImportRow(row);
+            {
+                dtCOMPONENTES.ImportRow(row);
+            }
+        }
 
-               
-           }
-
-
-}
-
-Session["Imprimir"] = new Object[] { "REPORTE_COMPONENTES_CI", dtCIs, "REPORTE DE COMPONENTES DE ELEMENTO CONFIGURACION HARDWARE", dtCOMPONENTES };
+        Session["Imprimir"] = new Object[] { "REPORTE_COMPONENTES_CI", dtCIs, "REPORTE DE COMPONENTES DE ELEMENTO CONFIGURACION HARDWARE", dtCOMPONENTES };
     }
 }
