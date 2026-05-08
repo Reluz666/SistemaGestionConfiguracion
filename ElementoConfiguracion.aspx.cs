@@ -681,7 +681,7 @@ public partial class ElementoConfiguracion : System.Web.UI.Page
 
 
         this.DESCRIPCION_ELEMENTO_CONFIGURACION.Items.Clear();
-        this.DESCRIPCION_ELEMENTO_CONFIGURACION.Items.Insert(0, "____SELECCIONE DESCRIPCION_____");
+        this.DESCRIPCION_ELEMENTO_CONFIGURACION.Items.Insert(0, "Seleccione una opción");
         this.DESCRIPCION_ELEMENTO_CONFIGURACION.Items[0].Value = "-1";
         int Codigo_TipoCI = Convert.ToInt32(TIPOCI.SelectedValue);
         if (Codigo_TipoCI == -1)

@@ -381,7 +381,7 @@
                             <label class="form-label-modern">Tipo Doc. Ident.</label>
                             <asp:DropDownList ID="TipoDocIdent" runat="server" CssClass="form-control form-control-modern"
                                              AppendDataBoundItems="True">
-                                <asp:ListItem Value="-1">___SELECCIONE TIPO DOC.___</asp:ListItem>
+                                <asp:ListItem Value="-1">Seleccione una opción</asp:ListItem>
                             </asp:DropDownList>
                             <asp:RequiredFieldValidator ID="rfvTipoDocIdent" runat="server" ControlToValidate="TipoDocIdent"
                                                        ErrorMessage="*" CssClass="validator-error" />
@@ -398,7 +398,7 @@
                             <label class="form-label-modern">Profesi&oacute;n</label>
                             <asp:DropDownList ID="Profesion" runat="server" CssClass="form-control form-control-modern"
                                              AppendDataBoundItems="True">
-                                <asp:ListItem Value="-1">___SELECCIONE PROFESI&Oacute;N___</asp:ListItem>
+                                <asp:ListItem Value="-1">Seleccione una opción</asp:ListItem>
                             </asp:DropDownList>
                             <asp:RequiredFieldValidator ID="rfvProfesion" runat="server" ControlToValidate="Profesion"
                                                        ErrorMessage="*" CssClass="validator-error" />
@@ -431,7 +431,7 @@
                             <asp:DropDownList ID="Sede" runat="server" CssClass="form-control form-control-modern"
                                              AppendDataBoundItems="True" AutoPostBack="True"
                                              OnSelectedIndexChanged="Sede_SelectedIndexChanged">
-                                <asp:ListItem Value="-1">___SELECCIONE SEDE___</asp:ListItem>
+                                <asp:ListItem Value="-1">Seleccione una opción</asp:ListItem>
                             </asp:DropDownList>
                             <asp:RequiredFieldValidator ID="rfvSede" runat="server" ControlToValidate="Sede"
                                                        ErrorMessage="*" CssClass="validator-error" />
@@ -445,7 +445,7 @@
                             <asp:DropDownList ID="Local" runat="server" CssClass="form-control form-control-modern"
                                              AppendDataBoundItems="True" AutoPostBack="True"
                                              OnSelectedIndexChanged="Local_SelectedIndexChanged">
-                                <asp:ListItem Value="-1">___SELECCIONE LOCAL___</asp:ListItem>
+                                <asp:ListItem Value="-1">Seleccione una opción</asp:ListItem>
                             </asp:DropDownList>
                             <asp:RequiredFieldValidator ID="rfvLocal" runat="server" ControlToValidate="Local"
                                                        ErrorMessage="*" CssClass="validator-error" />
@@ -458,7 +458,7 @@
                             <label class="form-label-modern">&Aacute;rea</label>
                             <asp:DropDownList ID="Area" runat="server" CssClass="form-control form-control-modern"
                                              AppendDataBoundItems="True">
-                                <asp:ListItem Value="-1">___SELECCIONE &Aacute;REA___</asp:ListItem>
+                                <asp:ListItem Value="-1">Seleccione una opción</asp:ListItem>
                             </asp:DropDownList>
                             <asp:RequiredFieldValidator ID="rfvArea" runat="server" ControlToValidate="Area"
                                                        ErrorMessage="*" CssClass="validator-error" />
@@ -475,7 +475,7 @@
                             <label class="form-label-modern">Dependencia</label>
                             <asp:DropDownList ID="Dependencia" runat="server" CssClass="form-control form-control-modern"
                                              AppendDataBoundItems="True">
-                                <asp:ListItem Value="-1">___SELECCIONE DEPENDENCIA___</asp:ListItem>
+                                <asp:ListItem Value="-1">Seleccione una opción</asp:ListItem>
                             </asp:DropDownList>
                             <asp:RequiredFieldValidator ID="rfvDependencia" runat="server" ControlToValidate="Dependencia"
                                                        ErrorMessage="*" CssClass="validator-error" />
@@ -488,7 +488,7 @@
                             <label class="form-label-modern">Cargo</label>
                             <asp:DropDownList ID="Cargo" runat="server" CssClass="form-control form-control-modern"
                                              AppendDataBoundItems="True">
-                                <asp:ListItem Value="-1">___SELECCIONE CARGO___</asp:ListItem>
+                                <asp:ListItem Value="-1">Seleccione una opción</asp:ListItem>
                             </asp:DropDownList>
                             <asp:RequiredFieldValidator ID="rfvCargo" runat="server" ControlToValidate="Cargo"
                                                        ErrorMessage="*" CssClass="validator-error" />
