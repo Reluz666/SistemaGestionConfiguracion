@@ -25,7 +25,8 @@
       "mcp__plugin_oh-my-claudecode_t__state_read",
       "Bash(omc team *)",
       "Bash(dotnet build *)",
-      "mcp__plugin_oh-my-claudecode_t__lsp_diagnostics_directory"
+      "mcp__plugin_oh-my-claudecode_t__lsp_diagnostics_directory",
+      "mcp__plugin_oh-my-claudecode_t__lsp_diagnostics"
     ]
   }
 }

@@ -27,15 +27,6 @@ public partial class ReporteSeguimientosElementoConfiguracion : System.Web.UI.Pa
             return;
         }
 
-        bool rpta = this.VERIFICAR_PERMISO_ACCESO_PAGINA_WEB(Convert.ToInt32(Datos[0]),
-        "ReporteSeguimientosElementoConfiguracion.aspx");
-        if (rpta == false)
-        {
-            this.__mensaje.Value = "Ud. no tiene permiso para ACCEDER esta pagina web.";
-            this.__pagina.Value = "CerrarSession.aspx";
-            return;
-        }
-
         Cargar_Datos_Json();
     }
 
