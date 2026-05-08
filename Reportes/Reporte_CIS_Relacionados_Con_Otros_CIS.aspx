@@ -324,6 +324,7 @@
                             <div class="d-flex flex-wrap gap-2">
                                 <asp:LinkButton ID="lbtnBuscar" runat="server" CausesValidation="False" CssClass="btn btn-info btn-modern" OnClick="lbtnBuscar_Click" Text="Buscar" UseSubmitBehavior="False" />
                                 <asp:Button ID="btnActualizarInformacion" runat="server" CssClass="btn btn-warning btn-modern" OnClick="btnActualizarInformacion_Click" Text="Mostrar Todos" />
+                                <asp:HyperLink ID="IMPRIMIR" runat="server" BorderStyle="None" CssClass="btn btn-info btn-modern ms-2" NavigateUrl="" onClick="return abrir_ventana_imprimir_reporte(2);">Imprimir reporte</asp:HyperLink>
                             </div>
                         </div>
                     </div>

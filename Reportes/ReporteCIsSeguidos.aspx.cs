@@ -65,7 +65,7 @@ public partial class ElementosConfiguracion : System.Web.UI.Page
                         {
                             row["NRO PISO"] = dt.Rows[i]["NRO PISO"].ToString();
                             row["NRO AMBIENTE"] = "";
-                            row["NRO_PISO_AMBIENTE_HTML"] = htmlEncode(dt.Rows[i]["NRO PISO"].ToString());
+                            row["NRO_PISO_AMBIENTE_HTML"] = System.Web.HttpUtility.HtmlEncode(dt.Rows[i]["NRO PISO"].ToString());
                         }
 
                         row["TIPO CI"] = tipoCI;
