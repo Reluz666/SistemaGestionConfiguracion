@@ -1,389 +1,549 @@
 <%@ Page Language="C#" AutoEventWireup="true" CodeFile="acceso.aspx.cs" Inherits="acceso" UnobtrusiveValidationMode="None" %>
 
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
 <head runat="server">
-    <link rel="icon" type="image/ico" href="imagenes/acceso.png" />
+    <link rel="icon" type="image/ico" href="Imagenes/buscar.ico" />
     <title>Acceso al Sistema</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- Bootstrap 5.3 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <!-- Bootstrap Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
-    <!-- Global Styles -->
-    <link href="CssJs/global-styles.css" rel="stylesheet" />
     <style>
-        /* ===== FONDO ANIMADO ===== */
-        .bg-pattern {
-            position: fixed;
-            inset: 0;
-            z-index: 0;
+        :root {
+            --page-bg: #f4f1ec;
+            --ink: #18202a;
+            --muted: #697382;
+            --line: #d9dee7;
+            --surface: #ffffff;
+            --surface-soft: #f8fafc;
+            --brand: #bf1725;
+            --brand-dark: #87111c;
+            --brand-soft: #fff0f1;
+            --focus: rgba(191, 23, 37, 0.22);
+            --shadow: 0 24px 70px rgba(24, 32, 42, 0.16);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            min-height: 100%;
+        }
+
+        body {
+            margin: 0;
+            color: var(--ink);
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--page-bg);
+        }
+
+        button,
+        input {
+            font: inherit;
+        }
+
+        .login-page {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(360px, 480px);
             background:
-                radial-gradient(ellipse at 20% 50%, rgba(212, 9, 36, 0.15) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 20%, rgba(212, 9, 36, 0.08) 0%, transparent 40%),
-                var(--dark-bg);
-            overflow: hidden;
+                linear-gradient(90deg, rgba(15, 22, 32, 0.78), rgba(15, 22, 32, 0.44) 44%, rgba(244, 241, 236, 0.96) 44%),
+                url("Imagenes/fondo1.jpg") center / cover no-repeat;
         }
 
-        .bg-pattern::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(212, 9, 36, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(212, 9, 36, 0.03) 1px, transparent 1px);
-            background-size: 40px 40px;
-        }
-
-        /* ===== LAYOUT PRINCIPAL ===== */
-        .login-wrapper {
-            position: relative;
-            z-index: 1;
-            flex: 1;
+        .institutional-panel {
+            min-height: 100vh;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem 1rem;
+            align-items: flex-end;
+            padding: clamp(32px, 6vw, 78px);
         }
 
-        /* ===== CARD DE LOGIN ===== */
-        .login-card {
-            background: var(--card-bg);
-            border-radius: 20px;
-            box-shadow:
-                0 0 0 1px rgba(212, 9, 36, 0.5),
-                0 25px 80px rgba(0, 0, 0, 0.6),
-                0 10px 40px rgba(212, 9, 36, 0.3);
-            overflow: hidden;
-            width: 100%;
-            max-width: 420px;
-            animation: slideUp 0.5s ease;
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* ===== HEADER DEL CARD ===== */
-        .login-card-header {
-            padding: 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .login-card-header img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            display: block;
-            filter: brightness(0.85) contrast(1.1);
-            box-shadow: 0 4px 20px rgba(212, 9, 36, 0.5);
-        }
-
-        /* ===== CUERPO DEL CARD ===== */
-        .login-card-body {
-            padding: 2.5rem 2.5rem 2.5rem;
-            border-top: 2px solid rgba(212, 9, 36, 0.3);
-        }
-
-        /* ===== INPUT GROUP ===== */
-        .input-group-modern {
-            margin-bottom: 1.5rem;
-            position: relative;
-        }
-
-        .input-group-modern label {
-            display: block;
-            color: var(--text-light);
-            font-size: 0.85rem;
-            font-weight: 500;
-            margin-bottom: 0.5rem;
-            letter-spacing: 0.3px;
-        }
-
-        .input-icon-wrapper {
-            position: relative;
-        }
-
-        .input-icon-wrapper i {
-            position: absolute;
-            left: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-muted);
-            font-size: 1rem;
-            transition: color 0.3s;
-        }
-
-        .input-icon-wrapper .form-control {
-            padding-left: 44px !important;
-            height: 48px;
-        }
-
-        .form-control-modern {
-            width: 100%;
-            background: #111;
-            border: 2px solid var(--border-color);
-            border-radius: 12px;
-            color: var(--text-light);
-            font-size: 0.95rem;
-            padding: 0.75rem 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .form-control-modern:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(212, 9, 36, 0.15);
-            background: #1e1e1e;
+        .institutional-copy {
+            width: min(620px, 100%);
             color: #ffffff;
+            text-shadow: 0 2px 18px rgba(0, 0, 0, 0.34);
         }
 
-        .form-control-modern::placeholder {
-            color: var(--text-muted);
+        .system-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 18px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
         }
 
-        .form-control-modern:focus ~ i,
-        .input-group-modern:focus-within i {
-            color: var(--primary);
+        .system-kicker::before {
+            content: "";
+            width: 34px;
+            height: 2px;
+            background: #ffffff;
+            border-radius: 2px;
         }
 
-        /* ===== BOTON DE INGRESO ===== */
-        .btn-ingresar {
-            width: 100%;
-            height: 50px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            border: none;
-            border-radius: 12px;
-            color: #fff;
-            font-size: 1rem;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
+        .institutional-copy h1 {
+            margin: 0;
+            max-width: 580px;
+            font-size: clamp(34px, 5vw, 58px);
+            line-height: 1.02;
+            font-weight: 750;
+            letter-spacing: 0;
+        }
+
+        .institutional-copy p {
+            max-width: 520px;
+            margin: 18px 0 0;
+            color: rgba(255, 255, 255, 0.86);
+            font-size: 17px;
+            line-height: 1.65;
+        }
+
+        .auth-panel {
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.5rem;
-            position: relative;
+            padding: 32px;
+            background: rgba(244, 241, 236, 0.86);
+            backdrop-filter: blur(6px);
+        }
+
+        .login-card {
+            width: min(100%, 420px);
+            background: var(--surface);
+            border: 1px solid rgba(24, 32, 42, 0.08);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
             overflow: hidden;
-            margin-top: 0.5rem;
         }
 
-        .btn-ingresar::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
-            opacity: 0;
-            transition: opacity 0.3s;
+        .login-card-header {
+            padding: 28px 32px 22px;
+            border-bottom: 1px solid var(--line);
+            background:
+                linear-gradient(180deg, #ffffff, #fbfcfd),
+                var(--surface);
         }
 
-        .btn-ingresar:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(212, 9, 36, 0.4);
-        }
-
-        .btn-ingresar:hover::before {
-            opacity: 1;
-        }
-
-        .btn-ingresar span {
-            position: relative;
-            z-index: 1;
-        }
-
-        .btn-ingresar:active {
-            transform: translateY(0);
-        }
-
-        /* ===== VALIDATORS ===== */
-        .validator-error {
-            color: #ff4d6a;
-            font-size: 0.8rem;
-            font-weight: 500;
-            margin-top: 0.4rem;
+        .brand-lockup {
             display: flex;
             align-items: center;
-            gap: 0.25rem;
+            gap: 14px;
+            margin-bottom: 24px;
         }
 
-        .validator-error i {
-            font-size: 0.75rem;
+        .brand-mark {
+            width: 46px;
+            height: 46px;
+            display: grid;
+            place-items: center;
+            border-radius: 8px;
+            color: #ffffff;
+            background: linear-gradient(145deg, var(--brand), var(--brand-dark));
+            box-shadow: 0 10px 24px rgba(191, 23, 37, 0.28);
+            font-size: 18px;
+            font-weight: 800;
+            letter-spacing: 0;
         }
 
-        /* ===== FOOTER ===== */
-        .login-footer {
-            text-align: center;
-            padding: 1.5rem 1rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .login-footer p {
-            color: var(--text-muted);
-            font-size: 0.8rem;
+        .brand-name {
             margin: 0;
+            font-size: 14px;
+            line-height: 1.35;
+            font-weight: 750;
+            color: var(--ink);
         }
 
-        .login-footer .brand {
-            color: var(--primary);
-            font-weight: 600;
+        .brand-subtitle {
+            margin: 2px 0 0;
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.4;
         }
 
-        /* ===== FOOTER FIJO ===== */
+        .login-card-header h2 {
+            margin: 0;
+            font-size: 25px;
+            line-height: 1.18;
+            font-weight: 750;
+            letter-spacing: 0;
+            color: var(--ink);
+        }
+
+        .login-card-header .intro {
+            margin: 10px 0 0;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.55;
+        }
+
+        .login-card-body {
+            padding: 28px 32px 30px;
+        }
+
+        .login-alert {
+            display: none;
+            margin: 0 0 18px;
+            padding: 12px 14px;
+            border: 1px solid #f0b7bd;
+            border-radius: 8px;
+            color: #7d1019;
+            background: var(--brand-soft);
+            font-size: 13px;
+            line-height: 1.45;
+        }
+
+        .login-alert.is-visible {
+            display: block;
+        }
+
+        .form-field {
+            margin-bottom: 18px;
+        }
+
+        .field-label {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            color: #293241;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .field-control {
+            position: relative;
+        }
+
+        .field-control::before {
+            content: "";
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: #aab2bf;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+
+        .field-control:focus-within::before {
+            background: var(--brand);
+        }
+
+        .form-input {
+            width: 100%;
+            height: 48px;
+            padding: 0 15px 0 40px;
+            color: var(--ink);
+            background: var(--surface-soft);
+            border: 1px solid #cfd6e1;
+            border-radius: 8px;
+            outline: none;
+            font-size: 15px;
+            transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+        }
+
+        .form-input::placeholder {
+            color: #8d96a3;
+        }
+
+        .form-input:hover {
+            border-color: #aeb8c7;
+            background: #ffffff;
+        }
+
+        .form-input:focus {
+            border-color: var(--brand);
+            background: #ffffff;
+            box-shadow: 0 0 0 4px var(--focus);
+        }
+
+        .validator-error {
+            display: block;
+            margin-top: 7px;
+            color: #9a1320 !important;
+            font-size: 12px;
+            font-weight: 650;
+            line-height: 1.4;
+        }
+
+        .login-actions {
+            margin-top: 24px;
+        }
+
+        .btn-login {
+            width: 100%;
+            min-height: 50px;
+            padding: 0 20px;
+            border: 0;
+            border-radius: 8px;
+            color: #ffffff;
+            background: linear-gradient(135deg, var(--brand), var(--brand-dark));
+            box-shadow: 0 14px 28px rgba(191, 23, 37, 0.24);
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 800;
+            letter-spacing: 0.02em;
+            transition: transform 0.16s ease, box-shadow 0.16s ease, filter 0.16s ease;
+        }
+
+        .btn-login:hover,
+        .btn-login:focus {
+            filter: brightness(1.04);
+            transform: translateY(-1px);
+            box-shadow: 0 18px 34px rgba(191, 23, 37, 0.3);
+            outline: none;
+        }
+
+        .btn-login:focus-visible {
+            box-shadow: 0 0 0 4px var(--focus), 0 18px 34px rgba(191, 23, 37, 0.3);
+        }
+
+        .btn-login:active {
+            transform: translateY(0);
+            box-shadow: 0 10px 22px rgba(191, 23, 37, 0.24);
+        }
+
+        .secure-note {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            margin: 18px 0 0;
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .secure-note::before {
+            content: "";
+            flex: 0 0 auto;
+            width: 8px;
+            height: 8px;
+            margin-top: 5px;
+            border-radius: 50%;
+            background: #2f9e44;
+            box-shadow: 0 0 0 4px rgba(47, 158, 68, 0.12);
+        }
+
         .footer-copy {
+            margin-top: 26px;
+            color: #7b8492;
+            font-size: 12px;
+            line-height: 1.45;
             text-align: center;
-            padding: 1rem;
-            background: rgba(0,0,0,0.3);
-            border-top: 1px solid var(--border-color);
-            position: relative;
-            z-index: 1;
         }
 
-        .footer-copy p {
-            color: var(--text-muted);
-            font-size: 0.78rem;
-            margin: 0;
+        @media (max-width: 900px) {
+            .login-page {
+                grid-template-columns: 1fr;
+                background:
+                    linear-gradient(180deg, rgba(15, 22, 32, 0.74), rgba(244, 241, 236, 0.96) 48%),
+                    url("Imagenes/fondo1.jpg") center top / cover no-repeat;
+            }
+
+            .institutional-panel {
+                min-height: auto;
+                padding: 34px 24px 10px;
+                align-items: flex-start;
+            }
+
+            .institutional-copy {
+                max-width: 680px;
+            }
+
+            .institutional-copy h1 {
+                font-size: clamp(30px, 8vw, 44px);
+            }
+
+            .institutional-copy p {
+                font-size: 15px;
+            }
+
+            .auth-panel {
+                min-height: auto;
+                align-items: flex-start;
+                padding: 18px 18px 28px;
+                background: transparent;
+                backdrop-filter: none;
+            }
         }
 
-        /* ===== RESPONSIVE ===== */
         @media (max-width: 480px) {
-            .login-card-header {
-                padding: 1.5rem 1.5rem 2rem;
+            .institutional-panel {
+                padding: 28px 18px 8px;
             }
+
+            .system-kicker {
+                font-size: 11px;
+                margin-bottom: 12px;
+            }
+
+            .institutional-copy p {
+                display: none;
+            }
+
+            .login-card-header,
             .login-card-body {
-                padding: 1.5rem 2rem 2rem;
+                padding-left: 22px;
+                padding-right: 22px;
             }
-            .login-title {
-                font-size: 0.95rem;
+
+            .login-card-header {
+                padding-top: 24px;
+            }
+
+            .brand-lockup {
+                margin-bottom: 18px;
             }
         }
 
-        /* ===== ANIMACIONES DE ENTRADA ===== */
-        .input-group-modern {
-            animation: fadeInUp 0.5s ease backwards;
-        }
-
-        .input-group-modern:nth-child(1) { animation-delay: 0.1s; }
-        .input-group-modern:nth-child(2) { animation-delay: 0.2s; }
-        .input-group-modern:nth-child(3) { animation-delay: 0.3s; }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                transition-duration: 0.01ms !important;
+                animation-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
         }
     </style>
 
     <script type="text/javascript">
         function MostrarMensaje() {
             var mensaje = document.getElementById("__mensaje").value;
-            if (mensaje != "") {
-                alert(mensaje);
-                var pagina = document.getElementById("__pagina").value;
-                if (pagina !== "") location.href = pagina;
+            var pagina = document.getElementById("__pagina").value;
+            var panel = document.getElementById("loginAlert");
+
+            if (mensaje !== "") {
+                if (panel) {
+                    panel.textContent = mensaje;
+                    panel.className = "login-alert is-visible";
+                    panel.setAttribute("role", "alert");
+                } else {
+                    alert(mensaje);
+                }
+
+                if (pagina !== "") {
+                    location.href = pagina;
+                }
             }
         }
 
         function SoloLetrasMinusculas(e) {
-            if (!(event.keyCode >= 97 && event.keyCode <= 122 || event.keyCode == 32
-                || event.keyCode == 193 || event.keyCode == 201 || event.keyCode == 205
-                || event.keyCode == 209 || event.keyCode == 211 || event.keyCode == 218
-                || event.keyCode == 220)) event.keyCode = 0;
+            e = e || window.event;
+            var keyCode = e.which || e.keyCode;
+            var permitido = (keyCode >= 97 && keyCode <= 122) ||
+                keyCode === 32 || keyCode === 193 || keyCode === 201 ||
+                keyCode === 205 || keyCode === 209 || keyCode === 211 ||
+                keyCode === 218 || keyCode === 220;
+
+            if (!permitido) {
+                if (e.preventDefault) e.preventDefault();
+                e.returnValue = false;
+                return false;
+            }
+
+            return true;
         }
 
         function CambiaLetraMayuscula(Caja) {
-            document.getElementById(Caja).value = document.getElementById(Caja).value.toUpperCase();
+            var campo = document.getElementById(Caja);
+            if (campo) campo.value = campo.value.toUpperCase();
         }
     </script>
 </head>
 <body onload="MostrarMensaje()">
-
-    <!-- Fondo animado -->
-    <div class="bg-pattern"></div>
-
-    <div class="login-wrapper">
-        <div class="login-card">
-
-            <!-- Header -->
-            <div class="login-card-header">
-                <img src="imagenes/fondo1.jpg" alt="Corte Superior de Justicia de Lambayeque" />
+    <main class="login-page">
+        <section class="institutional-panel" aria-label="Sistema de gestion de configuracion">
+            <div class="institutional-copy">
+                <div class="system-kicker">Sistema GCS</div>
+                <h1>Gesti&oacute;n de configuraci&oacute;n institucional</h1>
+                <p>Acceso seguro para administrar elementos de configuraci&oacute;n, servicios, seguimientos y reportes de la CMDB.</p>
             </div>
+        </section>
 
-            <!-- Body -->
-            <div class="login-card-body">
-                <form id="frmAcceso" runat="server">
-
-                    <div class="input-group-modern">
-                        <label for="login">
-                            <i class="bi bi-person-fill me-1"></i>Usuario
-                        </label>
-                        <div class="input-icon-wrapper">
-                            <asp:TextBox ID="login" runat="server"
-                                placeholder="Ingrese su usuario"
-                                autocomplete="off"
-                                CssClass="form-control form-control-modern"
-                                onchange="CambiaLetraMayuscula('login')"
-                                onkeypress="SoloLetrasMinusculas(event)"
-                                onkeydown="if(event.keyCode==13) event.keyCode=9;" >DANGELO</asp:TextBox>
-                            <i class="bi bi-person"></i>
+        <section class="auth-panel" aria-label="Inicio de sesion">
+            <div>
+                <div class="login-card">
+                    <div class="login-card-header">
+                        <div class="brand-lockup">
+                            <div class="brand-mark" aria-hidden="true">PJ</div>
+                            <div>
+                                <p class="brand-name">Corte Superior de Justicia de Lambayeque</p>
+                                <p class="brand-subtitle">Plataforma interna</p>
+                            </div>
                         </div>
-                        <asp:RequiredFieldValidator ID="rfvlogin" runat="server"
-                            ControlToValidate="login" Display="Dynamic"
-                            ErrorMessage="Ingrese su nombre de usuario"
-                            CssClass="validator-error">
-                        </asp:RequiredFieldValidator>
+                        <h2>Acceso al sistema</h2>
+                        <p class="intro">Ingrese sus credenciales institucionales para continuar.</p>
                     </div>
 
-                    <div class="input-group-modern">
-                        <label for="password">
-                            <i class="bi bi-lock-fill me-1"></i>Contrase&ntilde;a
-                        </label>
-                        <div class="input-icon-wrapper">
-                            <asp:TextBox ID="password" runat="server"
-                                TextMode="Password"
-                                placeholder="Ingrese su contrase&ntilde;a"
-                                autocomplete="off"
-                                CssClass="form-control form-control-modern"
-                                onchange="CambiaLetraMayuscula('password')"
-                                onkeydown="if(event.keyCode==13) event.keyCode=9;">123</asp:TextBox>
-                            <i class="bi bi-lock"></i>
-                        </div>
-                        <asp:RequiredFieldValidator ID="rfvpassword" runat="server"
-                            ControlToValidate="password" Display="Dynamic"
-                            ErrorMessage="Ingrese su contrase&ntilde;a"
-                            CssClass="validator-error">
-                        </asp:RequiredFieldValidator>
+                    <div class="login-card-body">
+                        <form id="frmAcceso" runat="server">
+                            <div id="loginAlert" class="login-alert" aria-live="polite"></div>
+
+                            <div class="form-field">
+                                <label class="field-label" for="login">Usuario</label>
+                                <div class="field-control">
+                                    <asp:TextBox ID="login" runat="server"
+                                        placeholder="Ingrese su usuario"
+                                        autocomplete="username"
+                                        CssClass="form-input"
+                                        onchange="CambiaLetraMayuscula('login')"
+                                        onkeypress="return SoloLetrasMinusculas(event)"></asp:TextBox>
+                                </div>
+                                <asp:RequiredFieldValidator ID="rfvlogin" runat="server"
+                                    ControlToValidate="login" Display="Dynamic"
+                                    ErrorMessage="Ingrese su nombre de usuario"
+                                    CssClass="validator-error">
+                                </asp:RequiredFieldValidator>
+                            </div>
+
+                            <div class="form-field">
+                                <label class="field-label" for="password">Contrase&ntilde;a</label>
+                                <div class="field-control">
+                                    <asp:TextBox ID="password" runat="server"
+                                        TextMode="Password"
+                                        placeholder="Ingrese su contrase&ntilde;a"
+                                        autocomplete="current-password"
+                                        CssClass="form-input"></asp:TextBox>
+                                </div>
+                                <asp:RequiredFieldValidator ID="rfvpassword" runat="server"
+                                    ControlToValidate="password" Display="Dynamic"
+                                    ErrorMessage="Ingrese su contrase&ntilde;a"
+                                    CssClass="validator-error">
+                                </asp:RequiredFieldValidator>
+                            </div>
+
+                            <div class="login-actions">
+                                <asp:Button ID="Aceptar" runat="server"
+                                    Text="Ingresar al sistema"
+                                    CssClass="btn-login"
+                                    OnClick="Aceptar_Click">
+                                </asp:Button>
+                            </div>
+
+                            <p class="secure-note">Use solamente cuentas autorizadas. La actividad del sistema puede ser auditada.</p>
+
+                            <asp:HiddenField ID="__mensaje" runat="server" />
+                            <asp:HiddenField ID="__pagina" runat="server" />
+                        </form>
                     </div>
+                </div>
 
-                    <asp:Button ID="Aceptar" runat="server"
-                        Text="INGRESAR AL SISTEMA"
-                        CssClass="btn-ingresar"
-                        OnClick="Aceptar_Click">
-                    </asp:Button>
-
-                    <asp:HiddenField ID="__mensaje" runat="server" />
-                    <asp:HiddenField ID="__pagina" runat="server" />
-                </form>
+                <div class="footer-copy">
+                    Corte Superior de Justicia de Lambayeque<br />
+                    Todos los derechos reservados. &copy; <%= DateTime.Now.Year %>
+                </div>
             </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <div class="footer-copy">
-        <p>
-            Corte Superior de Justicia de Lambayeque | Todos los derechos reservados.
-            &copy; <%= DateTime.Now.Year %>
-        </p>
-    </div>
-
-    <!-- Scripts -->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        </section>
+    </main>
 </body>
 </html>
