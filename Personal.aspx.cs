@@ -55,8 +55,16 @@ public partial class Personal : System.Web.UI.Page
         }
         catch (Exception)
         {
-            this.__mensaje.Value = "Error inesperado al intentar conectarnos con el servidor.";
-            this.__pagina.Value = "";
+            if (!string.IsNullOrWhiteSpace(Mensaje))
+            {
+                this.__mensaje.Value = Mensaje;
+                this.__pagina.Value = "";
+            }
+            else
+            {
+                this.__mensaje.Value = "Error al cargar datos.";
+                this.__pagina.Value = "";
+            }
         }
     }
 
@@ -98,10 +106,6 @@ public partial class Personal : System.Web.UI.Page
         Cargar_Datos(this.Dependencia, "[dbo].[pr_Obtener_Dependencias]", "");
         if (this.__mensaje.Value.ToString().Trim() != "") { return; }
         Cargar_Datos(this.Cargo, "[dbo].[pr_Obtener_Cargos]", "");
-        if (this.__mensaje.Value.ToString().Trim() != "") { return; }
-        Cargar_Datos(this.Local, "[dbo].[pr_Obtener_Locales]", "");
-        if (this.__mensaje.Value.ToString().Trim() != "") { return; }
-        Cargar_Datos(this.Area, "[dbo].[pr_Obtener_Areas]", "");
         if (this.__mensaje.Value.ToString().Trim() != "") { return; }
         Cargar_Lista_Personal();
     }
