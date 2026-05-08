@@ -295,9 +295,9 @@
                                 <asp:TextBox ID="Ubicacion_Geografica" runat="server" CssClass="form-control form-control-modern"
                                              MaxLength="25" Autocomplete="off" placeholder="Ingrese ubicaci&oacute;n geogr&aacute;fica local judicial"
                                              onchange="CambiaLetraMayuscula('NOMBRE_CARGO')" onkeypress="SoloLetrasMinusculas()" />
-                                <asp:ImageButton ID="ibtnBUSCAR_PROPIETARIO" runat="server" CausesValidation="False"
-                                                 CssClass="btn btn-info btn-modern" ImageUrl="~/Imagnes/buscar.ico"
-                                                 ToolTip="Buscar Propietario" OnClientClick="abrir_ventana_busca_Ubicacion_Geografica();" />
+                                <asp:Button ID="ibtnBUSCAR_PROPIETARIO" runat="server" CausesValidation="False"
+                                                 CssClass="btn btn-info btn-modern"
+                                                 ToolTip="Buscar Propietario" OnClientClick="abrir_ventana_busca_Ubicacion_Geografica();" Text="..." />
                             </div>
                             <asp:RequiredFieldValidator ID="rfvUbicacion_Geografica" runat="server" ControlToValidate="Ubicacion_Geografica"
                                                        ErrorMessage="*" CssClass="validator-error" />

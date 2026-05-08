@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es">
 <head runat="server">
-    <link rel="icon" type="image/ico" href="Imagenes/buscar.ico" />
+    <link rel="icon" type="image/ico" href="Imagenes/Sistema__.ico" />
     <title>Acceso al Sistema</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />

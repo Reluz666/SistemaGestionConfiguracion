@@ -251,7 +251,7 @@
                             <div class="input-group">
                                 <asp:TextBox ID="PROPIETARIO" runat="server" CssClass="form-control form-control-modern"
                                     MaxLength="60" Autocomplete="off" placeholder="Buscar propietario"></asp:TextBox>
-                                <asp:ImageButton ID="ibtnBUSCAR_PROPIETARIO" runat="server" CssClass="btn btn-primary" ImageUrl="~/Imagenes/buscar.ico" ToolTip="Buscar Propietario" OnClientClick="abrir_ventana_busca_Personal(); return false;" />
+                                <asp:Button ID="ibtnBUSCAR_PROPIETARIO" runat="server" CssClass="btn btn-primary" ToolTip="Buscar Propietario" OnClientClick="abrir_ventana_busca_Personal(); return false;" CausesValidation="false" Text="..." />
                             </div>
                             <asp:RequiredFieldValidator ID="rfvPROPIETARIO" runat="server" ControlToValidate="PROPIETARIO" ErrorMessage="Seleccione propietario" CssClass="validator-error"></asp:RequiredFieldValidator>
                             <asp:HiddenField ID="ID_PROPIETARIO" runat="server" Value="0" EnableViewState="False" />
@@ -272,7 +272,7 @@
                             <div class="input-group">
                                 <asp:TextBox ID="LOCALIZACION_FISICA" runat="server" CssClass="form-control form-control-modern"
                                     MaxLength="60" Autocomplete="off" placeholder="Buscar localización" TextMode="MultiLine"></asp:TextBox>
-                                <asp:ImageButton ID="ibtnBUSCAR_LOCALIZACION_FISICA" runat="server" CssClass="btn btn-primary" ImageUrl="~/Imagenes/buscar.ico" ToolTip="Buscar Localización Física" OnClientClick="abrir_ventana_busca_Localizacion_Fisica(); return false;" />
+                                <asp:Button ID="ibtnBUSCAR_LOCALIZACION_FISICA" runat="server" CssClass="btn btn-primary" ToolTip="Buscar Localización Física" OnClientClick="abrir_ventana_busca_Localizacion_Fisica(); return false;" CausesValidation="false" Text="..." />
                             </div>
                             <asp:RequiredFieldValidator ID="rfvLOCALIZACION_FISICA" runat="server" ControlToValidate="LOCALIZACION_FISICA" ErrorMessage="Seleccione localización" CssClass="validator-error"></asp:RequiredFieldValidator>
                             <asp:HiddenField ID="ID_LOCALIZACION_FISICA" runat="server" Value="0" EnableViewState="False" />

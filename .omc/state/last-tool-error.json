@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"ls -la /Users/hmr0/Documents/SistemaGestionConfiguracion/*.ico 2>/dev/null; ls -la /Users/hmr0/Documents/SistemaGestionConfiguracion/*.ico /Users/hmr0/Documents/SistemaGestionConfiguracion...",
+  "error": "Exit code 1\n(eval):1: no matches found: /Users/hmr0/Documents/SistemaGestionConfiguracion/*.ico\n(eval):1: no matches found: /Users/hmr0/Documents/SistemaGestionConfiguracion/*.ico",
+  "timestamp": "2026-05-08T21:38:39.749Z",
+  "retry_count": 1
+}

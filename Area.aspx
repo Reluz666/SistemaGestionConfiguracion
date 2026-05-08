@@ -422,9 +422,9 @@
                                 <asp:TextBox ID="Local_Judicial" runat="server" CssClass="form-control form-control-modern"
                                              MaxLength="25" Autocomplete="off" placeholder="Ingrese local judicial"
                                              onchange="CambiaLetraMayuscula('Local_Judicial')" onkeypress="SoloLetrasMinusculas()" />
-                                <asp:ImageButton ID="ibtnBUSCAR_LOCAL_JUDICIAL" runat="server" CausesValidation="False"
-                                                 CssClass="btn btn-info btn-modern" ImageUrl="~/Imagnes/buscar.ico"
-                                                 ToolTip="Buscar Local Judicial" OnClientClick="abrir_ventana_busca_Local_Judicial();" />
+                                <asp:Button ID="ibtnBUSCAR_LOCAL_JUDICIAL" runat="server" CausesValidation="False"
+                                                 CssClass="btn btn-info btn-modern"
+                                                 ToolTip="Buscar Local Judicial" OnClientClick="abrir_ventana_busca_Local_Judicial();" Text="..." />
                             </div>
                             <asp:RequiredFieldValidator ID="rfvLocal_Judicial" runat="server" ControlToValidate="Local_Judicial"
                                                        ErrorMessage="*" CssClass="validator-error" />

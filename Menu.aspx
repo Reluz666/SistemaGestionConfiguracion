@@ -17,54 +17,98 @@
     <link href="CssJs/global-styles.css" rel="stylesheet" />
 
     <style>
+        :root {
+            --slate-950: #0f172a;
+            --slate-900: #1e293b;
+            --slate-700: #334155;
+            --slate-500: #64748b;
+            --slate-200: #e2e8f0;
+            --slate-100: #f1f5f9;
+            --slate-50: #f8fafc;
+            --accent: #2563eb;
+            --accent-light: #dbeafe;
+        }
+
+        body {
+            background: var(--slate-100);
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
         .hero-section {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            background: var(--slate-950);
             color: white;
-            padding: 4rem 2rem;
-            border-radius: 16px;
-            margin-bottom: 2rem;
-            text-align: center;
+            padding: 3rem 2rem;
+            margin-bottom: 2.5rem;
         }
+
         .hero-section h1 {
-            font-weight: 300;
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
+            font-weight: 600;
+            font-size: 1.75rem;
+            letter-spacing: -0.02em;
+            margin: 0;
         }
+
         .hero-section p {
-            opacity: 0.9;
-            font-size: 1.1rem;
+            color: var(--slate-500);
+            font-size: 1rem;
+            margin: 0.5rem 0 0 0;
         }
-        .feature-card {
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--slate-200);
+        }
+
+        .section-header h2 {
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--slate-700);
+            margin: 0;
+        }
+
+        .nav-card {
             background: white;
-            border-radius: 12px;
-            padding: 1.5rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            transition: transform 0.2s, box-shadow 0.2s;
-            height: 100%;
-            border: none;
+            border-radius: 8px;
+            padding: 1.25rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            transition: box-shadow 0.2s ease-out, transform 0.2s ease-out;
+            text-decoration: none;
+            display: block;
+            color: inherit;
         }
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+
+        .nav-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
         }
-        .feature-card .icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 12px;
+
+        .nav-card .card-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
         }
-        .feature-card h5 {
+
+        .nav-card h5 {
+            font-size: 0.95rem;
             font-weight: 600;
-            color: #2d3436;
-            margin-bottom: 0.5rem;
+            color: var(--slate-900);
+            margin-bottom: 0.25rem;
         }
-        .feature-card p {
-            color: #7f8c8d;
-            font-size: 0.9rem;
+
+        .nav-card p {
+            font-size: 0.8rem;
+            color: var(--slate-500);
             margin: 0;
         }
     </style>
@@ -125,135 +169,119 @@
             </div>
 
             <!-- Quick Access Cards -->
-            <h4 class="mb-3"><i class="bi bi-lightning me-2"></i>Acceso Rapido</h4>
-            <div class="row g-4 mb-5">
-                <div class="col-md-3 col-sm-6">
-                    <a href="ElementosConfiguracion.aspx" class="text-decoration-none">
-                        <div class="feature-card">
-                            <div class="icon" style="background: rgba(52, 152, 219, 0.15); color: #3498db;">
-                                <i class="bi bi-box-seam"></i>
-                            </div>
-                            <h5>Elementos de Configuracion</h5>
-                            <p>Gestionar CI del sistema</p>
+            <div class="section-header">
+                <h2>Acceso Rapido</h2>
+            </div>
+            <div class="row g-3 mb-5">
+                <div class="col-6 col-md-3">
+                    <a href="ElementosConfiguracion.aspx" class="nav-card">
+                        <div class="card-icon" style="background: var(--accent-light); color: var(--accent);">
+                            <i class="bi bi-box-seam"></i>
                         </div>
+                        <h5>Elementos de Configuracion</h5>
+                        <p>Gestionar CI del sistema</p>
                     </a>
                 </div>
-                <div class="col-md-3 col-sm-6">
-                    <a href="RelacionesElementosConfiguracion.aspx" class="text-decoration-none">
-                        <div class="feature-card">
-                            <div class="icon" style="background: rgba(46, 204, 113, 0.15); color: #2ecc71;">
-                                <i class="bi bi-diagram-3"></i>
-                            </div>
-                            <h5>Relaciones</h5>
-                            <p>Vincular elementos entre si</p>
+                <div class="col-6 col-md-3">
+                    <a href="RelacionesElementosConfiguracion.aspx" class="nav-card">
+                        <div class="card-icon" style="background: #dcfce7; color: #16a34a;">
+                            <i class="bi bi-diagram-3"></i>
                         </div>
+                        <h5>Relaciones</h5>
+                        <p>Vincular elementos entre si</p>
                     </a>
                 </div>
-                <div class="col-md-3 col-sm-6">
-                    <a href="LicenciasElementoConfiguracion.aspx" class="text-decoration-none">
-                        <div class="feature-card">
-                            <div class="icon" style="background: rgba(231, 76, 60, 0.15); color: #e74c3c;">
-                                <i class="bi bi-file-earmark-lock"></i>
-                            </div>
-                            <h5>Licencias</h5>
-                            <p>Control de licencias</p>
+                <div class="col-6 col-md-3">
+                    <a href="LicenciasElementoConfiguracion.aspx" class="nav-card">
+                        <div class="card-icon" style="background: #fee2e2; color: #dc2626;">
+                            <i class="bi bi-file-earmark-lock"></i>
                         </div>
+                        <h5>Licencias</h5>
+                        <p>Control de licencias</p>
                     </a>
                 </div>
-                <div class="col-md-3 col-sm-6">
-                    <a href="SeguimientosElementoConfiguracion.aspx" class="text-decoration-none">
-                        <div class="feature-card">
-                            <div class="icon" style="background: rgba(243, 156, 18, 0.15); color: #f39c12;">
-                                <i class="bi bi-clipboard-check"></i>
-                            </div>
-                            <h5>Seguimientos</h5>
-                            <p>Historial de cambios</p>
+                <div class="col-6 col-md-3">
+                    <a href="SeguimientosElementoConfiguracion.aspx" class="nav-card">
+                        <div class="card-icon" style="background: #fef3c7; color: #d97706;">
+                            <i class="bi bi-clipboard-check"></i>
                         </div>
+                        <h5>Seguimientos</h5>
+                        <p>Historial de cambios</p>
                     </a>
                 </div>
             </div>
 
-            <h4 class="mb-3"><i class="bi bi-briefcase me-2"></i>Mantenimiento</h4>
-            <div class="row g-4 mb-5">
-                <div class="col-md-3 col-sm-6">
-                    <a href="Personal.aspx" class="text-decoration-none">
-                        <div class="feature-card">
-                            <div class="icon" style="background: rgba(155, 89, 182, 0.15); color: #9b59b6;">
-                                <i class="bi bi-people"></i>
-                            </div>
-                            <h5>Personal</h5>
-                            <p>Gestionar trabajadores</p>
+            <div class="section-header">
+                <h2>Mantenimiento</h2>
+            </div>
+            <div class="row g-3 mb-5">
+                <div class="col-6 col-md-3">
+                    <a href="Personal.aspx" class="nav-card">
+                        <div class="card-icon" style="background: #f3e8ff; color: #9333ea;">
+                            <i class="bi bi-people"></i>
                         </div>
+                        <h5>Personal</h5>
+                        <p>Gestionar trabajadores</p>
                     </a>
                 </div>
-                <div class="col-md-3 col-sm-6">
-                    <a href="Usuario.aspx" class="text-decoration-none">
-                        <div class="feature-card">
-                            <div class="icon" style="background: rgba(233, 69, 96, 0.15); color: #e94560;">
-                                <i class="bi bi-person-gear"></i>
-                            </div>
-                            <h5>Usuarios</h5>
-                            <p>Administracion de usuarios</p>
+                <div class="col-6 col-md-3">
+                    <a href="Usuario.aspx" class="nav-card">
+                        <div class="card-icon" style="background: #fce7f3; color: #be185d;">
+                            <i class="bi bi-person-gear"></i>
                         </div>
+                        <h5>Usuarios</h5>
+                        <p>Administracion de usuarios</p>
                     </a>
                 </div>
-                <div class="col-md-3 col-sm-6">
-                    <a href="Sede.aspx" class="text-decoration-none">
-                        <div class="feature-card">
-                            <div class="icon" style="background: rgba(26, 188, 156, 0.15); color: #1abc9c;">
-                                <i class="bi bi-building"></i>
-                            </div>
-                            <h5>Sedes</h5>
-                            <p>Organizacion territorial</p>
+                <div class="col-6 col-md-3">
+                    <a href="Sede.aspx" class="nav-card">
+                        <div class="card-icon" style="background: #ccfbf1; color: #0d9488;">
+                            <i class="bi bi-building"></i>
                         </div>
+                        <h5>Sedes</h5>
+                        <p>Organizacion territorial</p>
                     </a>
                 </div>
-                <div class="col-md-3 col-sm-6">
-                    <a href="Area.aspx" class="text-decoration-none">
-                        <div class="feature-card">
-                            <div class="icon" style="background: rgba(52, 73, 94, 0.15); color: #34495e;">
-                                <i class="bi bi-grid"></i>
-                            </div>
-                            <h5>Areas</h5>
-                            <p>Departamentos y areas</p>
+                <div class="col-6 col-md-3">
+                    <a href="Area.aspx" class="nav-card">
+                        <div class="card-icon" style="background: var(--slate-200); color: var(--slate-700);">
+                            <i class="bi bi-grid"></i>
                         </div>
+                        <h5>Areas</h5>
+                        <p>Departamentos y areas</p>
                     </a>
                 </div>
             </div>
 
-            <h4 class="mb-3"><i class="bi bi-file-earmark-bar-graph me-2"></i>Reportes</h4>
-            <div class="row g-4">
-                <div class="col-md-4 col-sm-6">
-                    <a href="../Reportes/ReporteElementosConfiguracion.aspx" class="text-decoration-none">
-                        <div class="feature-card">
-                            <div class="icon" style="background: rgba(52, 152, 219, 0.15); color: #3498db;">
-                                <i class="bi bi-file-earmark-bar-graph"></i>
-                            </div>
-                            <h5>Reporte de Elementos</h5>
-                            <p>Resumen general de CIs</p>
+            <div class="section-header">
+                <h2>Reportes</h2>
+            </div>
+            <div class="row g-3">
+                <div class="col-6 col-md-4">
+                    <a href="../Reportes/ReporteElementosConfiguracion.aspx" class="nav-card">
+                        <div class="card-icon" style="background: var(--accent-light); color: var(--accent);">
+                            <i class="bi bi-file-earmark-bar-graph"></i>
                         </div>
+                        <h5>Reporte de Elementos</h5>
+                        <p>Resumen general de CIs</p>
                     </a>
                 </div>
-                <div class="col-md-4 col-sm-6">
-                    <a href="../Reportes/ReporteSeguimientosElementoConfiguracion.aspx" class="text-decoration-none">
-                        <div class="feature-card">
-                            <div class="icon" style="background: rgba(243, 156, 18, 0.15); color: #f39c12;">
-                                <i class="bi bi-file-earmark-text"></i>
-                            </div>
-                            <h5>Reporte de Seguimientos</h5>
-                            <p>Historial de modificaciones</p>
+                <div class="col-6 col-md-4">
+                    <a href="../Reportes/ReporteSeguimientosElementoConfiguracion.aspx" class="nav-card">
+                        <div class="card-icon" style="background: #fef3c7; color: #d97706;">
+                            <i class="bi bi-file-earmark-text"></i>
                         </div>
+                        <h5>Reporte de Seguimientos</h5>
+                        <p>Historial de modificaciones</p>
                     </a>
                 </div>
-                <div class="col-md-4 col-sm-6">
-                    <a href="../Reportes/ReporteLicenciasElementoConfiguracion.aspx" class="text-decoration-none">
-                        <div class="feature-card">
-                            <div class="icon" style="background: rgba(231, 76, 60, 0.15); color: #e74c3c;">
-                                <i class="bi bi-file-earmark-lock"></i>
-                            </div>
-                            <h5>Reporte de Licencias</h5>
-                            <p>Estado de licencias</p>
+                <div class="col-6 col-md-4">
+                    <a href="../Reportes/ReporteLicenciasElementoConfiguracion.aspx" class="nav-card">
+                        <div class="card-icon" style="background: #fee2e2; color: #dc2626;">
+                            <i class="bi bi-file-earmark-lock"></i>
                         </div>
+                        <h5>Reporte de Licencias</h5>
+                        <p>Estado de licencias</p>
                     </a>
                 </div>
             </div>

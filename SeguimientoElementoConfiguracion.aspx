@@ -134,7 +134,7 @@
                                  <asp:TextBox ID="tbLocal_Ubicacion_Direccion" runat="server" CssClass="form-control form-control-modern" BorderColor="White" BorderStyle="None" Font-Bold="True"></asp:TextBox>
                                  <asp:TextBox ID="tbArea_NroPiso_NroAmbiente" runat="server" CssClass="form-control form-control-modern" BorderColor="White" BorderStyle="None" Font-Bold="True"></asp:TextBox>
                                  <asp:HiddenField ID="hfID_ELEMENTO_CONFIGURACION" runat="server" Value="0" />
-                                 <asp:ImageButton ID="ibtnBUSCAR_ELEMENTOL_JCONFIGURACION" runat="server" CausesValidation="False" CssClass="btn btn-info btn-modern" ImageUrl="~/Imagnes/buscar.ico" OnClientClick="abrir_ventana_busca_Elemento_Configuracion_Para_Seguimiento();" ToolTip="Buscar Elemento de Configuracion" OnClick="ibtnBUSCAR_ELEMENTOL_JCONFIGURACION_Click" />
+                                 <asp:Button ID="ibtnBUSCAR_ELEMENTOL_JCONFIGURACION" runat="server" CausesValidation="False" CssClass="btn btn-info btn-modern" OnClientClick="abrir_ventana_busca_Elemento_Configuracion_Para_Seguimiento();" ToolTip="Buscar Elemento de Configuracion" OnClick="ibtnBUSCAR_ELEMENTOL_JCONFIGURACION_Click" Text="..." />
                             </asp:Panel>
                         </div>
                     </div>
@@ -191,7 +191,7 @@
                     <div class="row g-3 mb-3">
                         <div class="col-md-6 col-sm-12">
                             <label class="form-label-modern">Relacion con otros CIs</label>
-                            <asp:ImageButton ID="ibtnBUSCAR_RELACION_CI_OTROS_CIS" runat="server" CausesValidation="False" CssClass="btn btn-info btn-modern" ImageUrl="~/Imagnes/buscar.ico" OnClientClick="abrir_ventana_busca_Relacion_CI_Con_Otros_CIS();" ToolTip="Visualizar Elemento de Configuracion Relacionados con otros Elementos de Configuracion" OnClick="ibtnBUSCAR_ELEMENTOL_JCONFIGURACION_Click" />
+                            <asp:Button ID="ibtnBUSCAR_RELACION_CI_OTROS_CIS" runat="server" CausesValidation="False" CssClass="btn btn-info btn-modern" OnClientClick="abrir_ventana_busca_Relacion_CI_Con_Otros_CIS();" ToolTip="Visualizar Elemento de Configuracion Relacionados con otros Elementos de Configuracion" OnClick="ibtnBUSCAR_ELEMENTOL_JCONFIGURACION_Click" Text="..." />
                             <asp:CheckBox ID="RELACION_OTROS_CIS" runat="server" CssClass="form-check-input position-static" ForeColor="Black" Text="SI / NO" />
                         </div>
                         <div class="col-md-6 col-sm-12">
