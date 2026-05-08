@@ -1,4 +1,5 @@
 <%@ Page Language="C#" AutoEventWireup="true" CodeFile="Reporte_CIS_Relacionados_Con_Otros_CIS.aspx.cs" Inherits="Reporte_CIS_Relacionados_Con_Otros_CIS" %>
+<%@ Register Src="NavBar.ascx" TagName="NavBar" TagPrefix="uc1" %>
 
 <!DOCTYPE html>
 
