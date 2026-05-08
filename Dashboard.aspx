@@ -1,4 +1,5 @@
 <%@ Page Language="C#" AutoEventWireup="true" CodeFile="Dashboard.aspx.cs" Inherits="Dashboard" %>
+<%@ Register Src="NavBar.ascx" TagName="NavBar" TagPrefix="uc1" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
@@ -63,96 +64,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <nav class="navbar navbar-expand-lg navbar-modern navbar-fixed-top">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                <span class="sr-only">Desplegar navegación</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="Menu.aspx"><span class="bi bi-house-door"></span>&nbsp;Inicio</a>
-        </div>
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-            <ul class="nav navbar-nav">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="bi bi-briefcase-fill"></i>&nbsp;Mantenimiento <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="Personal.aspx">Personal</a></li>
-                        <li class="dropdown-submenu">
-                            <a href="#">Tablas Institucion</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="Sede.aspx">Sede</a></li>
-                                <li><a href="Local.aspx">Local</a></li>
-                                <li><a href="Area.aspx">Area</a></li>
-                                <li><a href="Dependencia.aspx">Dependencia</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown-submenu">
-                            <a href="#">Tablas Personal</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="Cargo.aspx">Cargo</a></li>
-                                <li><a href="ProfecionOcupacion.aspx">Profecion - Ocupacion</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown-submenu">
-                            <a href="#">Tablas Elemento Configuracion</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="Modelo.aspx">Modelo</a></li>
-                                <li><a href="Marca.aspx">Marca</a></li>
-                                <li><a href="DescripcionElementoConfiguracion.aspx">Descripci&oacute;n Elemento Configuraci&oacute;n</a></li>
-                                <li><a href="TiposElementoConfiguracion.aspx">Tipos Elemento Configuraci&oacute;n</a></li>
-                                <li><a href="TipoRelacionElementoConfiguracion.aspx">Tipo Relaci&oacute;n Elemento Configuraci&oacute;n</a></li>
-                                <li><a href="TipoComponeneteCI.aspx">Tipo Componenete Elemento Configuraci&oacute;n</a></li>
-                                <li><a href="EstadoActualCI.aspx">Estado Actual Elemento Configuraci&oacute;n</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-            <ul class="nav navbar-nav">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: white"><i class="bi bi-person-lines-fill"></i>&nbsp;Gestión de Configuración <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="ElementosConfiguracion.aspx">Elementos de Configuración</a></li>
-                        <li><a href="RelacionesElementosConfiguracion.aspx">Relación de Elementos</a></li>
-                        <li><a href="CIsAsignarComponenetes.aspx">Asignar Componentes</a></li>
-                        <li><a href="LicenciasElementoConfiguracion.aspx">Licencias</a></li>
-                        <li><a href="SeguimientosElementoConfiguracion.aspx">Seguimientos</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <ul class="nav navbar-nav">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="bi bi-file-earmark-bar-graph-fill"></i>&nbsp;Reportes <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="../Reportes/ReporteElementosConfiguracion.aspx">Reporte de Elementos</a></li>
-                        <li><a href="../Reportes/ReporteRelacionesElementosConfiguracion.aspx">Reporte de Relaciones</a></li>
-                        <li><a href="../Reportes/ReporteSeguimientosElementoConfiguracion.aspx">Reporte de Seguimientos</a></li>
-                        <li><a href="../Reportes/ReporteLicenciasElementoConfiguracion.aspx">Reporte de Licencias</a></li>
-                        <li><a href="../Reportes/ReporteCIsSeguidos.aspx">Reporte de Elementos Seguidos</a></li>
-                        <li><a href="../Reportes/ReporteComponentesAsignados.aspx">Reporte de Componentes Asignados</a></li>
-                        <li class="divider"></li>
-                        <li><a href="../Reportes/ReporteDatosCorrectosCI.aspx">Reporte de Datos Correctos</a></li>
-                        <li><a href="../Reportes/ReporteDatosIncorrectosCI.aspx">Reporte de Datos Incorrectos</a></li>
-                        <li><a href="../Reportes/ReporteCIsInformacionContenidaEnCMDB.aspx">Reporte de Información en CMDB</a></li>
-                        <li><a href="../Reportes/Reporte_De_CIS_Relativo_A_Servicios.aspx">Reporte CIS Relativo a Servicios</a></li>
-                        <li><a href="../Reportes/Reporte_CIS_Relacionados_Con_Otros_CIS.aspx">Reporte CIS Relacionados</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <ul class="nav navbar-nav">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" style="color: black"><i class="bi bi-gear-fill"></i>&nbsp;Configuraciones <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="Usuario.aspx">Usuarios</a></li>
-                        <li><a href="../Configuracion/Usuarios.aspx">Permisos</a></li>
-                        <li><a href="CerrarSession.aspx" style="color: red;">Cerrar Sesion</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </nav>
+    <uc1:NavBar ID="NavBar1" runat="server" />
 
     <div class="container">
         <!-- Welcome Banner -->

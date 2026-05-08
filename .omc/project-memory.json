@@ -145,26 +145,26 @@
   "hotPaths": [
     {
       "path": "Personal.aspx",
-      "accessCount": 69,
-      "lastAccessed": 1778215084517,
+      "accessCount": 83,
+      "lastAccessed": 1778215509329,
+      "type": "file"
+    },
+    {
+      "path": "acceso.aspx",
+      "accessCount": 24,
+      "lastAccessed": 1778215479728,
       "type": "file"
     },
     {
       "path": "Cargo.aspx",
-      "accessCount": 18,
-      "lastAccessed": 1778214893386,
+      "accessCount": 20,
+      "lastAccessed": 1778215385570,
       "type": "file"
     },
     {
       "path": "CIsComponentesAsignados.aspx",
       "accessCount": 17,
       "lastAccessed": 1778214857950,
-      "type": "file"
-    },
-    {
-      "path": "acceso.aspx",
-      "accessCount": 15,
-      "lastAccessed": 1778215094854,
       "type": "file"
     },
     {
@@ -183,6 +183,12 @@
       "path": "Marca.aspx",
       "accessCount": 11,
       "lastAccessed": 1778215084386,
+      "type": "file"
+    },
+    {
+      "path": "Dashboard.aspx",
+      "accessCount": 10,
+      "lastAccessed": 1778215442356,
       "type": "file"
     },
     {
@@ -423,12 +429,6 @@
       "path": "Configuracion\\Seguridad.aspx",
       "accessCount": 3,
       "lastAccessed": 1777586708033,
-      "type": "file"
-    },
-    {
-      "path": "Dashboard.aspx",
-      "accessCount": 3,
-      "lastAccessed": 1778215084499,
       "type": "file"
     },
     {

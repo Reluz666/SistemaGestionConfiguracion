@@ -14,33 +14,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
-
+    <!-- Global Styles -->
+    <link href="CssJs/global-styles.css" rel="stylesheet" />
     <style>
-        :root {
-            --primary: #d40924;
-            --primary-dark: #a80d1c;
-            --primary-light: #e84054;
-            --dark-bg: #0d0d0d;
-            --card-bg: #1a1a1a;
-            --text-light: #f0f0f0;
-            --text-muted: #9a9a9a;
-            --border-color: #2d2d2d;
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--dark-bg);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
         /* ===== FONDO ANIMADO ===== */
         .bg-pattern {
             position: fixed;

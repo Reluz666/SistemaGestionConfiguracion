@@ -18,81 +18,10 @@
     <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
 
+    <!-- Global Styles -->
+    <link href="../CssJs/global-styles.css" rel="stylesheet" />
+
     <style>
-        /* ===== NAVBAR ===== */
-        .navbar-modern {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            border: none;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.15);
-            padding: 0.8rem 1rem;
-        }
-
-        .navbar-modern .navbar-brand {
-            color: #fff !important;
-            font-weight: 600;
-            font-size: 1.2rem;
-        }
-
-        .navbar-modern .navbar-brand:hover {
-            color: #e94560 !important;
-        }
-
-        .navbar-modern .nav-link {
-            color: rgba(255, 255, 255, 0.85) !important;
-            font-weight: 500;
-            padding: 0.6rem 1rem !important;
-            border-radius: 8px;
-            transition: color 0.2s, background 0.2s;
-        }
-
-        .navbar-modern .nav-link:hover {
-            color: #fff !important;
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .navbar-modern .dropdown-menu {
-            background: #1a1a2e;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            padding: 0.5rem;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        .navbar-modern .dropdown-item {
-            color: rgba(255, 255, 255, 0.8);
-            border-radius: 8px;
-            padding: 0.5rem 1rem;
-            transition: all 0.2s;
-        }
-
-        .navbar-modern .dropdown-item:hover {
-            background: rgba(233, 69, 96, 0.2);
-            color: #fff;
-        }
-
-        .navbar-modern .dropdown-submenu {
-            position: relative;
-        }
-
-        .navbar-modern .dropdown-submenu > .dropdown-toggle::after {
-            border-left: 0.3em solid;
-            border-top: 0.3em solid transparent;
-            border-bottom: 0.3em solid transparent;
-            margin-left: auto;
-        }
-
-        .navbar-modern .dropdown-submenu > .dropdown-menu {
-            top: 0;
-            left: 100%;
-            margin-top: -6px;
-            margin-left: 2px;
-            border-radius: 12px;
-        }
-
-        .navbar-modern .dropdown-submenu:hover > .dropdown-menu {
-            display: block;
-        }
-
         /* ===== FORMULARIO ===== */
         .form-card {
             background: #fff;

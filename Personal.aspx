@@ -77,17 +77,6 @@
         .pagination-wrapper .page-link:hover {
             background: rgba(233, 69, 96, 0.1);
             color: #e94560;
-        }
-
-        /* ===== GUIA ESTILO TABLAS ===== */
-        .table-wrapper {
-            background: #fff;
-            border-radius: 16px;
-            box-shadow: 0 4px 25px rgba(0,0,0,0.08);
-            padding: 1.5rem;
-            border: 1px solid rgba(0,0,0,0.05);
-        }
-
         .table-modern thead th {
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             color: #fff;
@@ -318,71 +307,68 @@
 
     <uc1:NavBar ID="NavBar1" runat="server" />
 
-    <!-- ========== LISTA DE PERSONAL CON BUSQUEDA Y PAGINACION ========== -->
-    <div class="container mb-4">
-        <div class="form-card">
-            <div class="card-header">
-                <i class="bi bi-list-ul me-2"></i>Lista de Personal
-            </div>
-            <div class="card-body p-3">
-                <!-- Buscador -->
-                <div class="row mb-3">
-                    <div class="col-md-8">
-                        <div class="input-group">
-                            <span class="input-group-text bg-white border-end-0">
-                                <i class="bi bi-search text-muted"></i>
-                            </span>
-                            <input type="text" id="txtBuscarPersonal" class="form-control border-start-0 search-input"
-                                   placeholder="Buscar por C&oacute;digo, Nombre, Apellido, DNI, &Aacute;rea, Dependencia, Cargo..."
-                                   onkeyup="filtrarTablaPersonal()" />
-                            <button class="btn btn-outline-secondary" type="button" onclick="document.getElementById('txtBuscarPersonal').value=''; filtrarTablaPersonal();">
-                                <i class="bi bi-x-lg"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="col-md-4 text-end">
-                        <span id="lblContadorPersonal" class="form-text text-muted"></span>
-                    </div>
-                </div>
-
-                <!-- Tabla HTML para lista de Personal -->
-                <div class="table-wrapper" style="max-height: 500px; overflow-y: auto;">
-                    <table id="tblListaPersonal" class="table table-modern table-hover" style="min-width: 1000px;">
-                        <thead>
-                            <tr>
-                                <th style="width: 60px;">C&Oacute;DIGO</th>
-                                <th style="width: 150px;">NOMBRE COMPLETO</th>
-                                <th style="width: 80px;">TIPO DOC</th>
-                                <th style="width: 90px;">NRO. DOC</th>
-                                <th style="width: 100px;">PROFESI&Oacute;N</th>
-                                <th style="width: 80px;">TEL&Eacute;FONO</th>
-                                <th style="width: 140px;">EMAIL</th>
-                                <th style="width: 100px;">SEDE</th>
-                                <th style="width: 80px;">LOCAL</th>
-                                <th style="width: 100px;">&Aacute;REA</th>
-                                <th style="width: 120px;">DEPENDENCIA</th>
-                                <th style="width: 100px;">CARGO</th>
-                                <th style="width: 70px;">ESTADO</th>
-                                <th style="width: 80px;">ACCI&Oacute;N</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tbodyListaPersonal">
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- Paginacion para lista -->
-                <div class="pagination-wrapper">
-                    <ul id="paginationListaPersonal" class="pagination" style="flex-wrap: wrap;"></ul>
-                </div>
-                <div class="page-info" id="pageInfoPersonal"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ========== FORMULARIO ========== -->
     <form id="form1" runat="server">
         <div class="container">
+
+            <!-- ========== LISTA DE PERSONAL CON BUSQUEDA Y PAGINACION ========== -->
+            <div class="form-card">
+                <div class="card-header">
+                    <i class="bi bi-list-ul me-2"></i>Lista de Personal
+                </div>
+                <div class="card-body p-3">
+                    <!-- Buscador -->
+                    <div class="row mb-3">
+                        <div class="col-md-8">
+                            <div class="input-group">
+                                <span class="input-group-text bg-white border-end-0">
+                                    <i class="bi bi-search text-muted"></i>
+                                </span>
+                                <input type="text" id="txtBuscarPersonal" class="form-control border-start-0 search-input"
+                                       placeholder="Buscar por C&oacute;digo, Nombre, Apellido, DNI, &Aacute;rea, Dependencia, Cargo..."
+                                       onkeyup="filtrarTablaPersonal()" />
+                                <button class="btn btn-outline-secondary" type="button" onclick="document.getElementById('txtBuscarPersonal').value=''; filtrarTablaPersonal();">
+                                    <i class="bi bi-x-lg"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <span id="lblContadorPersonal" class="form-text text-muted"></span>
+                        </div>
+                    </div>
+
+                    <!-- Tabla HTML para lista de Personal -->
+                    <div class="table-wrapper" style="max-height: 500px; overflow-y: auto;">
+                        <table id="tblListaPersonal" class="table table-modern table-hover" style="min-width: 1000px;">
+                            <thead>
+                                <tr>
+                                    <th style="width: 60px;">C&Oacute;DIGO</th>
+                                    <th style="width: 150px;">NOMBRE COMPLETO</th>
+                                    <th style="width: 80px;">TIPO DOC</th>
+                                    <th style="width: 90px;">NRO. DOC</th>
+                                    <th style="width: 100px;">PROFESI&Oacute;N</th>
+                                    <th style="width: 80px;">TEL&Eacute;FONO</th>
+                                    <th style="width: 140px;">EMAIL</th>
+                                    <th style="width: 100px;">SEDE</th>
+                                    <th style="width: 80px;">LOCAL</th>
+                                    <th style="width: 100px;">&Aacute;REA</th>
+                                    <th style="width: 120px;">DEPENDENCIA</th>
+                                    <th style="width: 100px;">CARGO</th>
+                                    <th style="width: 70px;">ESTADO</th>
+                                    <th style="width: 80px;">ACCI&Oacute;N</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbodyListaPersonal">
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Paginacion para lista -->
+                    <div class="pagination-wrapper">
+                        <ul id="paginationListaPersonal" class="pagination" style="flex-wrap: wrap;"></ul>
+                    </div>
+                    <div class="page-info" id="pageInfoPersonal"></div>
+                </div>
+            </div>
 
             <!-- Card Formulario -->
             <div class="form-card">
