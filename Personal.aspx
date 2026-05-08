@@ -210,25 +210,17 @@
                     setDropdownByText('Profesion', item.PROFESION);
                     setDropdownByText('Dependencia', item.DEPENDENCIA);
                     setDropdownByText('Cargo', item.CARGO);
-                    // Set Sede - this triggers cascading dropdowns via ASP.NET postback
+                    // Set Sede - triggers cascading dropdowns via ASP.NET postback
                     setDropdownByText('Sede', item.SEDE);
-                    // Trigger cascade: Sede -> Local -> Area
-                    setTimeout(function() {
-                        try {
-                            __doPostBack('Sede', '');
-                        } catch(e) {}
-                        setTimeout(function() {
-                            setDropdownByText('Local', item.LOCAL);
-                            setTimeout(function() {
-                                try {
-                                    __doPostBack('Local', '');
-                                } catch(e) {}
-                                setTimeout(function() {
-                                    setDropdownByText('Area', item.AREA);
-                                }, 200);
-                            }, 200);
-                        }, 200);
-                    }, 100);
+                    // Store expected Local and Area values in hidden fields
+                    var editLocalField = document.getElementById('__editLocal');
+                    var editAreaField = document.getElementById('__editArea');
+                    if (editLocalField) editLocalField.value = item.LOCAL;
+                    if (editAreaField) editAreaField.value = item.AREA;
+                    // Postback - server handles cascade and restores values
+                    try {
+                        __doPostBack('Sede', '');
+                    } catch(e) {}
                     // Show buttons and scroll to form
                     document.getElementById('btnRegistrar').style.display = 'none';
                     document.getElementById('btnModificar').style.display = '';
@@ -429,7 +421,8 @@
                         <div class="col-md-3 col-sm-6">
                             <label class="form-label-modern">Sede</label>
                             <asp:DropDownList ID="Sede" runat="server" CssClass="form-control form-control-modern"
-                                             AppendDataBoundItems="True">
+                                             AppendDataBoundItems="True" AutoPostBack="True"
+                                             OnSelectedIndexChanged="Sede_SelectedIndexChanged">
                                 <asp:ListItem Value="-1">Seleccione una opción</asp:ListItem>
                             </asp:DropDownList>
                             <asp:RequiredFieldValidator ID="rfvSede" runat="server" ControlToValidate="Sede"
@@ -438,7 +431,8 @@
                         <div class="col-md-3 col-sm-6">
                             <label class="form-label-modern">Local</label>
                             <asp:DropDownList ID="ddlLocal" runat="server" CssClass="form-control form-control-modern"
-                                             AppendDataBoundItems="True">
+                                             AppendDataBoundItems="True" AutoPostBack="True"
+                                             OnSelectedIndexChanged="ddlLocal_SelectedIndexChanged">
                                 <asp:ListItem Value="-1">Seleccione una opción</asp:ListItem>
                             </asp:DropDownList>
                             <asp:RequiredFieldValidator ID="rfvLocal" runat="server" ControlToValidate="ddlLocal"
@@ -509,6 +503,8 @@
             <asp:HiddenField ID="__pagina" runat="server" />
             <asp:HiddenField ID="ID_PERSONAL" runat="server" Value="0" EnableViewState="False" />
             <asp:HiddenField ID="datosJson" runat="server" EnableViewState="False" ClientIDMode="Static" />
+            <asp:HiddenField ID="__editLocal" runat="server" ClientIDMode="Static" />
+            <asp:HiddenField ID="__editArea" runat="server" ClientIDMode="Static" />
 
         </div>
     </form>

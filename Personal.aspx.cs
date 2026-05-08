@@ -102,8 +102,8 @@ public partial class Personal : System.Web.UI.Page
         if (this.__mensaje.Value.ToString().Trim() != "") { return; }
         Cargar_Datos(this.Cargo, "[dbo].[pr_Obtener_Cargos]", "");
         if (this.__mensaje.Value.ToString().Trim() != "") { return; }
-        Cargar_Datos(this.ddlLocal, "[dbo].[pr_Obtener_Locales]", "");
-        Cargar_Datos(this.ddlArea, "[dbo].[pr_Obtener_Areas]", "");
+        CargarLocalPorSede();
+        CargarAreaPorLocal();
         Cargar_Lista_Personal();
     }
 
@@ -161,6 +161,44 @@ public partial class Personal : System.Web.UI.Page
         {
             this.__mensaje.Value = "Error inesperado al intentar conectarnos con el servidor.";
             this.__pagina.Value = "CerrarSession.aspx";
+        }
+    }
+
+    private void CargarLocalPorSede()
+    {
+        // En postback, cargar locales filtrados por la Sede seleccionada
+        string sedeValue = Request.Form["Sede"] ?? "";
+        if (!string.IsNullOrEmpty(sedeValue) && sedeValue != "-1")
+        {
+            Cargar_Datos(this.ddlLocal, "[dbo].[pr_Obtener_Locales]", "", new Object[] { Convert.ToInt32(sedeValue) });
+        }
+        else
+        {
+            // En carga inicial, intentar cargar todos los locales
+            Cargar_Datos(this.ddlLocal, "[dbo].[pr_Obtener_Locales]", "");
+        }
+        if (this.ddlLocal.Items.Count == 0)
+        {
+            this.ddlLocal.Items.Insert(0, new ListItem("Seleccione una opción", "-1"));
+        }
+    }
+
+    private void CargarAreaPorLocal()
+    {
+        // En postback, cargar areas filtradas por el Local seleccionado
+        string localValue = Request.Form["ddlLocal"] ?? "";
+        if (!string.IsNullOrEmpty(localValue) && localValue != "-1")
+        {
+            Cargar_Datos(this.ddlArea, "[dbo].[pr_Obtener_Areas]", "", new Object[] { Convert.ToInt32(localValue) });
+        }
+        else
+        {
+            // En carga inicial, intentar cargar todas las areas
+            Cargar_Datos(this.ddlArea, "[dbo].[pr_Obtener_Areas]", "");
+        }
+        if (this.ddlArea.Items.Count == 0)
+        {
+            this.ddlArea.Items.Insert(0, new ListItem("Seleccione una opción", "-1"));
         }
     }
 
@@ -232,6 +270,76 @@ public partial class Personal : System.Web.UI.Page
     {
         this.__mensaje.Value = msg;
         this.__pagina.Value = paginaweb;
+    }
+
+    protected void Sede_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        this.__mensaje.Value = "";
+        this.__pagina.Value = "";
+
+        // Guardar valor de Local que se espera (seteado por JS via __editLocal)
+        string savedLocal = this.__editLocal.Value;
+
+        this.ddlLocal.Items.Clear();
+
+        if (Sede.SelectedValue == "-1") { return; }
+
+        int Codigo_Sede = Convert.ToInt32(Sede.SelectedValue);
+        Cargar_Datos(this.ddlLocal, "[dbo].[pr_Obtener_Locales]", "", new Object[] { Codigo_Sede });
+        if (this.ddlLocal.Items.Count == 0)
+        {
+            this.ddlLocal.Items.Insert(0, new ListItem("Seleccione una opción", "-1"));
+        }
+
+        // Restaurar selección de Local si venía del edit
+        if (!string.IsNullOrEmpty(savedLocal))
+        {
+            ListItem li = this.ddlLocal.Items.FindByText(savedLocal);
+            if (li != null)
+            {
+                this.ddlLocal.SelectedValue = li.Value;
+            }
+            this.__editLocal.Value = "";
+        }
+
+        // Recargar Área para el Local seleccionado
+        this.ddlArea.Items.Clear();
+        if (ddlLocal.SelectedValue != "-1")
+        {
+            Cargar_Datos(this.ddlArea, "[dbo].[pr_Obtener_Areas]", "", new Object[] { Convert.ToInt32(ddlLocal.SelectedValue) });
+        }
+        if (this.ddlArea.Items.Count == 0)
+        {
+            this.ddlArea.Items.Insert(0, new ListItem("Seleccione una opción", "-1"));
+        }
+
+        // Si hay valor esperado de Area del edit, restaurarlo
+        string savedArea = this.__editArea.Value;
+        if (!string.IsNullOrEmpty(savedArea))
+        {
+            ListItem li = this.ddlArea.Items.FindByText(savedArea);
+            if (li != null)
+            {
+                this.ddlArea.SelectedValue = li.Value;
+            }
+            this.__editArea.Value = "";
+        }
+    }
+
+    protected void ddlLocal_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        this.__mensaje.Value = "";
+        this.__pagina.Value = "";
+        this.ddlArea.Items.Clear();
+
+        if (ddlLocal.SelectedValue == "-1") { return; }
+
+        int Codigo_Local = Convert.ToInt32(ddlLocal.SelectedValue);
+        Cargar_Datos(this.ddlArea, "[dbo].[pr_Obtener_Areas]", "", new Object[] { Codigo_Local });
+        if (this.ddlArea.Items.Count == 0)
+        {
+            this.ddlArea.Items.Insert(0, new ListItem("Seleccione una opción", "-1"));
+        }
     }
 
     protected void btnRegistrar_Click(object sender, EventArgs e)
