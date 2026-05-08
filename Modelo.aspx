@@ -117,8 +117,6 @@
 
     <uc1:NavBar ID="NavBar1" runat="server" />
     <form id="form1" runat="server">
-
-    <form id="form1" runat="server">
         <div class="container">
 
             <div class="form-card">

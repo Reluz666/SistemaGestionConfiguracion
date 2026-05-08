@@ -152,7 +152,7 @@ public partial class ReporteComponentesAsignados : System.Web.UI.Page
 
     }
 
-    protected void Page_init(object sender, EventArgs e)
+    protected void Page_Init(object sender, EventArgs e)
     {
         _Lista.ShowMessage(__mensaje, __pagina, "", "");
 
