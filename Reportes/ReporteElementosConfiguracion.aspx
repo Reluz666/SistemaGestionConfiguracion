@@ -1,5 +1,4 @@
 <%@ Page Language="C#" AutoEventWireup="true" CodeFile="ReporteElementosConfiguracion.aspx.cs" Inherits="ReporteElementosConfiguracion" UnobtrusiveValidationMode="None" %>
-<%@ Register src="NavBar.ascx" tagname="NavBar" tagprefix="uc1" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -173,8 +172,6 @@
     </script>
 </head>
 <body onload="MostrarMensaje()">
-
-    <uc1:NavBar ID="NavBar1" runat="server" />
 
     <div class="top-spacer"></div>
 

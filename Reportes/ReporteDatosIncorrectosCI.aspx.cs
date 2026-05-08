@@ -65,15 +65,66 @@ public partial class ReporteDatosIncorrectosCI : System.Web.UI.Page
                     this.datosStatsJson.Value = serializer.Serialize(stats);
 
                     // Preserve Session for Crystal Reports
-                    string msg = "";
-                    if (cbfs.Checked == true)
-                    {
-                        msg = "REPORTE DE CIs CON DATOS INCORRECTOS COMPRENDIDO DESDE EL " + txtFechaInicioSeguimiento.Text.Trim() + " HASTA EL " + txtFechaFinSeguimiento.Text.Trim();
-                    }
-                    IMPRIMIR.Page.Session.Add("Imprimir", new Object[] { "REPORTE_DATOS_INCORRECTOS_CIs", dt, msg });
+                    IMPRIMIR.Page.Session.Add("Imprimir", new Object[] { "REPORTE_DATOS_INCORRECTOS_CIs", dt, "" });
 
                     servidor.cerrarconexion();
                 }
+            }
+            else
+            {
+                servidor.cerrarconexion();
+                _Lista.ShowMessage(__mensaje, __pagina, servidor.getMensageError(), "../CerrarSession.aspx");
+            }
+        }
+        catch (Exception)
+        {
+            _Lista.ShowMessage(__mensaje, __pagina, "Error inesperado al intentar conectarnos con el servidor.", "../CerrarSession.aspx");
+        }
+    }
+
+    private void Listar_Elementos_Configuracion()
+    {
+        _Lista.ShowMessage(__mensaje, __pagina, "", "");
+
+        try
+        {
+            policia.clsaccesodatos servidor = new policia.clsaccesodatos();
+            servidor.cadenaconexion = Ruta;
+
+            if (servidor.abrirconexion() == true)
+            {
+                DataTable dt = servidor.consultar("[dbo].[pr_ReporteDatosIncorrectosCI]", "", "", "", "", "", "", "", "", "", "", "", "", "").Tables[0];
+
+                // Calculate stats
+                int Cantidad_CIs_CMDB = Obtener_Cantidad_CIs_CMDB();
+                int CantidadIncorrectos = dt.Rows.Count;
+                int porcentaje = Cantidad_CIs_CMDB > 0 ? (CantidadIncorrectos * 100) / Cantidad_CIs_CMDB : 0;
+
+                var stats = new
+                {
+                    Total_CMDB = Cantidad_CIs_CMDB,
+                    Total_Incorrectos = CantidadIncorrectos,
+                    Porcentaje = porcentaje + "%"
+                };
+
+                var serializer = new JavaScriptSerializer();
+                var lista = new List<object>();
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    lista.Add(new
+                    {
+                        AREA = dt.Rows[i]["AREA"].ToString(),
+                        TIPO_CI = dt.Rows[i]["TIPO CI"].ToString(),
+                        DESCRIPCION_CI = dt.Rows[i]["DESCRIPCION CI"].ToString(),
+                        NOMBRE_CI = dt.Rows[i]["NOMBRE CI"].ToString(),
+                        FECHA_SEGUIMIENTO = dt.Rows[i]["FECHA SEGUIMIENTO"].ToString()
+                    });
+                }
+
+                this.datosJson.Value = serializer.Serialize(lista);
+                this.datosStatsJson.Value = serializer.Serialize(stats);
+                servidor.cerrarconexion();
             }
             else
             {
@@ -104,232 +155,7 @@ public partial class ReporteDatosIncorrectosCI : System.Web.UI.Page
             return;
         }
 
-        Cargar_Datos(this.ddltci, "[dbo].[pr_Obtener_Tipos_Elemento_Configuracion_2]", "Error, al intentar recuperar Estado Elemento Configuracion.");
-        if (this.__mensaje.Value.ToString().Trim() != "")
-        {
-            return;
-        }
-
-        if (Session["OpcionBusqueda"] == null)
-        {
-            // No search criteria yet
-        }
-        else
-        {
-            Object[] ob = (Object[])Session["OpcionBusqueda"];
-
-            this.cbtci.Checked = (bool)ob[3];
-            ddltci.Enabled = (bool)ob[3];
-            for (int i = 0; i < this.ddltci.Items.Count; i++)
-            {
-                if (this.ddltci.Items[i].Text == ob[2].ToString().Trim())
-                    this.ddltci.SelectedIndex = i;
-            }
-
-            this.cbdci.Checked = (bool)ob[7];
-            ddldci.Enabled = (bool)ob[7];
-            for (int i = 0; i < this.ddldci.Items.Count; i++)
-            {
-                if (this.ddldci.Items[i].Text == ob[6].ToString().Trim())
-                    this.ddldci.SelectedIndex = i;
-            }
-
-            this.cbfs.Checked = (bool)ob[22];
-            txtFechaInicioSeguimiento.Enabled = (bool)ob[22];
-            txtFechaFinSeguimiento.Enabled = (bool)ob[22];
-            txtFechaInicioSeguimiento.Text = ob[20].ToString().Trim();
-            txtFechaFinSeguimiento.Text = ob[21].ToString().Trim();
-
-            this.Cargar_Datos_Incorrectos(ob[0].ToString().Trim(),
-            ob[2].ToString().Trim(),
-            ob[4].ToString().Trim(),
-            ob[6].ToString().Trim(),
-            ob[8].ToString().Trim(),
-            ob[10].ToString().Trim(),
-            ob[12].ToString().Trim(),
-            ob[14].ToString().Trim(),
-            ob[16].ToString().Trim(),
-            ob[18].ToString().Trim(),
-            ob[20].ToString().Trim(),
-            ob[21].ToString().Trim(),
-            ob[23].ToString().Trim(),
-            "No hay Elementos Configuracion con los criterios seleccionados");
-        }
-    }
-
-    protected void btnNuevoSeguiminetoCIs_Click(object sender, EventArgs e)
-    {
-        Session["__SEGUIMIENTO_ELEMENTO_CONFIGURACION__"] = null;
-        Response.Clear();
-        Response.Redirect("SeguimientoElementoConfiguracion.aspx");
-        Response.Flush();
-    }
-
-    protected void cbtci_CheckedChanged(object sender, EventArgs e)
-    {
-        Session["OpcionBusqueda"] = null;
-        _Lista.ShowMessage(__mensaje, __pagina, "", "");
-        ddltci.Enabled = cbtci.Checked;
-        ddltci.SelectedIndex = 0;
-        ddltci.Focus();
-        this.ddldci.Items.Clear();
-        this.ddldci.Items.Insert(0, "______SELECCIONE DESCRIPCION CI_____");
-        this.ddldci.Items[0].Value = "-1";
-    }
-
-    protected void cbdci_CheckedChanged(object sender, EventArgs e)
-    {
-        Session["OpcionBusqueda"] = null;
-        _Lista.ShowMessage(__mensaje, __pagina, "", "");
-        ddldci.Enabled = cbdci.Checked;
-        ddldci.SelectedIndex = 0;
-        ddldci.Focus();
-    }
-
-    protected void cbfs_CheckedChanged(object sender, EventArgs e)
-    {
-        Session["OpcionBusqueda"] = null;
-        _Lista.ShowMessage(__mensaje, __pagina, "", "");
-        txtFechaInicioSeguimiento.Enabled = cbfs.Checked;
-        txtFechaInicioSeguimiento.Text = "";
-        txtFechaFinSeguimiento.Enabled = cbfs.Checked;
-        txtFechaFinSeguimiento.Text = "";
-    }
-
-    protected void lbtnBuscar_Click(object sender, EventArgs e)
-    {
-        _Lista.ShowMessage(__mensaje, __pagina, "", "");
-
-        Object[] ob;
-
-        bool ok = cbtci.Checked == true ||
-        cbdci.Checked == true ||
-        cbfs.Checked == true;
-
-        if (ok == false)
-        {
-            _Lista.ShowMessage(__mensaje, __pagina, "Seleccione criterio(s) de busqueda.", "");
-            return;
-        }
-
-        if (cbtci.Checked == true && cbfs.Checked == false)
-        {
-            _Lista.ShowMessage(__mensaje, __pagina, "Seleccione fecha seguimiento.", "");
-            return;
-        }
-
-        if (cbtci.Checked == true)
-        {
-            if (ddltci.Items[ddltci.SelectedIndex].Value == (-1).ToString())
-            {
-                _Lista.ShowMessage(__mensaje, __pagina, "Seleccione tipo CI.", "");
-                ddltci.Focus();
-                return;
-            }
-        }
-
-        if (cbdci.Checked == true)
-        {
-            if (ddldci.Items[ddldci.SelectedIndex].Value == (-1).ToString())
-            {
-                _Lista.ShowMessage(__mensaje, __pagina, "Seleccione Descripcion CI.", "");
-                ddldci.Focus();
-                return;
-            }
-        }
-
-        if (cbfs.Checked == true)
-        {
-            if (txtFechaInicioSeguimiento.Text.Trim() == "")
-            {
-                _Lista.ShowMessage(__mensaje, __pagina, "Ingrese Fecha Inicio Seguimineto CI.", "");
-                txtFechaInicioSeguimiento.Focus();
-                return;
-            }
-            if (txtFechaFinSeguimiento.Text.Trim() == "")
-            {
-                _Lista.ShowMessage(__mensaje, __pagina, "Ingrese Fecha Fin Seguimineto CI.", "");
-                txtFechaFinSeguimiento.Focus();
-                return;
-            }
-        }
-
-        if (cbfs.Checked == true)
-        {
-            if (!(Convert.ToDateTime(txtFechaInicioSeguimiento.Text.Trim()) <= Convert.ToDateTime(txtFechaFinSeguimiento.Text.Trim())))
-            {
-                _Lista.ShowMessage(__mensaje, __pagina, "Fecha Inicio Seguimineto CI de ser menor o igual a la Fecha Fin Seguimineto CI.", "");
-                return;
-            }
-        }
-
-        ob = new Object[] {
-             "", false,
-             Convert.ToInt32(ddltci.SelectedValue)==-1?"": ddltci.SelectedItem.Text, this.cbtci.Checked,
-            "", false,
-             Convert.ToInt32(ddldci.SelectedValue)==-1?"": ddldci.SelectedItem.Text, this.cbdci.Checked,
-             "", false,
-             "", false,
-             "", false,
-             "", false,
-             "", false,
-            "", false,
-             txtFechaInicioSeguimiento.Text.Trim(),txtFechaFinSeguimiento.Text.Trim(), this.cbfs.Checked,
-             "", false,
-        };
-        Session["OpcionBusqueda"] = ob;
-
-        Response.Clear();
-        Response.Redirect("ReporteDatosIncorrectosCI.aspx");
-        Response.Flush();
-    }
-
-    private void Cargar_Datos(System.Web.UI.WebControls.DropDownList ddl, String Procedimeinto_Almacenado, String Mensaje, params Object[] p)
-    {
-        try
-        {
-            policia.clsaccesodatos servidor = new policia.clsaccesodatos();
-            servidor.cadenaconexion = Ruta;
-
-            if (servidor.abrirconexion() == true)
-            {
-                System.Data.DataTable dt;
-                if (p.Length == 0)
-                {
-                    dt = servidor.consultar(Procedimeinto_Almacenado).Tables[0];
-                }
-                else
-                {
-                    dt = servidor.consultar(Procedimeinto_Almacenado, Convert.ToInt32(p[0])).Tables[0];
-                }
-
-                if (dt.Rows.Count == 0)
-                {
-                    servidor.cerrarconexion();
-                    this.__mensaje.Value = Mensaje;
-                    this.__pagina.Value = "";
-                }
-                else
-                {
-                    ddl.DataSource = dt;
-                    ddl.DataTextField = "NOMBRE";
-                    ddl.DataValueField = "CODIGO";
-                    ddl.DataBind();
-                    servidor.cerrarconexion();
-                }
-            }
-            else
-            {
-                servidor.cerrarconexion();
-                this.__mensaje.Value = servidor.getMensageError();
-                this.__pagina.Value = "";
-            }
-        }
-        catch (Exception)
-        {
-            this.__mensaje.Value = "Error inesperado al intentar conectarnos con el servidor.";
-            this.__pagina.Value = "";
-        }
+        Listar_Elementos_Configuracion();
     }
 
     private int Obtener_Cantidad_CIs_CMDB()
@@ -371,30 +197,5 @@ public partial class ReporteDatosIncorrectosCI : System.Web.UI.Page
         }
 
         return Cantidad;
-    }
-
-    protected void ddltci_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        this.__mensaje.Value = "";
-        this.__pagina.Value = "";
-        this.ddldci.Items.Clear();
-        this.ddldci.Items.Insert(0, "______SELECCIONE DESCRIPCION CI_____");
-        this.ddldci.Items[0].Value = "-1";
-
-        int Codigo_TipoCI = Convert.ToInt32(ddltci.SelectedValue);
-
-        if (Codigo_TipoCI == -1)
-        {
-            this.__mensaje.Value = "Seleccione Tipo Elemento Configuracion";
-            this.__pagina.Value = "";
-            return;
-        }
-
-        Cargar_Datos(this.ddldci, "[dbo].[pr_Descripcion_Elemento_Configuracion_2]", "Error, al intentar recuperar Descripcion Elemento Configuracion.", new Object[] { Codigo_TipoCI });
-
-        if (this.__mensaje.Value.ToString().Trim() != "")
-        {
-            return;
-        }
     }
 }
