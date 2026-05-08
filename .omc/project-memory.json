@@ -145,20 +145,26 @@
   "hotPaths": [
     {
       "path": "Personal.aspx",
-      "accessCount": 64,
-      "lastAccessed": 1777587366453,
+      "accessCount": 69,
+      "lastAccessed": 1778215084517,
       "type": "file"
     },
     {
-      "path": "acceso.aspx",
-      "accessCount": 14,
-      "lastAccessed": 1777665695642,
+      "path": "Cargo.aspx",
+      "accessCount": 18,
+      "lastAccessed": 1778214893386,
       "type": "file"
     },
     {
       "path": "CIsComponentesAsignados.aspx",
-      "accessCount": 13,
-      "lastAccessed": 1778212748754,
+      "accessCount": 17,
+      "lastAccessed": 1778214857950,
+      "type": "file"
+    },
+    {
+      "path": "acceso.aspx",
+      "accessCount": 15,
+      "lastAccessed": 1778215094854,
       "type": "file"
     },
     {
@@ -168,12 +174,6 @@
       "type": "directory"
     },
     {
-      "path": "Cargo.aspx",
-      "accessCount": 12,
-      "lastAccessed": 1778213430319,
-      "type": "file"
-    },
-    {
       "path": "GCS_3.sql",
       "accessCount": 11,
       "lastAccessed": 1777667268834,
@@ -181,8 +181,8 @@
     },
     {
       "path": "Marca.aspx",
-      "accessCount": 10,
-      "lastAccessed": 1778213430374,
+      "accessCount": 11,
+      "lastAccessed": 1778215084386,
       "type": "file"
     },
     {
@@ -222,27 +222,27 @@
       "type": "file"
     },
     {
+      "path": "Local.aspx",
+      "accessCount": 8,
+      "lastAccessed": 1778214708942,
+      "type": "file"
+    },
+    {
+      "path": "Usuario.aspx",
+      "accessCount": 8,
+      "lastAccessed": 1778215084400,
+      "type": "file"
+    },
+    {
       "path": "Area.aspx",
       "accessCount": 7,
       "lastAccessed": 1777587611977,
       "type": "file"
     },
     {
-      "path": "Local.aspx",
-      "accessCount": 7,
-      "lastAccessed": 1777664628228,
-      "type": "file"
-    },
-    {
       "path": "ProfecionOcupacion.aspx",
       "accessCount": 7,
       "lastAccessed": 1778210571170,
-      "type": "file"
-    },
-    {
-      "path": "Usuario.aspx",
-      "accessCount": 7,
-      "lastAccessed": 1778212412626,
       "type": "file"
     },
     {
@@ -390,6 +390,12 @@
       "type": "file"
     },
     {
+      "path": "Menu.aspx",
+      "accessCount": 4,
+      "lastAccessed": 1778215084439,
+      "type": "file"
+    },
+    {
       "path": "Reportes\\Default.aspx",
       "accessCount": 3,
       "lastAccessed": 1777586707568,
@@ -420,9 +426,9 @@
       "type": "file"
     },
     {
-      "path": "Menu.aspx",
+      "path": "Dashboard.aspx",
       "accessCount": 3,
-      "lastAccessed": 1778212921097,
+      "lastAccessed": 1778215084499,
       "type": "file"
     },
     {
@@ -435,12 +441,6 @@
       "path": ".planning\\brainstorm\\dashboard-preview.html",
       "accessCount": 1,
       "lastAccessed": 1777667027850,
-      "type": "file"
-    },
-    {
-      "path": "Dashboard.aspx",
-      "accessCount": 1,
-      "lastAccessed": 1777667372447,
       "type": "file"
     }
   ],

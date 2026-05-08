@@ -117,23 +117,11 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
+    <script type="text/javascript" src="src/js/utils.js"></script>
+
     <script lang="javascript" type="text/javascript">
         function cerrar_ventana() {
             window.close();
-        }
-
-        function MostrarMensaje() {
-            var mensaje = document.getElementById("__mensaje").value;
-            if (mensaje != "") {
-                alert(mensaje);
-                if (document.getElementById("__pagina").value != "")
-                    location.href = document.getElementById("__pagina").value;
-            }
-        }
-
-        function Confirmar(men) {
-            if (!confirm(men))
-                return false;
         }
     </script>
 </head>

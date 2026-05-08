@@ -85,3 +85,6 @@ STATUS: Starting Workstream A, file by file
 ## MANUAL
 <!-- User content. Never auto-pruned. -->
 
+## Message to team-lead (2026-05-08)
+Task #2 (Crear src/js/utils.js) completed. Created /Users/hmr0/Documents/SistemaGestionConfiguracion/src/js/utils.js with 5 shared functions (MostrarMensaje, Confirmar, SoloNumeros, SoloLetrasMinusculas, CambiaLetraMayuscula). Updated Personal.aspx, Cargo.aspx, and CIsComponentesAsignados.aspx to reference the external script and removed inline duplicates. Inline functions were verified removed from all 3 files.
+
