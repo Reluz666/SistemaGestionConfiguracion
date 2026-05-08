@@ -1,10 +1,18 @@
 {
-  "active": false,
-  "current_phase": "complete",
+  "active": true,
+  "current_phase": "team-plan",
+  "agent_count": "4",
+  "agent_types": "executor",
+  "fix_loop_count": "0",
+  "linked_ralph": "false",
+  "max_fix_loops": "3",
+  "stage_history": "team-plan",
+  "task": "migrate 11 reports to client-side pattern",
+  "team_name": "migrar-reportes",
   "_meta": {
     "mode": "team",
     "sessionId": null,
-    "updatedAt": "2026-05-08T16:05:44.895Z",
+    "updatedAt": "2026-05-08T17:27:29.930Z",
     "updatedBy": "state_write_tool"
   }
 }

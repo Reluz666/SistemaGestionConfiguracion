@@ -1,7 +1,7 @@
 {
-  "tool_name": "mcp__plugin_oh-my-claudecode_t__lsp_diagnostics",
-  "tool_input_preview": "{\"file\":\"/Users/hmr0/Documents/SistemaGestionConfiguracion/Reportes/ReporteElementosConfiguracion.aspx.cs\"}",
-  "error": "Language server 'omnisharp' not found.\nInstall with: dotnet tool install -g omnisharp",
-  "timestamp": "2026-05-08T16:31:30.598Z",
-  "retry_count": 1
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"ls -la ~/.claude/teams/migrar-reportes/ 2>&1\",\"description\":\"Check if migrar-reportes team already exists\"}",
+  "error": "Exit code 1\nls: /Users/hmr0/.claude/teams/migrar-reportes/: No such file or directory",
+  "timestamp": "2026-05-08T17:29:40.064Z",
+  "retry_count": 5
 }
