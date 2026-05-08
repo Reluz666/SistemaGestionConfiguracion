@@ -1,416 +1,431 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Reporte_CIS_Relacionados_Con_Otros_CIS.aspx.cs" Inherits="RelacionesElementosConfiguracion" %>
-
-<%@ Register src="../NavBar.ascx" tagname="NavBar" tagprefix="uc1" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Reporte_CIS_Relacionados_Con_Otros_CIS.aspx.cs" Inherits="RelacionesElementosConfiguracion" %>
 
 <!DOCTYPE html>
+
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Reporte CIS Relacionados Con Otros CIS</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Relacion Elementos Configuracion</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>    
+    <meta charset="utf-8"/>    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-    <!-- Bootstrap 5.3 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <!-- Bootstrap Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
-    <!-- Global Styles -->
-    <link href="CssJs/global-styles.css" rel="stylesheet" />
+    <!-- Bootstrap -->
+    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="CssJs/Menu.css" rel="stylesheet" />
+
+    <script  src="../Otros_css_js/resaltar.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="../Otros_css_js/estilo.css" type="text/css" />
 
     <style>
-        /* ===== FORMULARIO ===== */
-        .form-card {
-            background: #fff;
-            border-radius: 16px;
-            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            border: 1px solid rgba(0, 0, 0, 0.05);
+        .dropdown-submenu {
+            position: relative;
         }
 
-        .form-label-modern {
-            font-weight: 500;
-            color: #2d3436;
-            margin-bottom: 0.4rem;
-            font-size: 0.9rem;
-        }
+            .dropdown-submenu > .dropdown-menu {
+                top: 0;
+                left: 100%;
+                margin-top: -6px;
+                margin-left: -2px;
+            }
 
-        .form-control-modern {
-            border: 2px solid #e9ecef;
-            border-radius: 10px;
-            padding: 0.6rem 1rem;
-            transition: border-color 0.3s, box-shadow 0.3s;
-            font-size: 0.95rem;
-        }
+            .dropdown-submenu:hover > .dropdown-menu {
+                display: block;
+            }
 
-        .form-control-modern:focus {
-            border-color: #e94560;
-            box-shadow: 0 0 0 4px rgba(233, 69, 96, 0.1);
-            outline: none;
-        }
-
-        select.form-control-modern {
-            cursor: pointer;
-        }
-
-        /* ===== TABLA ===== */
-        .table-wrapper {
-            background: #fff;
-            border-radius: 16px;
-            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
-            padding: 1rem;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            overflow-x: auto;
-        }
-
-        .table-modern-grid {
-            border-collapse: separate !important;
-            border-spacing: 0;
-            width: 100%;
-            min-width: 900px;
-        }
-
-        .table-modern-grid thead tr th {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: #fff;
-            font-weight: 600;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            padding: 0.6rem 0.5rem !important;
-            border: none !important;
-            white-space: nowrap;
-        }
-
-        .table-modern-grid thead tr th:first-child {
-            border-radius: 10px 0 0 10px;
-        }
-
-        .table-modern-grid thead tr th:last-child {
-            border-radius: 0 10px 10px 0;
-        }
-
-        .table-modern-grid tbody tr td {
-            padding: 0.5rem 0.45rem !important;
-            border: none;
-            border-bottom: 1px solid #f1f1f1;
-            vertical-align: middle;
-            font-size: 0.8rem;
-            color: #2d3436;
-            background: #fff;
-        }
-
-        .table-modern-grid tbody tr:hover td {
-            background: rgba(233, 69, 96, 0.04);
-        }
-
-        .table-modern-grid tbody tr:last-child td {
-            border-bottom: none;
-        }
-
-        /* ===== PAGINACION ===== */
-        .pagination-wrapper {
-            display: flex;
-            justify-content: center;
-            margin-top: 1.5rem;
-            flex-wrap: wrap;
-            gap: 0.25rem;
-        }
-
-        .pagination-wrapper .page-item.active .page-link {
-            background: #e94560;
-            border-color: #e94560;
-        }
-
-        .pagination-wrapper .page-link {
-            border-radius: 8px;
-            margin: 0 2px;
-            color: #2d3436;
-        }
-
-        .pagination-wrapper .page-link:hover {
-            background: rgba(233, 69, 96, 0.1);
-            color: #e94560;
-        }
-
-        .page-info {
-            text-align: center;
-            margin-top: 1rem;
-            color: #6c757d;
-            font-size: 0.9rem;
-        }
-
-        /* ===== BOTONES ===== */
-        .btn-modern {
-            padding: 0.6rem 1.5rem;
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-            border: none;
-        }
-
-        .btn-modern:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .search-input {
-            border: 2px solid #e9ecef;
-            border-radius: 10px;
-            padding: 0.6rem 1rem;
-            font-size: 0.95rem;
-        }
-
-        .search-input:focus {
-            border-color: #e94560;
-            box-shadow: 0 0 0 4px rgba(233,69,96,0.1);
-            outline: none;
-        }
-
-        /* ===== SPACER ===== */
-        .top-spacer { height: 100px; }
-
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 991px) {
-            .form-card { padding: 1.5rem; }
-            .table-wrapper { padding: 1rem; }
-        }
-
-        @media (max-width: 576px) {
-            .btn-modern { width: 100%; margin-bottom: 0.5rem; }
-        }
+            .dropdown-submenu > a:after {
+                content: "";
+                margin-top: 6px;
+                margin-right: -10px;
+                float: right;
+                border-left: 4px solid;
+                border-top: 4px solid transparent;
+                border-bottom: 4px solid transparent;
+            }
     </style>
 
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="src/js/utils.js"></script>
-    <script type="text/javascript" src="src/js/grid-utils.js"></script>
 
     <script lang="javascript" type="text/javascript">
-        // Grid configuration for CIS Relacionados
-        var cisGridConfig = {
-            tableId: 'tblCisRelacionados',
-            tbodyId: 'tbodyCisRelacionados',
-            searchInputId: 'txtBuscarCis',
-            paginationWrapperId: 'paginationCisRelacionados',
-            pageInfoId: 'pageInfoCis',
-            counterId: 'lblContadorCis',
-            dataFieldId: 'datosJson',
-            rowsPerPage: 10,
-            searchFields: ['PADRE CI', 'HIJO CI', 'TIPO RELACION'],
-            columnRenderer: function(item, rowIndex) {
-                // Rich HTML content for PADRE CI column
-                var padreCiHtml = '';
-                if (item.PADRE_CI.trim() !== '') {
-                    padreCiHtml = '<font color="blue"><b>Nombre: </b>' + htmlEncode(item['PADRE CI']) + '</font> &nbsp;&nbsp; <b>Tipo:</b> ' + htmlEncode(item['PADRE TIPO CI']) + '&nbsp;&nbsp; <b>Nro Serie: </b>' + htmlEncode(item['PADRE NRO SERIE']) + '&nbsp;&nbsp; <b>Direccion IP: </b>' + htmlEncode(item['PADRE IP']) + '&nbsp;&nbsp; <b>Direccion Gateway: </b>' + htmlEncode(item['PADRE GATEWAY']) + '&nbsp;&nbsp; <b>Grupo de Trabajo: </b>' + htmlEncode(item['PADRE GRUPO TRABAJO']) + '&nbsp;&nbsp; <b>Fabricante / Proveedor: </b>' + htmlEncode(item['PADRE FABICANTE / PROVEEDOR']) + '&nbsp;&nbsp; <b>Estado:</b> ' + htmlEncode(item['PADRE ESTADO CI']) + '&nbsp;&nbsp; <b>Propietario:</b> ' + htmlEncode(item['PADRE PROPIETARIO CI']) + '<BR>';
-                    padreCiHtml += '<b>Descripcion: </b>' + htmlEncode(item['PADRE DESCRIPCION CI']) + '&nbsp;&nbsp;<b>Prioridad: </b>' + htmlEncode(item['PADRE NIVEL PRIORIDAD']) + '&nbsp;&nbsp;<b>Sede: </b>' + htmlEncode(item['PADRE SEDE']) + '&nbsp;&nbsp;<b>Local: </b>' + htmlEncode(item['PADRE LOCAL']) + '<BR>';
-                    padreCiHtml += '<font color="red"><b>Area: </b>' + htmlEncode(item['PADRE AREA']) + '&nbsp;&nbsp;<b>Nro. Piso: </b>' + htmlEncode(item['PADRE NRO PISO']) + '&nbsp;&nbsp;<b>Nro. Ambiente: </b>' + htmlEncode(item['PADRE NRO AMBIENTE']) + '&nbsp;&nbsp;<b>Ubicacion: </b>' + htmlEncode(item['PADRE UBICACION']) + '</font><BR>';
-                    padreCiHtml += '<font color="red"><b>Direccion: </b>' + htmlEncode(item['PADRE DIRECCION LOCAL']) + '</font>';
-                }
-
-                // Rich HTML content for HIJO CI column
-                var hijoCiHtml = '<font color="blue"><b>Nombre: </b>' + htmlEncode(item['HIJO CI']) + '</font>&nbsp;&nbsp; <b>Tipo:</b> ' + htmlEncode(item['HIJO TIPO CI']) + '&nbsp;&nbsp; <b>Nro Serie: </b>' + htmlEncode(item['HIJO NRO SERIE']) + '&nbsp;&nbsp; <b>Direccion IP: </b>' + htmlEncode(item['HIJO IP']) + '&nbsp;&nbsp; <b>Direccion Gateway: </b>' + htmlEncode(item['HIJO GATEWAY']) + '&nbsp;&nbsp; <b>Grupo de Trabajo: </b>' + htmlEncode(item['HIJO GRUPO TRABAJO']) + '&nbsp;&nbsp; <b>Fabricante / Proveedor: </b>' + htmlEncode(item['HIJO FABRICANTE / PROVEEDOR']) + '&nbsp;&nbsp; <b>Estado:</b> ' + htmlEncode(item['HIJO ESTADO CI']) + '&nbsp;&nbsp; <b>Propietario:</b> ' + htmlEncode(item['HIJO PROPIETARIO CI']) + '<BR>';
-                hijoCiHtml += '<b>Descripcion: </b>' + htmlEncode(item['HIJO DESCRIPCION CI']) + '&nbsp;&nbsp;<b>Prioridad: </b>' + htmlEncode(item['HIJO NIVEL PRIORIDAD']) + '&nbsp;&nbsp;<b>Sede: </b>' + htmlEncode(item['HIJO SEDE']) + '&nbsp;&nbsp;<b>Local: </b>' + htmlEncode(item['HIJO LOCAL']) + '<BR>';
-                hijoCiHtml += '<font color="red"><b>Area: </b>' + htmlEncode(item['HIJO AREA']) + '&nbsp;&nbsp;<b>Nro. Piso: </b>' + htmlEncode(item['HIJO NRO PISO']) + '&nbsp;&nbsp;<b>Nro. Ambiente: </b>' + htmlEncode(item['HIJO NRO AMBIENTE']) + '&nbsp;&nbsp;<b>Ubicacion: </b>' + htmlEncode(item['HIJO UBICACION']) + '</font> <BR>';
-                hijoCiHtml += '<font color="red"><b>Direccion: </b>' + htmlEncode(item['HIJO DIRECCION LOCAL']) + '</font>';
-
-                return '<td style="display:none;">' + htmlEncode(item.ID_RELACION) + '</td>' +
-                    '<td style="display:none;">' + htmlEncode(item['PADRE ID']) + '</td>' +
-                    '<td>' + padreCiHtml + '</td>' +
-                    '<td style="display:none;">' + htmlEncode(item['HIJO ID']) + '</td>' +
-                    '<td>' + hijoCiHtml + '</td>' +
-                    '<td>' + htmlEncode(item['TIPO RELACION']) + '</td>';
+        //AGREGADO EN REQUE EL MARTES 21 DE MARZO DEL 2023
+        function abrir_ventana_imprimir_reporte(Opcion) {
+            if (Verificar_Datos_tabla(Opcion)) {
+                window.name = "Lista de Personal";
+                var options = 'channelmode=1,directories=0,fullscreen=0,location=0,menubar=0,resizable=no,titlebar=0,toolbar=0,edge=Raised,status=no,scrollbars=1,width=1000,height=500,top=70px, left=175px';
+                window.open('../Reportes/Reporte.aspx', '', options);
             }
-        };
-
-        function initCisGrid() {
-            GridUtils.createGrid(cisGridConfig);
+            //            if (window.confirm('¿Desea imprimir el reporte?')) {
+            //                window.name = "Lista de Personal";
+            //                var options = 'channelmode=1,directories=0,fullscreen=0,location=0,menubar=0,resizable=no,titlebar=0,toolbar=0,edge=Raised,status=no,scrollbars=1,width=1000,height=500,top=70px, left=175px';
+            //                window.open('../Reportes/Reporte.aspx', '', options);
+            //            }
         }
 
+        //********************** AGREGADO EN REQUE EL 21-03-2023 ***************************
+        function Verificar_Datos_tabla(Opcion) {
+            var Pregunta = '';
+            var Mensaje = '';
+            if (Opcion == 1) {
+                Pregunta = "¿Desea exportar los datos a Microsoft Office Excel...?";
+                Mensaje = "No hay datos para exportar a Microsoft Office Excel.";
+            }
+            else if (Opcion == 2) {
+                Pregunta = "¿Desea imprimir el reporte?";
+                Mensaje = "No hay datos para imprimir el reporte.";
+            }
+            var tabla = document.getElementById("Table_");
+            var tabla_longitud = (tabla.rows.length) - 1;
+
+            //            alert(tabla_longitud);
+
+
+            var Ok, Rpta;
+            Ok = true;
+            Rpta = confirm(Pregunta);
+            if (Rpta == 1)//Aceptar
+            {
+                if (tabla_longitud == 0) {
+                    Ok = false;
+                    alert(Mensaje);
+                } else {
+                    ;
+                }
+            }
+            else {
+                Ok = false;
+            }
+            return Ok;
+        }
+        
+        function cerrar_ventana() {
+            window.close();
+        }
+ 
         function MostrarMensaje() {
             var mensaje = document.getElementById("__mensaje").value;
             if (mensaje != "") {
                 alert(mensaje);
                 if (document.getElementById("__pagina").value != "")
                     location.href = document.getElementById("__pagina").value;
+
             }
+           
+        }
+
+        function window_load() {
+            MostrarMensaje()
         }
 
         function Confirmar(men) {
             if (!confirm(men))
                 return false;
+
         }
-    </script>
-</head>
-<body onload="MostrarMensaje()">
-    <uc1:NavBar ID="NavBar1" runat="server" />
+        
+    </script>    
+    
+    <style type="text/css">
+        .auto-style1 {
+            width: 309px;
+        }
+    </style>
+    
+    </head>
+<body onload ="MostrarMensaje()"> 
+<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+        <!-- El logotipo y el icono que despliega el menú se agrupan
+       para mostrarlos mejor en los dispositivos móviles -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Desplegar navegación</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="../menu.aspx"><span class="glyphicon glyphicon-home"></span>&nbsp;Inicio</a>
+            <%--<a class="navbar-brand" href="menu.aspx"><span><img src="imagenes/001-home.png" /></span>  Inicio</a>--%>
+        </div>
 
-    <form id="form1" runat="server">
+
+        <!-- -->
+        <!-- Agrupar los enlaces de navegación, los formularios y cualquier
+       otro elemento que se pueda ocultar al minimizar la barra -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-briefcase"></span>&nbsp;Mantenimiento <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="Personal.aspx" runat="server" id="trabajadores_aspx">Personal</a></li>
+                        <li class="dropdown-submenu">
+                            <a href="#">Tablas Institucion</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="Sede.aspx" runat="server" id="a4">Sede</a></li>
+                                <li><a href="Local.aspx" runat="server" id="A5">Local</a></li>
+                                <li><a href="Area.aspx" runat="server" id="A6">Area</a></li>
+                                <li><a href="Dependencia.aspx" runat="server" id="A8">Dependencia</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown-submenu">
+                            <a href="#">Tablas Personal</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="Cargo.aspx" runat="server" id="area_trabajo_aspx">Cargo</a></li>
+                                <li><a href="ProfecionOcupacion.aspx" runat="server" id="Sub_Area_aspx">Profecion - Ocupacion</a></li>                               
+                            </ul>
+                        </li>
+                        <li class="divider"></li>
+                        <li class="dropdown-submenu">
+                            <a href="#">Tablas Elemento Configuracion/a>
+                            <ul class="dropdown-menu">
+                                <li><a href="Modelo.aspx" runat="server" id="A14">Modelo</a></li>
+                                <li><a href="Marca.aspx" runat="server" id="A13">Marca</a></li>
+                                <li><a href="DescripcionElementoConfiguracion.aspx" runat="server" id="A9">Descripci&oacute;n Elemento Configuraci&oacute;n</a></li>
+                                <li><a href="TiposElementoConfiguracion.aspx" runat="server" id="A10">Tipos Elemento Configuraci&oacute;n</a></li> 
+                                <li><a href="TipoRelacionElementoConfiguracion.aspx" runat="server" id="A11">Tipo Relaci&oacute;n Elemento Configuraci&oacute;n</a></li>
+                                <li><a href="TipoComponeneteCI.aspx" runat="server" id="A12">Tipo Componenete Elemento Configuraci&oacute;n</a></li> 
+                                <li><a href="EstadoActualCI.aspx" runat="server" id="A15">Estado Actual Elemento Configuraci&oacute;n</a></li>                                                                                                                             
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+
+            <ul class="nav navbar-nav">
+                <!--<li class="active"><a href="#">Enlace #1</a></li>
+                <li><a href="#">Enlace #2</a></li>-->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: white"><span class="glyphicon glyphicon-user"></span>&nbsp;Gesti&oacute;n de Configuraci&oacute;n <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        
+                        <li><a href="ElementosConfiguracion.aspx" runat="server" id="ElementosConfiguracion_aspx">Elementos de Configuracio&oacute;n</a></li>
+                        <li><a href="RelacionesElementosConfiguracion.aspx" runat="server" id="PrendaMovimientos_aspx">Relacio&oacute;n de Elementos de Configuracio&oacute;n</a></li>
+                        <li class="divider"></li>
+                        <li><a href="CIsAsignarComponenetes.aspx" runat="server" id="A3">Asignar Componentes Elementos de Configuraci&oacute;n</a></li>
+                        <li class="divider"></li>
+                        <li><a href="LicenciasElementoConfiguracion.aspx" runat="server" id="A1">Licencias de Elementos de Configuraci&oacute;n</a></li>
+                        <li class="divider"></li>
+                        <li><a href="SeguimientosElementoConfiguracion.aspx" runat="server" id="_Asistencias_aspx">Seguimiento de Elementos de Configuraci&oacute;n</a></li>                        
+                    </ul>
+                </li>
+            </ul>
+
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-file"></span>&nbsp;Reportes <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="../Reportes/ReporteElementosConfiguracion.aspx" runat="server" id="A16">Reporte de Elementos de Configuraci&oacute;n</a></li>
+                        <li><a href="../Reportes/ReporteRelacionesElementosConfiguracion.aspx" runat="server" id="A17">Reporte de Relaciones de Elementos de Configuraci&oacute;n</a></li>
+                        <li><a href="../Reportes/ReporteSeguimientosElementoConfiguracion.aspx" runat="server" id="A18">Reporte de Seguimientos de Elementos de Configuraci&oacute;n</a></li>
+                        <li><a href="../Reportes/ReporteLicenciasElementoConfiguracion.aspx" runat="server" id="A19">Reporte de Licencias de Elementos de Configuraci&oacute;n</a></li>
+                        <li><a href="../Reportes/ReporteCIsSeguidos.aspx" runat="server" id="A24">Reporte de Elementos de Configuraci&oacute;n Seguidos</a></li>
+                        <li><a href="../Reportes/ReporteComponentesAsignados.aspx" runat="server" id="A20">Reporte de Componentes de Elementos de Configuraci&oacute;n Asignados</a></li>
+                        <li class="divider"></li>
+                        
+                        <li><a href="../Reportes/ReporteDatosCorrectosCI.aspx" runat="server" id="A21">Reporte de Datos Correctos de Elementos de Configuraci&oacute;n</a></li>
+                        <li><a href="../Reportes/ReporteDatosIncorrectosCI.aspx" runat="server" id="A22">Reporte de Datos Incorrectos de Elementos de Configuraci&oacute;n</a></li>
+                        <li><a href="../Reportes/ReporteCIsInformacionContenidaEnCMDB.aspx" runat="server" id="A23">Reporte de Informaci&oacute;n de Elementos de Configuraci&oacute;n Contenidas en la CMDB</a></li>
+                             
+                        
+                    </ul>
+                </li>
+            </ul>
+
+
+            <ul class="nav navbar-nav">
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: black"><span class="glyphicon glyphicon-wrench"></span>&nbsp;Configuraciones <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="Usuario.aspx" runat="server" id="usuarios_aspx">Usuarios</a></li>
+                        <li><a href="../Configuracion/Usuarios.aspx" runat="server" id="permisos_aspx">Permisos</a></li>
+                        <li class="divider"></li>
+                        <li><a href="CerrarSession.aspx" style="text-align: left; color: red;">Cerrar Sesion</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <%--  ......NO CAMBIAR.........  --%>
+    <div class="section">
         <div class="container">
-            <!-- Filtros de Busqueda -->
-            <div class="form-card">
-                <div class="card-header">
-                    <i class="bi bi-funnel me-2"></i>Filtros de Busqueda
-                </div>
-                <div class="card-body p-3">
-                    <div class="row g-3">
-                        <div class="col-md-4">
-                            <div class="form-check">
-                                <asp:CheckBox ID="cbnci" runat="server" CssClass="form-check-input" Text="Nombre CI" AutoPostBack="True" OnCheckedChanged="cbnci_CheckedChanged"/>
-                            </div>
-                            <asp:TextBox ID="txtnci" runat="server" CssClass="form-control form-control-modern mt-1" MaxLength="25" Autocomplete="off" placeholder="Ingresar Nombre" Enabled="False" />
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-check">
-                                <asp:CheckBox ID="cbtci" runat="server" CssClass="form-check-input" Text="Tipo CI" AutoPostBack="True" OnCheckedChanged="cbtci_CheckedChanged"/>
-                            </div>
-                            <asp:DropDownList ID="ddltci" runat="server" CssClass="form-control form-control-modern mt-1" AppendDataBoundItems="True" Enabled="False">
-                                <asp:ListItem Value="-1">_____SELECCIONE TIPO CI_____</asp:ListItem>
-                            </asp:DropDownList>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-check">
-                                <asp:CheckBox ID="cbeci" runat="server" CssClass="form-check-input" Text="Estado CI" AutoPostBack="True" OnCheckedChanged="cbeci_CheckedChanged"/>
-                            </div>
-                            <asp:DropDownList ID="ddleci" runat="server" CssClass="form-control form-control-modern mt-1" AppendDataBoundItems="True" Enabled="False">
-                                <asp:ListItem Value="-1">_____SELECCIONE ESTADO CI_____</asp:ListItem>
-                            </asp:DropDownList>
-                        </div>
-                    </div>
-                    <div class="row g-3 mt-2">
-                        <div class="col-md-4">
-                            <div class="form-check">
-                                <asp:CheckBox ID="cbpci" runat="server" CssClass="form-check-input" Text="Propietario CI" AutoPostBack="True" OnCheckedChanged="cbpci_CheckedChanged"/>
-                            </div>
-                            <asp:TextBox ID="txtpci" runat="server" CssClass="form-control form-control-modern mt-1" MaxLength="25" Autocomplete="off" placeholder="Ingresar Propietario" Enabled="False" />
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-check">
-                                <asp:CheckBox ID="cbdci" runat="server" CssClass="form-check-input" Text="Descripcion CI" AutoPostBack="True" OnCheckedChanged="cbdci_CheckedChanged"/>
-                            </div>
-                            <asp:DropDownList ID="ddldci" runat="server" CssClass="form-control form-control-modern mt-1" AppendDataBoundItems="True" Enabled="False">
-                                <asp:ListItem Value="-1">_____SELECCIONE DESCRIPCION CI_____</asp:ListItem>
-                            </asp:DropDownList>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-check">
-                                <asp:CheckBox ID="cbs" runat="server" CssClass="form-check-input" Text="Sede" AutoPostBack="True" OnCheckedChanged="cbs_CheckedChanged"/>
-                            </div>
-                            <asp:DropDownList ID="ddls" runat="server" CssClass="form-control form-control-modern mt-1" AppendDataBoundItems="True" AutoPostBack="True" Enabled="False" OnSelectedIndexChanged="ddls_SelectedIndexChanged">
-                                <asp:ListItem Value="-1">_____SELECCIONE SEDE_____</asp:ListItem>
-                            </asp:DropDownList>
-                        </div>
-                    </div>
-                    <div class="row g-3 mt-2">
-                        <div class="col-md-4">
-                            <div class="form-check">
-                                <asp:CheckBox ID="cbl" runat="server" CssClass="form-check-input" Text="Local" AutoPostBack="True" OnCheckedChanged="cbl_CheckedChanged1"/>
-                            </div>
-                            <asp:DropDownList ID="ddll" runat="server" CssClass="form-control form-control-modern mt-1" AppendDataBoundItems="True" AutoPostBack="True" Enabled="False" OnSelectedIndexChanged="ddll_SelectedIndexChanged">
-                                <asp:ListItem Value="-1">_____SELECCIONE LOCAL_____</asp:ListItem>
-                            </asp:DropDownList>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-check">
-                                <asp:CheckBox ID="cba" runat="server" CssClass="form-check-input" Text="Area" AutoPostBack="True" OnCheckedChanged="cba_CheckedChanged"/>
-                            </div>
-                            <asp:DropDownList ID="ddla" runat="server" CssClass="form-control form-control-modern mt-1" AppendDataBoundItems="True" Enabled="False">
-                                <asp:ListItem Value="-1">_____SELECCIONE AREA_____</asp:ListItem>
-                            </asp:DropDownList>
-                        </div>
-                        <div class="col-md-4 d-flex align-items-end">
-                            <div class="d-flex flex-wrap gap-2">
-                                <asp:LinkButton ID="lbtnBuscar" runat="server" CausesValidation="False" CssClass="btn btn-info btn-modern" OnClick="lbtnBuscar_Click" Text="Buscar" UseSubmitBehavior="False" />
-                                <asp:Button ID="btnActualizarInformacion" runat="server" CssClass="btn btn-warning btn-modern" OnClick="btnActualizarInformacion_Click" Text="Mostrar Todos" />
-                                <asp:HyperLink ID="IMPRIMIR" runat="server" BorderStyle="None" CssClass="btn btn-info btn-modern ms-2" NavigateUrl="" onClick="return abrir_ventana_imprimir_reporte(2);">Imprimir reporte</asp:HyperLink>
-                            </div>
-                        </div>
-                    </div>
+            <div class="row main-low-margin">
+                <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1">
+                    <h3>-</h3>
                 </div>
             </div>
+        </div>
+    </div>
+    <form id="form1" runat="server">
+        <div class="table-responsive" >
+           <div class ="container-fluid">
+                <table class="table table text-center">
+                    <tr>
+                        <td style="text-align: left" colspan="5">                             
+                            &nbsp;</td>
+                        <td style="text-align: left">                             
+                            &nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left" >
+                            <asp:CheckBox ID="cbnci" runat="server" CssClass="form-check-input position-static&quot" Font-Size="X-Small" Text="Nombre CI" AutoPostBack="True" OnCheckedChanged="cbnci_CheckedChanged"/>
+                        </td>
+                        <td style="text-align: left" >
+                            <asp:CheckBox ID="cbtci" runat="server" CssClass="form-check-input position-static&quot" Font-Size="X-Small" Text="Tipo CI" AutoPostBack="True" OnCheckedChanged="cbtci_CheckedChanged"/>
+                        </td>
+                        <td style="text-align: left" >
+                            <asp:CheckBox ID="cbeci" runat="server" CssClass="form-check-input position-static&quot" Font-Size="X-Small" Text="Estado CI" AutoPostBack="True" OnCheckedChanged="cbeci_CheckedChanged"/>
+                        </td>
+                        <td style="text-align: left" class="auto-style1" >
+                            <asp:CheckBox ID="cbpci" runat="server" CssClass="form-check-input position-static&quot" Font-Size="X-Small" Text="Propietario CI" AutoPostBack="True" OnCheckedChanged="cbpci_CheckedChanged"/>
+                        </td>
+                        <td style="text-align: left" class="auto-style1" >
+                            <asp:CheckBox ID="cbdci" runat="server" CssClass="form-check-input position-static&quot" Font-Size="X-Small" Text="Descripcion CI" AutoPostBack="True" OnCheckedChanged="cbdci_CheckedChanged"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                             <asp:TextBox ID="txtnci" runat="server" CssClass="form-control input-sm" MaxLength="25" Autocomplete = "off" placeholder="Ingresar Nombre" onchange="" 
+                        onkeypress="" Enabled="False"></asp:TextBox>
+                        </td>
+                        <td>
+                            <asp:DropDownList ID="ddltci" runat="server" CssClass="form-control input-sm" 
+                                        AppendDataBoundItems="True" Enabled="False" 
+                                       >
+                                        <asp:ListItem Value="-1">_____SELECCIONE TIPO CI_____</asp:ListItem>
+                                    </asp:DropDownList>
+                        </td>
+                        <td>
+                            <asp:DropDownList ID="ddleci" runat="server" CssClass="form-control input-sm" 
+                                        AppendDataBoundItems="True" Enabled="False" 
+                                       >
+                                        <asp:ListItem Value="-1">_____SELECCIONE ESTADO CI_____</asp:ListItem>
+                                    </asp:DropDownList>
+                        </td>
+                        <td class="auto-style1">
+                             <asp:TextBox ID="txtpci" runat="server" CssClass="form-control input-sm" MaxLength="25" Autocomplete = "off" placeholder="Ingresar Nombre" onchange="" 
+                        onkeypress="" Enabled="False"></asp:TextBox>
+                        </td>
+                        <td class="auto-style1">
+                            <asp:DropDownList ID="ddldci" runat="server" CssClass="form-control input-sm" 
+                                        AppendDataBoundItems="True" Enabled="False" 
+                                       >
+                                        <asp:ListItem Value="-1">_____SELECCIONE DESCRIPCION CI_____</asp:ListItem>
+                                    </asp:DropDownList>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left" >
+                            <asp:CheckBox ID="cbs" runat="server" CssClass="form-check-input position-static&quot" Font-Size="X-Small" Text="Sede" AutoPostBack="True" OnCheckedChanged="cbs_CheckedChanged" />
+                        </td>
+                        <td style="text-align: left" >
+                            <asp:CheckBox ID="cbl" runat="server" CssClass="form-check-input position-static&quot" Font-Size="X-Small" Text="Local" AutoPostBack="True" OnCheckedChanged="cbl_CheckedChanged1" />
+                        </td>
+                        <td style="text-align: left" >
+                            <asp:CheckBox ID="cba" runat="server" CssClass="form-check-input position-static&quot" Font-Size="X-Small" Text="Area" OnCheckedChanged="cba_CheckedChanged" CausesValidation="True"/>
+                        </td>
+                        <td style="text-align: left" >
+                            &nbsp;</td>
+                        <td class="auto-style1">
+                            &nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left" >
+                            <asp:DropDownList ID="ddls" runat="server" CssClass="form-control input-sm" 
+                                        AppendDataBoundItems="True" OnSelectedIndexChanged="ddls_SelectedIndexChanged" AutoPostBack="True" Enabled="False" 
+                                       >
+                                        <asp:ListItem Value="-1">_____SELECCIONE SEDE_____</asp:ListItem>
+                                    </asp:DropDownList>
+                        </td>
+                        <td>
+                            <asp:DropDownList ID="ddll" runat="server" CssClass="form-control input-sm" 
+                                        AppendDataBoundItems="True" AutoPostBack="True" OnSelectedIndexChanged="ddll_SelectedIndexChanged" Enabled="False" 
+                                       >
+                                        <asp:ListItem Value="-1">_____SELECCIONE LOCAL_____</asp:ListItem>
+                                    </asp:DropDownList>
+                        </td>
+                        <td>
+                            <asp:DropDownList ID="ddla" runat="server" CssClass="form-control input-sm" 
+                                        AppendDataBoundItems="True" Enabled="False" 
+                                       >
+                                        <asp:ListItem Value="-1">_____SELECCIONE AREA_____</asp:ListItem>
+                                    </asp:DropDownList>
+                        </td>
+                        <td class="auto-style1">
+                            <asp:LinkButton ID="lbtnBuscar" runat="server" CausesValidation="False" class="btn btn-info" Text="Buscar  &lt;span class='glyphicon glyphicon-search'&gt;&lt;/span&gt;" UseSubmitBehavior="False" OnClick="lbtnBuscar_Click" />
+                            <asp:Button ID="btnActualizarInformacion" runat="server" class="btn btn-success" CssClass="btn btn-warning" onclick="btnActualizarInformacion_Click" Text="Actualizar Informacion" />
+                        </td>
+                        <td class="auto-style1">
+                            <asp:HyperLink ID="IMPRIMIR" runat="server" BorderStyle="None" class="btn btn-info" NavigateUrl="" onClick="abrir_ventana_imprimir_reporte(2);">Imprimir reporte</asp:HyperLink>
+                        </td>
+                    </tr>
+                    <tr>
+                    <td colspan="5">
+                        <asp:Table ID="Table_" runat="server" BackColor="White" 
+                            class="table table-condensed"
+                        BorderColor="White" CellPadding="2" CellSpacing="0" Font-Size="X-Small" 
+                        GridLines="Both" style="text-align: left">
+                        <asp:TableRow ID="CABECERA" runat="server">
+                            <asp:TableCell ID="_ID_RELACION" runat="server" BackColor="#FFFFC0" BorderColor="#FFFFC0" 
+                                     ForeColor="Green" Visible="False">ID CI</asp:TableCell>
+                            
+                            <asp:TableCell ID="_PADRE_ID" runat="server" BackColor="Black" BorderColor="Black" 
+                                ForeColor="White" Visible="False">PADRE ID</asp:TableCell>
 
-            <!-- Tabla de Resultados -->
-            <div class="form-card">
-                <div class="card-header">
-                    <i class="bi bi-diagram-3 me-2"></i>Relaciones de Elementos de Configuracion
-                </div>
-                <div class="card-body p-3">
-                    <!-- Buscador -->
-                    <div class="row mb-3">
-                        <div class="col-md-8">
-                            <div class="input-group">
-                                <span class="input-group-text bg-white border-end-0">
-                                    <i class="bi bi-search text-muted"></i>
-                                </span>
-                                <input type="text" id="txtBuscarCis" class="form-control border-start-0 search-input" ClientIDMode="Static"
-                                       placeholder="Buscar por PADRE CI, HIJO CI, TIPO RELACION..."
-                                       onkeyup="filtrarTablaCis()" />
-                                <button class="btn btn-outline-secondary" type="button" onclick="document.getElementById('txtBuscarCis').value=''; filtrarTablaCis();">
-                                    <i class="bi bi-x-lg"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="col-md-4 text-end">
-                            <span id="lblContadorCis" class="form-text text-muted"></span>
-                        </div>
-                    </div>
+                            <asp:TableCell ID="_PADRE_CI" runat="server" BackColor="Black" BorderColor="Black" 
+                                ForeColor="White" >PADRE ELEMENETO CONFIGURACION</asp:TableCell>
 
-                    <!-- Tabla HTML -->
-                    <div class="table-wrapper" style="max-height: 500px; overflow-y: auto;">
-                        <table id="tblCisRelacionados" class="table table-modern table-hover" style="min-width: 1000px;">
-                            <thead>
-                                <tr>
-                                    <th style="display:none;">ID_RELACION</th>
-                                    <th style="display:none;">PADRE_ID</th>
-                                    <th style="width: 200px;">PADRE ELEMENTO CONFIGURACION</th>
-                                    <th style="display:none;">HIJO_ID</th>
-                                    <th style="width: 200px;">HIJO ELEMENTO CONFIGURACION</th>
-                                    <th style="width: 100px;">TIPO RELACION</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tbodyCisRelacionados">
-                            </tbody>
-                        </table>
-                    </div>
+                            <asp:TableCell ID="_HIJO_ID" runat="server" BackColor="Black" BorderColor="Black" 
+                                ForeColor="White" Visible="False">HIJO ID</asp:TableCell>
 
-                    <!-- Paginacion -->
-                    <div class="pagination-wrapper">
-                        <ul id="paginationCisRelacionados" class="pagination" style="flex-wrap: wrap;"></ul>
-                    </div>
-                    <div class="page-info" id="pageInfoCis"></div>
-                </div>
-            </div>
+                             <asp:TableCell ID="_HIJO_CI" runat="server" BackColor="Black" BorderColor="Black" 
+                                ForeColor="White" >HIJO ELEMENETO CONFIGURACION</asp:TableCell>
 
-            <!-- Estadisticas -->
-            <div class="form-card">
-                <div class="card-body p-3">
-                    <asp:Label ID="T" runat="server" style="font-weight: 700; display: block; margin-bottom: 0.5rem;"></asp:Label>
-                    <asp:Label ID="A" runat="server" style="font-weight: 700; display: block; margin-bottom: 0.5rem;"></asp:Label>
-                    <asp:Label ID="X" runat="server" style="font-weight: 700; display: block;"></asp:Label>
-                </div>
-            </div>
+                             <asp:TableCell ID="_TIPO_RELACION" runat="server" BackColor="Black" BorderColor="Black" 
+                                ForeColor="White" >TIPO RELACION</asp:TableCell>
 
-            <!-- Hidden Fields -->
-            <asp:HiddenField ID="__pagina" runat="server" />
-            <asp:HiddenField ID="__mensaje" runat="server" />
-            <asp:HiddenField ID="datosJson" runat="server" EnableViewState="False" ClientIDMode="Static" />
+                            
+                           <%-- <asp:TableCell ID="EDITAR" runat="server" BackColor="Black" BorderColor="Black" 
+                                ForeColor="White" Width="3%" HorizontalAlign="Center">RELACION</asp:TableCell>--%>
+                        </asp:TableRow>
+                    </asp:Table>
+                    </td>
+                    <td>
+                        &nbsp;</td>
+                </tr>
+                    <tr>
+                    <td colspan="5">
+                        <asp:Label ID="T" runat="server" style="font-weight: 700"></asp:Label>
+                        <br />
+                        <asp:Label ID="A" runat="server" style="font-weight: 700"></asp:Label>
+                        <br />
+                        <asp:Label ID="X" runat="server" style="font-weight: 700"></asp:Label>
+                    </td>
+                    <td>
+                        &nbsp;</td>
+                </tr>
+                <tr>
+                    <td colspan="5" >
+                        <asp:HiddenField ID="__pagina" runat="server" />
+                        <asp:HiddenField ID="__mensaje" runat="server" />
+                    </td>
+                    <td >
+                        &nbsp;</td>
+                </tr>
+                </table>
+           </div>
         </div>
     </form>
+    <script lang ="JavaScript" type="text/javascript">
+        ResaltarFila('Table_');
+    </script>	
 
-    <script type="text/javascript" src="Otros_css_js/resaltar.js"></script>
-
-    <script type="text/javascript">
-        if (window.addEventListener) {
-            window.addEventListener('load', function() {
-                initCisGrid();
-            }, false);
-        } else if (window.attachEvent) {
-            window.attachEvent('onload', function() {
-                initCisGrid();
-            });
-        }
-    </script>
+     <script type="text/javascript" src="../bootstrap/js/jquery-1.12.4.min.js"></script>
+     <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>
