@@ -1,24 +1,32 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Web.Script.Serialization;
 
 public partial class ElementosConfiguracion : System.Web.UI.Page
 {
+    //private String Ruta = "SERVER=JOSE-PC;DATABASE=GCS;Encrypt=False;INTEGRATED SECURITY=True;packet size=4096;";
     private String Ruta = System.Configuration.ConfigurationManager.ConnectionStrings["CadenaConeccion"].ToString();
+    System.Web.UI.WebControls.TableRow tRow;
+
     Lista _Lista = new Lista();
 
     private void Elementos_Configuracion_Seguidos(string Nombre_CI, string Tipo_CI, string Nro_Serie, string Descripcion_CI, string Sede, string Local, string Area, string Responsable, string Clasificacion_Datos, string Relacion_otros_CIs, string Fecha_Inicio, string Fecha_Fin, string Estado_Actual_CIs, String Mensaje)
     {
         _Lista.ShowMessage(__mensaje, __pagina, "", "");
 
+        for (int i = 1; i < this.Table_.Rows.Count; i++)
+        {
+            this.Table_.Rows[i].Cells.Clear();
+        }
+
         try
         {
             policia.clsaccesodatos servidor = new policia.clsaccesodatos();
+
             servidor.cadenaconexion = Ruta;
 
             if (servidor.abrirconexion() == true)
@@ -27,122 +35,168 @@ public partial class ElementosConfiguracion : System.Web.UI.Page
                 if (dt.Rows.Count == 0)
                 {
                     servidor.cerrarconexion();
+
                     _Lista.ShowMessage(__mensaje, __pagina, Mensaje, "");
                 }
                 else
                 {
-                    int Cantidad_CIs_CMDB = Obtener_Cantidad_CIs_CMDB();
+                    int Cantidad_CIs_CMDB= Obtener_Cantidad_CIs_CMDB();
                     int CantidadCorrectos = dt.Rows.Count;
-
-                    // Add summary rows with IS_SUMMARY flag and color info
-                    // Row 1: CANTIDAD DE CIs EN LA CMDB
                     dt.Rows.Add("CANTIDAD DE CIs EN LA CMDB:", Cantidad_CIs_CMDB.ToString(), "", "", null);
-                    // Row 2: CANTIDAD DE CIs CON DATOS CORRECTOS
                     dt.Rows.Add("CANTIDAD DE CIs CON DATOS CORRECTOS:", CantidadCorrectos.ToString(), "", "", null);
-                    // Row 3: % DE CIs CON DATOS CORRECTOS with color
                     int x = (CantidadCorrectos * 100) / Cantidad_CIs_CMDB;
                     dt.Rows.Add("% DE CIs CON DATOS CORRECTOS:", x.ToString() + "%", "", "", null);
-                    // Row 4: SI EL % >=80%
                     dt.Rows.Add("SI EL % DE CIs CON DATOS CORRECTOS ES >=80%:", "% IDEAL DE CIs CORRECTOS.", "", "", null);
-                    // Row 5: SI EL % >60% Y <80%
                     dt.Rows.Add("SI EL % DE CIs CON DATOS CORRECTOS ES >60% Y <80%:", "% ACEPTABLE DE CIs CORRECTOS.", "", "", null);
-                    // Row 6: SI EL % <60%
                     dt.Rows.Add("SI EL % DE CIs CON DATOS CORRECTOS ES <60%:", "% DEFICIENTE DE CIs CORRECTOS.", "", "", null);
-
                     string msg = "";
-                    if (cbfs.Checked == true)
-                    {
+                    if(cbfs.Checked==true) {
                         msg = "REPORTE DE CIs CON DATOS CORRECTOS COMPRENDIDO DESDE EL " + txtFechaInicioSeguimiento.Text.Trim() + " HASTA EL " + txtFechaFinSeguimiento.Text.Trim();
                     }
                     IMPRIMIR.Page.Session.Add("Imprimir", new Object[] { "REPORTE_DATOS_CORRECTOS_CIs", dt, msg });
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        tRow = new TableRow();
 
-                    // Serialize DataTable to JSON for client-side grid
-                    JavaScriptSerializer serializer = new JavaScriptSerializer();
-                    string jsonData = serializer.Serialize(GetDataTableArray(dt));
-                    datosJson.Value = jsonData;
+                        for (int j = 0; j < Table_.Rows[i].Cells.Count; j++)//Cabecera de la tabla
+                        {
+                            TableCell tCell = new TableCell();
+                            tRow.BorderColor = System.Drawing.Color.Black;
+
+                            switch (j)
+                            {
+
+                                case 0:
+
+                                    tCell.Text = dt.Rows[i]["AREA"].ToString();
+
+                                    tCell.Visible = true;
+
+                                    tRow.Cells.Add(tCell);
+
+                                    break;
+
+                                case 1:
+                                    string tci = dt.Rows[i]["TIPO CI"].ToString();
+
+                                    tCell.Text = tci;
+
+                                    tCell.HorizontalAlign = HorizontalAlign.Left;
+
+                                    if (tci.Substring(tci.Trim().Length-1, 1) == "%")
+                                    {
+                                        int valor = Convert.ToInt32(tci.Substring(0, tci.Trim().Length - 1));
+                                        if (valor >= 80){
+                                            tCell.ForeColor = System.Drawing.Color.Blue;
+                                        }else if (valor >60 && valor<80)
+                                        {
+                                            tCell.ForeColor = System.Drawing.Color.Green;
+                                        }
+                                        else if (valor<60) {
+                                            tCell.ForeColor = System.Drawing.Color.Red;
+                                        }
+                                    }
+
+                                    if(tci.Equals("% IDEAL DE CIs CORRECTOS.")) {
+                                        tCell.ForeColor = System.Drawing.Color.Blue;
+                                    }else if(tci.Equals("% ACEPTABLE DE CIs CORRECTOS.")) {
+                                        tCell.ForeColor = System.Drawing.Color.Green;
+                                    }else if (tci.Equals("% DEFICIENTE DE CIs CORRECTOS."))
+                                    {
+                                        tCell.ForeColor = System.Drawing.Color.Red;
+                                    }
+
+                                    //tCell.BackColor = System.Drawing.Color.LemonChiffon;
+
+                                    tCell.Visible = true;
+
+                                    tRow.Cells.Add(tCell);
+
+                                    break;
+                              
+
+                                case 2:
+
+                                    tCell.Text = dt.Rows[i]["DESCRIPCION CI"].ToString();
+
+                                    tCell.HorizontalAlign = HorizontalAlign.Left;
+
+                                    //tCell.BackColor = System.Drawing.Color.LemonChiffon;
+
+                                    tCell.Visible = true;
+
+                                    tRow.Cells.Add(tCell);
+
+                                    break;
+
+                                case 3:
+
+                                    tCell.Text = dt.Rows[i]["NOMBRE CI"].ToString();
+
+                                    tCell.HorizontalAlign = HorizontalAlign.Left;
+
+                                    //tCell.BackColor = System.Drawing.Color.LemonChiffon;
+
+                                    tCell.Visible = true;
+
+                                    tRow.Cells.Add(tCell);
+
+                                    break;
+
+                                case 4:
+
+                                    tCell.Text = dt.Rows[i]["FECHA SEGUIMIENTO"].ToString();
+
+                                    tCell.HorizontalAlign = HorizontalAlign.Left;
+
+                                    //tCell.BackColor = System.Drawing.Color.LemonChiffon;
+
+                                    tCell.Visible = true;
+
+                                    tRow.Cells.Add(tCell);
+
+                                    break;
+
+                               
+
+                           
+
+                            }
+                        }
+                       
+                        this.Table_.Rows.Add(tRow);
+                    }
+
+                   
 
                     servidor.cerrarconexion();
+
+                   
+
                 }
+
             }
             else
             {
                 servidor.cerrarconexion();
+
                 _Lista.ShowMessage(__mensaje, __pagina, servidor.getMensageError(), "../CerrarSession.aspx");
             }
-        }
+
+    }
         catch (Exception)
         {
             _Lista.ShowMessage(__mensaje, __pagina, "Error inesperado al intentar conectarnos con el servidor.", "../CerrarSession.aspx");
         }
     }
 
-    private List<Dictionary<string, object>> GetDataTableArray(DataTable dt)
-    {
-        List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
-        int dataRowCount = 0;
-        int totalRows = dt.Rows.Count;
-        int summaryStartIndex = totalRows - 6; // Last 6 rows are summary
 
-        foreach (DataRow dr in dt.Rows)
-        {
-            Dictionary<string, object> row = new Dictionary<string, object>();
-            foreach (DataColumn col in dt.Columns)
-            {
-                row[col.ColumnName] = dr[col] != DBNull.Value ? dr[col].ToString() : "";
-            }
+   
 
-            // Mark summary rows with color info based on their position and content
-            int rowIndex = dt.Rows.IndexOf(dr);
-            if (rowIndex >= summaryStartIndex)
-            {
-                row["IS_SUMMARY"] = "true";
-                string tci = dr["TIPO CI"] != DBNull.Value ? dr["TIPO CI"].ToString() : "";
-
-                // Determine color based on content
-                if (tci.Contains("% IDEAL"))
-                {
-                    row["SUMMARY_COLOR"] = "summary-blue";
-                }
-                else if (tci.Contains("% ACEPTABLE"))
-                {
-                    row["SUMMARY_COLOR"] = "summary-green";
-                }
-                else if (tci.Contains("% DEFICIENTE"))
-                {
-                    row["SUMMARY_COLOR"] = "summary-red";
-                }
-                else
-                {
-                    // Check percentage value for color
-                    if (tci.EndsWith("%"))
-                    {
-                        string percentStr = tci.Trim().TrimEnd('%');
-                        int percentVal;
-                        if (int.TryParse(percentStr, out percentVal))
-                        {
-                            if (percentVal >= 80)
-                                row["SUMMARY_COLOR"] = "summary-blue";
-                            else if (percentVal > 60 && percentVal < 80)
-                                row["SUMMARY_COLOR"] = "summary-green";
-                            else if (percentVal < 60)
-                                row["SUMMARY_COLOR"] = "summary-red";
-                        }
-                    }
-                }
-            }
-            else
-            {
-                row["IS_SUMMARY"] = "false";
-            }
-
-            rows.Add(row);
-            dataRowCount++;
-        }
-        return rows;
-    }
 
     protected void Page_Load(object sender, EventArgs e)
     {
+
     }
 
     protected void Page_init(object sender, EventArgs e)
@@ -153,9 +207,13 @@ public partial class ElementosConfiguracion : System.Web.UI.Page
 
         if (Datos == null)
         {
-            this.__mensaje.Value = "Ud. no esta autorizado para ingresar a esta pagina, inicie sesion por favor.";
+
+            this.__mensaje.Value = "Ud. no esta autorizado para ingresar a esta página, inicie sesion por favor.";
+
             this.__pagina.Value = "CerrarSession.aspx";
+
             return;
+
         }
 
         Cargar_Datos(this.ddltci, "[dbo].[pr_Obtener_Tipos_Elemento_Configuracion_2]", "Error, al intentar recuperar Estado Elemento Configuracion.");
@@ -163,14 +221,17 @@ public partial class ElementosConfiguracion : System.Web.UI.Page
         {
             return;
         }
-
+       
+       
+      
         if (Session["OpcionBusqueda"] == null)
         {
-            // No action on initial load
+            //this.Elementos_Configuracion_Seguidos("", "","","","","","","","","","","","","No hay Elementos de Configuracion Seguidos");
         }
         else
         {
             Object[] ob = (Object[])Session["OpcionBusqueda"];
+           
 
             this.cbtci.Checked = (bool)ob[3];
             ddltci.Enabled = (bool)ob[3];
@@ -180,6 +241,8 @@ public partial class ElementosConfiguracion : System.Web.UI.Page
                     this.ddltci.SelectedIndex = i;
             }
 
+          
+
             this.cbdci.Checked = (bool)ob[7];
             ddldci.Enabled = (bool)ob[7];
             for (int i = 0; i < this.ddldci.Items.Count; i++)
@@ -188,11 +251,27 @@ public partial class ElementosConfiguracion : System.Web.UI.Page
                     this.ddldci.SelectedIndex = i;
             }
 
+
+            
+
+
+            
+
+           
+
+           
+
+          
+
+           
+
             this.cbfs.Checked = (bool)ob[22];
             txtFechaInicioSeguimiento.Enabled = (bool)ob[22];
             txtFechaFinSeguimiento.Enabled = (bool)ob[22];
             txtFechaInicioSeguimiento.Text = ob[20].ToString().Trim();
             txtFechaFinSeguimiento.Text = ob[21].ToString().Trim();
+
+            
 
             this.Elementos_Configuracion_Seguidos(ob[0].ToString().Trim(),
             ob[2].ToString().Trim(),
@@ -209,64 +288,106 @@ public partial class ElementosConfiguracion : System.Web.UI.Page
             ob[23].ToString().Trim(),
             "No hay Elementos Configuracion con los criterios seleccionados");
         }
+
+        
+    
+
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    protected void btnNuevoSeguiminetoCIs_Click(object sender, EventArgs e)
+    {
+        Session["__SEGUIMIENTO_ELEMENTO_CONFIGURACION__"] = null;
+        Response.Clear();
+        Response.Redirect("SeguimientoElementoConfiguracion.aspx");
+        Response.Flush();
+    }
+
+   
 
     protected void cbtci_CheckedChanged(object sender, EventArgs e)
     {
         Session["OpcionBusqueda"] = null;
-        _Lista.ShowMessage(__mensaje, __pagina, "", "");
-        ddltci.Enabled = cbtci.Checked; ddltci.SelectedIndex = 0; ddltci.Focus();
+    _Lista.ShowMessage(__mensaje, __pagina, "", "");
+        ddltci.Enabled = cbtci.Checked; ddltci.SelectedIndex=0; ddltci.Focus();
         this.ddldci.Items.Clear();
         this.ddldci.Items.Insert(0, "______SELECCIONE DESCRIPCION CI_____");
         this.ddldci.Items[0].Value = "-1";
     }
 
+   
+
     protected void cbdci_CheckedChanged(object sender, EventArgs e)
     {
         Session["OpcionBusqueda"] = null;
-        _Lista.ShowMessage(__mensaje, __pagina, "", "");
+    _Lista.ShowMessage(__mensaje, __pagina, "", "");
         ddldci.Enabled = cbdci.Checked; ddldci.SelectedIndex = 0; ddldci.Focus();
     }
+
+   
+
+    
+
+   
+
+    
+
+    
 
     protected void cbfs_CheckedChanged(object sender, EventArgs e)
     {
         Session["OpcionBusqueda"] = null;
         _Lista.ShowMessage(__mensaje, __pagina, "", "");
-        txtFechaInicioSeguimiento.Enabled = cbfs.Checked; txtFechaInicioSeguimiento.Text = "";
-        txtFechaFinSeguimiento.Enabled = cbfs.Checked; txtFechaFinSeguimiento.Text = "";
+        txtFechaInicioSeguimiento.Enabled = cbfs.Checked; txtFechaInicioSeguimiento.Text="";
+        txtFechaFinSeguimiento.Enabled = cbfs.Checked; txtFechaFinSeguimiento.Text="";
     }
 
     protected void lbtnBuscar_Click(object sender, EventArgs e)
     {
         _Lista.ShowMessage(__mensaje, __pagina, "", "");
 
+        _Lista.Limpiar_Tabla(Table_);
+
         Object[] ob;
 
         bool ok = cbtci.Checked == true ||
         cbdci.Checked == true ||
-        cbfs.Checked == true;
+        cbfs.Checked == true ;
         if (ok == false)
         {
             _Lista.ShowMessage(__mensaje, __pagina, "Seleccione criterio(s) de busqueda.", "");
             return;
         }
 
-        if (cbtci.Checked == true && cbfs.Checked == false)
-        {
+        if(cbtci.Checked==true && cbfs.Checked==false) {
             _Lista.ShowMessage(__mensaje, __pagina, "Seleccione fecha seguimiento.", "");
             return;
         }
-
+        
         if (cbtci.Checked == true)
         {
-            if (ddltci.Items[ddltci.SelectedIndex].Value == (-1).ToString())
+            if (ddltci.Items[ddltci.SelectedIndex].Value==(-1).ToString())
             {
                 _Lista.ShowMessage(__mensaje, __pagina, "Seleccione tipo CI.", "");
                 ddltci.Focus();
                 return;
             }
         }
-
+        
         if (cbdci.Checked == true)
         {
             if (ddldci.Items[ddldci.SelectedIndex].Value == (-1).ToString())
@@ -276,7 +397,12 @@ public partial class ElementosConfiguracion : System.Web.UI.Page
                 return;
             }
         }
-
+        
+        
+        
+       
+       
+       
         if (cbfs.Checked == true)
         {
             if (txtFechaInicioSeguimiento.Text.Trim() == "")
@@ -294,6 +420,7 @@ public partial class ElementosConfiguracion : System.Web.UI.Page
         }
         if (cbfs.Checked == true)
         {
+
             if (!(Convert.ToDateTime(txtFechaInicioSeguimiento.Text.Trim()) <= Convert.ToDateTime(txtFechaFinSeguimiento.Text.Trim())))
             {
                 _Lista.ShowMessage(__mensaje, __pagina, "Fecha Inicio Seguimineto CI de ser menor o igual a la  Fecha Fin Seguimineto CI.", "");
@@ -320,10 +447,16 @@ public partial class ElementosConfiguracion : System.Web.UI.Page
         Response.Clear();
         Response.Redirect("ReporteDatosCorrectosCI.aspx");
         Response.Flush();
+
+        //_Lista.ShowMessage(__mensaje, __pagina, "", "");
     }
+
+   
 
     private void Cargar_Datos(System.Web.UI.WebControls.DropDownList ddl, String Procedimeinto_Almacenado, String Mensaje, params Object[] p)
     {
+
+
         try
         {
             policia.clsaccesodatos servidor = new policia.clsaccesodatos();
@@ -368,9 +501,61 @@ public partial class ElementosConfiguracion : System.Web.UI.Page
         }
     }
 
+
+    private void Cargar_Datos_2(System.Web.UI.WebControls.ListBox lb, String Procedimeinto_Almacenado, String Mensaje, params Object[] p)
+    {
+
+
+        try
+        {
+            policia.clsaccesodatos servidor = new policia.clsaccesodatos();
+            servidor.cadenaconexion = Ruta;
+            if (servidor.abrirconexion() == true)
+            {
+                System.Data.DataTable dt;
+                if (p.Length == 0)
+                {
+                    dt = servidor.consultar(Procedimeinto_Almacenado).Tables[0];
+                }
+                else
+                {
+                    dt = servidor.consultar(Procedimeinto_Almacenado, Convert.ToInt32(p[0])).Tables[0];
+                }
+                if (dt.Rows.Count == 0)
+                {
+                    servidor.cerrarconexion();
+                    this.__mensaje.Value = Mensaje;
+                    this.__pagina.Value = "";
+                }
+                else
+                {
+                    lb.DataSource = dt;
+                    lb.DataTextField = "NOMBRE";
+                    lb.DataValueField = "CODIGO";
+                    lb.DataBind();
+                    servidor.cerrarconexion();
+                }
+            }
+            else
+            {
+                servidor.cerrarconexion();
+                this.__mensaje.Value = servidor.getMensageError();
+                this.__pagina.Value = "";
+            }
+        }
+        catch (Exception)
+        {
+            this.__mensaje.Value = "Error inesperado al intentar conectarnos con el servidor.";
+            this.__pagina.Value = "";
+        }
+    }
+
+
+
+    
     private int Obtener_Cantidad_CIs_CMDB()
     {
-        int Cantidad = 0;
+        int Cantidad =0;
 
         try
         {
