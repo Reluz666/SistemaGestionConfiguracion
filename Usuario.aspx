@@ -144,7 +144,7 @@
                             <label class="form-label-modern">Cargo</label>
                             <asp:DropDownList ID="Cargo" runat="server" CssClass="form-control form-control-modern"
                                         AppendDataBoundItems="True" AutoPostBack="True">
-                                        <asp:ListItem Value="-1">_____SELECCIONE CARGO_____</asp:ListItem>
+                                        <asp:ListItem Value="-1">Seleccione una opción</asp:ListItem>
                                     </asp:DropDownList>
                             <asp:RequiredFieldValidator ID="rfvCargo" runat="server" ControlToValidate="Cargo" ErrorMessage="*" CssClass="validator-error" ForeColor="Red" SetFocusOnError="True"></asp:RequiredFieldValidator>
                             <asp:RegularExpressionValidator ID="revCargo" runat="server" BackColor="White"
@@ -163,7 +163,7 @@
                             <label class="form-label-modern">Sede</label>
                             <asp:DropDownList ID="Sede" runat="server" CssClass="form-control form-control-modern"
                                         AppendDataBoundItems="True" AutoPostBack="True" OnSelectedIndexChanged="Sede_SelectedIndexChanged">
-                                        <asp:ListItem Value="-1">_____SELECCIONE SEDE_____</asp:ListItem>
+                                        <asp:ListItem Value="-1">Seleccione una opción</asp:ListItem>
                                     </asp:DropDownList>
                             <asp:RequiredFieldValidator ID="rfvSede" runat="server" ControlToValidate="Sede" ErrorMessage="*" CssClass="validator-error" ForeColor="Red" SetFocusOnError="True"></asp:RequiredFieldValidator>
                             <asp:RegularExpressionValidator ID="revSede" runat="server" BackColor="White"
@@ -174,7 +174,7 @@
                             <label class="form-label-modern">Local</label>
                             <asp:DropDownList ID="Local" runat="server" CssClass="form-control form-control-modern"
                                         AppendDataBoundItems="True" AutoPostBack="True" OnSelectedIndexChanged="Local_SelectedIndexChanged">
-                                        <asp:ListItem Value="-1">_____SELECCIONE LOCAL_____</asp:ListItem>
+                                        <asp:ListItem Value="-1">Seleccione una opción</asp:ListItem>
                                     </asp:DropDownList>
                             <asp:RequiredFieldValidator ID="rfvLocal" runat="server" ControlToValidate="Local" ErrorMessage="*" CssClass="validator-error" ForeColor="Red" SetFocusOnError="True"></asp:RequiredFieldValidator>
                             <asp:RegularExpressionValidator ID="revLocal" runat="server" BackColor="White"
@@ -185,7 +185,7 @@
                             <label class="form-label-modern">Area</label>
                             <asp:DropDownList ID="Area" runat="server" CssClass="form-control form-control-modern"
                                         AppendDataBoundItems="True">
-                                        <asp:ListItem Value="-1">_____SELECCIONE AREA_____</asp:ListItem>
+                                        <asp:ListItem Value="-1">Seleccione una opción</asp:ListItem>
                                     </asp:DropDownList>
                             <asp:RequiredFieldValidator ID="rfvArea" runat="server" ControlToValidate="Area" ErrorMessage="*" CssClass="validator-error" ForeColor="Red" SetFocusOnError="True"></asp:RequiredFieldValidator>
                             <asp:RegularExpressionValidator ID="revArea" runat="server" BackColor="White"

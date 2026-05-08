@@ -100,7 +100,7 @@
                             <label class="form-label-modern">Tipo CI</label>
                             <asp:DropDownList ID="TIPOCI" runat="server" CssClass="form-control form-control-modern"
                                         AppendDataBoundItems="True">
-                                        <asp:ListItem Value="-1">_____SELECCIONE TIPO CI_____</asp:ListItem>
+                                        <asp:ListItem Value="-1">Seleccione una opción</asp:ListItem>
                                     </asp:DropDownList>
                             <asp:RequiredFieldValidator ID="rfvTipoCI" runat="server" ControlToValidate="TIPOCI" ErrorMessage="*" CssClass="validator-error" ForeColor="Red" SetFocusOnError="True"></asp:RequiredFieldValidator>
                             <asp:RegularExpressionValidator ID="revTIPOCI" runat="server" BackColor="White" ControlToValidate="TIPOCI" Display="Dynamic" ErrorMessage="*" CssClass="validator-error" ForeColor="Red" SetFocusOnError="True" ValidationExpression="\d{1,999}"></asp:RegularExpressionValidator>

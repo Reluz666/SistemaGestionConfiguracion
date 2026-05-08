@@ -312,7 +312,7 @@
                         <div class="col-md-6 col-sm-12">
                             <label class="form-label-modern">Tipo Relacion Elemento Configuracion</label>
                             <asp:DropDownList ID="ddlTipoRelecion_CI_P_H" runat="server" CssClass="form-control form-control-modern" AppendDataBoundItems="True">
-                                        <asp:ListItem Value="-1">_____SELECCIONE TIPO RELACION ELEMENTO CONFIGURACION_____</asp:ListItem>
+                                        <asp:ListItem Value="-1">Seleccione una opción</asp:ListItem>
                                     </asp:DropDownList>
                             <asp:RequiredFieldValidator ID="rfvddlTipoRelecion_CI_P_H" runat="server" ControlToValidate="ddlTipoRelecion_CI_P_H" ErrorMessage="*" CssClass="validator-error" ForeColor="Red" SetFocusOnError="True"></asp:RequiredFieldValidator>
                             <asp:RegularExpressionValidator ID="revddlTipoRelecion_CI_P_H" runat="server" BackColor="White"

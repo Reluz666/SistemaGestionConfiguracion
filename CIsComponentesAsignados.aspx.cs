@@ -194,10 +194,10 @@ public partial class CIsComponentesAsignados : System.Web.UI.Page
     protected void ddls_SelectedIndexChanged(object sender, EventArgs e)
     {
         ddll.Items.Clear();
-        ddll.Items.Insert(0, "_____SELECCIONE LOCAL_____");
+        ddll.Items.Insert(0, "Seleccione una opción");
         ddll.Items[0].Value = "-1";
         ddla.Items.Clear();
-        ddla.Items.Insert(0, "_____SELECCIONE AREA_____");
+        ddla.Items.Insert(0, "Seleccione una opción");
         ddla.Items[0].Value = "-1";
 
         int codigoSede = Convert.ToInt32(ddls.SelectedValue);
@@ -209,7 +209,7 @@ public partial class CIsComponentesAsignados : System.Web.UI.Page
     protected void ddll_SelectedIndexChanged(object sender, EventArgs e)
     {
         ddla.Items.Clear();
-        ddla.Items.Insert(0, "_____SELECCIONE AREA_____");
+        ddla.Items.Insert(0, "Seleccione una opción");
         ddla.Items[0].Value = "-1";
 
         int codigoLocal = Convert.ToInt32(ddll.SelectedValue);

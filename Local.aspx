@@ -279,7 +279,7 @@
                             <label class="form-label-modern">Sede</label>
                             <asp:DropDownList ID="Sede" runat="server" CssClass="form-control form-control-modern"
                                              AppendDataBoundItems="True">
-                                <asp:ListItem Value="-1">_____SELECCIONE SEDE_____</asp:ListItem>
+                                <asp:ListItem Value="-1">Seleccione una opción</asp:ListItem>
                             </asp:DropDownList>
                             <asp:RequiredFieldValidator ID="rfvSede" runat="server" ControlToValidate="Sede"
                                                        ErrorMessage="*" CssClass="validator-error" />

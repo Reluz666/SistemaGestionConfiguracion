@@ -152,7 +152,7 @@
                             <label class="form-label-modern">Tipo</label>
                             <asp:DropDownList ID="TIPOCI" runat="server" CssClass="form-control form-control-modern"
                                         AppendDataBoundItems="True" AutoPostBack="True" OnSelectedIndexChanged="TIPOCI_SelectedIndexChanged">
-                                <asp:ListItem Value="-1">_____SELECCIONE TIPO CI_____</asp:ListItem>
+                                <asp:ListItem Value="-1">Seleccione una opción</asp:ListItem>
                             </asp:DropDownList>
                             <asp:RequiredFieldValidator ID="rfvTipoCI" runat="server" ControlToValidate="TIPOCI" ErrorMessage="Seleccione un tipo" CssClass="validator-error"></asp:RequiredFieldValidator>
                         </div>
@@ -161,7 +161,7 @@
                         <div class="col-md-6 col-sm-6">
                             <label class="form-label-modern">Sub Tipo</label>
                             <asp:DropDownList ID="DESCRIPCION_ELEMENTO_CONFIGURACION" runat="server" CssClass="form-control form-control-modern" AppendDataBoundItems="True">
-                                <asp:ListItem Value="-1">_____SELECCIONE DESCRIPCION_____</asp:ListItem>
+                                <asp:ListItem Value="-1">Seleccione una opción</asp:ListItem>
                             </asp:DropDownList>
                             <asp:RequiredFieldValidator ID="rfvDESCRIPCION_ELEMENTO_CONFIGURACION" runat="server" ControlToValidate="DESCRIPCION_ELEMENTO_CONFIGURACION" ErrorMessage="Seleccione una descripción" CssClass="validator-error"></asp:RequiredFieldValidator>
                         </div>
@@ -197,7 +197,7 @@
                         <div class="col-md-6 col-sm-6">
                             <label class="form-label-modern">Marca</label>
                             <asp:DropDownList ID="MARCA" runat="server" CssClass="form-control form-control-modern" AppendDataBoundItems="True">
-                                <asp:ListItem Value="-1">_____SELECCIONE MARCA_____</asp:ListItem>
+                                <asp:ListItem Value="-1">Seleccione una opción</asp:ListItem>
                             </asp:DropDownList>
                             <asp:RequiredFieldValidator ID="rfvMARCA" runat="server" ControlToValidate="MARCA" ErrorMessage="Seleccione marca" CssClass="validator-error"></asp:RequiredFieldValidator>
                         </div>
@@ -206,7 +206,7 @@
                         <div class="col-md-6 col-sm-6">
                             <label class="form-label-modern">Modelo</label>
                             <asp:DropDownList ID="MODELO" runat="server" CssClass="form-control form-control-modern" AppendDataBoundItems="True">
-                                <asp:ListItem Value="-1">_____SELECCIONE MODELO_____</asp:ListItem>
+                                <asp:ListItem Value="-1">Seleccione una opción</asp:ListItem>
                             </asp:DropDownList>
                             <asp:RequiredFieldValidator ID="rfvMODELO" runat="server" ControlToValidate="MODELO" ErrorMessage="Seleccione modelo" CssClass="validator-error"></asp:RequiredFieldValidator>
                         </div>
@@ -244,7 +244,7 @@
                         <div class="col-md-6 col-sm-6">
                             <label class="form-label-modern">Estado</label>
                             <asp:DropDownList ID="ESTADO_ELEMENTO_CONFIGURACION" runat="server" CssClass="form-control form-control-modern" AppendDataBoundItems="True">
-                                <asp:ListItem Value="-1">_____SELECCIONE ESTADO_____</asp:ListItem>
+                                <asp:ListItem Value="-1">Seleccione una opción</asp:ListItem>
                             </asp:DropDownList>
                             <asp:RequiredFieldValidator ID="rfvESTADO_ELEMENTO_CONFIGURACION" runat="server" ControlToValidate="ESTADO_ELEMENTO_CONFIGURACION" ErrorMessage="Seleccione estado" CssClass="validator-error"></asp:RequiredFieldValidator>
                         </div>
@@ -265,7 +265,7 @@
                         <div class="col-md-6 col-sm-6">
                             <label class="form-label-modern">Impacto Comercial</label>
                             <asp:DropDownList ID="IMPACTO_COMERCIAL_ELELEMTO_CONFIGURACION" runat="server" CssClass="form-control form-control-modern" AppendDataBoundItems="True">
-                                <asp:ListItem Value="-1">_____SELECCIONE IMPACTO COMERCIAL_____</asp:ListItem>
+                                <asp:ListItem Value="-1">Seleccione una opción</asp:ListItem>
                             </asp:DropDownList>
                             <asp:RequiredFieldValidator ID="rfvIMPACTO_COMERCIAL_ELELEMTO_CONFIGURACION" runat="server" ControlToValidate="IMPACTO_COMERCIAL_ELELEMTO_CONFIGURACION" ErrorMessage="Seleccione impacto comercial" CssClass="validator-error"></asp:RequiredFieldValidator>
                         </div>
@@ -286,7 +286,7 @@
                         <div class="col-md-6 col-sm-6">
                             <label class="form-label-modern">Nivel de Prioridad</label>
                             <asp:DropDownList ID="NIVEL_PRIORIDAD" runat="server" CssClass="form-control form-control-modern" AppendDataBoundItems="True">
-                                <asp:ListItem Value="-1">_____SELECCIONE NIVEL PRIORIDAD_____</asp:ListItem>
+                                <asp:ListItem Value="-1">Seleccione una opción</asp:ListItem>
                             </asp:DropDownList>
                             <asp:RequiredFieldValidator ID="rfvNIVEL_PRIORIDAD" runat="server" ControlToValidate="NIVEL_PRIORIDAD" ErrorMessage="Seleccione prioridad" CssClass="validator-error"></asp:RequiredFieldValidator>
                         </div>

@@ -290,7 +290,7 @@
                                 <asp:CheckBox ID="cbs" runat="server" CssClass="form-check-input" Text="Sede" AutoPostBack="True" OnCheckedChanged="cbs_CheckedChanged"/>
                             </div>
                             <asp:DropDownList ID="ddls" runat="server" CssClass="form-control form-control-modern mt-1" AppendDataBoundItems="True" Enabled="False" OnSelectedIndexChanged="ddls_SelectedIndexChanged" AutoPostBack="True">
-                                <asp:ListItem Value="-1">_____SELECCIONE SEDE_____</asp:ListItem>
+                                <asp:ListItem Value="-1">Seleccione una opción</asp:ListItem>
                             </asp:DropDownList>
                         </div>
                         <div class="col-md-4">
@@ -298,7 +298,7 @@
                                 <asp:CheckBox ID="cbl" runat="server" CssClass="form-check-input" Text="Local" AutoPostBack="True" OnCheckedChanged="cbl_CheckedChanged"/>
                             </div>
                             <asp:DropDownList ID="ddll" runat="server" CssClass="form-control form-control-modern mt-1" AppendDataBoundItems="True" AutoPostBack="True" Enabled="False" OnSelectedIndexChanged="ddll_SelectedIndexChanged">
-                                <asp:ListItem Value="-1">_____SELECCIONE LOCAL_____</asp:ListItem>
+                                <asp:ListItem Value="-1">Seleccione una opción</asp:ListItem>
                             </asp:DropDownList>
                         </div>
                         <div class="col-md-4">
@@ -306,7 +306,7 @@
                                 <asp:CheckBox ID="cba" runat="server" CssClass="form-check-input" Text="Area" AutoPostBack="True" OnCheckedChanged="cba_CheckedChanged"/>
                             </div>
                             <asp:DropDownList ID="ddla" runat="server" CssClass="form-control form-control-modern mt-1" AppendDataBoundItems="True" Enabled="False">
-                                <asp:ListItem Value="-1">_____SELECCIONE AREA_____</asp:ListItem>
+                                <asp:ListItem Value="-1">Seleccione una opción</asp:ListItem>
                             </asp:DropDownList>
                         </div>
                     </div>

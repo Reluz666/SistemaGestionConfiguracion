@@ -296,7 +296,7 @@
 
             var TL = document.getElementById("ddlTIPO_LICENCIA_CI").options[document.getElementById("ddlTIPO_LICENCIA_CI").selectedIndex].text;
             var SL = document.getElementById("ddlSUSCRIPCION_LICENCIA_CI").options[document.getElementById("ddlSUSCRIPCION_LICENCIA_CI").selectedIndex].text;
-            if (TL == 'PROPIETARIO' && SL != 'NINGUNA' && SL != '_____SELECCIONE SUSCRIPCION LICENCIA ELEMENTO CONFIGURACION_____') {
+            if (TL == 'PROPIETARIO' && SL != 'NINGUNA' && SL != 'Seleccione una opción') {
                 document.getElementById("btnFechaInicioVersion").disabled = ""
                 document.getElementById("btnFechaFinVersion").disabled = ""
             }
@@ -347,7 +347,7 @@
 
                         <asp:DropDownList ID="ddlTIPO_LICENCIA_CI" runat="server" CssClass="form-control input-sm"
                             AppendDataBoundItems="True" AutoPostBack="True" OnSelectedIndexChanged="ddlTIPO_LICENCIA_CI_SelectedIndexChanged">
-                            <asp:ListItem Value="-1">_____SELECCIONE TIPO LICENCIA ELEMENTO CONFIGURACION_____</asp:ListItem>
+                            <asp:ListItem Value="-1">Seleccione una opción</asp:ListItem>
                         </asp:DropDownList>
 
                         <asp:RequiredFieldValidator ID="rfvTIPO_LICENCIA_CI" runat="server" ControlToValidate="ddlTIPO_LICENCIA_CI" ErrorMessage="*" ForeColor="Red" SetFocusOnError="True"></asp:RequiredFieldValidator>
@@ -363,7 +363,7 @@
 
                         <asp:DropDownList ID="ddlSUSCRIPCION_LICENCIA_CI" runat="server" CssClass="form-control input-sm"
                             AppendDataBoundItems="True" AutoPostBack="True" OnSelectedIndexChanged="ddlSUSCRIPCION_LICENCIA_CI_SelectedIndexChanged">
-                            <asp:ListItem Value="-1">_____SELECCIONE SUSCRIPCION LICENCIA ELEMENTO CONFIGURACION_____</asp:ListItem>
+                            <asp:ListItem Value="-1">Seleccione una opción</asp:ListItem>
                         </asp:DropDownList>
 
                         <asp:RequiredFieldValidator ID="rfvSUSCRIPCION_LICENCIA_CI" runat="server" ControlToValidate="ddlSUSCRIPCION_LICENCIA_CI" ErrorMessage="*" ForeColor="Red" SetFocusOnError="True"></asp:RequiredFieldValidator>

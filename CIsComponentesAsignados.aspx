@@ -169,14 +169,14 @@
                                 <asp:DropDownList ID="ddltci" runat="server" CssClass="form-control input-sm"
                                             AppendDataBoundItems="True" Enabled="False"
                                            >
-                                            <asp:ListItem Value="-1">_____SELECCIONE TIPO CI_____</asp:ListItem>
+                                            <asp:ListItem Value="-1">Seleccione una opción</asp:ListItem>
                                         </asp:DropDownList>
                             </td>
                             <td>
                                 <asp:DropDownList ID="ddleci" runat="server" CssClass="form-control input-sm"
                                             AppendDataBoundItems="True" Enabled="False"
                                            >
-                                            <asp:ListItem Value="-1">_____SELECCIONE ESTADO CI_____</asp:ListItem>
+                                            <asp:ListItem Value="-1">Seleccione una opción</asp:ListItem>
                                         </asp:DropDownList>
                             </td>
                             <td class="auto-style1">
@@ -187,7 +187,7 @@
                                 <asp:DropDownList ID="ddldci" runat="server" CssClass="form-control input-sm"
                                             AppendDataBoundItems="True" Enabled="False"
                                            >
-                                            <asp:ListItem Value="-1">_____SELECCIONE DESCRIPCION CI_____</asp:ListItem>
+                                            <asp:ListItem Value="-1">Seleccione una opción</asp:ListItem>
                                         </asp:DropDownList>
                             </td>
                         </tr>
@@ -212,28 +212,28 @@
                                 <asp:DropDownList ID="ddlm" runat="server" CssClass="form-control input-sm"
                                             AppendDataBoundItems="True" Enabled="False"
                                            >
-                                            <asp:ListItem Value="-1">_____SELECCIONE MARCA_____</asp:ListItem>
+                                            <asp:ListItem Value="-1">Seleccione una opción</asp:ListItem>
                                         </asp:DropDownList>
                             </td>
                             <td>
                                 <asp:DropDownList ID="ddls" runat="server" CssClass="form-control input-sm"
                                             AppendDataBoundItems="True" Enabled="False" OnSelectedIndexChanged="ddls_SelectedIndexChanged"
                                            >
-                                            <asp:ListItem Value="-1">_____SELECCIONE SEDE_____</asp:ListItem>
+                                            <asp:ListItem Value="-1">Seleccione una opción</asp:ListItem>
                                         </asp:DropDownList>
                             </td>
                             <td>
                                 <asp:DropDownList ID="ddll" runat="server" CssClass="form-control input-sm"
                                             AppendDataBoundItems="True" AutoPostBack="True" Enabled="False" OnSelectedIndexChanged="ddll_SelectedIndexChanged"
                                            >
-                                            <asp:ListItem Value="-1">_____SELECCIONE LOCAL_____</asp:ListItem>
+                                            <asp:ListItem Value="-1">Seleccione una opción</asp:ListItem>
                                         </asp:DropDownList>
                             </td>
                             <td class="auto-style1">
                                 <asp:DropDownList ID="ddla" runat="server" CssClass="form-control input-sm"
                                             AppendDataBoundItems="True" Enabled="False"
                                            >
-                                            <asp:ListItem Value="-1">_____SELECCIONE AREA_____</asp:ListItem>
+                                            <asp:ListItem Value="-1">Seleccione una opción</asp:ListItem>
                                         </asp:DropDownList>
                             </td>
                     <asp:HiddenField ID="__pagina" runat="server" />

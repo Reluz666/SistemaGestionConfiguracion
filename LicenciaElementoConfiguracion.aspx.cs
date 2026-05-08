@@ -526,7 +526,7 @@ public partial class Licencia_Elemento_Configuracion : System.Web.UI.Page
         this.__mensaje.Value = "";
         this.__pagina.Value = "";
         this.ddlSUSCRIPCION_LICENCIA_CI.Items.Clear();
-        this.ddlSUSCRIPCION_LICENCIA_CI.Items.Insert(0, "_____SELECCIONE SUSCRIPCION LICENCIA ELEMENTO CONFIGURACION_____");
+        this.ddlSUSCRIPCION_LICENCIA_CI.Items.Insert(0, "Seleccione una opción");
         this.ddlSUSCRIPCION_LICENCIA_CI.Items[0].Value = "-1";
         int Codigo_Tipo_Licencia = Convert.ToInt32(ddlTIPO_LICENCIA_CI.SelectedValue);
         if (Codigo_Tipo_Licencia == -1){
@@ -588,7 +588,7 @@ public partial class Licencia_Elemento_Configuracion : System.Web.UI.Page
         txtFechaFinVersion.Text ="";
         string TL = ddlTIPO_LICENCIA_CI.SelectedItem.Text.Trim();
         string SL = ddlSUSCRIPCION_LICENCIA_CI.SelectedItem.Text.Trim();
-        if (TL == "PROPIETARIO" && SL != "NINGUNA" && SL != "_____SELECCIONE SUSCRIPCION LICENCIA ELEMENTO CONFIGURACION_____") {
+        if (TL == "PROPIETARIO" && SL != "NINGUNA" && SL != "Seleccione una opción") {
             this.rfvFechaInicioVersion.Enabled = true;
             this.rfvFechaFinVersion.Enabled = true;
             this.cvFechas.Enabled = true;

@@ -1,7 +1,0 @@
-{
-  "tool_name": "Bash",
-  "tool_input_preview": "{\"command\":\"sed -n '333,336p' /Users/hmr0/Documents/SistemaGestionConfiguracion/Reportes/ReporteComponentesAsignados.aspx | cat -A\",\"description\":\"Show exact bytes around body tag\"}",
-  "error": "Exit code 1\ncat: illegal option -- A\nusage: cat [-belnstuv] [file ...]",
-  "timestamp": "2026-05-08T19:01:41.885Z",
-  "retry_count": 1
-}

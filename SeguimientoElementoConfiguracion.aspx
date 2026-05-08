@@ -169,7 +169,7 @@
                             <asp:DropDownList ID="CLASIFICACION_DATOS_CIS" runat="server" CssClass="form-control form-control-modern"
                                         AppendDataBoundItems="True" Width="500px"
                                        >
-                                        <asp:ListItem Value="-1">_____SELECCIONE CLASIFICACION DATOS_____</asp:ListItem>
+                                        <asp:ListItem Value="-1">Seleccione una opción</asp:ListItem>
                                     </asp:DropDownList>
                             <asp:RequiredFieldValidator ID="rfvCLASIFICACION_DATOS_CIS" runat="server" ControlToValidate="CLASIFICACION_DATOS_CIS" ErrorMessage="*" CssClass="validator-error" ForeColor="Red" SetFocusOnError="True"></asp:RequiredFieldValidator>
                             <asp:RegularExpressionValidator ID="revCLASIFICACION_DATOS_CIS" runat="server" BackColor="White"

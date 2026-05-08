@@ -399,10 +399,10 @@ public partial class Usuario : System.Web.UI.Page
         this.__mensaje.Value = "";
         this.__pagina.Value = "";
         this.Local.Items.Clear();
-        this.Local.Items.Insert(0, "_____SELECCIONE LOCAL_____");
+        this.Local.Items.Insert(0, "Seleccione una opción");
         this.Local.Items[0].Value = "-1";
         this.Area.Items.Clear();
-        this.Area.Items.Insert(0, "_____SELECCIONE AREA_____");
+        this.Area.Items.Insert(0, "Seleccione una opción");
         this.Area.Items[0].Value = "-1";
         int Codigo_Sede = Convert.ToInt32(Sede.SelectedValue);
         if (Codigo_Sede == -1)
@@ -419,7 +419,7 @@ public partial class Usuario : System.Web.UI.Page
         this.__mensaje.Value = "";
         this.__pagina.Value = "";
         this.Area.Items.Clear();
-        this.Area.Items.Insert(0, "_____SELECCIONE AREA_____");
+        this.Area.Items.Insert(0, "Seleccione una opción");
         this.Area.Items[0].Value = "-1";
         int Codigo_Local = Convert.ToInt32(Local.SelectedValue);
         if (Codigo_Local == -1)
