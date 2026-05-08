@@ -76,3 +76,4 @@
 {"t":0,"agent":"acbd7ef","agent_type":"verifier","event":"agent_stop","success":true,"duration_ms":179027}
 {"t":0,"agent":"aca5e35","agent_type":"executor","event":"agent_start","parent_mode":"none"}
 {"t":0,"agent":"aca5e35","agent_type":"executor","event":"agent_stop","success":true,"duration_ms":23383}
+{"t":0,"agent":"a2d25e6","agent_type":"unknown","event":"agent_stop","success":true}

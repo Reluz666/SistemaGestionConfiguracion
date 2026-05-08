@@ -328,7 +328,7 @@
                             </asp:DropDownList>
                         </div>
                         <div class="col-12 text-center">
-                            <asp:LinkButton ID="cba" runat="server" CssClass="form-check-input" Text="Area" OnCheckedChanged="cba_CheckedChanged" />
+                            <asp:CheckBox ID="cba" runat="server" CssClass="form-check-input" Text="Area" AutoPostBack="True" OnCheckedChanged="cba_CheckedChanged" />
                         </div>
                     </div>
                     <div class="row g-3 mt-3">
