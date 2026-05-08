@@ -18,6 +18,8 @@ public partial class ReporteSeguimientosElementoConfiguracion : System.Web.UI.Pa
 
     protected void Page_Init(object sender, EventArgs e)
     {
+        _Lista.ShowMessage(__mensaje, __pagina, "", "");
+
         string[] Datos = (string[])Session["__JSAR__"];
 
         if (Datos == null)
