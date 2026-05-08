@@ -95,3 +95,4 @@
 {"t":0,"agent":"aecd289","agent_type":"executor","event":"agent_stop","success":true,"duration_ms":232283}
 {"t":0,"agent":"ae5aa20","agent_type":"debugger","event":"agent_start","parent_mode":"team"}
 {"t":0,"agent":"ae5aa20","agent_type":"debugger","event":"agent_stop","success":true,"duration_ms":85514}
+{"t":0,"agent":"a73c838","agent_type":"unknown","event":"agent_stop","success":true}
