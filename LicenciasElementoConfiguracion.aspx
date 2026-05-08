@@ -451,9 +451,9 @@
 
                 var perpColor = item.PERPETUA === "SI" ? "#0066cc" : "#cc0000";
                 var venceColor = "";
-                if (item["VENCE LICENCIA"] === "LICENCIA VENCIDA") {
+                if (item.VENCE_LICENCIA === "LICENCIA VENCIDA") {
                     venceColor = "#cc0000";
-                } else if (item["VENCE LICENCIA"] === "LICENCIA NO DUELE") {
+                } else if (item.VENCE_LICENCIA === "LICENCIA NO DUELE") {
                     venceColor = "#008800";
                 } else {
                     venceColor = "#0066cc";
@@ -461,14 +461,14 @@
 
                 tr.innerHTML =
                     '<td>' + htmlEncode(item.LICENCIA) + '</td>' +
-                    '<td>' + htmlEncode(item["TIPO LICENCIA"]) + '</td>' +
+                    '<td>' + htmlEncode(item.TIPO_LICENCIA) + '</td>' +
                     '<td>' + htmlEncode(item.NOMBRE) + '</td>' +
                     '<td>' + htmlEncode(item.VERSION) + '</td>' +
                     '<td>' + htmlEncode(item.SUSCRIPCION) + '</td>' +
-                    '<td>' + htmlEncode(item["FEC. INI."]) + '</td>' +
-                    '<td>' + htmlEncode(item["FEC. FIN"]) + '</td>' +
+                    '<td>' + htmlEncode(item.FEC_INI) + '</td>' +
+                    '<td>' + htmlEncode(item.FEC_FIN) + '</td>' +
                     '<td style="color:' + perpColor + '; font-weight:600;">' + htmlEncode(item.PERPETUA) + '</td>' +
-                    '<td style="color:' + venceColor + '; font-weight:600;">' + htmlEncode(item["VENCE LICENCIA"]) + '</td>';
+                    '<td style="color:' + venceColor + '; font-weight:600;">' + htmlEncode(item.VENCE_LICENCIA) + '</td>';
                 tbody.appendChild(tr);
             }
 
