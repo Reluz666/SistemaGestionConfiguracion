@@ -318,11 +318,25 @@
                     setDropdownByText('Profesion', item.PROFESION);
                     setDropdownByText('Dependencia', item.DEPENDENCIA);
                     setDropdownByText('Cargo', item.CARGO);
-                    // Set Sede first - this is the parent for Local
+                    // Set Sede - this triggers cascading dropdowns via ASP.NET postback
                     setDropdownByText('Sede', item.SEDE);
-                    // Now Local and Area are loaded at page init, just select directly
-                    setDropdownByText('Local', item.LOCAL);
-                    setDropdownByText('Area', item.AREA);
+                    // Trigger cascade: Sede -> Local -> Area
+                    setTimeout(function() {
+                        try {
+                            __doPostBack('Sede', '');
+                        } catch(e) {}
+                        setTimeout(function() {
+                            setDropdownByText('Local', item.LOCAL);
+                            setTimeout(function() {
+                                try {
+                                    __doPostBack('Local', '');
+                                } catch(e) {}
+                                setTimeout(function() {
+                                    setDropdownByText('Area', item.AREA);
+                                }, 200);
+                            }, 200);
+                        }, 200);
+                    }, 100);
                     // Show buttons and scroll to form
                     document.getElementById('btnRegistrar').style.display = 'none';
                     document.getElementById('btnModificar').style.display = '';
