@@ -163,6 +163,17 @@ public partial class Personal : System.Web.UI.Page
         }
     }
 
+    protected void Area_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        this.__mensaje.Value = "";
+        this.__pagina.Value = "";
+        int Codigo_Area = Convert.ToInt32(Area.SelectedValue);
+        if (Codigo_Area == -1)
+        {
+            return;
+        }
+    }
+
     private void Cargar_Lista_Personal()
     {
         try

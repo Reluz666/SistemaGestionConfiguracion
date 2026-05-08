@@ -457,7 +457,8 @@
                         <div class="col-md-3 col-sm-6">
                             <label class="form-label-modern">&Aacute;rea</label>
                             <asp:DropDownList ID="Area" runat="server" CssClass="form-control form-control-modern"
-                                             AppendDataBoundItems="True">
+                                             AppendDataBoundItems="True" AutoPostBack="True"
+                                             OnSelectedIndexChanged="Area_SelectedIndexChanged">
                                 <asp:ListItem Value="-1">Seleccione una opción</asp:ListItem>
                             </asp:DropDownList>
                             <asp:RequiredFieldValidator ID="rfvArea" runat="server" ControlToValidate="Area"
