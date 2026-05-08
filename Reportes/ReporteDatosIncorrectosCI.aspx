@@ -10,14 +10,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <title>Reporte Datos Incorrectos CIS</title>
 
-    <!-- Bootstrap 5.3 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
-    <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
-    <!-- Global Styles -->
-    <link href="../CssJs/global-styles.css" rel="stylesheet"/>
-    <!-- Local Bootstrap for navbar-custom -->
-    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="../../CssJs/global-styles.css" rel="stylesheet"/>
 
     <style>
         .table-modern {
@@ -174,7 +169,7 @@
     <uc1:NavBar ID="NavBar1" runat="server" />
 
     <form id="form1" runat="server">
-        <div class="container" style="margin-top: 80px;">
+        <div class="container">
             <div class="form-card">
                 <div class="card-header">
                     <i class="bi bi-exclamation-triangle me-2"></i>Reporte de CIs con Datos Incorrectos

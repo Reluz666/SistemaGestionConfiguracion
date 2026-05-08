@@ -1,1 +1,7 @@
 {"t":0,"agent":"a86045c","agent_type":"unknown","event":"agent_stop","success":true}
+{"t":0,"agent":"a405bdd","agent_type":"unknown","event":"agent_stop","success":true}
+{"t":0,"agent":"system","event":"skill_invoked","skill_name":"superpowers:dispatching-parallel-agents"}
+{"t":0,"agent":"a529860","agent_type":"general-purpose","event":"agent_start","parent_mode":"none"}
+{"t":0,"agent":"a58c1bc","agent_type":"general-purpose","event":"agent_start","parent_mode":"none"}
+{"t":0,"agent":"a529860","agent_type":"general-purpose","event":"agent_stop","success":true,"duration_ms":16698}
+{"t":0,"agent":"a58c1bc","agent_type":"general-purpose","event":"agent_stop","success":true,"duration_ms":40975}
