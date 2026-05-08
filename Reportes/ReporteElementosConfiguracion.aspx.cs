@@ -65,10 +65,7 @@ public partial class ElementosConfiguracion : System.Web.UI.Page
                         });
                     }
 
-                    // Store data for printing
-                    IMPRIMIR.Page.Session.Add("Imprimir", new Object[] { "REPORTE_ELEMENTOS_CONFIGURACION", dt, "REPORTE DE ELEMENTOS DE CONFIGURACION" });
-
-                    JavaScriptSerializer serializer = new JavaScriptSerializer();
+                    var serializer = new JavaScriptSerializer();
                     this.datosJson.Value = serializer.Serialize(lista);
 
                     servidor.cerrarconexion();
@@ -100,28 +97,6 @@ public partial class ElementosConfiguracion : System.Web.UI.Page
         {
             this.__mensaje.Value = "Ud. no esta autorizado para ingresar a esta pagina, inicie sesion por favor.";
             this.__pagina.Value = "CerrarSession.aspx";
-            return;
-        }
-
-        // Load dropdown data for printing purposes only
-        Cargar_Datos(this.ddltci, "[dbo].[pr_Obtener_Tipos_Elemento_Configuracion_2]", "Error, al intentar recuperar Tipo Elemento Configuracion.");
-        if (this.__mensaje.Value.ToString().Trim() != "")
-        {
-            return;
-        }
-        Cargar_Datos(this.ddleci, "[dbo].[pr_Obtener_Estado_Elemento_Configuracion]", "Error, al intentar recuperar Estado Elemento Configuracion.");
-        if (this.__mensaje.Value.ToString().Trim() != "")
-        {
-            return;
-        }
-        Cargar_Datos(this.ddls, "[dbo].[pr_Obtener_Sedes]", "Error, al intentar recuperar Sedes Judiciales.");
-        if (this.__mensaje.Value.ToString().Trim() != "")
-        {
-            return;
-        }
-        Cargar_Datos(this.ddlr, "[dbo].[pr_Obtener_Usuarios]", "Error, al intentar recuperar Responsables.");
-        if (this.__mensaje.Value.ToString().Trim() != "")
-        {
             return;
         }
 
@@ -172,51 +147,6 @@ public partial class ElementosConfiguracion : System.Web.UI.Page
         {
             this.__mensaje.Value = "Error inesperado al intentar conectarnos con el servidor.";
             this.__pagina.Value = "";
-        }
-    }
-
-    protected void ddls_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        this.__mensaje.Value = "";
-        this.__pagina.Value = "";
-        this.ddll.Items.Clear();
-        this.ddll.Items.Insert(0, "_____SELECCIONE LOCAL_____");
-        this.ddll.Items[0].Value = "-1";
-        this.ddla.Items.Clear();
-        this.ddla.Items.Insert(0, "_____SELECCIONE AREA_____");
-        this.ddla.Items[0].Value = "-1";
-        int Codigo_Sede = Convert.ToInt32(ddls.SelectedValue);
-        if (Codigo_Sede == -1)
-        {
-            this.__mensaje.Value = "Seleccione Sede Judicial para ver Locales Judiciales";
-            this.__pagina.Value = "";
-            return;
-        }
-        Cargar_Datos(this.ddll, "[dbo].[pr_Obtener_Locales]", "Error, al intentar recuperar Locales Judiciales.", new Object[] { Codigo_Sede });
-        if (this.__mensaje.Value.ToString().Trim() != "")
-        {
-            return;
-        }
-    }
-
-    protected void ddll_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        this.__mensaje.Value = "";
-        this.__pagina.Value = "";
-        this.ddla.Items.Clear();
-        this.ddla.Items.Insert(0, "_____SELECCIONE AREA_____");
-        this.ddla.Items[0].Value = "-1";
-        int Codigo_Local = Convert.ToInt32(ddll.SelectedValue);
-        if (Codigo_Local == -1)
-        {
-            this.__mensaje.Value = "Seleccione Local Judicial para ver Areas Judiciales";
-            this.__pagina.Value = "";
-            return;
-        }
-        Cargar_Datos(this.ddla, "[dbo].[pr_Obtener_Areas]", "Error, al intentar recuperar Areas Judiciales.", new Object[] { Codigo_Local });
-        if (this.__mensaje.Value.ToString().Trim() != "")
-        {
-            return;
         }
     }
 }

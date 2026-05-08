@@ -240,22 +240,22 @@ public partial class ElementosConfiguracion : System.Web.UI.Page
                     this.ddla.SelectedIndex = i;
             }
 
-            var dataElementos = this.Listar_Elementos_Configuracion("1", ob[4].ToString().Trim(),
+            var elemData = this.Listar_Elementos_Configuracion("1", ob[4].ToString().Trim(),
                 "No hay Elementos Configuracion con los criterios seleccionados");
-            var dataLicencias = this.Listar_Licencias("2", ob[4].ToString().Trim(), "No hay Licencias");
-            var serializer = new JavaScriptSerializer();
-            this.datosJsonElementos.Value = serializer.Serialize(dataElementos);
-            this.datosJsonLicencias.Value = serializer.Serialize(dataLicencias);
+            var licData = this.Listar_Licencias("2", ob[4].ToString().Trim(), "No hay Licencias");
+            var ser = new JavaScriptSerializer();
+            this.datosJsonElementos.Value = ser.Serialize(elemData);
+            this.datosJsonLicencias.Value = ser.Serialize(licData);
         }
 
         double T = Convert.ToDouble(Datos[17].ToString());
         this.Label1.Text += " <b>" + Datos[17].ToString() + "</b>";
 
         // Calculate A from JSON data count
-        var serializer = new JavaScriptSerializer();
-        var dataElementos = string.IsNullOrEmpty(this.datosJsonElementos.Value) ? new List<Dictionary<string, string>>() : serializer.Deserialize<List<Dictionary<string, string>>>(this.datosJsonElementos.Value);
-        var dataLicencias = string.IsNullOrEmpty(this.datosJsonLicencias.Value) ? new List<Dictionary<string, string>>() : serializer.Deserialize<List<Dictionary<string, string>>>(this.datosJsonLicencias.Value);
-        double A = dataElementos.Count + dataLicencias.Count;
+        var ser2 = new JavaScriptSerializer();
+        var elemCount = string.IsNullOrEmpty(this.datosJsonElementos.Value) ? new List<Dictionary<string, string>>() : ser2.Deserialize<List<Dictionary<string, string>>>(this.datosJsonElementos.Value);
+        var licCount = string.IsNullOrEmpty(this.datosJsonLicencias.Value) ? new List<Dictionary<string, string>>() : ser2.Deserialize<List<Dictionary<string, string>>>(this.datosJsonLicencias.Value);
+        double A = elemCount.Count + licCount.Count;
 
         this.Label2.Text += " <b>" + A.ToString() + "</b>";
 
