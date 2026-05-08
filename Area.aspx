@@ -355,9 +355,6 @@
 
     <uc1:NavBar ID="NavBar1" runat="server" />
 
-    <!-- Espaciador para navbar fija -->
-    <div class="top-spacer"></div>
-
     <!-- ========== FORMULARIO ========== -->
     <form id="form1" runat="server">
         <div class="container">

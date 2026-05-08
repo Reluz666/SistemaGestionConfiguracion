@@ -169,8 +169,6 @@
             outline: none;
         }
 
-        /* ===== SPACER ===== */
-        .top-spacer { height: 100px; }
 
         /* ===== RESPONSIVE ===== */
         @media (max-width: 991px) {

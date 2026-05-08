@@ -55,7 +55,6 @@
             box-shadow: 0 0 0 4px rgba(233,69,96,0.1);
             outline: none;
         }
-        .top-spacer { height: 100px; }
         .pagination-wrapper { display: flex; justify-content: center; margin-top: 1.5rem; }
         .page-info { text-align: center; margin-top: 1rem; color: #6c757d; font-size: 0.9rem; }
         .pagination-wrapper .page-item.active .page-link { background: #e94560; border-color: #e94560; }
@@ -86,7 +85,6 @@
 <body onload="MostrarMensaje()">
 
     <uc1:NavBar ID="NavBar1" runat="server" />
-    <div class="top-spacer"></div>
 
     <form id="form1" runat="server">
         <div class="container">

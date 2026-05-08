@@ -65,7 +65,6 @@
             box-shadow: 0 0 0 4px rgba(233,69,96,0.1);
             outline: none;
         }
-        .top-spacer { height: 100px; }
         .pagination-wrapper {
             display: flex;
             justify-content: center;
@@ -120,7 +119,12 @@
 
     <form id="form1" runat="server">
         <div class="container">
-            <div class="table-wrapper">
+            <div class="form-card">
+                <div class="card-header">
+                    <i class="bi bi-collection me-2"></i>Elementos de Configuracion
+                </div>
+                <div class="card-body p-3">
+                    <div class="table-wrapper">
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <h4 class="mb-0"><i class="bi bi-collection me-2"></i>Elementos de Configuraci&oacute;n</h4>
                     <a href="ElementoConfiguracion.aspx?Operacion=N" class="btn btn-success btn-modern">

@@ -32,9 +32,6 @@
             border: 1px solid rgba(0, 0, 0, 0.05);
         }
 
-        /* ===== SPACER ===== */
-        .top-spacer { height: 100px; }
-
         /* ===== RESPONSIVE ===== */
         @media (max-width: 991px) {
             .navbar-modern .dropdown-submenu > .dropdown-menu {

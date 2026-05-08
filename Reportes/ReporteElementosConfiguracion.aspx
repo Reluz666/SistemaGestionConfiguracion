@@ -177,13 +177,12 @@
 
     <form id="form1" runat="server">
         <div class="container">
-            <div class="table-wrapper">
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h4 class="mb-0"><i class="bi bi-box-seam me-2"></i>Reporte de Elementos de Configuracion</h4>
-                    <button type="button" class="btn-imprimir" onclick="abrir_ventana_imprimir_reporte()">
-                        <i class="bi bi-printer me-2"></i>Imprimir reporte
-                    </button>
+            <div class="form-card">
+                <div class="card-header">
+                    <i class="bi bi-box-seam me-2"></i>Reporte de Elementos de Configuracion
                 </div>
+                <div class="card-body p-3">
+                    <div class="table-wrapper">
 
                 <div class="row mb-3">
                     <div class="col-md-8">

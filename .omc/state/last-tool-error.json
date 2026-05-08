@@ -1,0 +1,7 @@
+{
+  "tool_name": "Read",
+  "tool_input_preview": "{\"file_path\":\"/Users/hmr0/Documents/SistemaGestionConfiguracion/Reportes/menu2.aspx\",\"offset\":285,\"limit\":20}",
+  "error": "File does not exist. Note: your current working directory is /Users/hmr0/Documents/SistemaGestionConfiguracion.",
+  "timestamp": "2026-05-08T19:32:33.553Z",
+  "retry_count": 1
+}

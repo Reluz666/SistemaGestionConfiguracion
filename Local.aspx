@@ -172,9 +172,6 @@
 
     <uc1:NavBar ID="NavBar1" runat="server" />
 
-    <!-- Espaciador para navbar fija -->
-    <div class="top-spacer"></div>
-
     <!-- ========== LIST VIEW SECTION ========== -->
     <div class="container">
         <div class="form-card mt-4">

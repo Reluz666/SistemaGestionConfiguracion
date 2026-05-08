@@ -15,7 +15,6 @@
     <link href="../CssJs/global-styles.css" rel="stylesheet" />
 
     <style>
-        .top-spacer { height: 100px; }
         .table-wrapper {
             background: #fff;
             border-radius: 16px;
@@ -286,12 +285,14 @@
 
     <uc1:NavBar ID="NavBar1" runat="server" />
 
-    <div class="top-spacer"></div>
-
     <form id="form1" runat="server">
         <div class="container">
-            <div class="table-wrapper">
-                <h4 class="mb-4"><i class="bi bi-link me-2"></i>Reporte de Relaciones de Elementos de Configuracion</h4>
+            <div class="form-card">
+                <div class="card-header">
+                    <i class="bi bi-link-45deg me-2"></i>Reporte Relaciones de Elementos de Configuracion
+                </div>
+                <div class="card-body p-3">
+                    <div class="table-wrapper">
 
                 <div class="row mb-3">
                     <div class="col-md-8">

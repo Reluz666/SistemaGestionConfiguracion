@@ -67,7 +67,6 @@
             box-shadow: 0 0 0 4px rgba(233,69,96,0.1);
             outline: none;
         }
-        .top-spacer { height: 100px; }
         .pagination-wrapper {
             display: flex;
             justify-content: center;
@@ -108,8 +107,6 @@
 <body onload="MostrarMensaje()">
 
     <uc1:NavBar ID="NavBar1" runat="server" />
-
-    <div class="top-spacer"></div>
 
     <form id="form1" runat="server">
         <div class="container">

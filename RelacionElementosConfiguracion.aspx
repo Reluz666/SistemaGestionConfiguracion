@@ -18,8 +18,6 @@
     <link href="CssJs/global-styles.css" rel="stylesheet" />
 
     <style>
-        /* ===== SPACER ===== */
-        .top-spacer { height: 100px; }
 
         /* ===== RESPONSIVE ===== */
         @media (max-width: 991px) {
@@ -140,9 +138,6 @@
 <body onload ="MostrarMensaje()">
 
     <uc1:NavBar ID="NavBar1" runat="server" />
-
-    <!-- Espaciador para navbar fija -->
-    <div class="top-spacer"></div>
 
     <!-- ========== FORMULARIO ========== -->
     <form id="form1" runat="server">

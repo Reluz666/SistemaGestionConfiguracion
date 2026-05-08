@@ -125,10 +125,6 @@
 
     <uc1:NavBar ID="NavBar1" runat="server" />
 
-    <!-- Espaciador -->
-    <div class="top-spacer"></div>
-
-    <!-- Contenido Principal -->
     <form id="form1" runat="server">
         <div class="container">
             <!-- Breadcrumb -->

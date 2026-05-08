@@ -145,8 +145,8 @@
   "hotPaths": [
     {
       "path": "Personal.aspx",
-      "accessCount": 220,
-      "lastAccessed": 1778268288416,
+      "accessCount": 224,
+      "lastAccessed": 1778268604648,
       "type": "file"
     },
     {
@@ -157,8 +157,14 @@
     },
     {
       "path": "CIsComponentesAsignados.aspx",
+      "accessCount": 31,
+      "lastAccessed": 1778269081241,
+      "type": "file"
+    },
+    {
+      "path": "Cargo.aspx",
       "accessCount": 26,
-      "lastAccessed": 1778215995157,
+      "lastAccessed": 1778269112039,
       "type": "file"
     },
     {
@@ -168,15 +174,57 @@
       "type": "file"
     },
     {
-      "path": "Cargo.aspx",
-      "accessCount": 22,
-      "lastAccessed": 1778250365983,
+      "path": "LicenciasElementoConfiguracion.aspx",
+      "accessCount": 20,
+      "lastAccessed": 1778269082616,
       "type": "file"
     },
     {
-      "path": "LicenciasElementoConfiguracion.aspx",
+      "path": "RelacionesElementosConfiguracion.aspx",
+      "accessCount": 18,
+      "lastAccessed": 1778269088388,
+      "type": "file"
+    },
+    {
+      "path": "SeguimientosElementoConfiguracion.aspx",
+      "accessCount": 17,
+      "lastAccessed": 1778269093096,
+      "type": "file"
+    },
+    {
+      "path": "ElementosConfiguracion.aspx",
       "accessCount": 16,
-      "lastAccessed": 1778255568776,
+      "lastAccessed": 1778269082004,
+      "type": "file"
+    },
+    {
+      "path": "Marca.aspx",
+      "accessCount": 16,
+      "lastAccessed": 1778269112188,
+      "type": "file"
+    },
+    {
+      "path": "Dashboard.aspx",
+      "accessCount": 15,
+      "lastAccessed": 1778268917044,
+      "type": "file"
+    },
+    {
+      "path": "Modelo.aspx",
+      "accessCount": 14,
+      "lastAccessed": 1778269118003,
+      "type": "file"
+    },
+    {
+      "path": "Area.aspx",
+      "accessCount": 13,
+      "lastAccessed": 1778269099160,
+      "type": "file"
+    },
+    {
+      "path": "Dependencia.aspx",
+      "accessCount": 13,
+      "lastAccessed": 1778269106884,
       "type": "file"
     },
     {
@@ -186,9 +234,9 @@
       "type": "directory"
     },
     {
-      "path": "Marca.aspx",
+      "path": "ComponenteCI.aspx",
       "accessCount": 12,
-      "lastAccessed": 1778250375638,
+      "lastAccessed": 1778269081704,
       "type": "file"
     },
     {
@@ -198,39 +246,51 @@
       "type": "file"
     },
     {
-      "path": "Dashboard.aspx",
+      "path": "Sede.aspx",
       "accessCount": 11,
-      "lastAccessed": 1778215627487,
+      "lastAccessed": 1778269089562,
       "type": "file"
     },
     {
-      "path": "RelacionesElementosConfiguracion.aspx",
+      "path": "Usuario.aspx",
       "accessCount": 11,
-      "lastAccessed": 1778255568762,
+      "lastAccessed": 1778269089878,
       "type": "file"
     },
     {
-      "path": "Dependencia.aspx",
+      "path": "LicenciaElementoConfiguracion.aspx",
       "accessCount": 10,
-      "lastAccessed": 1778250375692,
+      "lastAccessed": 1778269082306,
       "type": "file"
     },
     {
-      "path": "ElementosConfiguracion.aspx",
-      "accessCount": 9,
-      "lastAccessed": 1778212412420,
+      "path": "Local.aspx",
+      "accessCount": 10,
+      "lastAccessed": 1778269082774,
       "type": "file"
     },
     {
-      "path": "ComponenteCI.aspx",
-      "accessCount": 9,
-      "lastAccessed": 1778213440506,
+      "path": "RelacionElementosConfiguracion.aspx",
+      "accessCount": 10,
+      "lastAccessed": 1778269083076,
       "type": "file"
     },
     {
-      "path": "Modelo.aspx",
+      "path": "EstadoActualCI.aspx",
+      "accessCount": 10,
+      "lastAccessed": 1778269107036,
+      "type": "file"
+    },
+    {
+      "path": "ProfecionOcupacion.aspx",
+      "accessCount": 10,
+      "lastAccessed": 1778269107193,
+      "type": "file"
+    },
+    {
+      "path": "SeguimientoElementoConfiguracion.aspx",
       "accessCount": 9,
-      "lastAccessed": 1778250375750,
+      "lastAccessed": 1778269089081,
       "type": "file"
     },
     {
@@ -240,45 +300,33 @@
       "type": "file"
     },
     {
-      "path": "Sede.aspx",
+      "path": "CIsAsignarComponenetes.aspx",
       "accessCount": 8,
-      "lastAccessed": 1778210263546,
+      "lastAccessed": 1778269081551,
       "type": "file"
     },
     {
-      "path": "Local.aspx",
+      "path": "DescripcionElementoConfiguracion.aspx",
       "accessCount": 8,
-      "lastAccessed": 1778214708942,
+      "lastAccessed": 1778269106737,
       "type": "file"
     },
     {
-      "path": "Usuario.aspx",
+      "path": "TipoRelacionElementoConfiguracion.aspx",
       "accessCount": 8,
-      "lastAccessed": 1778215084400,
+      "lastAccessed": 1778269107344,
       "type": "file"
     },
     {
-      "path": "Area.aspx",
+      "path": "TiposElementoConfiguracion.aspx",
       "accessCount": 8,
-      "lastAccessed": 1778249983578,
+      "lastAccessed": 1778269107498,
       "type": "file"
     },
     {
-      "path": "ProfecionOcupacion.aspx",
-      "accessCount": 7,
-      "lastAccessed": 1778210571170,
-      "type": "file"
-    },
-    {
-      "path": "LicenciaElementoConfiguracion.aspx",
-      "accessCount": 7,
-      "lastAccessed": 1778213440667,
-      "type": "file"
-    },
-    {
-      "path": "SeguimientosElementoConfiguracion.aspx",
-      "accessCount": 7,
-      "lastAccessed": 1778255568818,
+      "path": "TipoComponeneteCI.aspx",
+      "accessCount": 8,
+      "lastAccessed": 1778269107655,
       "type": "file"
     },
     {
@@ -318,63 +366,15 @@
       "type": "file"
     },
     {
-      "path": "EstadoActualCI.aspx",
-      "accessCount": 6,
-      "lastAccessed": 1778209965295,
-      "type": "file"
-    },
-    {
       "path": "acceso.aspx.cs",
       "accessCount": 6,
       "lastAccessed": 1778215957969,
       "type": "file"
     },
     {
-      "path": "TipoComponeneteCI.aspx",
-      "accessCount": 5,
-      "lastAccessed": 1778210571485,
-      "type": "file"
-    },
-    {
-      "path": "TipoRelacionElementoConfiguracion.aspx",
-      "accessCount": 5,
-      "lastAccessed": 1778210941784,
-      "type": "file"
-    },
-    {
-      "path": "TiposElementoConfiguracion.aspx",
-      "accessCount": 5,
-      "lastAccessed": 1778210942111,
-      "type": "file"
-    },
-    {
-      "path": "DescripcionElementoConfiguracion.aspx",
-      "accessCount": 5,
-      "lastAccessed": 1778211178616,
-      "type": "file"
-    },
-    {
-      "path": "RelacionElementosConfiguracion.aspx",
-      "accessCount": 5,
-      "lastAccessed": 1778212450710,
-      "type": "file"
-    },
-    {
-      "path": "SeguimientoElementoConfiguracion.aspx",
-      "accessCount": 5,
-      "lastAccessed": 1778212450795,
-      "type": "file"
-    },
-    {
       "path": "Menu.aspx",
       "accessCount": 5,
       "lastAccessed": 1778215627462,
-      "type": "file"
-    },
-    {
-      "path": "CIsAsignarComponenetes.aspx",
-      "accessCount": 5,
-      "lastAccessed": 1778215653185,
       "type": "file"
     },
     {

@@ -67,6 +67,13 @@
     <uc1:NavBar ID="NavBar1" runat="server" />
 
     <div class="container">
+        <!-- Page Title -->
+        <div class="form-card">
+            <div class="card-header">
+                <i class="bi bi-speedometer2 me-2"></i>Dashboard - Sistema de Gestion de Configuracion
+            </div>
+        </div>
+
         <!-- Welcome Banner -->
         <div class="welcome-banner">
             <h2><i class="bi bi-speedometer2"></i> Bienvenido al Sistema de Gestión de Configuración</h2>
