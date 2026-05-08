@@ -149,33 +149,44 @@
         // ===== FUNCIONES PARA LISTA DE PERSONAL CON BUSQUEDA Y PAGINACION =====
         function cargarDatosPersonal() {
             var datosJsonField = document.getElementById('datosJson');
-            if (datosJsonField && datosJsonField.value) {
+            if (datosJsonField && datosJsonField.value && datosJsonField.value !== '[]') {
                 try {
                     datosPersonalJson = JSON.parse(datosJsonField.value);
                     listaFilteredData = datosPersonalJson.slice();
                     filtrarTablaPersonal();
                 } catch (e) {
-                    console.error('Error parsing JSON:', e);
+                    alert('Error parsing JSON: ' + e.message);
                 }
             }
         }
 
         function filtrarTablaPersonal() {
+            alert('filtrarTablaPersonal called. datosPersonalJson.length=' + datosPersonalJson.length);
             var searchText = document.getElementById('txtBuscarPersonal').value.toLowerCase().trim();
             if (searchText === '') {
                 listaFilteredData = datosPersonalJson.slice();
             } else {
                 listaFilteredData = datosPersonalJson.filter(function(item) {
-                    return item.CODIGO.toLowerCase().includes(searchText) ||
-                           item.NOMBRE.toLowerCase().includes(searchText) ||
-                           item.APELLIDO_PATERNO.toLowerCase().includes(searchText) ||
-                           item.APELLIDO_MATERNO.toLowerCase().includes(searchText) ||
-                           item.NRO_DOC_IDENT.toLowerCase().includes(searchText) ||
-                           item.AREA.toLowerCase().includes(searchText) ||
-                           item.DEPENDENCIA.toLowerCase().includes(searchText) ||
-                           item.CARGO.toLowerCase().includes(searchText) ||
-                           item.SEDE.toLowerCase().includes(searchText) ||
-                           item.LOCAL.toLowerCase().includes(searchText);
+                    var codigo = item.CODIGO || '';
+                    var nombre = item.NOMBRE || '';
+                    var apePat = item.APELLIDO_PATERNO || '';
+                    var apeMat = item.APELLIDO_MATERNO || '';
+                    var nroDoc = item.NRO_DOC_IDENT || '';
+                    var area = item.AREA || '';
+                    var dep = item.DEPENDENCIA || '';
+                    var cargo = item.CARGO || '';
+                    var sede = item.SEDE || '';
+                    var local = item.LOCAL || '';
+                    return codigo.toLowerCase().includes(searchText) ||
+                           nombre.toLowerCase().includes(searchText) ||
+                           apePat.toLowerCase().includes(searchText) ||
+                           apeMat.toLowerCase().includes(searchText) ||
+                           nroDoc.toLowerCase().includes(searchText) ||
+                           area.toLowerCase().includes(searchText) ||
+                           dep.toLowerCase().includes(searchText) ||
+                           cargo.toLowerCase().includes(searchText) ||
+                           sede.toLowerCase().includes(searchText) ||
+                           local.toLowerCase().includes(searchText);
                 });
             }
             listaCurrentPage = 1;
@@ -221,16 +232,13 @@
                     '<td>' + htmlEncode(item.DEPENDENCIA) + '</td>' +
                     '<td>' + htmlEncode(item.CARGO) + '</td>' +
                     '<td class="' + estadoClass + '">' + htmlEncode(item.ESTADO) + '</td>' +
-                    '<td class="text-center"><button type="button" class="btn btn-primary btn-sm btn-accion" onclick="seleccionarPersonal('" + item.ID_PERSONAL + "');"><i class="bi bi-pencil-square"></i></button></td>';
+                    '<td class="text-center"><button type="button" class="btn btn-primary btn-sm btn-accion" onclick="seleccionarPersonal(\'' + item.ID_PERSONAL + '\');"><i class="bi bi-pencil-square"></i></button></td>';
                 tbody.appendChild(tr);
             }
 
-            document.getElementById('pageInfoPersonal').textContent = 'Pagina ' + listaCurrentPage + ' de ' + totalPages + ' (Total: ' + totalRows + ' registros)';
-        }
+            alert('Rendered ' + (end - start) + ' rows. Total filtered: ' + totalRows);
 
-        function htmlEncode(str) {
-            if (!str) return '';
-            return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+            document.getElementById('pageInfoPersonal').textContent = 'Pagina ' + listaCurrentPage + ' de ' + totalPages + ' (Total: ' + totalRows + ' registros)';
         }
 
         function generarPaginacionPersonal(totalPages) {
@@ -359,7 +367,7 @@
                                 <span class="input-group-text bg-white border-end-0">
                                     <i class="bi bi-search text-muted"></i>
                                 </span>
-                                <input type="text" id="txtBuscarPersonal" class="form-control border-start-0 search-input"
+                                <input type="text" id="txtBuscarPersonal" class="form-control border-start-0 search-input" ClientIDMode="Static"
                                        placeholder="Buscar por C&oacute;digo, Nombre, Apellido, DNI, &Aacute;rea, Dependencia, Cargo..."
                                        onkeyup="filtrarTablaPersonal()" />
                                 <button class="btn btn-outline-secondary" type="button" onclick="document.getElementById('txtBuscarPersonal').value=''; filtrarTablaPersonal();">
@@ -600,7 +608,7 @@
             <asp:HiddenField ID="__mensaje" runat="server" />
             <asp:HiddenField ID="__pagina" runat="server" />
             <asp:HiddenField ID="ID_PERSONAL" runat="server" Value="0" EnableViewState="False" />
-            <asp:HiddenField ID="datosJson" runat="server" EnableViewState="False" />
+            <asp:HiddenField ID="datosJson" runat="server" EnableViewState="False" ClientIDMode="Static" />
 
         </div>
     </form>
@@ -609,9 +617,15 @@
     <script type="text/javascript" src="Otros_css_js/resaltar.js"></script>
 
     <script type="text/javascript">
-        $(document).ready(function() {
-            cargarDatosPersonal();
-        });
+        if (window.addEventListener) {
+            window.addEventListener('load', function() {
+                cargarDatosPersonal();
+            }, false);
+        } else if (window.attachEvent) {
+            window.attachEvent('onload', function() {
+                cargarDatosPersonal();
+            });
+        }
     </script>
 
 </body>

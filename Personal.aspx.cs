@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.Script.Serialization;
 
 public partial class Personal : System.Web.UI.Page
 {
@@ -181,32 +182,30 @@ public partial class Personal : System.Web.UI.Page
                 }
                 else
                 {
-                    System.Text.StringBuilder jsonBuilder = new System.Text.StringBuilder();
-                    jsonBuilder.Append("[");
+                    var lista = new List<object>();
                     for (int i = 0; i < dt.Rows.Count; i++)
                     {
-                        if (i > 0) jsonBuilder.Append(",");
-                        jsonBuilder.Append("{");
-                        jsonBuilder.Append("\"ID_PERSONAL\":\"" + dt.Rows[i]["ID_PERSONAL"].ToString().Trim().Replace("\"", "\\\"") + "\",");
-                        jsonBuilder.Append("\"CODIGO\":\"" + dt.Rows[i]["CODIGO"].ToString().Trim().Replace("\"", "\\\"") + "\",");
-                        jsonBuilder.Append("\"NOMBRE\":\"" + dt.Rows[i]["NOMBRE"].ToString().Trim().Replace("\"", "\\\"") + "\",");
-                        jsonBuilder.Append("\"APELLIDO_PATERNO\":\"" + dt.Rows[i]["APELLIDO PATERNO"].ToString().Trim().Replace("\"", "\\\"") + "\",");
-                        jsonBuilder.Append("\"APELLIDO_MATERNO\":\"" + dt.Rows[i]["APELLIDO MATERNO"].ToString().Trim().Replace("\"", "\\\"") + "\",");
-                        jsonBuilder.Append("\"TIPO_DOC_IDENT\":\"" + dt.Rows[i]["TIPO DOC. IDENT."].ToString().Trim().Replace("\"", "\\\"") + "\",");
-                        jsonBuilder.Append("\"NRO_DOC_IDENT\":\"" + dt.Rows[i]["NRO. DOC. IDENT."].ToString().Trim().Replace("\"", "\\\"") + "\",");
-                        jsonBuilder.Append("\"PROFESION\":\"" + dt.Rows[i]["PROFESION"].ToString().Trim().Replace("\"", "\\\"") + "\",");
-                        jsonBuilder.Append("\"TELEFONO\":\"" + dt.Rows[i]["TELEFONO"].ToString().Trim().Replace("\"", "\\\"") + "\",");
-                        jsonBuilder.Append("\"EMAIL\":\"" + dt.Rows[i]["EMAIL"].ToString().Trim().Replace("\"", "\\\"") + "\",");
-                        jsonBuilder.Append("\"SEDE\":\"" + dt.Rows[i]["SEDE"].ToString().Trim().Replace("\"", "\\\"") + "\",");
-                        jsonBuilder.Append("\"LOCAL\":\"" + dt.Rows[i]["LOCAL"].ToString().Trim().Replace("\"", "\\\"") + "\",");
-                        jsonBuilder.Append("\"AREA\":\"" + dt.Rows[i]["AREA"].ToString().Trim().Replace("\"", "\\\"") + "\",");
-                        jsonBuilder.Append("\"DEPENDENCIA\":\"" + dt.Rows[i]["DEPENDENCIA"].ToString().Trim().Replace("\"", "\\\"") + "\",");
-                        jsonBuilder.Append("\"CARGO\":\"" + dt.Rows[i]["CARGO"].ToString().Trim().Replace("\"", "\\\"") + "\",");
-                        jsonBuilder.Append("\"ESTADO\":\"" + dt.Rows[i]["ESTADO"].ToString().Trim().Replace("\"", "\\\"") + "\"");
-                        jsonBuilder.Append("}");
+                        lista.Add(new {
+                            ID_PERSONAL = dt.Rows[i]["ID_PERSONAL"].ToString().Trim(),
+                            CODIGO = dt.Rows[i]["CODIGO"].ToString().Trim(),
+                            NOMBRE = dt.Rows[i]["NOMBRE"].ToString().Trim(),
+                            APELLIDO_PATERNO = dt.Rows[i]["APELLIDO PATERNO"].ToString().Trim(),
+                            APELLIDO_MATERNO = dt.Rows[i]["APELLIDO MATERNO"].ToString().Trim(),
+                            TIPO_DOC_IDENT = dt.Rows[i]["TIPO DOC. IDENT."].ToString().Trim(),
+                            NRO_DOC_IDENT = dt.Rows[i]["NRO. DOC. IDENT."].ToString().Trim(),
+                            PROFESION = dt.Rows[i]["PROFESION"].ToString().Trim(),
+                            TELEFONO = dt.Rows[i]["TELEFONO"].ToString().Trim(),
+                            EMAIL = dt.Rows[i]["EMAIL"].ToString().Trim(),
+                            SEDE = dt.Rows[i]["SEDE"].ToString().Trim(),
+                            LOCAL = dt.Rows[i]["LOCAL"].ToString().Trim(),
+                            AREA = dt.Rows[i]["AREA"].ToString().Trim(),
+                            DEPENDENCIA = dt.Rows[i]["DEPENDENCIA"].ToString().Trim(),
+                            CARGO = dt.Rows[i]["CARGO"].ToString().Trim(),
+                            ESTADO = dt.Rows[i]["ESTADO"].ToString().Trim()
+                        });
                     }
-                    jsonBuilder.Append("]");
-                    this.datosJson.Value = jsonBuilder.ToString();
+                    JavaScriptSerializer serializer = new JavaScriptSerializer();
+                    this.datosJson.Value = serializer.Serialize(lista);
                     servidor.cerrarconexion();
                 }
             }

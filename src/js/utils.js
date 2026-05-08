@@ -28,3 +28,8 @@ function SoloLetrasMinusculas() {
 function CambiaLetraMayuscula(Caja) {
     document.getElementById(Caja).value = document.getElementById(Caja).value.toUpperCase();
 }
+
+function htmlEncode(str) {
+    if (!str) return '';
+    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}

@@ -1,7 +1,7 @@
 {
-  "tool_name": "Bash",
-  "tool_input_preview": "{\"command\":\"ls -la \\\"/Users/hmr0/Documents/SistemaGestionConfiguracion/\\\"*.csproj 2>/dev/null; ls -la \\\"/Users/hmr0/Documents/SistemaGestionConfiguracion/\\\"*.sln 2>/dev/null\",\"description\":\"Check for ...",
-  "error": "Exit code 1\n(eval):1: no matches found: /Users/hmr0/Documents/SistemaGestionConfiguracion/*.csproj\n(eval):1: no matches found: /Users/hmr0/Documents/SistemaGestionConfiguracion/*.sln",
-  "timestamp": "2026-05-08T04:53:02.153Z",
-  "retry_count": 1
+  "tool_name": "mcp__plugin_oh-my-claudecode_t__lsp_rename",
+  "tool_input_preview": "{\"character\":0,\"file\":\"/Users/hmr0/Documents/SistemaGestionConfiguracion/Personal.aspx\",\"line\":601,\"newName\":\"__pagina\"}",
+  "error": "No language server available for file type: /Users/hmr0/Documents/SistemaGestionConfiguracion/Personal.aspx\n\nUse lsp_servers tool to see available language servers.",
+  "timestamp": "2026-05-08T14:02:49.837Z",
+  "retry_count": 3
 }

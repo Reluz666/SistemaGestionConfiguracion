@@ -47,3 +47,4 @@
 {"t":0,"agent":"a2edfb4","agent_type":"debugger","event":"agent_stop","success":true,"duration_ms":151510}
 {"t":0,"agent":"a73f730","agent_type":"unknown","event":"agent_stop","success":true}
 {"t":0,"agent":"a065316","agent_type":"unknown","event":"agent_stop","success":true}
+{"t":0,"agent":"ae8b7c4","agent_type":"unknown","event":"agent_stop","success":true}

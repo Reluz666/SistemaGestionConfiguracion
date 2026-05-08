@@ -19,7 +19,8 @@
       "Bash(xxd ElementosConfiguracion.aspx)",
       "Bash(xxd Personal.aspx)",
       "Bash(dir D:\\\\PROYECTOS\\\\SistemaGestionConfiguracion\\\\ElementosConfiguracion*)",
-      "Bash(git checkout *)"
+      "Bash(git checkout *)",
+      "mcp__plugin_oh-my-claudecode_t__lsp_rename"
     ]
   }
 }
