@@ -320,25 +320,9 @@
                     setDropdownByText('Cargo', item.CARGO);
                     // Set Sede first - this is the parent for Local
                     setDropdownByText('Sede', item.SEDE);
-                    // Trigger ASP.NET postback cascade for Local and Area
-                    try {
-                        var sedeSelect = document.getElementById('Sede');
-                        if (sedeSelect && sedeSelect.onchange) {
-                            sedeSelect.onchange();
-                        } else if (typeof __doPostBack === 'function') {
-                            __doPostBack('Sede', '');
-                        }
-                    } catch(e) { console.log('Sede cascade error: ' + e); }
-                    // Wait for cascade to complete, then set Local and Area
-                    setTimeout(function() {
-                        setDropdownByText('Local', item.LOCAL);
-                        setTimeout(function() {
-                            __doPostBack('Local', '');
-                            setTimeout(function() {
-                                setDropdownByText('Area', item.AREA);
-                            }, 150);
-                        }, 150);
-                    }, 150);
+                    // Now Local and Area are loaded at page init, just select directly
+                    setDropdownByText('Local', item.LOCAL);
+                    setDropdownByText('Area', item.AREA);
                     // Show buttons and scroll to form
                     document.getElementById('btnRegistrar').style.display = 'none';
                     document.getElementById('btnModificar').style.display = '';

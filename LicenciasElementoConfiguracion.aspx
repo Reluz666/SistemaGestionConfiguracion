@@ -286,7 +286,7 @@
     <form id="form1" runat="server">
         <asp:HiddenField ID="__mensaje" runat="server" />
         <asp:HiddenField ID="__pagina" runat="server" />
-        <asp:HiddenField ID="datosJson" runat="server" />
+        <asp:HiddenField ID="datosJson" runat="server" ClientIDMode="Static" />
 
         <!-- ========== LISTA CON BUSQUEDA Y PAGINACION ========== -->
         <div class="container mt-4" id="listSection">
@@ -386,12 +386,15 @@
         // ===== Inicializacion al cargar la pagina =====
         $(document).ready(function () {
             // Obtener datos del HiddenField
-            var jsonData = document.getElementById("datosJson").value;
+            var jsonField = document.getElementById("datosJson");
+            var jsonData = jsonField ? jsonField.value : '';
+            console.log('datosJson value length:', jsonData ? jsonData.length : 'empty/not found');
             if (jsonData && jsonData.trim() !== "") {
                 try {
                     allData = JSON.parse(jsonData);
                     filteredData = allData;
                     Paginar(1);
+                    console.log('Loaded', allData.length, 'records');
                 } catch (e) {
                     console.error("Error al parsear JSON:", e);
                 }

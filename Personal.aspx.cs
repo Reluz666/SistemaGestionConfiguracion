@@ -108,6 +108,17 @@ public partial class Personal : System.Web.UI.Page
         {
             return;
         }
+        // Cargar todas las opciones de Local y Area para los combos en cascada
+        Cargar_Datos(this.Local, "[dbo].[pr_Obtener_Locales]", "Error, al intentar recuperar Locales Judiciales.");
+        if (this.__mensaje.Value.ToString().Trim() != "")
+        {
+            return;
+        }
+        Cargar_Datos(this.Area, "[dbo].[pr_Obtener_Areas]", "Error, al intentar recuperar Areas Judiciales.");
+        if (this.__mensaje.Value.ToString().Trim() != "")
+        {
+            return;
+        }
         Cargar_Lista_Personal();
     }
 

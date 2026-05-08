@@ -41,6 +41,7 @@ public partial class LicenciasElementoConfiguracion : System.Web.UI.Page
 
     private void Cargar_Lista_Json()
     {
+        datosJson.Value = "[]"; // Default value
         try
         {
             DataTable dt = getLicencias("", "", "", "", "");
@@ -63,16 +64,20 @@ public partial class LicenciasElementoConfiguracion : System.Web.UI.Page
                     });
                 }
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
-                datosJson.Value = serializer.Serialize(lista);
+                string json = serializer.Serialize(lista);
+                datosJson.Value = json;
+                System.Diagnostics.Debug.WriteLine("Licencias JSON generated: " + json.Length + " chars, " + lista.Count + " records");
             }
             else
             {
                 datosJson.Value = "[]";
+                System.Diagnostics.Debug.WriteLine("Licencias: No rows returned from getLicencias");
             }
         }
-        catch (Exception)
+        catch (Exception ex)
         {
             datosJson.Value = "[]";
+            System.Diagnostics.Debug.WriteLine("Licencias Error: " + ex.Message);
         }
     }
 
