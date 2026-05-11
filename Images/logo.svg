@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e"/>
+      <stop offset="100%" style="stop-color:#16213e"/>
+    </linearGradient>
+    <linearGradient id="iconGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e94560"/>
+      <stop offset="100%" style="stop-color:#ff6b6b"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background circle -->
+  <circle cx="32" cy="32" r="30" fill="url(#bgGrad)"/>
+
+  <!-- Gear/Settings icon -->
+  <g fill="url(#iconGrad)">
+    <!-- Outer gear teeth -->
+    <rect x="29" y="8" width="6" height="10" rx="1"/>
+    <rect x="29" y="46" width="6" height="10" rx="1"/>
+    <rect x="8" y="29" width="10" height="6" rx="1"/>
+    <rect x="46" y="29" width="10" height="6" rx="1"/>
+
+    <!-- Diagonal teeth -->
+    <rect x="14" y="14" width="6" height="10" rx="1" transform="rotate(-45 17 19)"/>
+    <rect x="44" y="14" width="6" height="10" rx="1" transform="rotate(45 47 19)"/>
+    <rect x="14" y="40" width="6" height="10" rx="1" transform="rotate(45 17 45)"/>
+    <rect x="44" y="40" width="6" height="10" rx="1" transform="rotate(-45 47 45)"/>
+
+    <!-- Inner circle -->
+    <circle cx="32" cy="32" r="14" fill="url(#iconGrad)"/>
+
+    <!-- Center cutout -->
+    <circle cx="32" cy="32" r="8" fill="url(#bgGrad)"/>
+
+    <!-- Person silhouette in center -->
+    <circle cx="32" cy="29" r="4" fill="url(#iconGrad)"/>
+    <path d="M24 42 Q32 36 40 42 Q40 48 32 48 Q24 48 24 42" fill="url(#iconGrad)"/>
+  </g>
+</svg>

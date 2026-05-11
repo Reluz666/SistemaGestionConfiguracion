@@ -1,7 +1,7 @@
 {
-  "tool_name": "Bash",
-  "tool_input_preview": "{\"command\":\"ls -la /Users/hmr0/Documents/SistemaGestionConfiguracion/*.ico 2>/dev/null; ls -la /Users/hmr0/Documents/SistemaGestionConfiguracion/*.ico /Users/hmr0/Documents/SistemaGestionConfiguracion...",
-  "error": "Exit code 1\n(eval):1: no matches found: /Users/hmr0/Documents/SistemaGestionConfiguracion/*.ico\n(eval):1: no matches found: /Users/hmr0/Documents/SistemaGestionConfiguracion/*.ico",
-  "timestamp": "2026-05-08T21:38:39.749Z",
+  "tool_name": "Read",
+  "tool_input_preview": "{\"file_path\":\"C:\\\\Users\\\\LOCALADMINPJ\\\\Documents\\\\SistemaGestionConfiguracion\\\\PersonalForm.aspx\",\"limit\":50}",
+  "error": "File does not exist. Note: your current working directory is C:\\Users\\LOCALADMINPJ\\Documents\\SistemaGestionConfiguracion.",
+  "timestamp": "2026-05-11T22:41:58.929Z",
   "retry_count": 1
 }
