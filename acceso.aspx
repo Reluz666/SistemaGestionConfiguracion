@@ -473,7 +473,7 @@
                 <div class="login-card">
                     <div class="login-card-header">
                         <div class="brand-lockup">
-                            <div class="brand-mark" aria-hidden="true">PJ</div>
+                            <img src="Images/logo.svg" alt="Logo" style="width: 46px; height: 46px; border-radius: 8px;" />
                             <div>
                                 <p class="brand-name">Corte Superior de Justicia de Lambayeque</p>
                                 <p class="brand-subtitle">Plataforma interna</p>

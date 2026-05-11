@@ -4,6 +4,7 @@
 <nav class="navbar navbar-expand-lg navbar-modern fixed-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="../Menu.aspx">
+            <img src="../Images/logo.svg" alt="Logo" style="height: 28px; width: 28px; margin-right: 6px;" />
             <i class="bi bi-house-door-fill me-1"></i>Inicio
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
