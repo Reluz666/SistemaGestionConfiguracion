@@ -186,13 +186,11 @@
         // ===== FUNCIONES PARA LISTA DE PERSONAL CON BUSQUEDA Y PAGINACION =====
 
         function abrirNuevoPersonal() {
-            var options = 'channelmode=1,directories=0,fullscreen=0,location=0,menubar=0,resizable=0,titlebar=0,toolbar=0,edge=Raised,status=no,scrollbars=1,width=1200,height=650,top=50px, left=140px';
-            window.open('PersonalForm.aspx?Operacion=N', '', options);
+            window.location.href = 'PersonalForm.aspx?Operacion=N';
         }
 
         function seleccionarPersonal(idPersonal) {
-            var options = 'channelmode=1,directories=0,fullscreen=0,location=0,menubar=0,resizable=0,titlebar=0,toolbar=0,edge=Raised,status=no,scrollbars=1,width=1200,height=650,top=50px, left=140px';
-            window.open('PersonalForm.aspx?Operacion=E&Id=' + idPersonal, '', options);
+            window.location.href = 'PersonalForm.aspx?Operacion=E&Id=' + idPersonal;
         }
 
         function setDropdownByText(dropdownId, text) {
