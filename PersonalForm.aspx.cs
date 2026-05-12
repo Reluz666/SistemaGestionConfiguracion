@@ -74,15 +74,6 @@ public partial class PersonalForm : System.Web.UI.Page
             return;
         }
 
-        bool rpta = this.VERIFICAR_PERMISO_ACCESO_PAGINA_WEB(Convert.ToInt32(Datos[0]),
-        "Personal.aspx");
-        if (rpta == false)
-        {
-            this.__mensaje.Value = "Ud. no tiene permiso para ACCEDER esta pagina web.";
-            this.__pagina.Value = "CerrarSession.aspx";
-            return;
-        }
-
         // Cargar dropdowns
         Cargar_Datos(this.TipoDocIdent, "[dbo].[pr_Obtener_Tipos_Documentos]", "Error, al intentar recuperar Tipos Doc. Ientidad.");
         if (this.__mensaje.Value.ToString().Trim() != "") { return; }
