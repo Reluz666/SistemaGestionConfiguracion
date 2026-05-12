@@ -281,10 +281,7 @@
             <!-- Hidden Fields -->
             <asp:HiddenField ID="__mensaje" runat="server" />
             <asp:HiddenField ID="__pagina" runat="server" />
-            <asp:HiddenField ID="ID_PERSONAL" runat="server" Value="0" EnableViewState="False" />
             <asp:HiddenField ID="datosJson" runat="server" EnableViewState="False" ClientIDMode="Static" />
-            <asp:HiddenField ID="__editLocal" runat="server" ClientIDMode="Static" />
-            <asp:HiddenField ID="__editArea" runat="server" ClientIDMode="Static" />
 
         </div>
     </form>

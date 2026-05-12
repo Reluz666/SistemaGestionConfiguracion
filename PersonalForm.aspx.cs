@@ -10,7 +10,6 @@ using System.Web.UI.WebControls;
 public partial class PersonalForm : System.Web.UI.Page
 {
     private String Ruta = System.Configuration.ConfigurationManager.ConnectionStrings["CadenaConeccion"].ToString();
-    System.Data.DataTable dt;
 
     private void Cargar_Datos(System.Web.UI.WebControls.DropDownList ddl, String Procedimeinto_Almacenado, String Mensaje, params Object[] p)
     {
