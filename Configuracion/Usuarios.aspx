@@ -14,6 +14,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+    <!-- Global Styles -->
+    <link href="../CssJs/global-styles.css" rel="stylesheet" />
 
     <style>
         /* ===== NAVBAR ===== */
@@ -311,46 +313,32 @@
     <div class="top-spacer"></div>
 
     <form id="frmPersonal" runat="server">
-        <div class="form-group">
-            <div class="container">
-                <div class="table-responsive">
-                    <center>
-                        <asp:Label ID="lbTitulo" runat="server" Text="Lista Usuarios" Font-Bold="True"
-                            Font-Size="Large"></asp:Label>
-                     </center>
-                     <asp:Table ID="TablePersonal" runat="server"
-                             CssClass="table table-bordered table-hover text-center  table-striped"
-                        BackColor="White" CellPadding="2" CellSpacing="0" Font-Size="Smaller" GridLines="Both"
-                        Style="text-align: left">
+        <div class="container">
+            <!-- Card con tabla moderna -->
+            <div class="form-card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <div>
+                        <i class="bi bi-people me-2"></i>Lista de Usuarios
+                    </div>
+                </div>
+                <div class="card-body p-3">
+                    <div class="table-wrapper" style="max-height: 500px; overflow-y: auto;">
+                        <asp:Table ID="TablePersonal" runat="server"
+                                   CssClass="table table-modern-grid"
+                            Style="min-width: 800px;">
                             <asp:TableRow ID="TableRow1" runat="server">
-                                <asp:TableCell ID="tcID"  runat="server" BackColor="Black" BorderColor="Black"
-                                    ForeColor="White" Width="7%" Visible="false">ID</asp:TableCell>
-
-                                <asp:TableCell ID="tcCARGO"  runat="server" BackColor="Black" BorderColor="Black"
-                                    ForeColor="White"  Width="10%" Visible="true">CARGO</asp:TableCell>
-
-                                <asp:TableCell ID="tcUSUARIO" runat="server" BackColor="Black" BorderColor="Black"
-                                    ForeColor="White" Width="15%" Visible="true">USUARIO</asp:TableCell>
-
-                                <asp:TableCell ID="tcTELEFONO" runat="server" BackColor="Black" BorderColor="Black"
-                                    ForeColor="White" Width="7%" Visible="false">TELEFONO</asp:TableCell>
-
-                                <asp:TableCell ID="tcEMAIL" runat="server" BackColor="Black" BorderColor="Black"
-                                    ForeColor="White" Width="15%" Visible="true">EMAIL</asp:TableCell>
-
-                                <asp:TableCell ID="TCLogin" runat="server" BackColor="Black" BorderColor="Black"
-                                    ForeColor="White" Width="7%" Visible="true">LOGIN</asp:TableCell>
-
-                                <asp:TableCell ID="TCPassword" runat="server" BackColor="Black" BorderColor="Black"
-                                    ForeColor="White" Width="7%" Visible="true">PASSWORD</asp:TableCell>
-
-                                <asp:TableCell ID="TCEstado" runat="server" BackColor="Black" BorderColor="Black"
-                                    ForeColor="White" Width="7%" Visible="true">ESTADO</asp:TableCell>
-
-                                <asp:TableCell ID="seleccionaralumno" runat="server" BackColor="Black" BorderColor="Black"
-                                    ForeColor="White" Width="7%">ACCESO SISTEMA</asp:TableCell>
+                                <asp:TableCell ID="tcID" runat="server" Visible="false">ID</asp:TableCell>
+                                <asp:TableCell ID="tcCARGO" runat="server">CARGO</asp:TableCell>
+                                <asp:TableCell ID="tcUSUARIO" runat="server">USUARIO</asp:TableCell>
+                                <asp:TableCell ID="tcTELEFONO" runat="server" Visible="false">TELÉFONO</asp:TableCell>
+                                <asp:TableCell ID="tcEMAIL" runat="server">EMAIL</asp:TableCell>
+                                <asp:TableCell ID="TCLogin" runat="server">LOGIN</asp:TableCell>
+                                <asp:TableCell ID="TCPassword" runat="server">PASSWORD</asp:TableCell>
+                                <asp:TableCell ID="TCEstado" runat="server">ESTADO</asp:TableCell>
+                                <asp:TableCell ID="seleccionaralumno" runat="server">ACCESO SISTEMA</asp:TableCell>
                             </asp:TableRow>
                         </asp:Table>
+                    </div>
                 </div>
             </div>
         </div>
