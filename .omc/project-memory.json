@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastScanned": 1778208464885,
+  "lastScanned": 1778602468662,
   "projectRoot": "C:\\Users\\LOCALADMINPJ\\Documents\\SistemaGestionConfiguracion",
   "techStack": {
     "languages": [],
@@ -25,6 +25,7 @@
     "isMonorepo": false,
     "workspaces": [],
     "mainDirectories": [
+      "bin",
       "src"
     ],
     "gitBranches": {
@@ -38,7 +39,7 @@
       "path": "App_Code",
       "purpose": null,
       "fileCount": 21,
-      "lastAccessed": 1778208464869,
+      "lastAccessed": 1778602468636,
       "keyFiles": [
         "DS_ReporteCIsSeguidos.xsd",
         "DS_ReporteCIsSeguidos.xss",
@@ -51,21 +52,34 @@
       "path": "aspnet_client",
       "purpose": null,
       "fileCount": 0,
-      "lastAccessed": 1778208464870,
+      "lastAccessed": 1778602468637,
       "keyFiles": []
+    },
+    "bin": {
+      "path": "bin",
+      "purpose": "Executable scripts",
+      "fileCount": 11,
+      "lastAccessed": 1778602468637,
+      "keyFiles": [
+        "Microsoft.Office.Interop.Excel.dll",
+        "Microsoft.Office.Interop.Excel.xml",
+        "Microsoft.Vbe.Interop.dll",
+        "office.dll",
+        "office.xml"
+      ]
     },
     "bootstrap": {
       "path": "bootstrap",
       "purpose": null,
       "fileCount": 0,
-      "lastAccessed": 1778208464870,
+      "lastAccessed": 1778602468638,
       "keyFiles": []
     },
     "Configuracion": {
       "path": "Configuracion",
       "purpose": null,
       "fileCount": 4,
-      "lastAccessed": 1778208464870,
+      "lastAccessed": 1778602468638,
       "keyFiles": [
         "Seguridad.aspx",
         "Seguridad.aspx.cs",
@@ -77,7 +91,7 @@
       "path": "CssJs",
       "purpose": null,
       "fileCount": 2,
-      "lastAccessed": 1778208464871,
+      "lastAccessed": 1778602468638,
       "keyFiles": [
         "global-styles.css",
         "Menu.css"
@@ -87,7 +101,7 @@
       "path": "Imagenes",
       "purpose": null,
       "fileCount": 4,
-      "lastAccessed": 1778208464871,
+      "lastAccessed": 1778602468639,
       "keyFiles": [
         "buscar.ico",
         "CabeceraElementosConfiguracion1.png",
@@ -95,11 +109,20 @@
         "fondo1.jpg"
       ]
     },
+    "Images": {
+      "path": "Images",
+      "purpose": null,
+      "fileCount": 1,
+      "lastAccessed": 1778602468639,
+      "keyFiles": [
+        "logo.svg"
+      ]
+    },
     "Otros_css_js": {
       "path": "Otros_css_js",
       "purpose": null,
       "fileCount": 12,
-      "lastAccessed": 1778208464871,
+      "lastAccessed": 1778602468640,
       "keyFiles": [
         "chosen.css",
         "chosen.jquery.js",
@@ -112,7 +135,7 @@
       "path": "Reportes",
       "purpose": null,
       "fileCount": 38,
-      "lastAccessed": 1778208464872,
+      "lastAccessed": 1778602468640,
       "keyFiles": [
         "CR_ReporteCIsSeguidos.rpt",
         "CR_ReporteDatosCorrectosCI.rpt",
@@ -125,14 +148,14 @@
       "path": "src",
       "purpose": "Source code",
       "fileCount": 0,
-      "lastAccessed": 1778208464872,
+      "lastAccessed": 1778602468640,
       "keyFiles": []
     },
     "Ventanas": {
       "path": "Ventanas",
       "purpose": null,
       "fileCount": 18,
-      "lastAccessed": 1778208464872,
+      "lastAccessed": 1778602468640,
       "keyFiles": [
         "ventanaElementosConfiguracionParaSeguimiento.aspx",
         "ventanaElementosConfiguracionParaSeguimiento.aspx.cs",
@@ -228,6 +251,12 @@
       "type": "file"
     },
     {
+      "path": "Menu.aspx",
+      "accessCount": 14,
+      "lastAccessed": 1778602782052,
+      "type": "file"
+    },
+    {
       "path": "Dependencia.aspx",
       "accessCount": 13,
       "lastAccessed": 1778269106884,
@@ -291,12 +320,6 @@
       "path": "ProfecionOcupacion.aspx",
       "accessCount": 10,
       "lastAccessed": 1778269107193,
-      "type": "file"
-    },
-    {
-      "path": "Menu.aspx",
-      "accessCount": 10,
-      "lastAccessed": 1778276263716,
       "type": "file"
     },
     {

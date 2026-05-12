@@ -3,7 +3,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
- <link rel="icon" type="image/ico" href="../Imagenes/Sistema__.ico" />
+    <link rel="icon" type="image/ico" href="../Imagenes/Sistema__.ico" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -18,103 +18,242 @@
 
     <style>
         :root {
-            --slate-950: #0f172a;
+            --nav-bg: #1a1a2e;
+            --nav-bg-end: #16213e;
+            --accent: #e94560;
+            --accent-light: rgba(233, 69, 96, 0.1);
+            --accent-hover: rgba(233, 69, 96, 0.15);
             --slate-900: #1e293b;
             --slate-700: #334155;
             --slate-500: #64748b;
             --slate-200: #e2e8f0;
-            --slate-100: #f1f5f9;
-            --slate-50: #f8fafc;
-            --accent: #2563eb;
-            --accent-light: #dbeafe;
+            --slate-100: #f8fafc;
         }
 
         body {
             background: var(--slate-100);
             font-family: system-ui, -apple-system, sans-serif;
+            min-height: 100vh;
         }
 
+        /* ===== HERO SECTION ===== */
         .hero-section {
-            background: var(--slate-950);
+            background: linear-gradient(135deg, var(--nav-bg) 0%, var(--nav-bg-end) 100%);
             color: white;
-            padding: 3rem 2rem;
-            margin-bottom: 2.5rem;
+            padding: 2.5rem 2rem;
+            margin-bottom: 2rem;
+            border-radius: 0 0 24px 24px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: var(--accent);
+            opacity: 0.05;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hero-section .user-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.4rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-section .user-badge i {
+            color: var(--accent);
         }
 
         .hero-section h1 {
             font-weight: 600;
-            font-size: 1.75rem;
-            letter-spacing: -0.02em;
-            margin: 0;
+            font-size: 1.6rem;
+            letter-spacing: -0.01em;
+            margin: 0 0 0.5rem 0;
         }
 
         .hero-section p {
-            color: var(--slate-500);
-            font-size: 1rem;
-            margin: 0.5rem 0 0 0;
-        }
-
-        .section-header {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 1.25rem;
-            padding-bottom: 0.75rem;
-            border-bottom: 1px solid var(--slate-200);
-        }
-
-        .section-header h2 {
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--slate-700);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95rem;
             margin: 0;
         }
 
-        .nav-card {
+        .hero-section .date-display {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.8rem;
+            margin-top: 0.75rem;
+        }
+
+        /* ===== STATS ROW ===== */
+        .stats-row {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-card {
             background: white;
-            border-radius: 8px;
-            padding: 1.25rem;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-            transition: box-shadow 0.2s ease-out, transform 0.2s ease-out;
-            text-decoration: none;
-            display: block;
-            color: inherit;
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            flex: 1;
+            min-width: 140px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
-        .nav-card:hover {
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        .stat-card:hover {
             transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
-        .nav-card .card-icon {
-            width: 36px;
-            height: 36px;
-            border-radius: 8px;
+        .stat-card .stat-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.1rem;
-            margin-bottom: 0.75rem;
+        }
+
+        .stat-card .stat-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-card .stat-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--slate-900);
+            line-height: 1.2;
+        }
+
+        .stat-card .stat-label {
+            font-size: 0.7rem;
+            color: var(--slate-500);
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        /* ===== SECTION HEADER ===== */
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--slate-200);
+        }
+
+        .section-header i {
+            color: var(--accent);
+            font-size: 1rem;
+        }
+
+        .section-header h2 {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--slate-700);
+            margin: 0;
+        }
+
+        /* ===== NAV CARDS ===== */
+        .nav-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.25rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            transition: all 0.25s ease;
+            text-decoration: none;
+            display: block;
+            color: inherit;
+            border: 1px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.25s ease;
+        }
+
+        .nav-card:hover {
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            transform: translateY(-3px);
+            border-color: var(--accent-light);
+        }
+
+        .nav-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .nav-card .card-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            margin-bottom: 0.85rem;
+            transition: transform 0.25s ease;
+        }
+
+        .nav-card:hover .card-icon {
+            transform: scale(1.05);
         }
 
         .nav-card h5 {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: 600;
             color: var(--slate-900);
             margin-bottom: 0.25rem;
         }
 
         .nav-card p {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: var(--slate-500);
             margin: 0;
+            line-height: 1.4;
+        }
+
+        /* ===== TOAST STYLES ===== */
+        .toast-container {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            z-index: 9999;
         }
     </style>
 
     <script type="text/javascript">
-         function MostrarMensaje() {
+        function MostrarMensaje() {
             var mensaje = document.getElementById("__mensaje").value;
             if (mensaje != "") {
                 mostrarToast(mensaje, 'info');
@@ -153,6 +292,16 @@
         function Confirmar(men) {
             return confirm(men);
         }
+
+        function formatDate() {
+            var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            return new Date().toLocaleDateString('es-ES', options);
+        }
+
+        window.addEventListener('load', function() {
+            var dateEl = document.getElementById('currentDate');
+            if (dateEl) dateEl.textContent = formatDate();
+        });
     </script>
 </head>
 <body onload="MostrarMensaje()">
@@ -160,38 +309,84 @@
     <div class="toast-container" id="toastContainer"></div>
 
     <form id="form1" runat="server">
-        <div class="top-spacer" style="height: 80px;"></div>
+        <div class="top-spacer"></div>
         <div class="container">
             <!-- Hero Section -->
             <div class="hero-section">
-                <h1><i class="bi bi-gear-fill me-3"></i>Bienvenido al Sistema de Gestion de Configuracion</h1>
-                <p>Administra elementos de configuracion, licencias, seguimientos y mas</p>
+                <div class="user-badge">
+                    <i class="bi bi-person-fill"></i>
+                    <asp:Label ID="lblUsuario" runat="server" Text="Bienvenido"></asp:Label>
+                </div>
+                <h1><i class="bi bi-gear-fill me-2" style="color: var(--accent);"></i>Sistema de Gestión de Configuración</h1>
+                <p>Administra elementos de configuración, licencias, seguimientos y más</p>
+                <div class="date-display" id="currentDate"></div>
+            </div>
+
+            <!-- Stats Row -->
+            <div class="stats-row">
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: var(--accent-light); color: var(--accent);">
+                        <i class="bi bi-box-seam"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-value">--</span>
+                        <span class="stat-label">Elementos CI</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: #dcfce7; color: #16a34a;">
+                        <i class="bi bi-diagram-3"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-value">--</span>
+                        <span class="stat-label">Relaciones</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: #fee2e2; color: #dc2626;">
+                        <i class="bi bi-file-earmark-lock"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-value">--</span>
+                        <span class="stat-label">Licencias</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: #fef3c7; color: #d97706;">
+                        <i class="bi bi-people"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-value">--</span>
+                        <span class="stat-label">Personal</span>
+                    </div>
+                </div>
             </div>
 
             <!-- Quick Access Cards -->
             <div class="section-header">
-                <h2>Acceso Rapido</h2>
+                <i class="bi bi-lightning-charge-fill"></i>
+                <h2>Acceso Rápido</h2>
             </div>
-            <div class="row g-3 mb-5">
-                <div class="col-6 col-md-3">
+            <div class="row g-3 mb-4">
+                <div class="col-6 col-lg-3">
                     <a href="ElementosConfiguracion.aspx" class="nav-card">
                         <div class="card-icon" style="background: var(--accent-light); color: var(--accent);">
                             <i class="bi bi-box-seam"></i>
                         </div>
-                        <h5>Elementos de Configuracion</h5>
+                        <h5>Elementos de Configuración</h5>
                         <p>Gestionar CI del sistema</p>
                     </a>
                 </div>
-                <div class="col-6 col-md-3">
+                <div class="col-6 col-lg-3">
                     <a href="RelacionesElementosConfiguracion.aspx" class="nav-card">
                         <div class="card-icon" style="background: #dcfce7; color: #16a34a;">
                             <i class="bi bi-diagram-3"></i>
                         </div>
                         <h5>Relaciones</h5>
-                        <p>Vincular elementos entre si</p>
+                        <p>Vincular elementos entre sí</p>
                     </a>
                 </div>
-                <div class="col-6 col-md-3">
+                <div class="col-6 col-lg-3">
                     <a href="LicenciasElementoConfiguracion.aspx" class="nav-card">
                         <div class="card-icon" style="background: #fee2e2; color: #dc2626;">
                             <i class="bi bi-file-earmark-lock"></i>
@@ -200,7 +395,7 @@
                         <p>Control de licencias</p>
                     </a>
                 </div>
-                <div class="col-6 col-md-3">
+                <div class="col-6 col-lg-3">
                     <a href="SeguimientosElementoConfiguracion.aspx" class="nav-card">
                         <div class="card-icon" style="background: #fef3c7; color: #d97706;">
                             <i class="bi bi-clipboard-check"></i>
@@ -212,10 +407,11 @@
             </div>
 
             <div class="section-header">
+                <i class="bi bi-briefcase-fill"></i>
                 <h2>Mantenimiento</h2>
             </div>
-            <div class="row g-3 mb-5">
-                <div class="col-6 col-md-3">
+            <div class="row g-3 mb-4">
+                <div class="col-6 col-lg-3">
                     <a href="Personal.aspx" class="nav-card">
                         <div class="card-icon" style="background: #f3e8ff; color: #9333ea;">
                             <i class="bi bi-people"></i>
@@ -224,40 +420,41 @@
                         <p>Gestionar trabajadores</p>
                     </a>
                 </div>
-                <div class="col-6 col-md-3">
+                <div class="col-6 col-lg-3">
                     <a href="Usuario.aspx" class="nav-card">
                         <div class="card-icon" style="background: #fce7f3; color: #be185d;">
                             <i class="bi bi-person-gear"></i>
                         </div>
                         <h5>Usuarios</h5>
-                        <p>Administracion de usuarios</p>
+                        <p>Administración de usuarios</p>
                     </a>
                 </div>
-                <div class="col-6 col-md-3">
+                <div class="col-6 col-lg-3">
                     <a href="Sede.aspx" class="nav-card">
                         <div class="card-icon" style="background: #ccfbf1; color: #0d9488;">
                             <i class="bi bi-building"></i>
                         </div>
                         <h5>Sedes</h5>
-                        <p>Organizacion territorial</p>
+                        <p>Organización territorial</p>
                     </a>
                 </div>
-                <div class="col-6 col-md-3">
+                <div class="col-6 col-lg-3">
                     <a href="Area.aspx" class="nav-card">
                         <div class="card-icon" style="background: var(--slate-200); color: var(--slate-700);">
                             <i class="bi bi-grid"></i>
                         </div>
-                        <h5>Areas</h5>
-                        <p>Departamentos y areas</p>
+                        <h5>Áreas</h5>
+                        <p>Departamentos y áreas</p>
                     </a>
                 </div>
             </div>
 
             <div class="section-header">
+                <i class="bi bi-file-earmark-bar-graph-fill"></i>
                 <h2>Reportes</h2>
             </div>
             <div class="row g-3">
-                <div class="col-6 col-md-4">
+                <div class="col-6 col-lg-4">
                     <a href="../Reportes/ReporteElementosConfiguracion.aspx" class="nav-card">
                         <div class="card-icon" style="background: var(--accent-light); color: var(--accent);">
                             <i class="bi bi-file-earmark-bar-graph"></i>
@@ -266,7 +463,7 @@
                         <p>Resumen general de CIs</p>
                     </a>
                 </div>
-                <div class="col-6 col-md-4">
+                <div class="col-6 col-lg-4">
                     <a href="../Reportes/ReporteSeguimientosElementoConfiguracion.aspx" class="nav-card">
                         <div class="card-icon" style="background: #fef3c7; color: #d97706;">
                             <i class="bi bi-file-earmark-text"></i>
@@ -275,7 +472,7 @@
                         <p>Historial de modificaciones</p>
                     </a>
                 </div>
-                <div class="col-6 col-md-4">
+                <div class="col-6 col-lg-4">
                     <a href="../Reportes/ReporteLicenciasElementoConfiguracion.aspx" class="nav-card">
                         <div class="card-icon" style="background: #fee2e2; color: #dc2626;">
                             <i class="bi bi-file-earmark-lock"></i>

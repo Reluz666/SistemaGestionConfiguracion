@@ -1,25 +1,61 @@
 <!-- ijfw schema:1 codebase-index -->
 # Codebase index
 
-Generated: 2026-05-08T02:47:56Z
+Generated: 2026-05-12T16:14:37Z
 Root: .
 
-Files: 445
+Files: 492
 
 ## By file
 
+- `./.agents/skills/impeccable/reference/adapt.md` (190 lines, .md) -- > **Additional context needed**: target platforms/devices and usage contexts.
+- `./.agents/skills/impeccable/reference/animate.md` (175 lines, .md) -- > **Additional context needed**: performance constraints.
+- `./.agents/skills/impeccable/reference/audit.md` (133 lines, .md) -- Run systematic **technical** quality checks and generate a comprehensive report. Don't fix issues; document them for oth
+- `./.agents/skills/impeccable/reference/bolder.md` (113 lines, .md) -- When asked for \"bolder,\" AI defaults to the same tired tricks: cyan/purple gradients, glassmorphism, neon accents on d
+- `./.agents/skills/impeccable/reference/brand.md` (114 lines, .md) -- When design IS the product: brand sites, landing pages, marketing surfaces, campaign pages, portfolios, long-form conten
+- `./.agents/skills/impeccable/reference/clarify.md` (174 lines, .md) -- > **Additional context needed**: audience technical level and users' mental state in context.
+- `./.agents/skills/impeccable/reference/cognitive-load.md` (106 lines, .md) -- Cognitive load is the total mental effort required to use an interface. Overloaded users make mistakes, get frustrated, 
+- `./.agents/skills/impeccable/reference/color-and-contrast.md` (105 lines, .md) -- The OKLCH function takes three components: `oklch(lightness chroma hue)` where lightness is 0-100%, chroma is roughly 0-
+- `./.agents/skills/impeccable/reference/colorize.md` (154 lines, .md) -- > **Additional context needed**: existing brand colors.
+- `./.agents/skills/impeccable/reference/craft.md` (193 lines, .md) -- Build a feature with impeccable UX and UI quality through a structured process: shape the design, land the visual direct
+- `./.agents/skills/impeccable/reference/critique.md` (213 lines, .md) -- > **Additional context needed**: what the interface is trying to accomplish.
+- `./.agents/skills/impeccable/reference/delight.md` (302 lines, .md) -- > **Additional context needed**: what's appropriate for the domain (playful vs professional vs quirky vs elegant).
+- `./.agents/skills/impeccable/reference/distill.md` (111 lines, .md) -- Strip a design to its essence. Remove anything that doesn't earn its place: redundant elements, repeated information, de
+- `./.agents/skills/impeccable/reference/document.md` (427 lines, .md) -- Generate a `DESIGN.md` file at the project root that captures the current visual design system, so AI agents generating 
+- `./.agents/skills/impeccable/reference/extract.md` (69 lines, .md) -- Identify reusable patterns, components, and design tokens, then extract and consolidate them into the design system for 
+- `./.agents/skills/impeccable/reference/harden.md` (347 lines, .md) -- Designs that only work with perfect data aren't production-ready. Harden the interface against the inputs, errors, langu
+- `./.agents/skills/impeccable/reference/heuristics-scoring.md` (234 lines, .md) -- Score each of Nielsen's 10 Usability Heuristics on a 0–4 scale. Be honest: a 4 means genuinely excellent, not \"good e
+- `./.agents/skills/impeccable/reference/interaction-design.md` (195 lines, .md) -- Every interactive element needs these states designed:
+- `./.agents/skills/impeccable/reference/layout.md` (141 lines, .md) -- Space is the most underused design tool. Find the layout's actual problem (monotone spacing, weak hierarchy, identical c
+- `./.agents/skills/impeccable/reference/live.md` (622 lines, .md) -- Interactive live variant mode: select elements in the browser, pick a design action, and get AI-generated HTML+CSS varia
+- `./.agents/skills/impeccable/reference/motion-design.md` (109 lines, .md) -- Timing matters more than easing. These durations feel right for most UI:
+- `./.agents/skills/impeccable/reference/onboard.md` (234 lines, .md) -- > **Additional context needed**: the \"aha moment\" you want users to reach, and users' experience level.
+- `./.agents/skills/impeccable/reference/optimize.md` (258 lines, .md) -- Performance is a feature. Identify the actual bottleneck for THIS interface, fix it, then measure. Don't optimize what i
+- `./.agents/skills/impeccable/reference/overdrive.md` (130 lines, .md) -- Start your response with:
+- `./.agents/skills/impeccable/reference/personas.md` (179 lines, .md) -- Test the interface through the eyes of 5 distinct user archetypes. Each persona exposes different failure modes that a s
+- `./.agents/skills/impeccable/reference/polish.md` (233 lines, .md) -- > **Additional context needed**: quality bar (MVP vs flagship).
+- `./.agents/skills/impeccable/reference/product.md` (62 lines, .md) -- When design SERVES the product: app UIs, admin dashboards, settings panels, data tables, tools, authenticated surfaces, 
+- `./.agents/skills/impeccable/reference/quieter.md` (99 lines, .md) -- Quiet design is harder than bold design. Subtlety needs precision. Reduce visual intensity in designs that are too loud,
+- `./.agents/skills/impeccable/reference/responsive-design.md` (114 lines, .md) -- Start with base styles for mobile, use `min-width` queries to layer complexity. Desktop-first (`max-width`) means mobile
+- `./.agents/skills/impeccable/reference/shape.md` (151 lines, .md) -- Shape the UX and UI for a feature before any code is written. This command produces a **design brief**: a structured art
+- `./.agents/skills/impeccable/reference/spatial-design.md` (100 lines, .md) -- 8pt systems are too coarse; you'll frequently need 12px (between 8 and 16). Use 4pt for granularity: 4, 8, 12, 16, 24, 3
+- `./.agents/skills/impeccable/reference/teach.md` (156 lines, .md) -- Gathers design context for a project and writes two complementary files at the project root:
+- `./.agents/skills/impeccable/reference/typeset.md` (124 lines, .md) -- Typography carries most of the information on the page. Replace generic defaults (Inter, Roboto, system fallback at flat
+- `./.agents/skills/impeccable/reference/typography.md` (159 lines, .md) -- Your line-height should be the base unit for ALL vertical spacing. If body text has `line-height: 1.5` on `16px` type (=
+- `./.agents/skills/impeccable/reference/ux-writing.md` (107 lines, .md) -- | Bad | Good | Why |
+- `./.agents/skills/impeccable/scripts/live-browser.js` (4860 lines, .js) -- (function () {
+- `./.agents/skills/impeccable/scripts/live-browser-session.js` (123 lines, .js) -- (function (root) {
+- `./.agents/skills/impeccable/scripts/modern-screenshot.umd.js` (14 lines, .js) -- (function(y,v){typeof exports==\"object\"&&typeof module!=\"undefined\"?v(exports):typeof define==\"function\"&&define.a
+- `./.agents/skills/impeccable/SKILL.md` (181 lines, .md) -- name: impeccable
+- `./.omc/notepad.md` (90 lines, .md) -- <!-- Auto-managed by OMC. Manual edits preserved in MANUAL section. -->
+- `./.omc/state/team/migrate-eleven-asp-net-reports/workers/worker-1/AGENTS.md` (104 lines, .md) -- You are a **team worker**, not the team leader. Operate strictly within worker protocol.
+- `./.omc/state/team/migrate-eleven-asp-net-reports/workers/worker-2/AGENTS.md` (104 lines, .md) -- You are a **team worker**, not the team leader. Operate strictly within worker protocol.
+- `./.omc/state/team/migrate-eleven-asp-net-reports/workers/worker-3/AGENTS.md` (104 lines, .md) -- You are a **team worker**, not the team leader. Operate strictly within worker protocol.
+- `./.sisyphus/drafts/estandarizar-reportes.md` (81 lines, .md) -- Aplicar los cambios hechos como estándar en Personal.aspx a todas las vistas de Reportes:
 - `./.sisyphus/drafts/propagar-estilo-tablas.md` (80 lines, .md) -- - [Propagate changes]: Apply the modern table style from ElementosConfiguracion.aspx to all views still using old patter
-- `./.sisyphus/plans/propagar-estilo-tablas.md` (202 lines, .md) -- > **Quick Summary**: Migrate 10 legacy entity views, 9 Ventanas popups, and 11 Reportes from old `asp:Table` pattern to 
-- `./CLAUDE.md` (18 lines, .md) -- Stack: unknown
-- `./GUIA_ESTILO_TABLAS.md` (401 lines, .md) -- Este documento describe los estilos y funcionalidad JavaScript que deben replicarse en todas las vistas para mantener co
-- `./Otros_css_js/chosen.jquery.js` (1090 lines, .js) -- (function() {
-- `./Otros_css_js/jquery-1.8.1.min.js` (1 lines, .js) -- (function(a,b){function G(a){var b=F[a]={};return p.each(a.split(s),function(a,c){b[c]=!0}),b}function J(a,c,d){if(d===b
-- `./Otros_css_js/jquery-2.1.1.min.js` (4 lines, .js) -- !function(a,b){\"object\"==typeof module&&\"object\"==typeof module.exports?module.exports=a.document?b(a,!0):function(a
-- `./Otros_css_js/jquery-3.1.1.slim.min.js` (4 lines, .js) -- !function(a,b){\"use strict\";\"object\"==typeof module&&\"object\"==typeof module.exports?module.exports=a.document?b(a
-- `./Otros_css_js/jquery.min.js` (3 lines, .js) -- (function(a,b){function cu(a){return f.isWindow(a)?a:a.nodeType===9?a.defaultView||a.parentWindow:!1}function cr(a){if(!
-- `./Otros_css_js/resaltar.js` (37 lines, .js) -- function ResaltarFila(id_tabla){
-- `./Otros_css_js/restables.js` (267 lines, .js) -- (function (factory) {
-- `./Otros_css_js/showModalDialog.js` (65 lines, .js) -- (function () {
+- `./.sisyphus/drafts/report-column-mappings.md` (498 lines, .md) -- Analysis of all 11 report code-behind files. This document captures stored procedure names, column names (case-sensitive
+- `./.sisyphus/plans/estandarizar-reportes.md` (941 lines, .md) -- > **Quick Summary**: Migrar 11 vistas de reportes en `Reportes/` del patrón server-side (`asp:Table` + checkbox/dropdow
+- `./.sisyphus/plans/propagar-estilo-tablas.md` (250 lines, .md) -- > **Quick Summary**: Migrate 10 legacy entity views, 9 Ventanas popups, and 11 Reportes from old `asp:Table` pattern to 
 - `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/allInOne.js` (11 lines, .js) -- MochiKit.Base 1.4
 - `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/allStrings_cs.js` (359 lines, .js) -- var L_bobj_crv_MainReport = \"Hlavn\u00ED sestava\";
 - `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/allStrings_da.js` (359 lines, .js) -- var L_bobj_crv_MainReport = \"Hovedrapport\";
@@ -43,41 +79,27 @@ Files: 445
 - `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/allStrings_tr.js` (359 lines, .js) -- var L_bobj_crv_MainReport = \"Ana Rapor\";
 - `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/allStrings_zh_CN.js` (359 lines, .js) -- var L_bobj_crv_MainReport = \"\u4E3B\u62A5\u8868\";
 - `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/allStrings_zh_TW.js` (359 lines, .js) -- var L_bobj_crv_MainReport = \"\u4E3B\u5831\u8868\";
-- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/FlexParameterBridge.js` (336 lines, .js) -- if (typeof (bobj) == 'undefined') {
-- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/KeyDownEvent.js` (44 lines, .js) -- 	File Version Start - Do not remove this if you are modifying the file
-- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/MochiKit/Async.js` (602 lines, .js) -- MochiKit.Async 1.4
-- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/MochiKit/Base.js` (1259 lines, .js) -- MochiKit.Base 1.4
-- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/MochiKit/Color.js` (845 lines, .js) -- MochiKit.Color 1.4
-- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/MochiKit/Controls.js` (1284 lines, .js) -- Copyright (c) 2005 Thomas Fuchs (http://script.aculo.us, http://mir.aculo.us)
-- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/MochiKit/DOM.js` (926 lines, .js) -- MochiKit.DOM 1.4
-- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/MochiKit/DateTime.js` (208 lines, .js) -- MochiKit.DateTime 1.4
-- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/MochiKit/DragAndDrop.js` (774 lines, .js) -- MochiKit.DragAndDrop 1.4
-- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/MochiKit/Format.js` (294 lines, .js) -- MochiKit.Format 1.4
-- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/MochiKit/Iter.js` (807 lines, .js) -- MochiKit.Iter 1.4
-- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/MochiKit/License.js` (9 lines, .js) -- MochiKit.Base 1.4
-- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/MochiKit/Logging.js` (299 lines, .js) -- MochiKit.Logging 1.4
-- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/MochiKit/LoggingPane.js` (356 lines, .js) -- MochiKit.LoggingPane 1.4
-- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/MochiKit/MochiKit.js` (149 lines, .js) -- MochiKit.MochiKit 1.4
-- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/MochiKit/MockDOM.js` (88 lines, .js) -- MochiKit.MockDOM 1.4
-- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/MochiKit/New.js` (365 lines, .js) -- MochiKit.Base.update(MochiKit.Base, {
-- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/MochiKit/Signal.js` (712 lines, .js) -- MochiKit.Signal 1.4
-- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/MochiKit/Sortable.js` (531 lines, .js) -- Copyright (c) 2005 Thomas Fuchs (http://script.aculo.us, http://mir.aculo.us)
-- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/MochiKit/Style.js` (374 lines, .js) -- MochiKit.Style 1.4
-- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/MochiKit/Test.js` (181 lines, .js) -- MochiKit.Test 1.4
-- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/MochiKit/Visual.js` (1735 lines, .js) -- MochiKit.Visual 1.4
-- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/MochiKit/__package__.js` (19 lines, .js) -- dojo.hostenv.conditionalLoadModule({
 - `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/calendar.js` (695 lines, .js) -- topBackground    = \"black\";         // BG COLOR OF THE TOP FRAME
 - `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/calendar_param.js` (704 lines, .js) -- topBackground    = \"black\";         // BG COLOR OF THE TOP FRAME
+- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/api.js` (83 lines, .js) -- if (typeof (CRViewer) == \"undefined\") {
 - `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/ArgumentNormalizer.js` (126 lines, .js) -- if (typeof bobj ==  'undefined') {
+- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/bobjcallback.js` (33 lines, .js) -- function bobj_WebForm_Callback (viewerID, callbackEventArgument, formID) {
 - `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/ButtonList.js` (244 lines, .js) -- bobj.crv.newButtonList = function(kwArgs) {
 - `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/Calendar.js` (539 lines, .js) -- if (typeof bobj == 'undefined') {
 - `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/Colors.js` (8 lines, .js) -- if (typeof bobj == 'undefined') {
+- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/common.js` (776 lines, .js) -- if (typeof bobj == 'undefined') {
+- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/crv.js` (536 lines, .js) -- if (typeof(bobj) == 'undefined') {
 - `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/Dialogs.js` (930 lines, .js) -- if (typeof bobj.crv.PrintUI == 'undefined') {
+- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/dom.js` (6 lines, .js) -- if (typeof(bobj.dom) == 'undefined') {
+- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/encoding.js` (71 lines, .js) -- if (typeof bobj == 'undefined') {
+- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/event.js` (136 lines, .js) -- if (typeof bobj == 'undefined') {
 - `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/GroupTree.js` (270 lines, .js) --  ================================================================================
 - `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/GroupTreeListener.js` (165 lines, .js) -- bobj.crv.GroupTreeListener = function(groupTree) {
 - `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/GroupTreeNode.js` (202 lines, .js) -- bobj.crv.newGroupTreeNode = function(kwArgs) {
-- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/IOAdapters.js` (598 lines, .js) -- bobj.crv.IOAdapterBase = {
+- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/html.js` (218 lines, .js) -- if (typeof(bobj.html) == 'undefined') {
 - `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/ImageSprites.js` (37 lines, .js) -- bobj.crv.allInOne = (function () {
+- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/initDhtmlLib.js` (10 lines, .js) -- if (bobj.crv.config.isDebug) {
+- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/IOAdapters.js` (598 lines, .js) -- bobj.crv.IOAdapterBase = {
 - `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/LeftPanel.js` (289 lines, .js) -- bobj.crv.newLeftPanel = function(kwArgs) {
 - `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/OptionalParameterUI.js` (35 lines, .js) -- bobj.crv.params.newOptionalParameterUI = function(kwArgs) {
 - `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/OptionalParameterValueRow.js` (143 lines, .js) -- bobj.crv.params.newOptionalParameterValueRow = function(kwArgs) {
@@ -104,23 +126,6 @@ Files: 445
 - `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/StackedTab.js` (229 lines, .js) -- ================================================================================
 - `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/StateManager.js` (86 lines, .js) -- bobj.crv.StateManager = function() {
 - `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/Statusbar.js` (256 lines, .js) -- bobj.crv.newStatusbar = function(kwArgs) {
-- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/TextCombo.js` (377 lines, .js) -- ================================================================================
-- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/TextField.js` (151 lines, .js) -- bobj.crv.params.newTextField = function(kwArgs) {
-- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/ToolPanel.js` (295 lines, .js) -- bobj.crv.ToolPanelType = { //values must match server's expectations
-- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/Toolbar.js` (1212 lines, .js) -- bobj.crv.setAllClasses = function (widget, prefix)
-- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/Viewer.js` (862 lines, .js) -- bobj.crv.newViewer = function(kwArgs) {
-- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/ViewerFlexParameterAdapter.js` (547 lines, .js) --  ================================================================================
-- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/ViewerListener.js` (1112 lines, .js) -- if(typeof(bobj.crv.Async) == 'undefined') {
-- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/WarningPopup.js` (65 lines, .js) -- if (typeof bobj === 'undefined') {
-- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/api.js` (83 lines, .js) -- if (typeof (CRViewer) == \"undefined\") {
-- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/bobjcallback.js` (33 lines, .js) -- function bobj_WebForm_Callback (viewerID, callbackEventArgument, formID) {
-- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/common.js` (776 lines, .js) -- if (typeof bobj == 'undefined') {
-- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/crv.js` (536 lines, .js) -- if (typeof(bobj) == 'undefined') {
-- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/dom.js` (6 lines, .js) -- if (typeof(bobj.dom) == 'undefined') {
-- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/encoding.js` (71 lines, .js) -- if (typeof bobj == 'undefined') {
-- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/event.js` (136 lines, .js) -- if (typeof bobj == 'undefined') {
-- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/html.js` (218 lines, .js) -- if (typeof(bobj.html) == 'undefined') {
-- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/initDhtmlLib.js` (10 lines, .js) -- if (bobj.crv.config.isDebug) {
 - `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/strings_cs.js` (133 lines, .js) -- var L_bobj_crv_MainReport = \"Hlavn\u00ED sestava\";
 - `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/strings_da.js` (133 lines, .js) -- var L_bobj_crv_MainReport = \"Hovedrapport\";
 - `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/strings_de.js` (133 lines, .js) -- var L_bobj_crv_MainReport = \"Hauptbericht\";
@@ -143,6 +148,14 @@ Files: 445
 - `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/strings_tr.js` (133 lines, .js) -- var L_bobj_crv_MainReport = \"Ana Rapor\";
 - `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/strings_zh_CN.js` (133 lines, .js) -- var L_bobj_crv_MainReport = \"\u4E3B\u62A5\u8868\";
 - `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/strings_zh_TW.js` (133 lines, .js) -- var L_bobj_crv_MainReport = \"\u4E3B\u5831\u8868\";
+- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/TextCombo.js` (377 lines, .js) -- ================================================================================
+- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/TextField.js` (151 lines, .js) -- bobj.crv.params.newTextField = function(kwArgs) {
+- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/Toolbar.js` (1212 lines, .js) -- bobj.crv.setAllClasses = function (widget, prefix)
+- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/ToolPanel.js` (295 lines, .js) -- bobj.crv.ToolPanelType = { //values must match server's expectations
+- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/Viewer.js` (862 lines, .js) -- bobj.crv.newViewer = function(kwArgs) {
+- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/ViewerFlexParameterAdapter.js` (547 lines, .js) --  ================================================================================
+- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/ViewerListener.js` (1112 lines, .js) -- if(typeof(bobj.crv.Async) == 'undefined') {
+- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewer/WarningPopup.js` (65 lines, .js) -- if (typeof bobj === 'undefined') {
 - `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/crviewerinclude.js` (260 lines, .js) -- function crv_createCookie(name,value,days)
 - `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/dhtmllib/bolist.js` (2761 lines, .js) -- =============================================================
 - `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/dhtmllib/calendar.js` (935 lines, .js) -- =============================================================
@@ -183,10 +196,33 @@ Files: 445
 - `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/dhtmllib/waitdialog.js` (220 lines, .js) -- =============================================================
 - `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/dt_param.js` (349 lines, .js) -- function TDC() { 
 - `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/external/date.js` (335 lines, .js) -- if (typeof bobj == 'undefined') {
+- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/FlexParameterBridge.js` (336 lines, .js) -- if (typeof (bobj) == 'undefined') {
+- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/KeyDownEvent.js` (44 lines, .js) -- 	File Version Start - Do not remove this if you are modifying the file
 - `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/log4javascript/log4javascript.js` (16 lines, .js) -- if(!Array.prototype.push){Array.prototype.push=function(){for(var i=0;i<arguments.length;i++){this[this.length]=argument
 - `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/log4javascript/log4javascript_stub.js` (0 lines, .js) -- var log4javascript;(function(){function ff(){return function(){}}function copy(obj,props){for(var i in props){obj[i]=pro
 - `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/log4javascript/log4javascript_stub_uncompressed.js` (224 lines, .js) -- var log4javascript;
 - `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/log4javascript/log4javascript_uncompressed.js` (3198 lines, .js) -- if (!Array.prototype.push) {
+- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/MochiKit/__package__.js` (19 lines, .js) -- dojo.hostenv.conditionalLoadModule({
+- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/MochiKit/Async.js` (602 lines, .js) -- MochiKit.Async 1.4
+- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/MochiKit/Base.js` (1259 lines, .js) -- MochiKit.Base 1.4
+- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/MochiKit/Color.js` (845 lines, .js) -- MochiKit.Color 1.4
+- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/MochiKit/Controls.js` (1284 lines, .js) -- Copyright (c) 2005 Thomas Fuchs (http://script.aculo.us, http://mir.aculo.us)
+- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/MochiKit/DateTime.js` (208 lines, .js) -- MochiKit.DateTime 1.4
+- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/MochiKit/DOM.js` (926 lines, .js) -- MochiKit.DOM 1.4
+- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/MochiKit/DragAndDrop.js` (774 lines, .js) -- MochiKit.DragAndDrop 1.4
+- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/MochiKit/Format.js` (294 lines, .js) -- MochiKit.Format 1.4
+- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/MochiKit/Iter.js` (807 lines, .js) -- MochiKit.Iter 1.4
+- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/MochiKit/License.js` (9 lines, .js) -- MochiKit.Base 1.4
+- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/MochiKit/Logging.js` (299 lines, .js) -- MochiKit.Logging 1.4
+- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/MochiKit/LoggingPane.js` (356 lines, .js) -- MochiKit.LoggingPane 1.4
+- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/MochiKit/MochiKit.js` (149 lines, .js) -- MochiKit.MochiKit 1.4
+- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/MochiKit/MockDOM.js` (88 lines, .js) -- MochiKit.MockDOM 1.4
+- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/MochiKit/New.js` (365 lines, .js) -- MochiKit.Base.update(MochiKit.Base, {
+- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/MochiKit/Signal.js` (712 lines, .js) -- MochiKit.Signal 1.4
+- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/MochiKit/Sortable.js` (531 lines, .js) -- Copyright (c) 2005 Thomas Fuchs (http://script.aculo.us, http://mir.aculo.us)
+- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/MochiKit/Style.js` (374 lines, .js) -- MochiKit.Style 1.4
+- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/MochiKit/Test.js` (181 lines, .js) -- MochiKit.Test 1.4
+- `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/MochiKit/Visual.js` (1735 lines, .js) -- MochiKit.Visual 1.4
 - `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/previewerror.js` (41 lines, .js) -- function writeError(header, message)
 - `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/prompts.js` (359 lines, .js) -- var debug = false;
 - `./aspnet_client/system_web/2_0_50727/crystalreportviewers13/js/prompts_param.js` (1727 lines, .js) -- var debug = false;
@@ -246,41 +282,27 @@ Files: 445
 - `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/allStrings_tr.js` (359 lines, .js) -- var L_bobj_crv_MainReport = \"Ana Rapor\";
 - `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/allStrings_zh_CN.js` (359 lines, .js) -- var L_bobj_crv_MainReport = \"\u4E3B\u62A5\u8868\";
 - `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/allStrings_zh_TW.js` (359 lines, .js) -- var L_bobj_crv_MainReport = \"\u4E3B\u5831\u8868\";
-- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/FlexParameterBridge.js` (336 lines, .js) -- if (typeof (bobj) == 'undefined') {
-- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/KeyDownEvent.js` (44 lines, .js) -- 	File Version Start - Do not remove this if you are modifying the file
-- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/MochiKit/Async.js` (602 lines, .js) -- MochiKit.Async 1.4
-- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/MochiKit/Base.js` (1259 lines, .js) -- MochiKit.Base 1.4
-- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/MochiKit/Color.js` (845 lines, .js) -- MochiKit.Color 1.4
-- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/MochiKit/Controls.js` (1284 lines, .js) -- Copyright (c) 2005 Thomas Fuchs (http://script.aculo.us, http://mir.aculo.us)
-- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/MochiKit/DOM.js` (926 lines, .js) -- MochiKit.DOM 1.4
-- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/MochiKit/DateTime.js` (208 lines, .js) -- MochiKit.DateTime 1.4
-- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/MochiKit/DragAndDrop.js` (774 lines, .js) -- MochiKit.DragAndDrop 1.4
-- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/MochiKit/Format.js` (294 lines, .js) -- MochiKit.Format 1.4
-- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/MochiKit/Iter.js` (807 lines, .js) -- MochiKit.Iter 1.4
-- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/MochiKit/License.js` (9 lines, .js) -- MochiKit.Base 1.4
-- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/MochiKit/Logging.js` (299 lines, .js) -- MochiKit.Logging 1.4
-- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/MochiKit/LoggingPane.js` (356 lines, .js) -- MochiKit.LoggingPane 1.4
-- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/MochiKit/MochiKit.js` (149 lines, .js) -- MochiKit.MochiKit 1.4
-- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/MochiKit/MockDOM.js` (88 lines, .js) -- MochiKit.MockDOM 1.4
-- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/MochiKit/New.js` (365 lines, .js) -- MochiKit.Base.update(MochiKit.Base, {
-- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/MochiKit/Signal.js` (712 lines, .js) -- MochiKit.Signal 1.4
-- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/MochiKit/Sortable.js` (531 lines, .js) -- Copyright (c) 2005 Thomas Fuchs (http://script.aculo.us, http://mir.aculo.us)
-- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/MochiKit/Style.js` (374 lines, .js) -- MochiKit.Style 1.4
-- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/MochiKit/Test.js` (181 lines, .js) -- MochiKit.Test 1.4
-- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/MochiKit/Visual.js` (1735 lines, .js) -- MochiKit.Visual 1.4
-- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/MochiKit/__package__.js` (19 lines, .js) -- dojo.hostenv.conditionalLoadModule({
 - `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/calendar.js` (695 lines, .js) -- topBackground    = \"black\";         // BG COLOR OF THE TOP FRAME
 - `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/calendar_param.js` (704 lines, .js) -- topBackground    = \"black\";         // BG COLOR OF THE TOP FRAME
+- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/api.js` (83 lines, .js) -- if (typeof (CRViewer) == \"undefined\") {
 - `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/ArgumentNormalizer.js` (126 lines, .js) -- if (typeof bobj ==  'undefined') {
+- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/bobjcallback.js` (33 lines, .js) -- function bobj_WebForm_Callback (viewerID, callbackEventArgument, formID) {
 - `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/ButtonList.js` (244 lines, .js) -- bobj.crv.newButtonList = function(kwArgs) {
 - `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/Calendar.js` (539 lines, .js) -- if (typeof bobj == 'undefined') {
 - `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/Colors.js` (8 lines, .js) -- if (typeof bobj == 'undefined') {
+- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/common.js` (776 lines, .js) -- if (typeof bobj == 'undefined') {
+- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/crv.js` (536 lines, .js) -- if (typeof(bobj) == 'undefined') {
 - `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/Dialogs.js` (930 lines, .js) -- if (typeof bobj.crv.PrintUI == 'undefined') {
+- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/dom.js` (6 lines, .js) -- if (typeof(bobj.dom) == 'undefined') {
+- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/encoding.js` (71 lines, .js) -- if (typeof bobj == 'undefined') {
+- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/event.js` (136 lines, .js) -- if (typeof bobj == 'undefined') {
 - `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/GroupTree.js` (270 lines, .js) --  ================================================================================
 - `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/GroupTreeListener.js` (165 lines, .js) -- bobj.crv.GroupTreeListener = function(groupTree) {
 - `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/GroupTreeNode.js` (202 lines, .js) -- bobj.crv.newGroupTreeNode = function(kwArgs) {
-- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/IOAdapters.js` (598 lines, .js) -- bobj.crv.IOAdapterBase = {
+- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/html.js` (218 lines, .js) -- if (typeof(bobj.html) == 'undefined') {
 - `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/ImageSprites.js` (37 lines, .js) -- bobj.crv.allInOne = (function () {
+- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/initDhtmlLib.js` (10 lines, .js) -- if (bobj.crv.config.isDebug) {
+- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/IOAdapters.js` (598 lines, .js) -- bobj.crv.IOAdapterBase = {
 - `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/LeftPanel.js` (289 lines, .js) -- bobj.crv.newLeftPanel = function(kwArgs) {
 - `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/OptionalParameterUI.js` (35 lines, .js) -- bobj.crv.params.newOptionalParameterUI = function(kwArgs) {
 - `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/OptionalParameterValueRow.js` (143 lines, .js) -- bobj.crv.params.newOptionalParameterValueRow = function(kwArgs) {
@@ -307,23 +329,6 @@ Files: 445
 - `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/StackedTab.js` (229 lines, .js) -- ================================================================================
 - `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/StateManager.js` (86 lines, .js) -- bobj.crv.StateManager = function() {
 - `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/Statusbar.js` (256 lines, .js) -- bobj.crv.newStatusbar = function(kwArgs) {
-- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/TextCombo.js` (377 lines, .js) -- ================================================================================
-- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/TextField.js` (151 lines, .js) -- bobj.crv.params.newTextField = function(kwArgs) {
-- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/ToolPanel.js` (295 lines, .js) -- bobj.crv.ToolPanelType = { //values must match server's expectations
-- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/Toolbar.js` (1212 lines, .js) -- bobj.crv.setAllClasses = function (widget, prefix)
-- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/Viewer.js` (862 lines, .js) -- bobj.crv.newViewer = function(kwArgs) {
-- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/ViewerFlexParameterAdapter.js` (547 lines, .js) --  ================================================================================
-- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/ViewerListener.js` (1112 lines, .js) -- if(typeof(bobj.crv.Async) == 'undefined') {
-- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/WarningPopup.js` (65 lines, .js) -- if (typeof bobj === 'undefined') {
-- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/api.js` (83 lines, .js) -- if (typeof (CRViewer) == \"undefined\") {
-- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/bobjcallback.js` (33 lines, .js) -- function bobj_WebForm_Callback (viewerID, callbackEventArgument, formID) {
-- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/common.js` (776 lines, .js) -- if (typeof bobj == 'undefined') {
-- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/crv.js` (536 lines, .js) -- if (typeof(bobj) == 'undefined') {
-- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/dom.js` (6 lines, .js) -- if (typeof(bobj.dom) == 'undefined') {
-- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/encoding.js` (71 lines, .js) -- if (typeof bobj == 'undefined') {
-- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/event.js` (136 lines, .js) -- if (typeof bobj == 'undefined') {
-- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/html.js` (218 lines, .js) -- if (typeof(bobj.html) == 'undefined') {
-- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/initDhtmlLib.js` (10 lines, .js) -- if (bobj.crv.config.isDebug) {
 - `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/strings_cs.js` (133 lines, .js) -- var L_bobj_crv_MainReport = \"Hlavn\u00ED sestava\";
 - `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/strings_da.js` (133 lines, .js) -- var L_bobj_crv_MainReport = \"Hovedrapport\";
 - `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/strings_de.js` (133 lines, .js) -- var L_bobj_crv_MainReport = \"Hauptbericht\";
@@ -346,6 +351,14 @@ Files: 445
 - `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/strings_tr.js` (133 lines, .js) -- var L_bobj_crv_MainReport = \"Ana Rapor\";
 - `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/strings_zh_CN.js` (133 lines, .js) -- var L_bobj_crv_MainReport = \"\u4E3B\u62A5\u8868\";
 - `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/strings_zh_TW.js` (133 lines, .js) -- var L_bobj_crv_MainReport = \"\u4E3B\u5831\u8868\";
+- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/TextCombo.js` (377 lines, .js) -- ================================================================================
+- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/TextField.js` (151 lines, .js) -- bobj.crv.params.newTextField = function(kwArgs) {
+- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/Toolbar.js` (1212 lines, .js) -- bobj.crv.setAllClasses = function (widget, prefix)
+- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/ToolPanel.js` (295 lines, .js) -- bobj.crv.ToolPanelType = { //values must match server's expectations
+- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/Viewer.js` (862 lines, .js) -- bobj.crv.newViewer = function(kwArgs) {
+- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/ViewerFlexParameterAdapter.js` (547 lines, .js) --  ================================================================================
+- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/ViewerListener.js` (1112 lines, .js) -- if(typeof(bobj.crv.Async) == 'undefined') {
+- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewer/WarningPopup.js` (65 lines, .js) -- if (typeof bobj === 'undefined') {
 - `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/crviewerinclude.js` (260 lines, .js) -- function crv_createCookie(name,value,days)
 - `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/dhtmllib/bolist.js` (2761 lines, .js) -- =============================================================
 - `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/dhtmllib/calendar.js` (935 lines, .js) -- =============================================================
@@ -386,10 +399,33 @@ Files: 445
 - `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/dhtmllib/waitdialog.js` (220 lines, .js) -- =============================================================
 - `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/dt_param.js` (349 lines, .js) -- function TDC() { 
 - `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/external/date.js` (335 lines, .js) -- if (typeof bobj == 'undefined') {
+- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/FlexParameterBridge.js` (336 lines, .js) -- if (typeof (bobj) == 'undefined') {
+- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/KeyDownEvent.js` (44 lines, .js) -- 	File Version Start - Do not remove this if you are modifying the file
 - `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/log4javascript/log4javascript.js` (16 lines, .js) -- if(!Array.prototype.push){Array.prototype.push=function(){for(var i=0;i<arguments.length;i++){this[this.length]=argument
 - `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/log4javascript/log4javascript_stub.js` (0 lines, .js) -- var log4javascript;(function(){function ff(){return function(){}}function copy(obj,props){for(var i in props){obj[i]=pro
 - `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/log4javascript/log4javascript_stub_uncompressed.js` (224 lines, .js) -- var log4javascript;
 - `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/log4javascript/log4javascript_uncompressed.js` (3198 lines, .js) -- if (!Array.prototype.push) {
+- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/MochiKit/__package__.js` (19 lines, .js) -- dojo.hostenv.conditionalLoadModule({
+- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/MochiKit/Async.js` (602 lines, .js) -- MochiKit.Async 1.4
+- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/MochiKit/Base.js` (1259 lines, .js) -- MochiKit.Base 1.4
+- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/MochiKit/Color.js` (845 lines, .js) -- MochiKit.Color 1.4
+- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/MochiKit/Controls.js` (1284 lines, .js) -- Copyright (c) 2005 Thomas Fuchs (http://script.aculo.us, http://mir.aculo.us)
+- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/MochiKit/DateTime.js` (208 lines, .js) -- MochiKit.DateTime 1.4
+- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/MochiKit/DOM.js` (926 lines, .js) -- MochiKit.DOM 1.4
+- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/MochiKit/DragAndDrop.js` (774 lines, .js) -- MochiKit.DragAndDrop 1.4
+- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/MochiKit/Format.js` (294 lines, .js) -- MochiKit.Format 1.4
+- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/MochiKit/Iter.js` (807 lines, .js) -- MochiKit.Iter 1.4
+- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/MochiKit/License.js` (9 lines, .js) -- MochiKit.Base 1.4
+- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/MochiKit/Logging.js` (299 lines, .js) -- MochiKit.Logging 1.4
+- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/MochiKit/LoggingPane.js` (356 lines, .js) -- MochiKit.LoggingPane 1.4
+- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/MochiKit/MochiKit.js` (149 lines, .js) -- MochiKit.MochiKit 1.4
+- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/MochiKit/MockDOM.js` (88 lines, .js) -- MochiKit.MockDOM 1.4
+- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/MochiKit/New.js` (365 lines, .js) -- MochiKit.Base.update(MochiKit.Base, {
+- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/MochiKit/Signal.js` (712 lines, .js) -- MochiKit.Signal 1.4
+- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/MochiKit/Sortable.js` (531 lines, .js) -- Copyright (c) 2005 Thomas Fuchs (http://script.aculo.us, http://mir.aculo.us)
+- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/MochiKit/Style.js` (374 lines, .js) -- MochiKit.Style 1.4
+- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/MochiKit/Test.js` (181 lines, .js) -- MochiKit.Test 1.4
+- `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/MochiKit/Visual.js` (1735 lines, .js) -- MochiKit.Visual 1.4
 - `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/previewerror.js` (41 lines, .js) -- function writeError(header, message)
 - `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/prompts.js` (359 lines, .js) -- var debug = false;
 - `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/js/prompts_param.js` (1727 lines, .js) -- var debug = false;
@@ -426,14 +462,25 @@ Files: 445
 - `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/prompting/js/promptengine_strings_zh_TW.js` (51 lines, .js) -- var L_Today     = \"\u4ECA\u5929\";
 - `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/urlreporting/activexviewer.js` (38 lines, .js) -- function writeActxViewer(sViewerVer, sProductLang, sPreferredViewingLang, bDrillDown, bExport, bDisplayGroupTree, 
 - `./aspnet_client/system_web/4_0_30319/crystalreportviewers13/urlreporting/appletviewer.js` (103 lines, .js) -- function getArchiveParameters(lang)
-- `./bootstrap/js/bootstrap-modal.js` (260 lines, .js) -- !function( $ ){
 - `./bootstrap/js/bootstrap.js` (2377 lines, .js) -- if (typeof jQuery === 'undefined') {
 - `./bootstrap/js/bootstrap.min.js` (6 lines, .js) -- if(\"undefined\"==typeof jQuery)throw new Error(\"Bootstrap's JavaScript requires jQuery\");+function(a){\"use strict\";
+- `./bootstrap/js/bootstrap-modal.js` (260 lines, .js) -- !function( $ ){
+- `./bootstrap/js/jquery.min.js` (3 lines, .js) -- },set:function(e,n,r){return st.nodeName(e,\"input\")?(e.defaultValue=n,t):Ct&&Ct.set(e,n,r)}}),Ht||(Ct=st.valHooks.butt
 - `./bootstrap/js/jquery-1.12.4.js` (11008 lines, .js) -- (function( global, factory ) {
 - `./bootstrap/js/jquery-1.12.4.min.js` (5 lines, .js) -- !function(a,b){\"object\"==typeof module&&\"object\"==typeof module.exports?module.exports=a.document?b(a,!0):function(a
 - `./bootstrap/js/jquery-2.1.3.js` (9205 lines, .js) -- (function( global, factory ) {
-- `./bootstrap/js/jquery.min.js` (3 lines, .js) -- },set:function(e,n,r){return st.nodeName(e,\"input\")?(e.defaultValue=n,t):Ct&&Ct.set(e,n,r)}}),Ht||(Ct=st.valHooks.butt
 - `./bootstrap/js/npm.js` (12 lines, .js) -- require('../../js/transition.js')
+- `./CLAUDE.md` (18 lines, .md) -- Stack: unknown
+- `./GUIA_ESTILO_TABLAS.md` (401 lines, .md) -- Este documento describe los estilos y funcionalidad JavaScript que deben replicarse en todas las vistas para mantener co
+- `./Otros_css_js/chosen.jquery.js` (1090 lines, .js) -- (function() {
+- `./Otros_css_js/jquery.min.js` (3 lines, .js) -- (function(a,b){function cu(a){return f.isWindow(a)?a:a.nodeType===9?a.defaultView||a.parentWindow:!1}function cr(a){if(!
+- `./Otros_css_js/jquery-1.8.1.min.js` (1 lines, .js) -- (function(a,b){function G(a){var b=F[a]={};return p.each(a.split(s),function(a,c){b[c]=!0}),b}function J(a,c,d){if(d===b
+- `./Otros_css_js/jquery-2.1.1.min.js` (4 lines, .js) -- !function(a,b){\"object\"==typeof module&&\"object\"==typeof module.exports?module.exports=a.document?b(a,!0):function(a
+- `./Otros_css_js/jquery-3.1.1.slim.min.js` (4 lines, .js) -- !function(a,b){\"use strict\";\"object\"==typeof module&&\"object\"==typeof module.exports?module.exports=a.document?b(a
+- `./Otros_css_js/resaltar.js` (37 lines, .js) -- function ResaltarFila(id_tabla){
+- `./Otros_css_js/restables.js` (267 lines, .js) -- (function (factory) {
+- `./Otros_css_js/showModalDialog.js` (65 lines, .js) -- (function () {
+- `./src/js/grid-utils.js` (287 lines, .js) -- var GridUtils = (function() {
 - `./src/js/jscal2.js` (10 lines, .js) -- Calendar=function(){function bm(a){typeof a==\"string\"&&(a=document.getElementById(a));return a}function bk(a,b,c){for(
 - `./src/js/lang/ca.js` (61 lines, .js) -- Calendar.LANG(\"ca\", \"Catalan\", {
 - `./src/js/lang/cn.js` (61 lines, .js) -- Calendar.LANG(\"cn\", \"中文\", {
@@ -452,8 +499,8 @@ Files: 445
 - `./src/js/lang/ru.js` (61 lines, .js) -- Calendar.LANG(\"ru\", \"русский\", {
 - `./src/js/lang/sk.js` (61 lines, .js) -- Calendar.LANG(\"sk\", \"Slovak\", {
 - `./src/js/lang/sv.js` (61 lines, .js) -- Calendar.LANG(\"sv\", \"svenska\", {
-- `./src/js/unicode-letter.js` (6 lines, .js) -- Calendar.isUnicodeLetter = (function(){
+- `./src/js/utils.js` (34 lines, .js) -- function MostrarMensaje() {
 
 ## By language
-- .js: 441
-- .md: 4
+- .js: 445
+- .md: 47

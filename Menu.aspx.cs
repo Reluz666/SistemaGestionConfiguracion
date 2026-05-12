@@ -79,5 +79,10 @@ public partial class _Default : System.Web.UI.Page
             this.__pagina.Value = "CerrarSession.aspx";
             return;
         }
+
+        // Mostrar nombre de usuario en el dashboard
+        string nombreUsuario = Datos[1].Trim() + " " + Datos[2].Trim() + " " + Datos[3].Trim();
+        string cargo = Datos[9].Trim();
+        this.lblUsuario.Text = nombreUsuario + " | " + cargo;
     }
 }
