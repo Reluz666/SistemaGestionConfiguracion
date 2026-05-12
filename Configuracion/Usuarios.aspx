@@ -361,33 +361,6 @@
     <!-- Scripts -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="../Otros_css_js/jquery-3.1.1.slim.min.js"></script>
-    <script type="text/javascript" src="../Otros_css_js/restables.js"></script>
-    <script type="text/javascript">
-        window.addEventListener("load", convertirPrimerTR);
-
-        $(document).ready(function () {
-            $('table').resTables();
-        });
-
-        function convertirPrimerTR() {
-            var tr = document.querySelector("tbody tr");
-            var thead = tr.cloneNode(true);
-            for (var i = 0; i < thead.children.length; i++) {
-                var th = document.createElement("th");
-                th.innerHTML = thead.children[i].innerHTML;
-                thead.replaceChild(th, thead.children[i]);
-            }
-            var nuevoThead = document.createElement("thead");
-            nuevoThead.appendChild(thead);
-            var tabla = document.querySelector("table");
-            tabla.insertBefore(nuevoThead, tabla.firstChild);
-            tr.remove();
-        }
-    </script>
-    <script language="JavaScript" type="text/javascript">
-        ResaltarFila('TablePersonal');
-    </script>
 
 </body>
 </html>
