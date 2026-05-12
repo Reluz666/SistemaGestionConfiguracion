@@ -214,10 +214,6 @@
                                          MaxLength="100" placeholder="email@ejemplo.com" />
                             <asp:RequiredFieldValidator ID="rfvEmail" runat="server" ControlToValidate="Email"
                                                        ErrorMessage="*" CssClass="validator-error" />
-                            <asp:RegularExpressionValidator ID="revEmail" runat="server" ControlToValidate="Email"
-                                                             Display="Dynamic" ErrorMessage="Email incorrecto"
-                                                             CssClass="validator-error"
-                                                             ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" />
                         </div>
                         <div class="col-md-3 col-sm-6">
                             <label class="form-label-modern">Sede</label>
