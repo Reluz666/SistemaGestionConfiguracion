@@ -75,7 +75,7 @@ public partial class PersonalForm : System.Web.UI.Page
         }
 
         bool rpta = this.VERIFICAR_PERMISO_ACCESO_PAGINA_WEB(Convert.ToInt32(Datos[0]),
-        "PersonalForm.aspx");
+        "Personal.aspx");
         if (rpta == false)
         {
             this.__mensaje.Value = "Ud. no tiene permiso para ACCEDER esta pagina web.";
