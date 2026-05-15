@@ -260,6 +260,10 @@
                 }
             }
         };
+    </script>
+</head>
+
+    <form id="form1" runat="server">
 
     <div class="section">
         <div class="container">
