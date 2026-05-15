@@ -52,6 +52,43 @@ public partial class _Default : System.Web.UI.Page
         return ok;
     }
 
+    private void CargarEstadisticas()
+    {
+        try
+        {
+            policia.clsaccesodatos servidor = new policia.clsaccesodatos();
+            servidor.cadenaconexion = Ruta;
+
+            if (servidor.abrirconexiontrans() == true)
+            {
+                // Total Elementos de Configuración
+                DataTable dtEC = servidor.consultar("SELECT COUNT(*) AS Total FROM ELEMENTOS_CONFIGURACION").Tables[0];
+                statElementos.InnerText = dtEC.Rows[0]["Total"].ToString();
+
+                // Total Relaciones
+                DataTable dtRel = servidor.consultar("SELECT COUNT(*) AS Total FROM RELACION_ELEMENTO_CONFIGURACION").Tables[0];
+                statRelaciones.InnerText = dtRel.Rows[0]["Total"].ToString();
+
+                // Total Licencias (activas - no vencidas o perpetuas)
+                DataTable dtLic = servidor.consultar(@"
+                    SELECT COUNT(*) AS Total FROM LICENCIA_ELEMENTO_CONFIGURACION
+                    WHERE LICENCIA_PERPETUA = 1
+                       OR FECHA_FIN >= GETDATE()").Tables[0];
+                statLicencias.InnerText = dtLic.Rows[0]["Total"].ToString();
+
+                // Total Personal activo
+                DataTable dtPers = servidor.consultar("SELECT COUNT(*) AS Total FROM Personal WHERE Estado_Personal = 1").Tables[0];
+                statPersonal.InnerText = dtPers.Rows[0]["Total"].ToString();
+
+                servidor.cerrarconexion();
+            }
+        }
+        catch (Exception)
+        {
+            System.Diagnostics.Debug.WriteLine("Error cargando estadísticas");
+        }
+    }
+
     protected void Page_Load(object sender, EventArgs e)
     {
         this.__mensaje.Value = "";
@@ -84,5 +121,10 @@ public partial class _Default : System.Web.UI.Page
         string nombreUsuario = Datos[1].Trim() + " " + Datos[2].Trim() + " " + Datos[3].Trim();
         string cargo = Datos[9].Trim();
         this.lblUsuario.Text = nombreUsuario + " | " + cargo;
+
+        if (!IsPostBack)
+        {
+            CargarEstadisticas();
+        }
     }
 }

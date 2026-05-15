@@ -324,41 +324,45 @@
 
             <!-- Stats Row -->
             <div class="stats-row">
-                <div class="stat-card">
+                <div class="stat-card stat-pulse">
                     <div class="stat-icon" style="background: var(--accent-light); color: var(--accent);">
                         <i class="bi bi-box-seam"></i>
                     </div>
                     <div class="stat-info">
-                        <span class="stat-value">--</span>
+                        <span class="stat-value" id="statElementos" runat="server" ClientIDMode="Static">--</span>
                         <span class="stat-label">Elementos CI</span>
                     </div>
+                    <div class="stat-indicator active"></div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon" style="background: #dcfce7; color: #16a34a;">
                         <i class="bi bi-diagram-3"></i>
                     </div>
                     <div class="stat-info">
-                        <span class="stat-value">--</span>
+                        <span class="stat-value" id="statRelaciones" runat="server" ClientIDMode="Static">--</span>
                         <span class="stat-label">Relaciones</span>
                     </div>
+                    <div class="stat-indicator" style="background: #16a34a;"></div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon" style="background: #fee2e2; color: #dc2626;">
                         <i class="bi bi-file-earmark-lock"></i>
                     </div>
                     <div class="stat-info">
-                        <span class="stat-value">--</span>
+                        <span class="stat-value" id="statLicencias" runat="server" ClientIDMode="Static">--</span>
                         <span class="stat-label">Licencias</span>
                     </div>
+                    <div class="stat-indicator" style="background: #dc2626;"></div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon" style="background: #fef3c7; color: #d97706;">
                         <i class="bi bi-people"></i>
                     </div>
                     <div class="stat-info">
-                        <span class="stat-value">--</span>
+                        <span class="stat-value" id="statPersonal" runat="server" ClientIDMode="Static">--</span>
                         <span class="stat-label">Personal</span>
                     </div>
+                    <div class="stat-indicator" style="background: #d97706;"></div>
                 </div>
             </div>
 

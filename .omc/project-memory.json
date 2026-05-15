@@ -168,8 +168,8 @@
   "hotPaths": [
     {
       "path": "",
-      "accessCount": 41,
-      "lastAccessed": 1778862860803,
+      "accessCount": 42,
+      "lastAccessed": 1778865297218,
       "type": "directory"
     },
     {
@@ -200,6 +200,12 @@
       "path": "Reportes\\Reporte_CIS_Relacionados_Con_Otros_CIS.aspx",
       "accessCount": 11,
       "lastAccessed": 1778865068507,
+      "type": "file"
+    },
+    {
+      "path": "Menu.aspx",
+      "accessCount": 11,
+      "lastAccessed": 1778865371717,
       "type": "file"
     },
     {
@@ -323,6 +329,12 @@
       "type": "file"
     },
     {
+      "path": "Menu.aspx.cs",
+      "accessCount": 4,
+      "lastAccessed": 1778865367680,
+      "type": "file"
+    },
+    {
       "path": "Dashboard.aspx",
       "accessCount": 3,
       "lastAccessed": 1778862927074,
@@ -332,12 +344,6 @@
       "path": "CerrarSession.aspx",
       "accessCount": 2,
       "lastAccessed": 1778862775148,
-      "type": "file"
-    },
-    {
-      "path": "Menu.aspx",
-      "accessCount": 2,
-      "lastAccessed": 1778862902944,
       "type": "file"
     },
     {
@@ -363,6 +369,18 @@
       "accessCount": 1,
       "lastAccessed": 1778863816764,
       "type": "file"
+    },
+    {
+      "path": "Dashboard.aspx.cs",
+      "accessCount": 1,
+      "lastAccessed": 1778865300963,
+      "type": "file"
+    },
+    {
+      "path": "CssJs",
+      "accessCount": 1,
+      "lastAccessed": 1778865364642,
+      "type": "directory"
     }
   ],
   "userDirectives": []
