@@ -215,6 +215,12 @@
       "type": "file"
     },
     {
+      "path": "Reportes\\Reporte_De_CIS_Relativo_A_Servicios.aspx",
+      "accessCount": 9,
+      "lastAccessed": 1778864050768,
+      "type": "file"
+    },
+    {
       "path": "Modelo.aspx",
       "accessCount": 8,
       "lastAccessed": 1778862232030,
@@ -317,6 +323,12 @@
       "type": "directory"
     },
     {
+      "path": "Reportes\\Reporte_CIS_Relacionados_Con_Otros_CIS.aspx",
+      "accessCount": 3,
+      "lastAccessed": 1778864042914,
+      "type": "file"
+    },
+    {
       "path": "CerrarSession.aspx",
       "accessCount": 2,
       "lastAccessed": 1778862775148,
@@ -326,6 +338,12 @@
       "path": "Menu.aspx",
       "accessCount": 2,
       "lastAccessed": 1778862902944,
+      "type": "file"
+    },
+    {
+      "path": "NavBar.ascx",
+      "accessCount": 2,
+      "lastAccessed": 1778863960256,
       "type": "file"
     },
     {
@@ -339,6 +357,12 @@
       "accessCount": 1,
       "lastAccessed": 1778862071661,
       "type": "directory"
+    },
+    {
+      "path": "Reportes\\ReporteElementosConfiguracion.aspx",
+      "accessCount": 1,
+      "lastAccessed": 1778863816764,
+      "type": "file"
     }
   ],
   "userDirectives": []

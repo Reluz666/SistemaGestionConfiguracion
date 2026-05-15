@@ -260,111 +260,15 @@
 <body onload="MostrarMensaje()">
     <uc1:NavBar ID="NavBar1" runat="server" />
 
-    <form id="form1" runat="server">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="../menu.aspx"><span class="glyphicon glyphicon-home"></span>&nbsp;Inicio</a>
-        </div>
-
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-            <ul class="nav navbar-nav">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-briefcase"></span>&nbsp;Mantenimiento <b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="Personal.aspx" runat="server" id="trabajadores_aspx">Personal</a></li>
-                        <li class="dropdown-submenu">
-                            <a href="#">Tablas Institucion</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="Sede.aspx" runat="server" id="a4">Sede</a></li>
-                                <li><a href="Local.aspx" runat="server" id="A5">Local</a></li>
-                                <li><a href="Area.aspx" runat="server" id="A6">Area</a></li>
-                                <li><a href="Dependencia.aspx" runat="server" id="A8">Dependencia</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown-submenu">
-                            <a href="#">Tablas Personal</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="Cargo.aspx" runat="server" id="area_trabajo_aspx">Cargo</a></li>
-                                <li><a href="ProfecionOcupacion.aspx" runat="server" id="Sub_Area_aspx">Profecion - Ocupacion</a></li>
-                            </ul>
-                        </li>
-                        <li class="divider"></li>
-                        <li class="dropdown-submenu">
-                            <a href="#">Tablas Elemento Configuracion</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="Modelo.aspx" runat="server" id="A14">Modelo</a></li>
-                                <li><a href="Marca.aspx" runat="server" id="A13">Marca</a></li>
-                                <li><a href="DescripcionElementoConfiguracion.aspx" runat="server" id="A9">Descripci&oacute;n Elemento Configuraci&oacute;n</a></li>
-                                <li><a href="TiposElementoConfiguracion.aspx" runat="server" id="A10">Tipos Elemento Configuraci&oacute;n</a></li>
-                                <li><a href="TipoRelacionElementoConfiguracion.aspx" runat="server" id="A11">Tipo Relaci&oacute;n Elemento Configuraci&oacute;n</a></li>
-                                <li><a href="TipoComponeneteCI.aspx" runat="server" id="A12">Tipo Componenete Elemento Configuraci&oacute;n</a></li>
-                                <li><a href="EstadoActualCI.aspx" runat="server" id="A15">Estado Actual Elemento Configuraci&oacute;n</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-
-            <ul class="nav navbar-nav">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: white"><span class="glyphicon glyphicon-user"></span>&nbsp;Gesti&oacute;n de Configuraci&oacute;n <b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="ElementosConfiguracion.aspx" runat="server" id="ElementosConfiguracion_aspx">Elementos de Configuracio&oacute;n</a></li>
-                        <li><a href="RelacionesElementosConfiguracion.aspx" runat="server" id="PrendaMovimientos_aspx">Relacio&oacute;n de Elementos de Configuracio&oacute;n</a></li>
-                        <li class="divider"></li>
-                        <li><a href="CIsAsignarComponenetes.aspx" runat="server" id="A3">Asignar Componentes Elementos de Configuraci&oacute;n</a></li>
-                        <li class="divider"></li>
-                        <li><a href="LicenciasElementoConfiguracion.aspx" runat="server" id="A1">Licencias de Elementos de Configuraci&oacute;n</a></li>
-                        <li class="divider"></li>
-                        <li><a href="SeguimientosElementoConfiguracion.aspx" runat="server" id="_Asistencias_aspx">Seguimiento de Elementos de Configuraci&oacute;n</a></li>
-                    </ul>
-                </li>
-            </ul>
-
-            <ul class="nav navbar-nav">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-file"></span>&nbsp;Reportes <b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="../Reportes/ReporteElementosConfiguracion.aspx" runat="server" id="A16">Reporte de Elementos de Configuraci&oacute;n</a></li>
-                        <li><a href="../Reportes/ReporteRelacionesElementosConfiguracion.aspx" runat="server" id="A17">Reporte de Relaciones de Elementos de Configuraci&oacute;n</a></li>
-                        <li><a href="../Reportes/ReporteSeguimientosElementoConfiguracion.aspx" runat="server" id="A18">Reporte de Seguimientos de Elementos de Configuraci&oacute;n</a></li>
-                        <li><a href="../Reportes/ReporteLicenciasElementoConfiguracion.aspx" runat="server" id="A19">Reporte de Licencias de Elementos de Configuraci&oacute;n</a></li>
-                        <li><a href="../Reportes/ReporteCIsSeguidos.aspx" runat="server" id="A24">Reporte de Elementos de Configuraci&oacute;n Seguidos</a></li>
-                        <li><a href="../Reportes/ReporteComponentesAsignados.aspx" runat="server" id="A20">Reporte de Componentes de Elementos de Configuraci&oacute;n Asignados</a></li>
-                        <li class="divider"></li>
-                        <li><a href="../Reportes/ReporteDatosCorrectosCI.aspx" runat="server" id="A21">Reporte de Datos Correctos de Elementos de Configuraci&oacute;n</a></li>
-                        <li><a href="../Reportes/ReporteDatosIncorrectosCI.aspx" runat="server" id="A22">Reporte de Datos Incorrectos de Elementos de Configuraci&oacute;n</a></li>
-                        <li><a href="../Reportes/ReporteCIsInformacionContenidaEnCMDB.aspx" runat="server" id="A23">Reporte de Informaci&oacute;n de Elementos de Configuraci&oacute;n Contenidas en la CMDB</a></li>
-                        <li><a href="../Reportes/Reporte_De_CIS_Relativo_A_Servicios.aspx" runat="server" id="A2">Reporte de CIS Relativo A Servicios</a></li>
-                    </ul>
-                </li>
-            </ul>
-
-            <ul class="nav navbar-nav">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: black"><span class="glyphicon glyphicon-wrench"></span>&nbsp;Configuraciones <b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="Usuario.aspx" runat="server" id="usuarios_aspx">Usuarios</a></li>
-                        <li><a href="../Configuracion/Usuarios.aspx" runat="server" id="permisos_aspx">Permisos</a></li>
-                        <li class="divider"></li>
-                        <li><a href="CerrarSession.aspx" style="text-align: left; color: red;">Cerrar Sesion</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </nav>
 
     <div class="section">
         <div class="container">
             <div class="row main-low-margin">
                 <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1">
                     <h3>-</h3>
+                </div>
+            </div>
+        </div>
 
         <div class="container">
             <!-- Report Card -->

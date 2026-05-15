@@ -90,7 +90,8 @@
                         <li><hr class="dropdown-divider" /></li>
                         <li><a class="dropdown-item" href="../Reportes/ReporteDatosCorrectosCI.aspx">Reporte de Datos Correctos de Elementos de Configuraci&oacute;n</a></li>
                         <li><a class="dropdown-item" href="../Reportes/ReporteDatosIncorrectosCI.aspx">Reporte de Datos Incorrectos de Elementos de Configuraci&oacute;n</a></li>
-                        <li><a class="dropdown-item" href="../Reportes/ReporteCIsInformacionContenidaEnCMDB.aspx">Reporte de Informaci&oacute;n de Elementos de Configuraci&oacute;n Contenidas en la CMDB</a></li>
+                        <li><a class="dropdown-item" href="../Reportes/Reporte_CIS_Relacionados_Con_Otros_CIS.aspx">Reporte de CIS Relacionados con Otros CIS</a></li>
+                        <li><a class="dropdown-item" href="../Reportes/Reporte_De_CIS_Relativo_A_Servicios.aspx">Reporte de CIS Relativo a Servicios</a></li>
                     </ul>
                 </li>
 
