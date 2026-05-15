@@ -168,9 +168,21 @@
   "hotPaths": [
     {
       "path": "",
-      "accessCount": 44,
-      "lastAccessed": 1778865592454,
+      "accessCount": 50,
+      "lastAccessed": 1778866001003,
       "type": "directory"
+    },
+    {
+      "path": "Menu.aspx.cs",
+      "accessCount": 35,
+      "lastAccessed": 1778866121424,
+      "type": "file"
+    },
+    {
+      "path": "Menu.aspx",
+      "accessCount": 26,
+      "lastAccessed": 1778866106950,
+      "type": "file"
     },
     {
       "path": "LicenciaElementoConfiguracion.aspx",
@@ -179,21 +191,9 @@
       "type": "file"
     },
     {
-      "path": "Menu.aspx",
-      "accessCount": 19,
-      "lastAccessed": 1778865707751,
-      "type": "file"
-    },
-    {
       "path": "Reportes\\Reporte_De_CIS_Relativo_A_Servicios.aspx",
       "accessCount": 16,
       "lastAccessed": 1778865063499,
-      "type": "file"
-    },
-    {
-      "path": "Menu.aspx.cs",
-      "accessCount": 14,
-      "lastAccessed": 1778865714255,
       "type": "file"
     },
     {
@@ -335,6 +335,12 @@
       "type": "file"
     },
     {
+      "path": "NavBar.ascx",
+      "accessCount": 5,
+      "lastAccessed": 1778866174641,
+      "type": "file"
+    },
+    {
       "path": "Dashboard.aspx",
       "accessCount": 3,
       "lastAccessed": 1778862927074,
@@ -347,22 +353,16 @@
       "type": "file"
     },
     {
-      "path": "NavBar.ascx",
+      "path": "Reportes",
       "accessCount": 2,
-      "lastAccessed": 1778863960256,
-      "type": "file"
+      "lastAccessed": 1778866155618,
+      "type": "directory"
     },
     {
       "path": "Web.config",
       "accessCount": 1,
       "lastAccessed": 1778861495068,
       "type": "file"
-    },
-    {
-      "path": "Reportes",
-      "accessCount": 1,
-      "lastAccessed": 1778862071661,
-      "type": "directory"
     },
     {
       "path": "Reportes\\ReporteElementosConfiguracion.aspx",

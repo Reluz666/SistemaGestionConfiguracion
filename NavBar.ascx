@@ -92,6 +92,7 @@
                         <li><a class="dropdown-item" href="../Reportes/ReporteDatosIncorrectosCI.aspx">Reporte de Datos Incorrectos de Elementos de Configuraci&oacute;n</a></li>
                         <li><a class="dropdown-item" href="../Reportes/Reporte_CIS_Relacionados_Con_Otros_CIS.aspx">Reporte de CIS Relacionados con Otros CIS</a></li>
                         <li><a class="dropdown-item" href="../Reportes/Reporte_De_CIS_Relativo_A_Servicios.aspx">Reporte de CIS Relativo a Servicios</a></li>
+                        <li><a class="dropdown-item" href="../Reportes/ReporteCIsInformacionContenidaEnCMDB.aspx">Reporte de Informaci&oacute;n de Elementos de Configuraci&oacute;n contenidos en la CMDB</a></li>
                     </ul>
                 </li>
 

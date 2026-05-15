@@ -59,58 +59,51 @@ public partial class _Default : System.Web.UI.Page
             policia.clsaccesodatos servidor = new policia.clsaccesodatos();
             servidor.cadenaconexion = Ruta;
 
-            if (servidor.abrirconexiontrans() == true)
+            if (servidor.abrirconexion() == true)
             {
                 // Total Elementos de Configuración
-                DataTable dtEC = servidor.consultar("SELECT COUNT(*) AS Total FROM ELEMENTOS_CONFIGURACION").Tables[0];
-                statElementos.Text = dtEC.Rows[0]["Total"].ToString();
+                DataTable dtEC = servidor.consultar("SELECT COUNT(*) FROM ELEMENTOS_CONFIGURACION").Tables[0];
+                statElementos.InnerText = dtEC.Rows[0][0].ToString();
 
                 // Total Relaciones
-                DataTable dtRel = servidor.consultar("SELECT COUNT(*) AS Total FROM RELACION_ELEMENTO_CONFIGURACION").Tables[0];
-                statRelaciones.Text = dtRel.Rows[0]["Total"].ToString();
+                DataTable dtRel = servidor.consultar("SELECT COUNT(*) FROM RELACION_ELEMENTO_CONFIGURACION").Tables[0];
+                statRelaciones.InnerText = dtRel.Rows[0][0].ToString();
 
-                // Total Licencias (activas - no vencidas o perpetuas)
-                DataTable dtLic = servidor.consultar(@"
-                    SELECT COUNT(*) AS Total FROM LICENCIA_ELEMENTO_CONFIGURACION
-                    WHERE LICENCIA_PERPETUA = 1
-                       OR FECHA_FIN >= GETDATE()").Tables[0];
-                statLicencias.Text = dtLic.Rows[0]["Total"].ToString();
+                // Total Licencias (activas)
+                DataTable dtLic = servidor.consultar("SELECT COUNT(*) FROM LICENCIA_ELEMENTO_CONFIGURACION WHERE LICENCIA_PERPETUA = 1 OR FECHA_FIN >= GETDATE()").Tables[0];
+                statLicencias.InnerText = dtLic.Rows[0][0].ToString();
 
                 // Total Personal activo
-                DataTable dtPers = servidor.consultar("SELECT COUNT(*) AS Total FROM Personal WHERE Estado_Personal = 1").Tables[0];
-                statPersonal.Text = dtPers.Rows[0]["Total"].ToString();
+                DataTable dtPers = servidor.consultar("SELECT COUNT(*) FROM Personal WHERE Estado_Personal = 1").Tables[0];
+                statPersonal.InnerText = dtPers.Rows[0][0].ToString();
 
                 servidor.cerrarconexion();
             }
             else
             {
-                // Connection failed - show error in stats
-                string errMsg = servidor.getMensageError();
-                statElementos.Text = "Err";
-                statRelaciones.Text = "Err";
-                statLicencias.Text = "Err";
-                statPersonal.Text = "Err";
-                this.__mensaje.Value = "Error de conexion: " + errMsg;
-                System.Diagnostics.Debug.WriteLine("Error abrirconexiontrans: " + errMsg);
+                statElementos.InnerText = "--";
+                statRelaciones.InnerText = "--";
+                statLicencias.InnerText = "--";
+                statPersonal.InnerText = "--";
             }
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            statElementos.Text = "Err";
-            statRelaciones.Text = "Err";
-            statLicencias.Text = "Err";
-            statPersonal.Text = "Err";
-            System.Diagnostics.Debug.WriteLine("Error cargando estadísticas: " + ex.Message);
+            statElementos.InnerText = "--";
+            statRelaciones.InnerText = "--";
+            statLicencias.InnerText = "--";
+            statPersonal.InnerText = "--";
         }
+    }
+
+    private void MostrarError(string mensaje)
+    {
+        string script = string.Format("alert('Error: {0}');", mensaje.Replace("'", "\\'"));
+        ScriptManager.RegisterStartupScript(this, GetType(), "ErrorStats", script, true);
     }
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (this.__mensaje.Value == "")
-            this.__mensaje.Value = "";
-        if (this.__pagina.Value == "")
-            this.__pagina.Value = "";
-
         string[] Datos = (string[])Session["__JSAR__"];
 
         if (Datos == null)
@@ -139,9 +132,6 @@ public partial class _Default : System.Web.UI.Page
         string cargo = Datos[9].Trim();
         this.lblUsuario.Text = nombreUsuario + " | " + cargo;
 
-        if (!IsPostBack)
-        {
-            CargarEstadisticas();
-        }
+        CargarEstadisticas();
     }
 }
