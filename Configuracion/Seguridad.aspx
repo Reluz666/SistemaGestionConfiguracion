@@ -271,12 +271,6 @@
             }
         }
 
-        function SoloLetrasMinusculas() {
-            if (!((event.keyCode >= 97 && event.keyCode <= 122) || event.keyCode == 32 || event.keyCode == 193 || event.keyCode == 201 || event.keyCode == 205 || event.keyCode == 209 || event.keyCode == 211 || event.keyCode == 218 || event.keyCode == 220 || event.keyCode == 241)) {
-                event.returnValue = false;
-            }
-        }
-
         function LetrasNumeros() {
             if (!((event.keyCode >= 48 && event.keyCode <= 57) || event.keyCode >= 65 && event.keyCode <= 90 || event.keyCode >= 97 && event.keyCode <= 122 || event.keyCode == 32 || event.keyCode == 193 || event.keyCode == 201 || event.keyCode == 205 || event.keyCode == 209 || event.keyCode == 211 || event.keyCode == 218 || event.keyCode == 220)) {
                 event.returnValue = false;
@@ -284,29 +278,6 @@
         }
 
         function SoloDecimales(e, Punto, Texto) {
-            if (event.keyCode == 8)
-                ;
-            else if (event.keyCode == 46) {
-                if (Punto == false)
-                    event.keyCode = 0;
-                else {
-                    for (i = 0; i < Texto.value.length; i++) {
-                        if (Texto.value.charCodeAt(i) == 46) {
-                            event.keyCode = 0;
-                        }
-                    }
-                }
-            }
-            else if (!(event.keyCode >= 48 && event.keyCode <= 57)) {
-                event.keyCode = 0;
-            }
-        }
-
-        function CambiaLetraMayuscula(Caja) {
-            document.getElementById(Caja).value = document.getElementById(Caja).value.toUpperCase();
-        }
-
-        function Activa(Celda,Letra,Fila,Coumna) {
             if (document.getElementById(Celda).checked == true) {
                 Rpta = confirm("Desea Activar Autorizacion y Permisos Para Ingresar al Sistema?");
                 if (Rpta == 1) {

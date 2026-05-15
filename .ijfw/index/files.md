@@ -1,7 +1,7 @@
 <!-- ijfw schema:1 codebase-index -->
 # Codebase index
 
-Generated: 2026-05-12T16:14:37Z
+Generated: 2026-05-15T16:27:20Z
 Root: .
 
 Files: 492

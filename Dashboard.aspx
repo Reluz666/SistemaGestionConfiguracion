@@ -226,6 +226,8 @@
                             <a href="../Reportes/ReporteElementosConfiguracion.aspx" class="quick-btn"><i class="bi bi-file-earmark-bar-graph"></i> Reporte Elementos</a>
                             <a href="../Reportes/ReporteSeguimientosElementoConfiguracion.aspx" class="quick-btn orange"><i class="bi bi-file-earmark-text"></i> Reporte Seguimientos</a>
                             <a href="../Reportes/ReporteDatosIncorrectosCI.aspx" class="quick-btn red"><i class="bi bi-exclamation-triangle"></i> Datos Incorrectos</a>
+                            <a href="../Reportes/Reporte_De_CIS_Relativo_A_Servicios.aspx" class="quick-btn" style="background:#dbeafe;color:#2563eb;"><i class="bi bi-diagram-3"></i> CIS Relativo a Servicios</a>
+                            <a href="../Reportes/Reporte_CIS_Relacionados_Con_Otros_CIS.aspx" class="quick-btn" style="background:#dcfce7;color:#16a34a;"><i class="bi bi-link-45deg"></i> CIS Relacionados</a>
                         </div>
                     </div>
                 </div>

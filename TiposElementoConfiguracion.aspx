@@ -72,10 +72,6 @@
             }
         }
         function Confirmar(men) { if (!confirm(men)) return false; }
-        function SoloLetrasMinusculas() {
-            if (!((event.keyCode >= 97 && event.keyCode <= 122) || event.keyCode == 32 || event.keyCode == 193 || event.keyCode == 201 || event.keyCode == 205 || event.keyCode == 209 || event.keyCode == 211 || event.keyCode == 218 || event.keyCode == 220 || event.keyCode == 241)) event.returnValue = false;
-        }
-        function CambiaLetraMayuscula(Caja) { document.getElementById(Caja).value = document.getElementById(Caja).value.toUpperCase(); }
     </script>
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -97,9 +93,7 @@
                         <div class="col-md-12 col-sm-12">
                             <label class="form-label-modern">Nombre Tipo CI</label>
                             <asp:TextBox ID="NOMBRE_TIPO" runat="server" CssClass="form-control form-control-modern"
-                                         MaxLength="25" Autocomplete="off" placeholder="Ingrese Nombre Tipo Elemento Configuracion"
-                                         onchange="CambiaLetraMayuscula('NOMBRE_TIPO')"
-                                         onkeypress="SoloLetrasMinusculas()" />
+                                         MaxLength="25" Autocomplete="off" placeholder="Ingrese Nombre Tipo Elemento Configuracion" />
                             <asp:RequiredFieldValidator ID="rfvNOMBRE_TIPO" runat="server" ControlToValidate="NOMBRE_TIPO"
                                                        ErrorMessage="*" CssClass="validator-error" ForeColor="Red" SetFocusOnError="True" />
                         </div>

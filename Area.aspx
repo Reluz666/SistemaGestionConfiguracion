@@ -140,20 +140,7 @@
             }
         }
 
-        function SoloLetrasMinusculas() {
-            if (!((event.keyCode >= 97 && event.keyCode <= 122) || event.keyCode == 32
-                || event.keyCode == 193 || event.keyCode == 201 || event.keyCode == 205
-                || event.keyCode == 209 || event.keyCode == 211 || event.keyCode == 218
-                || event.keyCode == 220 || event.keyCode == 241)) {
-                event.returnValue = false;
-            }
-        }
-
-        function CambiaLetraMayuscula(Caja) {
-            document.getElementById(Caja).value = document.getElementById(Caja).value.toUpperCase();
-        }
-
-        // ========== LISTA AREAS CON PAGINACION ==========
+        function Activa(Opcion) {
         var datosAreas = [];
         var itemsPorPagina = 10;
         var paginaActual = 1;
@@ -383,8 +370,7 @@
                         <div class="col-md-6 col-sm-6">
                             <label class="form-label-modern">Nombre</label>
                             <asp:TextBox ID="Descripcion_Area" runat="server" CssClass="form-control form-control-modern"
-                                         MaxLength="50" Autocomplete="off" placeholder="Ingrese nombre &aacute;rea"
-                                         onchange="CambiaLetraMayuscula('Descripcion_Area')" onkeypress="SoloLetrasMinusculas()" />
+                                         MaxLength="50" Autocomplete="off" placeholder="Ingrese nombre &aacute;rea" />
                             <asp:RequiredFieldValidator ID="rfvDescripcion_Area" runat="server" ControlToValidate="Descripcion_Area"
                                                        ErrorMessage="*" CssClass="validator-error" />
                         </div>
@@ -420,8 +406,7 @@
                             <label class="form-label-modern">Local Judicial</label>
                             <div class="input-group">
                                 <asp:TextBox ID="Local_Judicial" runat="server" CssClass="form-control form-control-modern"
-                                             MaxLength="25" Autocomplete="off" placeholder="Ingrese local judicial"
-                                             onchange="CambiaLetraMayuscula('Local_Judicial')" onkeypress="SoloLetrasMinusculas()" />
+                                             MaxLength="25" Autocomplete="off" placeholder="Ingrese local judicial" />
                                 <asp:Button ID="ibtnBUSCAR_LOCAL_JUDICIAL" runat="server" CausesValidation="False"
                                                  CssClass="btn btn-info btn-modern"
                                                  ToolTip="Buscar Local Judicial" OnClientClick="abrir_ventana_busca_Local_Judicial();" Text="..." />

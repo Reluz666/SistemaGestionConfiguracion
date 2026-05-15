@@ -121,9 +121,7 @@
                         <div class="col-md-6 col-sm-6">
                             <label class="form-label-modern">Nombre Cargo</label>
                             <asp:TextBox ID="NOMBRE_CARGO" runat="server" CssClass="form-control form-control-modern"
-                                         MaxLength="99" Autocomplete="off" placeholder="Ingrese nombre cargo"
-                                         onchange="CambiaLetraMayuscula('NOMBRE_CARGO')"
-                                         onkeypress="SoloLetrasMinusculas()" />
+                                         MaxLength="99" Autocomplete="off" placeholder="Ingrese nombre cargo" />
                             <asp:RequiredFieldValidator ID="rfvNOMBRE_CARGO" runat="server" ControlToValidate="NOMBRE_CARGO"
                                                        ErrorMessage="*" CssClass="validator-error" />
                         </div>

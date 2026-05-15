@@ -92,18 +92,7 @@
             }
         }
 
-        function SoloLetrasMinusculas() {
-            if (!((event.keyCode >= 97 && event.keyCode <= 122) || event.keyCode == 32 || event.keyCode == 193 || event.keyCode == 201 || event.keyCode == 205 || event.keyCode == 209 || event.keyCode == 211 || event.keyCode == 218 || event.keyCode == 220 || event.keyCode == 241)) {
-                event.returnValue = false;
-            }
-        }
-
-        function CambiaLetraMayuscula(Caja) {
-            document.getElementById(Caja).value = document.getElementById(Caja).value.toUpperCase();
-        }
-
-
-    </script>
+        function Confirmar(men) {
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -143,15 +132,13 @@
                     <div class="row g-3 mb-3">
                         <div class="col-md-6 col-sm-12">
                             <label class="form-label-modern">Responsable Seguimiento</label>
-                            <asp:TextBox ID="RESPONSABLE_SEGUIMIENTO" runat="server" CssClass="form-control form-control-modern" MaxLength="40" Autocomplete="off" placeholder="Ingrese Responsable Seguimiento Elemento Configuracion" onchange="CambiaLetraMayuscula('RESPONSABLE_SEGUIMIENTO')"
-                        onkeypress="SoloLetrasMinusculas()" Width="500px"></asp:TextBox>
+                            <asp:TextBox ID="RESPONSABLE_SEGUIMIENTO" runat="server" CssClass="form-control form-control-modern" MaxLength="40" Autocomplete="off" placeholder="Ingrese Responsable Seguimiento Elemento Configuracion" Width="500px"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="rfvRESPONSABLE_SEGUIMIENTO" runat="server" ControlToValidate="RESPONSABLE_SEGUIMIENTO" ErrorMessage="*" CssClass="validator-error" ForeColor="Red" SetFocusOnError="True"></asp:RequiredFieldValidator>
                             <asp:HiddenField ID="hfID_RESPONSABLE_SEGUIMIENTO" runat="server" Value="0" />
                         </div>
                         <div class="col-md-6 col-sm-12">
                             <label class="form-label-modern">Fecha Seguimiento</label>
-                            <asp:TextBox ID="FECHA_SEGUIMIENTO" runat="server" CssClass="form-control form-control-modern" MaxLength="40" Autocomplete="off" placeholder="Ingrese Fecha Seguimiento Elemento Configuracion" onchange="CambiaLetraMayuscula('RESPONSABLE_SEGUIMIENTO')"
-                        onkeypress="SoloLetrasMinusculas()" Width="150px"></asp:TextBox>
+                            <asp:TextBox ID="FECHA_SEGUIMIENTO" runat="server" CssClass="form-control form-control-modern" MaxLength="40" Autocomplete="off" placeholder="Ingrese Fecha Seguimiento Elemento Configuracion" Width="150px"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="rfvRESPONSABLE_SEGUIMIENTO0" runat="server" ControlToValidate="RESPONSABLE_SEGUIMIENTO" ErrorMessage="*" CssClass="validator-error" ForeColor="Red" SetFocusOnError="True"></asp:RequiredFieldValidator>
                         </div>
                     </div>
@@ -204,8 +191,7 @@
                     <div class="row g-3 mb-3">
                         <div class="col-md-12 col-sm-12">
                             <label class="form-label-modern">Observacion</label>
-                            <asp:TextBox ID="OBSERVACION_SEGUIMIENTO" runat="server" CssClass="form-control form-control-modern" MaxLength="25" Autocomplete="off" placeholder="Ingrese Observacion Seguimiento Elemento Configuracion" onchange="CambiaLetraMayuscula('OBSERVACION_SEGUIMIENTO')"
-                        onkeypress="" Font-Size="Small" ForeColor="#3366FF" Height="100px" TextMode="MultiLine" Width="500px"></asp:TextBox>
+                            <asp:TextBox ID="OBSERVACION_SEGUIMIENTO" runat="server" CssClass="form-control form-control-modern" MaxLength="25" Autocomplete="off" placeholder="Ingrese Observacion Seguimiento Elemento Configuracion" Font-Size="Small" ForeColor="#3366FF" Height="100px" TextMode="MultiLine" Width="500px"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="rfvOBSERVACION_SEGUIMIENTO" runat="server" ControlToValidate="RESPONSABLE_SEGUIMIENTO" ErrorMessage="*" CssClass="validator-error" ForeColor="Red" SetFocusOnError="True"></asp:RequiredFieldValidator>
                         </div>
                     </div>

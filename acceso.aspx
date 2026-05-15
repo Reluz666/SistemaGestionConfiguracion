@@ -435,28 +435,7 @@
             }
         }
 
-        function SoloLetrasMinusculas(e) {
-            e = e || window.event;
-            var keyCode = e.which || e.keyCode;
-            var permitido = (keyCode >= 97 && keyCode <= 122) ||
-                keyCode === 32 || keyCode === 193 || keyCode === 201 ||
-                keyCode === 205 || keyCode === 209 || keyCode === 211 ||
-                keyCode === 218 || keyCode === 220;
-
-            if (!permitido) {
-                if (e.preventDefault) e.preventDefault();
-                e.returnValue = false;
-                return false;
-            }
-
-            return true;
-        }
-
-        function CambiaLetraMayuscula(Caja) {
-            var campo = document.getElementById(Caja);
-            if (campo) campo.value = campo.value.toUpperCase();
-        }
-    </script>
+            </script>
 </head>
 <body onload="MostrarMensaje()">
     <main class="login-page">
@@ -493,9 +472,7 @@
                                     <asp:TextBox ID="login" runat="server"
                                         placeholder="Ingrese su usuario"
                                         autocomplete="username"
-                                        CssClass="form-input"
-                                        onchange="CambiaLetraMayuscula('login')"
-                                        onkeypress="return SoloLetrasMinusculas(event)"></asp:TextBox>
+                                        CssClass="form-input"></asp:TextBox>
                                 </div>
                                 <asp:RequiredFieldValidator ID="rfvlogin" runat="server"
                                     ControlToValidate="login" Display="Dynamic"

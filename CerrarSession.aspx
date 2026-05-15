@@ -82,12 +82,7 @@
      }
 
 
-     function CambiaLetraMayuscula(Caja) {
-         document.getElementById(Caja).value = document.getElementById(Caja).value.toUpperCase();
-     }
-    
-    </script>
- 
+      
     
 </head>
 <body onload ="MostrarMensaje()" 

@@ -77,16 +77,7 @@
             }
         }
 
-        function SoloLetrasMinusculas() {
-            if (!((event.keyCode >= 97 && event.keyCode <= 122) || event.keyCode == 32 || event.keyCode == 193 || event.keyCode == 201 || event.keyCode == 205 || event.keyCode == 209 || event.keyCode == 211 || event.keyCode == 218 || event.keyCode == 220 || event.keyCode == 241)) {
-                event.returnValue = false;
-            }
-        }
-
-        function CambiaLetraMayuscula(Caja) {
-            document.getElementById(Caja).value = document.getElementById(Caja).value.toUpperCase();
-        }
-    </script>
+            </script>
 </head>
 <body onload="MostrarMensaje()">
 
@@ -101,14 +92,12 @@
              <table class="table text-center">
         <tr>
             <td style="text-align: left;"" colspan="2">
-                             <asp:TextBox ID="tb1" runat="server" CssClass="form-control input-sm" MaxLength="25" Autocomplete = "off" placeholder="Ingresar Nro Serie CI" onchange=""
-                        onkeypress="" Enabled="False" Font-Bold="True"></asp:TextBox>
+                             <asp:TextBox ID="tb1" runat="server" CssClass="form-control input-sm" MaxLength="25" Autocomplete = "off" placeholder="Ingresar Nro Serie CI" Enabled="False" Font-Bold="True"></asp:TextBox>
                         </td>
         </tr>
         <tr>
             <td style="text-align: left;"" colspan="2">
-                             <asp:TextBox ID="tb2" runat="server" CssClass="form-control input-sm" MaxLength="25" Autocomplete = "off" placeholder="Ingresar Nro Serie CI" onchange=""
-                        onkeypress="" Enabled="False" Font-Bold="True"></asp:TextBox>
+                             <asp:TextBox ID="tb2" runat="server" CssClass="form-control input-sm" MaxLength="25" Autocomplete = "off" placeholder="Ingresar Nro Serie CI" Enabled="False" Font-Bold="True"></asp:TextBox>
                         </td>
         </tr>
         <tr>

@@ -101,10 +101,6 @@
         }
         function Confirmar(men) { if (!confirm(men)) return false; return true; }
         function SoloNumeros() { if ((event.keyCode < 48) || (event.keyCode > 57)) event.returnValue = false; }
-        function SoloLetrasMinusculas() {
-            if (!((event.keyCode >= 97 && event.keyCode <= 122) || event.keyCode == 32 || event.keyCode == 193 || event.keyCode == 201 || event.keyCode == 205 || event.keyCode == 209 || event.keyCode == 211 || event.keyCode == 218 || event.keyCode == 220 || event.keyCode == 241)) event.returnValue = false;
-        }
-        function CambiaLetraMayuscula(Caja) { document.getElementById(Caja).value = document.getElementById(Caja).value.toUpperCase(); }
     </script>
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -134,9 +130,7 @@
                         <div class="col-md-6 col-sm-6">
                             <label class="form-label-modern">Nombre Sede</label>
                             <asp:TextBox ID="Descripcion_Sede" runat="server" CssClass="form-control form-control-modern"
-                                         MaxLength="25" Autocomplete="off" placeholder="Ingrese nombre sede"
-                                         onchange="CambiaLetraMayuscula('Descripcion_Sede')"
-                                         onkeypress="SoloLetrasMinusculas()" />
+                                         MaxLength="25" Autocomplete="off" placeholder="Ingrese nombre sede" />
                             <asp:RequiredFieldValidator ID="rfvDescripcion_Sede" runat="server" ControlToValidate="Descripcion_Sede"
                                                        ErrorMessage="*" CssClass="validator-error" />
                         </div>

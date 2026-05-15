@@ -94,16 +94,6 @@
                 event.returnValue = false;
             }
         }
-
-        function SoloLetrasMinusculas() {
-            if (!((event.keyCode >= 97 && event.keyCode <= 122) || event.keyCode == 32 || event.keyCode == 193 || event.keyCode == 201 || event.keyCode == 205 || event.keyCode == 209 || event.keyCode == 211 || event.keyCode == 218 || event.keyCode == 220 || event.keyCode == 241)) {
-                event.returnValue = false;
-            }
-        }
-
-        function CambiaLetraMayuscula(Caja) {
-            document.getElementById(Caja).value = document.getElementById(Caja).value.toUpperCase();
-        }
     </script>
 </head>
 <body onload="MostrarMensaje()">
@@ -145,24 +135,21 @@
                         <div class="col-md-3 col-sm-6">
                             <label class="form-label-modern">Nombre</label>
                             <asp:TextBox ID="Nombre" runat="server" CssClass="form-control form-control-modern"
-                                         MaxLength="25" Autocomplete="off" placeholder="Ingrese nombre"
-                                         onchange="CambiaLetraMayuscula('Nombre')" onkeypress="SoloLetrasMinusculas()" />
+                                         MaxLength="25" Autocomplete="off" placeholder="Ingrese nombre" />
                             <asp:RequiredFieldValidator ID="rfvNombre" runat="server" ControlToValidate="Nombre"
                                                        ErrorMessage="*" CssClass="validator-error" />
                         </div>
                         <div class="col-md-3 col-sm-6">
                             <label class="form-label-modern">Apellido Paterno</label>
                             <asp:TextBox ID="ApellidoPat" runat="server" CssClass="form-control form-control-modern"
-                                         MaxLength="25" Autocomplete="off" placeholder="Apellido paterno"
-                                         onchange="CambiaLetraMayuscula('ApellidoPat')" onkeypress="SoloLetrasMinusculas()" />
+                                         MaxLength="25" Autocomplete="off" placeholder="Apellido paterno" />
                             <asp:RequiredFieldValidator ID="rfvApellidoPat" runat="server" ControlToValidate="ApellidoPat"
                                                        ErrorMessage="*" CssClass="validator-error" />
                         </div>
                         <div class="col-md-3 col-sm-6">
                             <label class="form-label-modern">Apellido Materno</label>
                             <asp:TextBox ID="ApellidoMat" runat="server" CssClass="form-control form-control-modern"
-                                         MaxLength="25" Autocomplete="off" placeholder="Apellido materno"
-                                         onchange="CambiaLetraMayuscula('ApellidoMat')" onkeypress="SoloLetrasMinusculas()" />
+                                         MaxLength="25" Autocomplete="off" placeholder="Apellido materno" />
                             <asp:RequiredFieldValidator ID="rfvApellidoMat" runat="server" ControlToValidate="ApellidoMat"
                                                        ErrorMessage="*" CssClass="validator-error" />
                         </div>

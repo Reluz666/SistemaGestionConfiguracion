@@ -75,16 +75,6 @@
             }
         }
 
-        function SoloLetrasMinusculas() {
-            if (!((event.keyCode >= 97 && event.keyCode <= 122) || event.keyCode == 32 || event.keyCode == 193 || event.keyCode == 201 || event.keyCode == 205 || event.keyCode == 209 || event.keyCode == 211 || event.keyCode == 218 || event.keyCode == 220 || event.keyCode == 241)) {
-                event.returnValue = false;
-            }
-        }
-
-        function CambiaLetraMayuscula(Caja) {
-            document.getElementById(Caja).value = document.getElementById(Caja).value.toUpperCase();
-        }
-
         function mostrarToast(mensaje, tipo) {
             var container = document.getElementById('toastContainer');
             var toastId = 'toast_' + Date.now();
@@ -166,8 +156,7 @@
                         <div class="col-md-6 col-sm-6">
                             <label class="form-label-modern">Nombre</label>
                             <asp:TextBox ID="NOMBRE_ELEMENTO_CONFIGURACION" runat="server" CssClass="form-control form-control-modern"
-                                MaxLength="99" Autocomplete="off" placeholder="Ingresar Elemento Configuración"
-                                onchange="CambiaLetraMayuscula('NOMBRE_ELEMENTO_CONFIGURACION')"></asp:TextBox>
+                                MaxLength="99" Autocomplete="off" placeholder="Ingresar Elemento Configuración"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="rfvNOMBRE_ELEMENTO_CONFIGURACION" runat="server" ControlToValidate="NOMBRE_ELEMENTO_CONFIGURACION" ErrorMessage="Ingrese nombre" CssClass="validator-error"></asp:RequiredFieldValidator>
                         </div>
 
@@ -175,8 +164,7 @@
                         <div class="col-md-6 col-sm-6">
                             <label class="form-label-modern">Nro. Serie</label>
                             <asp:TextBox ID="NRO_SERIE" runat="server" CssClass="form-control form-control-modern"
-                                MaxLength="30" Autocomplete="off" placeholder="Ingresar Nro. Serie"
-                                onchange="CambiaLetraMayuscula('NRO_SERIE')"></asp:TextBox>
+                                MaxLength="30" Autocomplete="off" placeholder="Ingresar Nro. Serie"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="rfvNRO_SERIE" runat="server" ControlToValidate="NRO_SERIE" ErrorMessage="Ingrese número de serie" CssClass="validator-error"></asp:RequiredFieldValidator>
                         </div>
 
@@ -184,8 +172,7 @@
                         <div class="col-md-6 col-sm-6">
                             <label class="form-label-modern">Fabricante o Proveedor</label>
                             <asp:TextBox ID="FABRICANTE_O_PROVEEDOR" runat="server" CssClass="form-control form-control-modern"
-                                Autocomplete="off" placeholder="Ingresar Fabricante o Proveedor"
-                                onchange="CambiaLetraMayuscula('FABRICANTE_O_PROVEEDOR')"></asp:TextBox>
+                                Autocomplete="off" placeholder="Ingresar Fabricante o Proveedor"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="rfvFABRICANTE_O_PROVEEDOR" runat="server" ControlToValidate="FABRICANTE_O_PROVEEDOR" ErrorMessage="Ingrese fabricante o proveedor" CssClass="validator-error"></asp:RequiredFieldValidator>
                         </div>
 
@@ -212,7 +199,7 @@
                             <label class="form-label-modern">Dirección IP</label>
                             <asp:TextBox ID="IP" runat="server" CssClass="form-control form-control-modern"
                                 MaxLength="15" Autocomplete="off" placeholder="Ingresar Dirección IP"
-                                onchange="CambiaLetraMayuscula('IP')" onkeypress="SoloNumeros_();"></asp:TextBox>
+                                onkeypress="SoloNumeros_();"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="rfvIP" runat="server" ControlToValidate="IP" ErrorMessage="Ingrese dirección IP" CssClass="validator-error"></asp:RequiredFieldValidator>
                             <asp:RegularExpressionValidator ID="revIP" runat="server" ControlToValidate="IP" ErrorMessage="IP incorrecta" ValidationExpression="^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$" CssClass="validator-error"></asp:RegularExpressionValidator>
                         </div>
@@ -222,7 +209,7 @@
                             <label class="form-label-modern">Gateway</label>
                             <asp:TextBox ID="GATEWAY" runat="server" CssClass="form-control form-control-modern"
                                 MaxLength="15" Autocomplete="off" placeholder="Ingresar Dirección Gateway"
-                                onchange="CambiaLetraMayuscula('GATEWAY')" onkeypress="SoloNumeros_();"></asp:TextBox>
+                                onkeypress="SoloNumeros_();"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="rfvGATEWAY" runat="server" ControlToValidate="GATEWAY" ErrorMessage="Ingrese gateway" CssClass="validator-error"></asp:RequiredFieldValidator>
                             <asp:RegularExpressionValidator ID="revGateway" runat="server" ControlToValidate="GATEWAY" ErrorMessage="Gateway incorrecto" ValidationExpression="^((25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)$" CssClass="validator-error"></asp:RegularExpressionValidator>
                         </div>
@@ -231,8 +218,7 @@
                         <div class="col-md-6 col-sm-6">
                             <label class="form-label-modern">Grupo de Trabajo</label>
                             <asp:TextBox ID="GRUPO_TRABAJO" runat="server" CssClass="form-control form-control-modern"
-                                MaxLength="99" Autocomplete="off" placeholder="Ingresar Grupo Trabajo"
-                                onchange="CambiaLetraMayuscula('GRUPO_TRABAJO')"></asp:TextBox>
+                                MaxLength="99" Autocomplete="off" placeholder="Ingresar Grupo Trabajo"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="rfvGRUPO_TRABAJO" runat="server" ControlToValidate="GRUPO_TRABAJO" ErrorMessage="Ingrese grupo de trabajo" CssClass="validator-error"></asp:RequiredFieldValidator>
                         </div>
 

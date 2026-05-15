@@ -481,6 +481,24 @@
                         <p>Estado de licencias</p>
                     </a>
                 </div>
+                <div class="col-6 col-lg-4">
+                    <a href="../Reportes/Reporte_De_CIS_Relativo_A_Servicios.aspx" class="nav-card">
+                        <div class="card-icon" style="background: #dbeafe; color: #2563eb;">
+                            <i class="bi bi-diagram-3"></i>
+                        </div>
+                        <h5>Reporte de CIS Relativo a Servicios</h5>
+                        <p>CIS relacionados con servicios</p>
+                    </a>
+                </div>
+                <div class="col-6 col-lg-4">
+                    <a href="../Reportes/Reporte_CIS_Relacionados_Con_Otros_CIS.aspx" class="nav-card">
+                        <div class="card-icon" style="background: #dcfce7; color: #16a34a;">
+                            <i class="bi bi-link-45deg"></i>
+                        </div>
+                        <h5>Reporte de CIS Relacionados con Otros CIS</h5>
+                        <p>Relaciones entre elementos</p>
+                    </a>
+                </div>
             </div>
         </div>
 

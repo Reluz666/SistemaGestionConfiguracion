@@ -300,30 +300,7 @@
             }
         }
 
-        function Confirmar(men) {
-            if (!confirm(men))
-                return false;
-        }
-
-        function SoloNumeros() {
-            if ((event.keyCode < 48) || (event.keyCode > 57)) {
-                event.returnValue = false;
-            }
-        }
-
-        function SoloLetrasMinusculas() {
-            if (!((event.keyCode >= 97 && event.keyCode <= 122) || event.keyCode == 32 || event.keyCode == 193 || event.keyCode == 201 || event.keyCode == 205 || event.keyCode == 209 || event.keyCode == 211 || event.keyCode == 218 || event.keyCode == 220 || event.keyCode == 241)) {
-                event.returnValue = false;
-            }
-        }
-
-        function CambiaLetraMayuscula(Caja) {
-            document.getElementById(Caja).value = document.getElementById(Caja).value.toUpperCase();
-        }
-    </script>
-
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+            <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body onload="MostrarMensaje()">
 
@@ -372,8 +349,7 @@
                     <label for="lblNOMBRE" class="col-sm-3 control-label">Nombre:</label>
                     <div class="col-sm-5">
 
-                        <asp:TextBox ID="NOMBRE" runat="server" CssClass="form-control input-sm" MaxLength="25" Autocomplete="off" placeholder="Ingresar Nombre Licencia Elemento Configuracion" onchange="CambiaLetraMayuscula('NOMBRE')"
-                            onkeypress="SoloLetrasMinusculas()"></asp:TextBox>
+                        <asp:TextBox ID="NOMBRE" runat="server" CssClass="form-control input-sm" MaxLength="25" Autocomplete="off" placeholder="Ingresar Nombre Licencia Elemento Configuracion"></asp:TextBox>
 
                         <asp:RequiredFieldValidator ID="rfvNOMBRE" runat="server" ControlToValidate="NOMBRE" ErrorMessage="*" ForeColor="Red" SetFocusOnError="True"></asp:RequiredFieldValidator>
 
@@ -383,8 +359,7 @@
                     <label for="lblVERSION" class="col-sm-3 control-label">Version:</label>
                     <div class="col-sm-5">
 
-                        <asp:TextBox ID="VERSION" runat="server" CssClass="form-control input-sm" MaxLength="25" Autocomplete="off" placeholder="Ingresar Version Licencia Elemento Configuracion" onchange="CambiaLetraMayuscula('VERSION')"
-                            onkeypress="SoloLetrasMinusculas()"></asp:TextBox>
+                        <asp:TextBox ID="VERSION" runat="server" CssClass="form-control input-sm" MaxLength="25" Autocomplete="off" placeholder="Ingresar Version Licencia Elemento Configuracion"></asp:TextBox>
 
                         <asp:RequiredFieldValidator ID="rfvVERSION" runat="server" ControlToValidate="VERSION" ErrorMessage="*" ForeColor="Red" SetFocusOnError="True"></asp:RequiredFieldValidator>
 
@@ -439,8 +414,7 @@
                     <label for="lblDESCRIPCION" class="col-sm-3 control-label">Descripcion:</label>
                     <div class="col-sm-5">
 
-                        <asp:TextBox ID="DESCRIPCION" runat="server" CssClass="form-control input-sm" MaxLength="25" Autocomplete="off" placeholder="Ingresar Descripcion Licencia Elemento Configuracion" onchange="CambiaLetraMayuscula('DESCRIPCION')"
-                            onkeypress="SoloLetrasMinusculas()"></asp:TextBox>
+                        <asp:TextBox ID="DESCRIPCION" runat="server" CssClass="form-control input-sm" MaxLength="25" Autocomplete="off" placeholder="Ingresar Descripcion Licencia Elemento Configuracion"></asp:TextBox>
 
                         <span class="form-check">
 
@@ -478,8 +452,7 @@
                         <asp:HiddenField ID="ID_ELEMENTO_CONFIGURACION" runat="server" Value="0"
                             EnableViewState="False" />
 
-                        <asp:TextBox ID="TIPO_CI" runat="server" CssClass="form-control input-sm" MaxLength="25" Autocomplete="off" placeholder="Ingresar Tipo Elemento Configuracion" onchange="CambiaLetraMayuscula('TIPO_CI')"
-                            onkeypress="SoloLetrasMinusculas()"></asp:TextBox>
+                        <asp:TextBox ID="TIPO_CI" runat="server" CssClass="form-control input-sm" MaxLength="25" Autocomplete="off" placeholder="Ingresar Tipo Elemento Configuracion"></asp:TextBox>
 
                     </div>
                 </div>
@@ -488,8 +461,7 @@
                     <label for="lblNOMBRCI" class="col-sm-3 control-label">Nombre CI:</label>
                     <div class="col-sm-5">
 
-                        <asp:TextBox ID="NOMBRE_CI" runat="server" CssClass="form-control input-sm" MaxLength="25" Autocomplete="off" placeholder="Ingresar Nombre Elemento Configuracion" onchange="CambiaLetraMayuscula('NOMBRE_CI')"
-                            onkeypress="SoloLetrasMinusculas()"></asp:TextBox>
+                        <asp:TextBox ID="NOMBRE_CI" runat="server" CssClass="form-control input-sm" MaxLength="25" Autocomplete="off" placeholder="Ingresar Nombre Elemento Configuracion"></asp:TextBox>
 
                     </div>
                 </div>
@@ -498,8 +470,7 @@
                     <label for="lblNROSERIE" class="col-sm-3 control-label">Nro. Serie:</label>
                     <div class="col-sm-5">
 
-                        <asp:TextBox ID="NRO_SERIE" runat="server" CssClass="form-control input-sm" MaxLength="25" Autocomplete="off" placeholder="Ingresar Nro. Serie Elemento Configuracion" onchange="CambiaLetraMayuscula('NRO_SERIE')"
-                            onkeypress="SoloLetrasMinusculas()"></asp:TextBox>
+                        <asp:TextBox ID="NRO_SERIE" runat="server" CssClass="form-control input-sm" MaxLength="25" Autocomplete="off" placeholder="Ingresar Nro. Serie Elemento Configuracion"></asp:TextBox>
 
                     </div>
                 </div>
@@ -508,8 +479,7 @@
                     <label for="lblPROPIETARIOCI" class="col-sm-3 control-label">Propietario CI:</label>
                     <div class="col-sm-5">
 
-                        <asp:TextBox ID="PROPIETARIO_CI" runat="server" CssClass="form-control input-sm" MaxLength="25" Autocomplete="off" placeholder="Ingresar Propietario Elemento Configuracion" onchange="CambiaLetraMayuscula('PROPIETARIO_CI')"
-                            onkeypress="SoloLetrasMinusculas()"></asp:TextBox>
+                        <asp:TextBox ID="PROPIETARIO_CI" runat="server" CssClass="form-control input-sm" MaxLength="25" Autocomplete="off" placeholder="Ingresar Propietario Elemento Configuracion"></asp:TextBox>
 
                     </div>
                 </div>
@@ -518,8 +488,7 @@
                     <label for="lblDESCRIPCION_CI" class="col-sm-3 control-label">Descripcion CI:</label>
                     <div class="col-sm-5">
 
-                        <asp:TextBox ID="DESCRIPCION_CI" runat="server" CssClass="form-control input-sm" MaxLength="25" Autocomplete="off" placeholder="Ingresar Descripcion Licencia Elemento Configuracion" onchange="CambiaLetraMayuscula('DESCRIPCION_CI')"
-                            onkeypress="SoloLetrasMinusculas()"></asp:TextBox>
+                        <asp:TextBox ID="DESCRIPCION_CI" runat="server" CssClass="form-control input-sm" MaxLength="25" Autocomplete="off" placeholder="Ingresar Descripcion Licencia Elemento Configuracion"></asp:TextBox>
 
                     </div>
                 </div>

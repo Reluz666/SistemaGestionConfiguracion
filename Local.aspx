@@ -134,16 +134,6 @@
          }
         }
 
-        function SoloLetrasMinusculas() {
-            if (!((event.keyCode >= 97 && event.keyCode <= 122) || event.keyCode == 32 || event.keyCode == 193 || event.keyCode == 201 || event.keyCode == 205 || event.keyCode == 209 || event.keyCode == 211 || event.keyCode == 218 || event.keyCode == 220 || event.keyCode == 241)) {
-                event.returnValue = false;
-            }
-        }
-
-        function CambiaLetraMayuscula(Caja) {
-            document.getElementById(Caja).value = document.getElementById(Caja).value.toUpperCase();
-        }
-
         function Activa(Opcion) {
             if (Opcion==1){
             document.getElementById("nl").value = ""
@@ -251,8 +241,7 @@
                         <div class="col-md-6 col-sm-6">
                             <label class="form-label-modern">Nombre</label>
                             <asp:TextBox ID="Nombre_Local" runat="server" CssClass="form-control form-control-modern"
-                                         MaxLength="50" Autocomplete="off" placeholder="Ingrese nombre local judicial"
-                                         onchange="CambiaLetraMayuscula('Nombre_Local')" onkeypress="SoloLetrasMinusculas()" />
+                                         MaxLength="50" Autocomplete="off" placeholder="Ingrese nombre local judicial" />
                             <asp:RequiredFieldValidator ID="rfvNombre_Local" runat="server" ControlToValidate="Nombre_Local"
                                                        ErrorMessage="*" CssClass="validator-error" />
                         </div>
@@ -263,8 +252,7 @@
                         <div class="col-md-6 col-sm-6">
                             <label class="form-label-modern">Direcci&oacute;n</label>
                             <asp:TextBox ID="Direccion_Local" runat="server" CssClass="form-control form-control-modern"
-                                         MaxLength="50" Autocomplete="off" placeholder="Ingrese direcci&oacute;n local judicial"
-                                         onchange="CambiaLetraMayuscula('Direccion_Local')" onkeypress="SoloLetrasMinusculas()" />
+                                         MaxLength="50" Autocomplete="off" placeholder="Ingrese direcci&oacute;n local judicial" />
                             <asp:RequiredFieldValidator ID="rfvDireccion_Local" runat="server" ControlToValidate="Direccion_Local"
                                                        ErrorMessage="*" CssClass="validator-error" />
                         </div>
@@ -293,8 +281,7 @@
                             <label class="form-label-modern">Ubicaci&oacute;n Geogr&aacute;fica</label>
                             <div class="input-group">
                                 <asp:TextBox ID="Ubicacion_Geografica" runat="server" CssClass="form-control form-control-modern"
-                                             MaxLength="25" Autocomplete="off" placeholder="Ingrese ubicaci&oacute;n geogr&aacute;fica local judicial"
-                                             onchange="CambiaLetraMayuscula('NOMBRE_CARGO')" onkeypress="SoloLetrasMinusculas()" />
+                                             MaxLength="25" Autocomplete="off" placeholder="Ingrese ubicaci&oacute;n geogr&aacute;fica local judicial" />
                                 <asp:Button ID="ibtnBUSCAR_PROPIETARIO" runat="server" CausesValidation="False"
                                                  CssClass="btn btn-info btn-modern"
                                                  ToolTip="Buscar Propietario" OnClientClick="abrir_ventana_busca_Ubicacion_Geografica();" Text="..." />
