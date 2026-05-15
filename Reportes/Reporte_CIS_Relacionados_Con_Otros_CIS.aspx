@@ -13,7 +13,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
     <link href="../../CssJs/global-styles.css" rel="stylesheet" />
-    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 
     <style>
         #tblReporte_wrapper {
@@ -109,8 +108,8 @@
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="../src/js/utils.js"></script>
-    <script type="text/javascript" src="../src/js/grid-utils.js"></script>
+    <script type="text/javascript" src="../../src/js/utils.js"></script>
+    <script type="text/javascript" src="../../src/js/grid-utils.js"></script>
 
     <script lang="javascript" type="text/javascript">
         function abrir_ventana_imprimir_reporte(Opcion) {
@@ -337,7 +336,7 @@
         </div>
     </form>
 
-    <script type="text/javascript" src="Otros_css_js/resaltar.js"></script>
+    <script type="text/javascript" src="../../Otros_css_js/resaltar.js"></script>
 
     <script type="text/javascript">
         if (window.addEventListener) {
