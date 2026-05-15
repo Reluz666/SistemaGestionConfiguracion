@@ -63,36 +63,53 @@ public partial class _Default : System.Web.UI.Page
             {
                 // Total Elementos de Configuración
                 DataTable dtEC = servidor.consultar("SELECT COUNT(*) AS Total FROM ELEMENTOS_CONFIGURACION").Tables[0];
-                statElementos.InnerText = dtEC.Rows[0]["Total"].ToString();
+                statElementos.Text = dtEC.Rows[0]["Total"].ToString();
 
                 // Total Relaciones
                 DataTable dtRel = servidor.consultar("SELECT COUNT(*) AS Total FROM RELACION_ELEMENTO_CONFIGURACION").Tables[0];
-                statRelaciones.InnerText = dtRel.Rows[0]["Total"].ToString();
+                statRelaciones.Text = dtRel.Rows[0]["Total"].ToString();
 
                 // Total Licencias (activas - no vencidas o perpetuas)
                 DataTable dtLic = servidor.consultar(@"
                     SELECT COUNT(*) AS Total FROM LICENCIA_ELEMENTO_CONFIGURACION
                     WHERE LICENCIA_PERPETUA = 1
                        OR FECHA_FIN >= GETDATE()").Tables[0];
-                statLicencias.InnerText = dtLic.Rows[0]["Total"].ToString();
+                statLicencias.Text = dtLic.Rows[0]["Total"].ToString();
 
                 // Total Personal activo
                 DataTable dtPers = servidor.consultar("SELECT COUNT(*) AS Total FROM Personal WHERE Estado_Personal = 1").Tables[0];
-                statPersonal.InnerText = dtPers.Rows[0]["Total"].ToString();
+                statPersonal.Text = dtPers.Rows[0]["Total"].ToString();
 
                 servidor.cerrarconexion();
             }
+            else
+            {
+                // Connection failed - show error in stats
+                string errMsg = servidor.getMensageError();
+                statElementos.Text = "Err";
+                statRelaciones.Text = "Err";
+                statLicencias.Text = "Err";
+                statPersonal.Text = "Err";
+                this.__mensaje.Value = "Error de conexion: " + errMsg;
+                System.Diagnostics.Debug.WriteLine("Error abrirconexiontrans: " + errMsg);
+            }
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            System.Diagnostics.Debug.WriteLine("Error cargando estadísticas");
+            statElementos.Text = "Err";
+            statRelaciones.Text = "Err";
+            statLicencias.Text = "Err";
+            statPersonal.Text = "Err";
+            System.Diagnostics.Debug.WriteLine("Error cargando estadísticas: " + ex.Message);
         }
     }
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        this.__mensaje.Value = "";
-        this.__pagina.Value = "";
+        if (this.__mensaje.Value == "")
+            this.__mensaje.Value = "";
+        if (this.__pagina.Value == "")
+            this.__pagina.Value = "";
 
         string[] Datos = (string[])Session["__JSAR__"];
 

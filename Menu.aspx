@@ -329,7 +329,9 @@
                         <i class="bi bi-box-seam"></i>
                     </div>
                     <div class="stat-info">
-                        <span class="stat-value" id="statElementos" runat="server" ClientIDMode="Static">--</span>
+                        <span class="stat-value">
+                            <asp:Label ID="statElementos" runat="server" Text="--" CssClass="stat-val" ClientIDMode="Static" />
+                        </span>
                         <span class="stat-label">Elementos CI</span>
                     </div>
                     <div class="stat-indicator active"></div>
@@ -339,7 +341,9 @@
                         <i class="bi bi-diagram-3"></i>
                     </div>
                     <div class="stat-info">
-                        <span class="stat-value" id="statRelaciones" runat="server" ClientIDMode="Static">--</span>
+                        <span class="stat-value">
+                            <asp:Label ID="statRelaciones" runat="server" Text="--" CssClass="stat-val" ClientIDMode="Static" />
+                        </span>
                         <span class="stat-label">Relaciones</span>
                     </div>
                     <div class="stat-indicator" style="background: #16a34a;"></div>
@@ -349,7 +353,9 @@
                         <i class="bi bi-file-earmark-lock"></i>
                     </div>
                     <div class="stat-info">
-                        <span class="stat-value" id="statLicencias" runat="server" ClientIDMode="Static">--</span>
+                        <span class="stat-value">
+                            <asp:Label ID="statLicencias" runat="server" Text="--" CssClass="stat-val" ClientIDMode="Static" />
+                        </span>
                         <span class="stat-label">Licencias</span>
                     </div>
                     <div class="stat-indicator" style="background: #dc2626;"></div>
@@ -359,7 +365,9 @@
                         <i class="bi bi-people"></i>
                     </div>
                     <div class="stat-info">
-                        <span class="stat-value" id="statPersonal" runat="server" ClientIDMode="Static">--</span>
+                        <span class="stat-value">
+                            <asp:Label ID="statPersonal" runat="server" Text="--" CssClass="stat-val" ClientIDMode="Static" />
+                        </span>
                         <span class="stat-label">Personal</span>
                     </div>
                     <div class="stat-indicator" style="background: #d97706;"></div>
