@@ -385,8 +385,7 @@
         }
 
         // ===== Inicializacion al cargar la pagina =====
-        $(document).ready(function () {
-            // Obtener datos del HiddenField
+        function inicializarDatos() {
             var jsonField = document.getElementById("datosJson");
             var jsonData = jsonField ? jsonField.value : '';
             console.log('datosJson value length:', jsonData ? jsonData.length : 'empty/not found');
@@ -400,7 +399,13 @@
                     console.error("Error al parsear JSON:", e);
                 }
             }
-        });
+        }
+
+        if (window.addEventListener) {
+            window.addEventListener('load', inicializarDatos, false);
+        } else if (window.attachEvent) {
+            window.attachEvent('onload', inicializarDatos);
+        }
 
         function filtrarTabla(texto) {
             texto = texto.toUpperCase();
@@ -419,11 +424,11 @@
             Paginar(1);
         }
 
-        // Evento de busqueda
-        $(document).ready(function () {
-            $("#txtBuscarLicencia").on("keyup", function () {
-                filtrarTabla(this.value);
-            });
+        // Evento de busqueda con delegacion
+        document.addEventListener('keyup', function (e) {
+            if (e.target.id === 'txtBuscarLicencia') {
+                filtrarTabla(e.target.value);
+            }
         });
 
         function Paginar(pagina) {

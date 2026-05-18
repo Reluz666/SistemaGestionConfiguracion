@@ -308,267 +308,150 @@
 
     <!-- ========== FORMULARIO ========== -->
     <form id="form1" runat="server" class="form-horizontal" role="form">
-        <div class="form-card">
-            <div class="card-header">
-                <i class="bi bi-file-earmark-plus-fill me-2"></i>Ingrese Datos Licencia
-            </div>
-            <div class="card-body p-3">
-                <div class="form-group">
-                    <label for="lblTIPO_LICENCIA_CI" class="col-sm-3 control-label">Tipo Licencia:</label>
-                    <div class="col-sm-5">
-
-                        <asp:DropDownList ID="ddlTIPO_LICENCIA_CI" runat="server" CssClass="form-control input-sm"
-                            AppendDataBoundItems="True" AutoPostBack="True" OnSelectedIndexChanged="ddlTIPO_LICENCIA_CI_SelectedIndexChanged">
-                            <asp:ListItem Value="-1">Seleccione una opción</asp:ListItem>
-                        </asp:DropDownList>
-
-                        <asp:RequiredFieldValidator ID="rfvTIPO_LICENCIA_CI" runat="server" ControlToValidate="ddlTIPO_LICENCIA_CI" ErrorMessage="*" ForeColor="Red" SetFocusOnError="True"></asp:RequiredFieldValidator>
-                        <asp:RegularExpressionValidator ID="revTIPO_LICENCIA_CI" runat="server" BackColor="White"
-                            ControlToValidate="ddlTIPO_LICENCIA_CI" Display="Dynamic" ErrorMessage="*" ForeColor="Red"
-                            SetFocusOnError="True" ValidationExpression="[1-999]"></asp:RegularExpressionValidator>
-
-                    </div>
+        <div class="container mt-4">
+            <!-- ===== DATOS LICENCIA ===== -->
+            <div class="form-card">
+                <div class="card-header">
+                    <i class="bi bi-file-earmark-plus-fill me-2"></i>Ingrese Datos Licencia
                 </div>
-                <div class="form-group">
-                    <label for="lblSUSCRIPCION_LICENCIA_CI" class="col-sm-3 control-label">Suscripcion Licencia:</label>
-                    <div class="col-sm-5">
-
-                        <asp:DropDownList ID="ddlSUSCRIPCION_LICENCIA_CI" runat="server" CssClass="form-control input-sm"
-                            AppendDataBoundItems="True" AutoPostBack="True" OnSelectedIndexChanged="ddlSUSCRIPCION_LICENCIA_CI_SelectedIndexChanged">
-                            <asp:ListItem Value="-1">Seleccione una opción</asp:ListItem>
-                        </asp:DropDownList>
-
-                        <asp:RequiredFieldValidator ID="rfvSUSCRIPCION_LICENCIA_CI" runat="server" ControlToValidate="ddlSUSCRIPCION_LICENCIA_CI" ErrorMessage="*" ForeColor="Red" SetFocusOnError="True"></asp:RequiredFieldValidator>
-                        <asp:RegularExpressionValidator ID="revSUSCRIPCION_LICENCIA_CI" runat="server" BackColor="White"
-                            ControlToValidate="ddlSUSCRIPCION_LICENCIA_CI" Display="Dynamic" ErrorMessage="*" ForeColor="Red"
-                            SetFocusOnError="True" ValidationExpression="[1-999]"></asp:RegularExpressionValidator>
-
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="lblNOMBRE" class="col-sm-3 control-label">Nombre:</label>
-                    <div class="col-sm-5">
-
-                        <asp:TextBox ID="NOMBRE" runat="server" CssClass="form-control input-sm" MaxLength="25" Autocomplete="off" placeholder="Ingresar Nombre Licencia Elemento Configuracion"></asp:TextBox>
-
-                        <asp:RequiredFieldValidator ID="rfvNOMBRE" runat="server" ControlToValidate="NOMBRE" ErrorMessage="*" ForeColor="Red" SetFocusOnError="True"></asp:RequiredFieldValidator>
-
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="lblVERSION" class="col-sm-3 control-label">Version:</label>
-                    <div class="col-sm-5">
-
-                        <asp:TextBox ID="VERSION" runat="server" CssClass="form-control input-sm" MaxLength="25" Autocomplete="off" placeholder="Ingresar Version Licencia Elemento Configuracion"></asp:TextBox>
-
-                        <asp:RequiredFieldValidator ID="rfvVERSION" runat="server" ControlToValidate="VERSION" ErrorMessage="*" ForeColor="Red" SetFocusOnError="True"></asp:RequiredFieldValidator>
-
-                    </div>
-                </div>
-
-
-                <div class="form-group">
-                    <label for="lblFecha" class="col-sm-3 control-label">Fecha:</label>
-                    <div class="col-sm-5">
-
-                        <div class="btn-group-justified">
-                            <asp:TextBox ID="txtFechaInicioVersion" runat="server"
-                                class="form-control" placeholder="Ingrese fec. inicio licencia CI" Width="" onFocus='' onChange='' onBlur=''></asp:TextBox>
-                            <span class="form-check"></span>
-
-                            <input id="btnFechaInicioVersion" type="button"
-                                value="..." style="height: 25px; width: 25px;"
-                                class="form-check" />
-                            <asp:RequiredFieldValidator ID="rfvFechaInicioVersion" runat="server" ControlToValidate="txtFechaInicioVersion" ErrorMessage="*" ForeColor="Red" SetFocusOnError="True"></asp:RequiredFieldValidator>
-                            <span class="input-group-addon" style="border-style: none; border-color: #FFFFFF; background-color: #FFFFFF"></span>
-
-                            <asp:TextBox ID="txtFechaFinVersion" runat="server" class="form-control" placeholder="Ingrese fec. fin licencia CI" onFocus='' onChange='' onBlur=''></asp:TextBox>
-                            <span class="form-check"></span>
-                            <input id="btnFechaFinVersion" type="button"
-                                value="..." style="height: 25px; width: 25px;" class="form-check" />
-                            <span class="form-check">
-
-                                <asp:RequiredFieldValidator ID="rfvFechaFinVersion" runat="server" ControlToValidate="txtFechaFinVersion" ErrorMessage="*" ForeColor="Red" SetFocusOnError="True"></asp:RequiredFieldValidator>
-
-                                <asp:CompareValidator ID="cvFechas" runat="server" ControlToCompare="txtFechaInicioVersion" ControlToValidate="txtFechaFinVersion" ErrorMessage="Feha Inicio Licencia debe ser menor a la Fecha Final Licencia" ForeColor="Red" Operator="GreaterThanEqual"></asp:CompareValidator>
-
-                            </span>
+                <div class="card-body p-4">
+                    <div class="row g-3">
+                        <!-- Tipo Licencia -->
+                        <div class="col-md-6">
+                            <label class="form-label-modern">Tipo Licencia</label>
+                            <asp:DropDownList ID="ddlTIPO_LICENCIA_CI" runat="server" CssClass="form-control form-control-modern"
+                                AppendDataBoundItems="True" AutoPostBack="True" OnSelectedIndexChanged="ddlTIPO_LICENCIA_CI_SelectedIndexChanged">
+                                <asp:ListItem Value="-1">Seleccione una opción</asp:ListItem>
+                            </asp:DropDownList>
+                            <asp:RequiredFieldValidator ID="rfvTIPO_LICENCIA_CI" runat="server" ControlToValidate="ddlTIPO_LICENCIA_CI" ErrorMessage="*" ForeColor="Red"></asp:RequiredFieldValidator>
+                        </div>
+                        <!-- Suscripcion Licencia -->
+                        <div class="col-md-6">
+                            <label class="form-label-modern">Suscripcion Licencia</label>
+                            <asp:DropDownList ID="ddlSUSCRIPCION_LICENCIA_CI" runat="server" CssClass="form-control form-control-modern"
+                                AppendDataBoundItems="True" AutoPostBack="True" OnSelectedIndexChanged="ddlSUSCRIPCION_LICENCIA_CI_SelectedIndexChanged">
+                                <asp:ListItem Value="-1">Seleccione una opción</asp:ListItem>
+                            </asp:DropDownList>
+                            <asp:RequiredFieldValidator ID="rfvSUSCRIPCION_LICENCIA_CI" runat="server" ControlToValidate="ddlSUSCRIPCION_LICENCIA_CI" ErrorMessage="*" ForeColor="Red"></asp:RequiredFieldValidator>
+                        </div>
+                        <!-- Nombre -->
+                        <div class="col-md-6">
+                            <label class="form-label-modern">Nombre</label>
+                            <asp:TextBox ID="NOMBRE" runat="server" CssClass="form-control form-control-modern" MaxLength="25" Autocomplete="off" placeholder="Ingresar Nombre Licencia"></asp:TextBox>
+                            <asp:RequiredFieldValidator ID="rfvNOMBRE" runat="server" ControlToValidate="NOMBRE" ErrorMessage="*" ForeColor="Red"></asp:RequiredFieldValidator>
+                        </div>
+                        <!-- Version -->
+                        <div class="col-md-6">
+                            <label class="form-label-modern">Version</label>
+                            <asp:TextBox ID="VERSION" runat="server" CssClass="form-control form-control-modern" MaxLength="25" Autocomplete="off" placeholder="Ingresar Version"></asp:TextBox>
+                            <asp:RequiredFieldValidator ID="rfvVERSION" runat="server" ControlToValidate="VERSION" ErrorMessage="*" ForeColor="Red"></asp:RequiredFieldValidator>
+                        </div>
+                        <!-- Fecha Inicio -->
+                        <div class="col-md-4">
+                            <label class="form-label-modern">Fecha Inicio</label>
+                            <div class="input-group">
+                                <asp:TextBox ID="txtFechaInicioVersion" runat="server" CssClass="form-control form-control-modern" placeholder="Fec. inicio"></asp:TextBox>
+                                <input id="btnFechaInicioVersion" type="button" value="..." class="btn btn-outline-secondary" style="width:40px;" />
+                            </div>
+                            <asp:RequiredFieldValidator ID="rfvFechaInicioVersion" runat="server" ControlToValidate="txtFechaInicioVersion" ErrorMessage="*" ForeColor="Red"></asp:RequiredFieldValidator>
+                        </div>
+                        <!-- Fecha Fin -->
+                        <div class="col-md-4">
+                            <label class="form-label-modern">Fecha Fin</label>
+                            <div class="input-group">
+                                <asp:TextBox ID="txtFechaFinVersion" runat="server" CssClass="form-control form-control-modern" placeholder="Fec. fin"></asp:TextBox>
+                                <input id="btnFechaFinVersion" type="button" value="..." class="btn btn-outline-secondary" style="width:40px;" />
+                            </div>
+                            <asp:RequiredFieldValidator ID="rfvFechaFinVersion" runat="server" ControlToValidate="txtFechaFinVersion" ErrorMessage="*" ForeColor="Red"></asp:RequiredFieldValidator>
+                            <asp:CompareValidator ID="cvFechas" runat="server" ControlToCompare="txtFechaInicioVersion" ControlToValidate="txtFechaFinVersion" ErrorMessage="Fec. Inicio debe ser menor" ForeColor="Red" Operator="GreaterThanEqual"></asp:CompareValidator>
+                        </div>
+                        <!-- Perpetua -->
+                        <div class="col-md-4">
+                            <label class="form-label-modern">Licencia Perpetua</label>
+                            <div class="form-check form-switch mt-2">
+                                <asp:CheckBox ID="LICENCIA_PERPETUA" runat="server" CssClass="form-check-input" Text="Si / No" />
+                            </div>
+                        </div>
+                        <!-- Descripcion -->
+                        <div class="col-12">
+                            <label class="form-label-modern">Descripcion</label>
+                            <asp:TextBox ID="DESCRIPCION" runat="server" CssClass="form-control form-control-modern" MaxLength="25" Autocomplete="off" placeholder="Ingresar Descripcion"></asp:TextBox>
+                            <asp:RequiredFieldValidator ID="rfvDESCRIPCION" runat="server" ControlToValidate="DESCRIPCION" ErrorMessage="*" ForeColor="Red"></asp:RequiredFieldValidator>
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="lblLICENCIA_PERPETUA" class="col-sm-3 control-label">Licencia Perpetua:</label>
-                    <div class="col-sm-5">
+            </div>
 
-
-
-                        <asp:CheckBox ID="LICENCIA_PERPETUA" runat="server" CssClass="form-check-input position-static&quot" Text="Si / No" />
-
-
-
-                    </div>
+            <!-- ===== DATOS ELEMENTO CONFIGURACION SOFTWARE ===== -->
+            <div class="form-card">
+                <div class="card-header">
+                    <i class="bi bi-box-seam me-2"></i>Datos Elemento Configuracion Software
                 </div>
-
-
-                <div class="form-group">
-                    <label for="lblDESCRIPCION" class="col-sm-3 control-label">Descripcion:</label>
-                    <div class="col-sm-5">
-
-                        <asp:TextBox ID="DESCRIPCION" runat="server" CssClass="form-control input-sm" MaxLength="25" Autocomplete="off" placeholder="Ingresar Descripcion Licencia Elemento Configuracion"></asp:TextBox>
-
-                        <span class="form-check">
-
-                            <asp:RequiredFieldValidator ID="rfvDESCRIPCION" runat="server" ControlToValidate="DESCRIPCION" ErrorMessage="*" ForeColor="Red" SetFocusOnError="True"></asp:RequiredFieldValidator>
-
-                        </span>
-
+                <div class="card-body p-4">
+                    <div class="row g-3 align-items-end">
+                        <div class="col-md-10">
+                            <asp:HiddenField ID="ID_ELEMENTO_CONFIGURACION" runat="server" Value="0" EnableViewState="False" />
+                            <div class="row g-3">
+                                <div class="col-md-2">
+                                    <label class="form-label-modern">Tipo CI</label>
+                                    <asp:TextBox ID="TIPO_CI" runat="server" CssClass="form-control form-control-modern" ReadOnly="true"></asp:TextBox>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label-modern">Nombre CI</label>
+                                    <asp:TextBox ID="NOMBRE_CI" runat="server" CssClass="form-control form-control-modern" ReadOnly="true"></asp:TextBox>
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="form-label-modern">Nro. Serie</label>
+                                    <asp:TextBox ID="NRO_SERIE" runat="server" CssClass="form-control form-control-modern" ReadOnly="true"></asp:TextBox>
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="form-label-modern">Propietario</label>
+                                    <asp:TextBox ID="PROPIETARIO_CI" runat="server" CssClass="form-control form-control-modern" ReadOnly="true"></asp:TextBox>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label-modern">Descripcion</label>
+                                    <asp:TextBox ID="DESCRIPCION_CI" runat="server" CssClass="form-control form-control-modern" ReadOnly="true"></asp:TextBox>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 text-end">
+                            <asp:Button ID="btnBucar" runat="server" Text="Buscar CI" CssClass="btn btn-info btn-modern w-100" OnClick="btnBucar_Click" UseSubmitBehavior="False" />
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <div class="col-sm-offset-3 col-sm-10">
-
-                        <label for="lblTitulo" class="col-sm-3 control-label">Ingrese Datos Elemento Configuracion Software</label>
-
+                    <div class="mt-3">
+                        <asp:Button ID="btnAgregarCI" runat="server" Text="Agregar Elemento Configuracion" CssClass="btn btn-primary btn-modern" CausesValidation="False" OnClick="btnAgregarCI_Click" />
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <div class="col-sm-offset-3 col-sm-10">
-
-                        <asp:Button ID="btnBucar" runat="server"
-                            Style="font-family: Calibri; color: #000000; font-size: medium"
-                            Text="Buscar Elemento Configuracion"
-                            CssClass="btn btn-info" OnClick="btnBucar_Click" UseSubmitBehavior="False" />
-
-
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="lblTIPOCI" class="col-sm-3 control-label">Tipo CI:</label>
-                    <div class="col-sm-5">
-
-                        <asp:HiddenField ID="ID_ELEMENTO_CONFIGURACION" runat="server" Value="0"
-                            EnableViewState="False" />
-
-                        <asp:TextBox ID="TIPO_CI" runat="server" CssClass="form-control input-sm" MaxLength="25" Autocomplete="off" placeholder="Ingresar Tipo Elemento Configuracion"></asp:TextBox>
-
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="lblNOMBRCI" class="col-sm-3 control-label">Nombre CI:</label>
-                    <div class="col-sm-5">
-
-                        <asp:TextBox ID="NOMBRE_CI" runat="server" CssClass="form-control input-sm" MaxLength="25" Autocomplete="off" placeholder="Ingresar Nombre Elemento Configuracion"></asp:TextBox>
-
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="lblNROSERIE" class="col-sm-3 control-label">Nro. Serie:</label>
-                    <div class="col-sm-5">
-
-                        <asp:TextBox ID="NRO_SERIE" runat="server" CssClass="form-control input-sm" MaxLength="25" Autocomplete="off" placeholder="Ingresar Nro. Serie Elemento Configuracion"></asp:TextBox>
-
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="lblPROPIETARIOCI" class="col-sm-3 control-label">Propietario CI:</label>
-                    <div class="col-sm-5">
-
-                        <asp:TextBox ID="PROPIETARIO_CI" runat="server" CssClass="form-control input-sm" MaxLength="25" Autocomplete="off" placeholder="Ingresar Propietario Elemento Configuracion"></asp:TextBox>
-
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="lblDESCRIPCION_CI" class="col-sm-3 control-label">Descripcion CI:</label>
-                    <div class="col-sm-5">
-
-                        <asp:TextBox ID="DESCRIPCION_CI" runat="server" CssClass="form-control input-sm" MaxLength="25" Autocomplete="off" placeholder="Ingresar Descripcion Licencia Elemento Configuracion"></asp:TextBox>
-
-                    </div>
-                </div>
-
-
-                <div class="form-group">
-                    <div class="col-sm-offset-3 col-sm-10">
-
-                        <asp:Button ID="btnAgregarCI" runat="server"
-                            Style="font-family: Calibri; color: #000000; font-size: medium"
-                            Text="Agregar Elemento Configuracion"
-                            CssClass="btn btn-info" CausesValidation="False" OnClick="btnAgregarCI_Click" />
-
-
-                    </div>
-                </div>
-
-
-                <div class="form-group">
-                    <div class="col-sm-offset-1 col-sm-8">
-
-                        <asp:Table ID="Table_" runat="server" CssClass="form-control input"
-                            class="table table-hover table-condensed" BackColor="White" BorderColor="White"
-                            CellPadding="6" CellSpacing="2" Font-Size="Small" GridLines="Both" Width="100%"
-                            Style="text-align: left">
+                    <!-- Tabla de CIs agregados -->
+                    <div class="table-responsive mt-3">
+                        <asp:Table ID="Table_" runat="server" CssClass="table table-modern table-hover">
                             <asp:TableRow ID="TableRow1" runat="server">
-                                <asp:TableCell ID="tcID_RE" runat="server" BackColor="Black" BorderColor="Black"
-                                    ForeColor="White" Width="7%" Visible="false">ID RE</asp:TableCell>
-
-                                <asp:TableCell ID="tcIdCi" runat="server" BackColor="Black" BorderColor="Black"
-                                    ForeColor="White" Width="7%" Visible="false">ID CI</asp:TableCell>
-
-                                <asp:TableCell ID="tcTipo_CI" runat="server" BackColor="Black" BorderColor="Black"
-                                    ForeColor="White" Width="20%">TIPO CI</asp:TableCell>
-
-                                <asp:TableCell ID="tcNombre_CI" runat="server" BackColor="Black" BorderColor="Black"
-                                    ForeColor="White" Width="20%">NOMBRE CI</asp:TableCell>
-
-                                <asp:TableCell ID="tcNro_Serie" runat="server" BackColor="Black" BorderColor="Black"
-                                    ForeColor="White" Width="20%">NRO. SERIE</asp:TableCell>
-
-                                <asp:TableCell ID="tcPropietario_CI" runat="server" BackColor="Black" BorderColor="Black"
-                                    ForeColor="White" Width="20%">PROPIETARIO CI</asp:TableCell>
-
-                                <asp:TableCell ID="tcDescripcion_CI" runat="server" BackColor="Black" BorderColor="Black"
-                                    ForeColor="White" Width="20%" Visible="true">DESCRIPCION CI</asp:TableCell>
-
-                                <asp:TableCell ID="seleccionar_personal" runat="server" BackColor="Black" BorderColor="Black"
-                                    ForeColor="White" Width="7%" HorizontalAlign="Center">CI</asp:TableCell>
-
-
+                                <asp:TableCell ID="tcID_RE" runat="server" BackColor="Black" ForeColor="White" Visible="false">ID RE</asp:TableCell>
+                                <asp:TableCell ID="tcIdCi" runat="server" BackColor="Black" ForeColor="White" Visible="false">ID CI</asp:TableCell>
+                                <asp:TableCell ID="tcTipo_CI" runat="server" BackColor="Black" ForeColor="White">TIPO CI</asp:TableCell>
+                                <asp:TableCell ID="tcNombre_CI" runat="server" BackColor="Black" ForeColor="White">NOMBRE CI</asp:TableCell>
+                                <asp:TableCell ID="tcNro_Serie" runat="server" BackColor="Black" ForeColor="White">NRO. SERIE</asp:TableCell>
+                                <asp:TableCell ID="tcPropietario_CI" runat="server" BackColor="Black" ForeColor="White">PROPIETARIO CI</asp:TableCell>
+                                <asp:TableCell ID="tcDescripcion_CI" runat="server" BackColor="Black" ForeColor="White">DESCRIPCION CI</asp:TableCell>
+                                <asp:TableCell ID="seleccionar_personal" runat="server" BackColor="Black" ForeColor="White" HorizontalAlign="Center">ACCION</asp:TableCell>
                             </asp:TableRow>
                         </asp:Table>
-
                     </div>
                 </div>
+            </div>
 
+            <!-- ===== BOTONES ACCION ===== -->
+            <div class="form-card">
+                <div class="card-body p-3 text-center">
+                    <asp:Button ID="btnRegistrar" runat="server" Text="Aceptar" CssClass="btn btn-success btn-modern me-2" Style="min-width:120px;" OnClick="btnRegistrar_Click" />
+                    <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CssClass="btn btn-danger btn-modern" CausesValidation="False" PostBackUrl="~/LicenciasElementoConfiguracion.aspx" />
 
-
-                <div class="form-group">
-                    <div class="col-sm-offset-4 col-sm-10">
-
-                        <asp:Button ID="btnRegistrar" runat="server"
-                            Style="font-family: Calibri; color: #000000; font-size: medium"
-                            Text="Aceptar"
-                            CssClass="btn btn-success" OnClick="btnRegistrar_Click" />
-                        <asp:Button ID="btnCancelar" runat="server" class="btn btn-danger"
-                            Style="font-family: Calibri; font-size: medium" Text="Cancelar" CausesValidation="False" PostBackUrl="~/LicenciasElementoConfiguracion.aspx" />
-
-                        <asp:HiddenField ID="__mensaje" runat="server" />
-                        <asp:HiddenField ID="__pagina" runat="server" />
-
-                        <b>
-                            <asp:HiddenField ID="_operacion" runat="server" Value="N"
-                                EnableViewState="False" />
-                            <asp:HiddenField ID="hfFILA_DETALLE_RELACION_LICENCIA_ELEMENTO_CONFIGURACION" runat="server" Value="-1" />
-                            <asp:HiddenField ID="hfID_LICENCIA_ELE_CONF" runat="server" Value="-1" />
-                        </b>
-
-                    </div>
+                    <asp:HiddenField ID="__mensaje" runat="server" />
+                    <asp:HiddenField ID="__pagina" runat="server" />
+                    <asp:HiddenField ID="_operacion" runat="server" Value="N" EnableViewState="False" />
+                    <asp:HiddenField ID="hfFILA_DETALLE_RELACION_LICENCIA_ELEMENTO_CONFIGURACION" runat="server" Value="-1" />
+                    <asp:HiddenField ID="hfID_LICENCIA_ELE_CONF" runat="server" Value="-1" />
                 </div>
             </div>
         </div>

@@ -46,18 +46,12 @@ public partial class TiposElementoConfiguracion : System.Web.UI.Page
                 }
                 else
                 {
-                    this.tb1.Text+= "Nombre CI: " + dt.Rows[0]["NOMBRE CI"].ToString() + "     ";
-                    this.tb1.Text += "TIPO CI: " + dt.Rows[0]["NOMBRE TIPO CI"].ToString() + "     ";
-                    this.tb1.Text += "NRO SERIE: " + dt.Rows[0]["NRO. SERIE"].ToString() + "     ";
-                    this.tb1.Text += "MARCA / MODELO: " + dt.Rows[0]["MARCA"].ToString() + " / " + dt.Rows[0]["MODELO"].ToString() + "     ";
-                    this.tb1.Text += "DESCRIPCION CI: " + dt.Rows[0]["DESCRIPCION CI"].ToString() + "     ";
-                    this.tb1.Text += "SEDE: " + dt.Rows[0]["SEDE"].ToString() + "     ";
-                    this.tb1.Text += "LOCAL: " + dt.Rows[0]["LOCAL"].ToString() + "     ";
-                    this.tb2.Text += "UBICACION LOCAL: " + dt.Rows[0]["UBICACION LOCAL"].ToString() + "     ";
-                    this.tb2.Text += "DIRECCION LOCAL: " + dt.Rows[0]["DIRECCION LOCAL"].ToString() + "     ";
-                    this.tb2.Text += "AREA: " + dt.Rows[0]["AREA"].ToString() + "     ";
-                    this.tb2.Text += "NRO PISO: " + dt.Rows[0]["NRO PISO"].ToString() + "     ";
-                    this.tb2.Text += "NRO AMBIENTE: " + dt.Rows[0]["NRO AMBIENTE"].ToString() + "     ";
+                    lblNombreCI.Text = dt.Rows[0]["NOMBRE CI"].ToString();
+                    lblTipoCI.Text = dt.Rows[0]["NOMBRE TIPO CI"].ToString();
+                    lblNroSerie.Text = dt.Rows[0]["NRO. SERIE"].ToString();
+                    lblMarcaModelo.Text = dt.Rows[0]["MARCA"].ToString() + " / " + dt.Rows[0]["MODELO"].ToString();
+                    lblSedeLocal.Text = dt.Rows[0]["SEDE"].ToString() + " / " + dt.Rows[0]["LOCAL"].ToString();
+                    lblArea.Text = dt.Rows[0]["AREA"].ToString();
                     servidor.cerrarconexion();
                 }
             }
