@@ -140,7 +140,7 @@
             }
         }
 
-        function Activa(Opcion) {
+        // ===== VARIABLES GLOBALES ===== */
         var datosAreas = [];
         var itemsPorPagina = 10;
         var paginaActual = 1;
@@ -186,7 +186,6 @@
             var fin = inicio + itemsPorPagina;
             var datosPagina = datos.slice(inicio, fin);
 
-            // Limpiar tabla
             tbody.innerHTML = '';
 
             if (datosPagina.length === 0) {
@@ -194,7 +193,6 @@
                 return;
             }
 
-            // Llenar tabla
             for (var i = 0; i < datosPagina.length; i++) {
                 var item = datosPagina[i];
                 var row = document.createElement('tr');
@@ -229,14 +227,12 @@
 
             var sb = '<nav><ul class="pagination mb-0">';
 
-            // Anterior
             if (paginaActual > 1) {
                 sb += '<li class="page-item"><a class="page-link" href="javascript:PaginarAreas(' + (paginaActual - 1) + ')">Anterior</a></li>';
             } else {
                 sb += '<li class="page-item disabled"><span class="page-link">Anterior</span></li>';
             }
 
-            // Numeros de pagina (rango de 2 antes y despues)
             var inicio = Math.max(1, paginaActual - 2);
             var fin = Math.min(totalPaginas, paginaActual + 2);
 
@@ -258,7 +254,6 @@
                 sb += '<li class="page-item"><a class="page-link" href="javascript:PaginarAreas(' + totalPaginas + ')">' + totalPaginas + '</a></li>';
             }
 
-            // Siguiente
             if (paginaActual < totalPaginas) {
                 sb += '<li class="page-item"><a class="page-link" href="javascript:PaginarAreas(' + (paginaActual + 1) + ')">Siguiente</a></li>';
             } else {
@@ -307,7 +302,6 @@
             document.getElementById('btnEliminar').style.display = '';
             document.getElementById('btnCancelar').style.display = '';
 
-            // Scroll al formulario
             document.querySelector('.form-card').scrollIntoView({ behavior: 'smooth' });
         }
 
