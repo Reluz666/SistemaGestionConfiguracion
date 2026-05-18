@@ -4,45 +4,24 @@ GO
 -- ============================================================
 -- SEP0: DELETE ALL DATA (CLEAN DATABASE BEFORE INSERT)
 -- Run this BEFORE SEP2 if you need to restart
--- ORDER MATTERS: Delete child tables first (FK references)
+-- Uses sp_MSforeachtable to disable constraints, delete, enable
 -- ============================================================
 
-PRINT 'Eliminando datos existentes...'
+PRINT 'Deshabilitando constraints...'
 
--- Delete from child tables first (with FK references)
-DELETE FROM ELEMENTOS_CONFIGURACION;
-DELETE FROM Personal;
-DELETE FROM Area;
-DELETE FROM Local;
-DELETE FROM Dependencia;
-DELETE FROM Profesion_Ocupacion;
-DELETE FROM MARCA;
-DELETE FROM MODELO;
-DELETE FROM TIPOS_ELEMENTO_CONFIGURACION;
-DELETE FROM ESTADO_ELEMENTO_CONFIGURACION;
-DELETE FROM NIVEL_PRIORIDAD;
-DELETE FROM IMPACTO_COMERCIAL_ELE_CONF_HAR;
-DELETE FROM CARGO;
-DELETE FROM Usuario;
-DELETE FROM Ubigeo;
-DELETE FROM Sede;
+-- Disable all constraints
+EXEC sp_MSforeachtable 'ALTER TABLE ? NOCHECK CONSTRAINT ALL';
 
--- Reset identity columns
-DBCC CHECKIDENT ('ELEMENTOS_CONFIGURACION', RESEED, 0);
-DBCC CHECKIDENT ('Personal', RESEED, 0);
-DBCC CHECKIDENT ('Area', RESEED, 0);
-DBCC CHECKIDENT ('Local', RESEED, 0);
-DBCC CHECKIDENT ('Dependencia', RESEED, 0);
-DBCC CHECKIDENT ('Profesion_Ocupacion', RESEED, 0);
-DBCC CHECKIDENT ('MARCA', RESEED, 0);
-DBCC CHECKIDENT ('MODELO', RESEED, 0);
-DBCC CHECKIDENT ('TIPOS_ELEMENTO_CONFIGURACION', RESEED, 0);
-DBCC CHECKIDENT ('ESTADO_ELEMENTO_CONFIGURACION', RESEED, 0);
-DBCC CHECKIDENT ('NIVEL_PRIORIDAD', RESEED, 0);
-DBCC CHECKIDENT ('IMPACTO_COMERCIAL_ELE_CONF_HAR', RESEED, 0);
-DBCC CHECKIDENT ('CARGO', RESEED, 0);
-DBCC CHECKIDENT ('Usuario', RESEED, 0);
-DBCC CHECKIDENT ('Sede', RESEED, 0);
+PRINT 'Eliminando todos los datos...'
 
-PRINT 'Datos eliminados y contadores reiniciados. Ahora ejecutar SEP2 para insertar datos limpio.'
+-- Delete from all tables
+EXEC sp_MSforeachtable 'DELETE FROM ?';
+
+PRINT 'Habilitando constraints y reiniciando identities...'
+
+-- Enable all constraints and reseed
+EXEC sp_MSforeachtable 'ALTER TABLE ? WITH CHECK CHECK CONSTRAINT ALL';
+EXEC sp_MSforeachtable 'DBCC CHECKIDENT (''?'', RESEED, 0)';
+
+PRINT 'Base de datos limpiada correctamente. Ya puede ejecutar SEP2.'
 GO
