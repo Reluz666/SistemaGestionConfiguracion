@@ -372,7 +372,7 @@
             tbody.innerHTML = '';
 
             if (datos.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="9" class="text-center text-muted py-4">No se encontraron elementos</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="10" class="text-center text-muted py-4">No se encontraron elementos</td></tr>';
                 return;
             }
 
@@ -392,7 +392,8 @@
                     '<td>' + htmlEncode(ci.DESCRIPCION_CI || '') + '</td>' +
                     '<td>' + htmlEncode(ci.SEDE || '') + '</td>' +
                     '<td>' + htmlEncode(ci.LOCAL || '') + '</td>' +
-                    '<td>' + htmlEncode(ci.AREA || '') + '</td>';
+                    '<td>' + htmlEncode(ci.AREA || '') + '</td>' +
+                    '<td><a href="ComponenteCI.aspx?IDCI=' + htmlEncode(ci.ID_CI || '') + '" class="btn btn-primary btn-sm" style="padding:0.2rem 0.5rem;font-size:0.75rem;border-radius:6px;"><i class="bi bi-box-seam"></i> Componentes</a></td>';
                 tbody.appendChild(tr);
             }
         }
@@ -501,6 +502,7 @@
                                     <th>SEDE</th>
                                     <th>LOCAL</th>
                                     <th>AREA</th>
+                                    <th style="width:100px;">COMPONENTES</th>
                                 </tr>
                             </thead>
                             <tbody id="tbodyListaCIs">

@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastScanned": 1778861388841,
+  "lastScanned": 1779113733970,
   "projectRoot": "C:\\Users\\LOCALADMINPJ\\Documents\\SistemaGestionConfiguracion",
   "techStack": {
     "languages": [],
@@ -39,7 +39,7 @@
       "path": "App_Code",
       "purpose": null,
       "fileCount": 21,
-      "lastAccessed": 1778861388825,
+      "lastAccessed": 1779113733947,
       "keyFiles": [
         "DS_ReporteCIsSeguidos.xsd",
         "DS_ReporteCIsSeguidos.xss",
@@ -52,14 +52,14 @@
       "path": "aspnet_client",
       "purpose": null,
       "fileCount": 0,
-      "lastAccessed": 1778861388825,
+      "lastAccessed": 1779113733948,
       "keyFiles": []
     },
     "bin": {
       "path": "bin",
       "purpose": "Executable scripts",
       "fileCount": 11,
-      "lastAccessed": 1778861388825,
+      "lastAccessed": 1779113733948,
       "keyFiles": [
         "Microsoft.Office.Interop.Excel.dll",
         "Microsoft.Office.Interop.Excel.xml",
@@ -72,14 +72,14 @@
       "path": "bootstrap",
       "purpose": null,
       "fileCount": 0,
-      "lastAccessed": 1778861388826,
+      "lastAccessed": 1779113733949,
       "keyFiles": []
     },
     "Configuracion": {
       "path": "Configuracion",
       "purpose": null,
       "fileCount": 4,
-      "lastAccessed": 1778861388826,
+      "lastAccessed": 1779113733950,
       "keyFiles": [
         "Seguridad.aspx",
         "Seguridad.aspx.cs",
@@ -91,7 +91,7 @@
       "path": "CssJs",
       "purpose": null,
       "fileCount": 2,
-      "lastAccessed": 1778861388826,
+      "lastAccessed": 1779113733950,
       "keyFiles": [
         "global-styles.css",
         "Menu.css"
@@ -101,7 +101,7 @@
       "path": "Imagenes",
       "purpose": null,
       "fileCount": 4,
-      "lastAccessed": 1778861388827,
+      "lastAccessed": 1779113733951,
       "keyFiles": [
         "buscar.ico",
         "CabeceraElementosConfiguracion1.png",
@@ -113,7 +113,7 @@
       "path": "Images",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1778861388827,
+      "lastAccessed": 1779113733951,
       "keyFiles": [
         "logo.svg"
       ]
@@ -122,7 +122,7 @@
       "path": "Otros_css_js",
       "purpose": null,
       "fileCount": 12,
-      "lastAccessed": 1778861388828,
+      "lastAccessed": 1779113733952,
       "keyFiles": [
         "chosen.css",
         "chosen.jquery.js",
@@ -135,7 +135,7 @@
       "path": "Reportes",
       "purpose": null,
       "fileCount": 38,
-      "lastAccessed": 1778861388828,
+      "lastAccessed": 1779113733952,
       "keyFiles": [
         "CR_ReporteCIsSeguidos.rpt",
         "CR_ReporteDatosCorrectosCI.rpt",
@@ -148,14 +148,14 @@
       "path": "src",
       "purpose": "Source code",
       "fileCount": 0,
-      "lastAccessed": 1778861388828,
+      "lastAccessed": 1779113733952,
       "keyFiles": []
     },
     "Ventanas": {
       "path": "Ventanas",
       "purpose": null,
       "fileCount": 18,
-      "lastAccessed": 1778861388829,
+      "lastAccessed": 1779113733953,
       "keyFiles": [
         "ventanaElementosConfiguracionParaSeguimiento.aspx",
         "ventanaElementosConfiguracionParaSeguimiento.aspx.cs",
@@ -167,219 +167,57 @@
   },
   "hotPaths": [
     {
-      "path": "",
-      "accessCount": 50,
-      "lastAccessed": 1778866001003,
-      "type": "directory"
-    },
-    {
-      "path": "Menu.aspx.cs",
-      "accessCount": 35,
-      "lastAccessed": 1778866121424,
-      "type": "file"
-    },
-    {
-      "path": "Menu.aspx",
-      "accessCount": 26,
-      "lastAccessed": 1778866106950,
-      "type": "file"
-    },
-    {
       "path": "LicenciaElementoConfiguracion.aspx",
-      "accessCount": 20,
-      "lastAccessed": 1778862664885,
+      "accessCount": 4,
+      "lastAccessed": 1779115230072,
       "type": "file"
     },
     {
-      "path": "Reportes\\Reporte_De_CIS_Relativo_A_Servicios.aspx",
-      "accessCount": 16,
-      "lastAccessed": 1778865063499,
+      "path": "CIsAsignarComponenetes.aspx",
+      "accessCount": 4,
+      "lastAccessed": 1779115235312,
       "type": "file"
     },
     {
-      "path": "ElementoConfiguracion.aspx",
-      "accessCount": 13,
-      "lastAccessed": 1778862773739,
-      "type": "file"
-    },
-    {
-      "path": "Area.aspx",
-      "accessCount": 12,
-      "lastAccessed": 1778862196236,
-      "type": "file"
-    },
-    {
-      "path": "Reportes\\Reporte_CIS_Relacionados_Con_Otros_CIS.aspx",
-      "accessCount": 11,
-      "lastAccessed": 1778865068507,
-      "type": "file"
-    },
-    {
-      "path": "Usuario.aspx",
-      "accessCount": 10,
-      "lastAccessed": 1778862529157,
+      "path": "LicenciasElementoConfiguracion.aspx",
+      "accessCount": 2,
+      "lastAccessed": 1779115161145,
       "type": "file"
     },
     {
       "path": "ComponenteCI.aspx",
-      "accessCount": 9,
-      "lastAccessed": 1778862523639,
-      "type": "file"
-    },
-    {
-      "path": "ProfecionOcupacion.aspx",
-      "accessCount": 9,
-      "lastAccessed": 1778862530916,
-      "type": "file"
-    },
-    {
-      "path": "DescripcionElementoConfiguracion.aspx",
-      "accessCount": 9,
-      "lastAccessed": 1778862579107,
-      "type": "file"
-    },
-    {
-      "path": "Modelo.aspx",
-      "accessCount": 8,
-      "lastAccessed": 1778862232030,
-      "type": "file"
-    },
-    {
-      "path": "Local.aspx",
-      "accessCount": 8,
-      "lastAccessed": 1778862237190,
-      "type": "file"
-    },
-    {
-      "path": "Marca.aspx",
-      "accessCount": 8,
-      "lastAccessed": 1778862524875,
-      "type": "file"
-    },
-    {
-      "path": "EstadoActualCI.aspx",
-      "accessCount": 8,
-      "lastAccessed": 1778862531895,
-      "type": "file"
-    },
-    {
-      "path": "Dependencia.aspx",
-      "accessCount": 8,
-      "lastAccessed": 1778862533640,
-      "type": "file"
-    },
-    {
-      "path": "Configuracion\\Usuarios.aspx",
-      "accessCount": 8,
-      "lastAccessed": 1778862853794,
-      "type": "file"
-    },
-    {
-      "path": "SeguimientoElementoConfiguracion.aspx",
-      "accessCount": 7,
-      "lastAccessed": 1778862255972,
-      "type": "file"
-    },
-    {
-      "path": "PersonalForm.aspx",
-      "accessCount": 7,
-      "lastAccessed": 1778862280825,
-      "type": "file"
-    },
-    {
-      "path": "acceso.aspx",
-      "accessCount": 7,
-      "lastAccessed": 1778862702508,
-      "type": "file"
-    },
-    {
-      "path": "Ventanas\\ventanaLocal.aspx",
-      "accessCount": 6,
-      "lastAccessed": 1778862272651,
-      "type": "file"
-    },
-    {
-      "path": "Cargo.aspx",
-      "accessCount": 6,
-      "lastAccessed": 1778862519947,
-      "type": "file"
-    },
-    {
-      "path": "TipoRelacionElementoConfiguracion.aspx",
-      "accessCount": 5,
-      "lastAccessed": 1778862177695,
-      "type": "file"
-    },
-    {
-      "path": "TipoComponeneteCI.aspx",
-      "accessCount": 5,
-      "lastAccessed": 1778862180066,
-      "type": "file"
-    },
-    {
-      "path": "TiposElementoConfiguracion.aspx",
-      "accessCount": 5,
-      "lastAccessed": 1778862208815,
-      "type": "file"
-    },
-    {
-      "path": "Configuracion\\Seguridad.aspx",
-      "accessCount": 5,
-      "lastAccessed": 1778862275307,
-      "type": "file"
-    },
-    {
-      "path": "Sede.aspx",
-      "accessCount": 5,
-      "lastAccessed": 1778862295891,
-      "type": "file"
-    },
-    {
-      "path": "NavBar.ascx",
-      "accessCount": 5,
-      "lastAccessed": 1778866174641,
-      "type": "file"
-    },
-    {
-      "path": "Dashboard.aspx",
-      "accessCount": 3,
-      "lastAccessed": 1778862927074,
-      "type": "directory"
-    },
-    {
-      "path": "CerrarSession.aspx",
-      "accessCount": 2,
-      "lastAccessed": 1778862775148,
-      "type": "file"
-    },
-    {
-      "path": "Reportes",
-      "accessCount": 2,
-      "lastAccessed": 1778866155618,
-      "type": "directory"
-    },
-    {
-      "path": "Web.config",
       "accessCount": 1,
-      "lastAccessed": 1778861495068,
+      "lastAccessed": 1779114933291,
       "type": "file"
     },
     {
-      "path": "Reportes\\ReporteElementosConfiguracion.aspx",
+      "path": "CIsAsignarComponenetes.aspx.cs",
       "accessCount": 1,
-      "lastAccessed": 1778863816764,
+      "lastAccessed": 1779114940079,
       "type": "file"
     },
     {
-      "path": "Dashboard.aspx.cs",
+      "path": "LicenciasElementoConfiguracion.aspx.cs",
       "accessCount": 1,
-      "lastAccessed": 1778865300963,
+      "lastAccessed": 1779114940109,
       "type": "file"
     },
     {
-      "path": "CssJs",
+      "path": "ComponenteCI.aspx.cs",
       "accessCount": 1,
-      "lastAccessed": 1778865364642,
+      "lastAccessed": 1779114940196,
+      "type": "file"
+    },
+    {
+      "path": "LicenciaElementoConfiguracion.aspx.cs",
+      "accessCount": 1,
+      "lastAccessed": 1779114940360,
+      "type": "file"
+    },
+    {
+      "path": "",
+      "accessCount": 1,
+      "lastAccessed": 1779115167808,
       "type": "directory"
     }
   ],

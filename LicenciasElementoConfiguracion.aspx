@@ -287,8 +287,14 @@
         <div class="container mt-4" id="listSection">
             <div class="table-wrapper">
                 <div class="form-card">
-                    <div class="card-header">
-                        <i class="bi bi-list-ul me-2"></i>Lista de Licencias
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <div>
+                            <i class="bi bi-list-ul me-2"></i>Lista de Licencias
+                        </div>
+                        <div>
+                            <asp:Button ID="btnNuevaLicencia" runat="server" OnClick="btnNuevaLicencia_Click"
+                                Text="Nueva Licencia Elemento Configuración" CssClass="btn btn-success btn-modern" />
+                        </div>
                     </div>
                     <div class="card-body">
                         <div class="row mb-3">
