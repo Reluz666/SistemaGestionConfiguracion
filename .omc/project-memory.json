@@ -168,8 +168,8 @@
   "hotPaths": [
     {
       "path": "LicenciaElementoConfiguracion.aspx",
-      "accessCount": 7,
-      "lastAccessed": 1779116009973,
+      "accessCount": 8,
+      "lastAccessed": 1779126603973,
       "type": "file"
     },
     {
@@ -197,6 +197,12 @@
       "type": "file"
     },
     {
+      "path": "LicenciaElementoConfiguracion.aspx.cs",
+      "accessCount": 3,
+      "lastAccessed": 1779126614173,
+      "type": "file"
+    },
+    {
       "path": "CIsAsignarComponenetes.aspx.cs",
       "accessCount": 1,
       "lastAccessed": 1779114940079,
@@ -206,12 +212,6 @@
       "path": "LicenciasElementoConfiguracion.aspx.cs",
       "accessCount": 1,
       "lastAccessed": 1779114940109,
-      "type": "file"
-    },
-    {
-      "path": "LicenciaElementoConfiguracion.aspx.cs",
-      "accessCount": 1,
-      "lastAccessed": 1779114940360,
       "type": "file"
     },
     {

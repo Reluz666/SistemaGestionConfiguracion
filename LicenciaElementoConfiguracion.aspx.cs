@@ -95,9 +95,7 @@ public partial class Licencia_Elemento_Configuracion : System.Web.UI.Page
 
         Boolean ok;
         ok = rfvTIPO_LICENCIA_CI.IsValid;
-        ok = ok && revTIPO_LICENCIA_CI.IsValid;
         ok = ok && rfvSUSCRIPCION_LICENCIA_CI.IsValid;
-        ok = ok && revSUSCRIPCION_LICENCIA_CI.IsValid;
         ok = ok && rfvNOMBRE.IsValid;
         ok = ok && rfvVERSION.IsValid;
         if (rfvFechaInicioVersion.Enabled == true && rfvFechaFinVersion.Enabled == true && cvFechas.Enabled == true)
@@ -559,9 +557,7 @@ public partial class Licencia_Elemento_Configuracion : System.Web.UI.Page
 
         Boolean ok;
         ok = rfvTIPO_LICENCIA_CI.IsValid;
-        ok = ok && revTIPO_LICENCIA_CI.IsValid;
         ok = ok && rfvSUSCRIPCION_LICENCIA_CI.IsValid;
-        ok = ok && revSUSCRIPCION_LICENCIA_CI.IsValid;
         ok = ok && rfvNOMBRE.IsValid;
         ok = ok && rfvVERSION.IsValid;
         if (rfvFechaInicioVersion.Enabled == true && rfvFechaFinVersion.Enabled == true && cvFechas.Enabled == true)
